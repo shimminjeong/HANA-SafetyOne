@@ -9,10 +9,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class SelfFdsApplication extends SpringBootServletInitializer {
 
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SelfFdsApplication.class);
-	}
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//		return application.sources(SelfFdsApplication.class);
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SelfFdsApplication.class, args);

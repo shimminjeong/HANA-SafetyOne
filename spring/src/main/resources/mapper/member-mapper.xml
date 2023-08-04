@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kopo.SelfFDS.member.model.dao.MemberMapper">
+    <!-- 회원 전체 조회 -->
+    <select id="getAllMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member"
+            resultType="com.kopo.SelfFDS.member.model.dto.Member">
+        SELECT *
+        FROM member
+    </select>
+
+    <!-- 로그인 -->
+    <select id="loginMember" parameterType="HashMap" resultType="com.kopo.SelfFDS.member.model.dto.Member">
+        SELECT
+            *
+        FROM member
+        where id = #{id}
+          and password = #{password}
+    </select>
+
+    <select id="selectNameOfMember" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.Member">
+        SELECT
+            id as id,
+            password as password,
+            name as name,
+            email as email,
+            phone as phone
+        FROM member
+        where id = #{id}
+    </select>
+
+
+    <insert id="insertMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
+        INSERT INTO member (id, password, name, email, phone)
+        VALUES (#{id}, #{password}, #{name}, #{email}, #{phone})
+    </insert>
+
+</mapper>
+
