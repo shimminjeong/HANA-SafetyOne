@@ -7,14 +7,14 @@
     <select id="getAllMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member"
             resultType="com.kopo.SelfFDS.member.model.dto.Member">
         SELECT *
-        FROM member
+        FROM members
     </select>
 
     <!-- 로그인 -->
     <select id="loginMember" parameterType="HashMap" resultType="com.kopo.SelfFDS.member.model.dto.Member">
         SELECT
             *
-        FROM member
+        FROM members
         where id = #{id}
           and password = #{password}
     </select>
@@ -26,15 +26,25 @@
             name as name,
             email as email,
             phone as phone
-        FROM member
+        FROM members
         where id = #{id}
     </select>
 
 
     <insert id="insertMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
-        INSERT INTO member (id, password, name, email, phone)
+        INSERT INTO members (id, password, name, email, phone)
         VALUES (#{id}, #{password}, #{name}, #{email}, #{phone})
     </insert>
+
+    <update id="updateMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
+        UPDATE members
+        SET password = #{password}, name = #{name}, email = #{email}, phone = #{phone}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteMember" parameterType="String">
+        DELETE FROM members WHERE id = #{id}
+    </delete>
 
 </mapper>
 

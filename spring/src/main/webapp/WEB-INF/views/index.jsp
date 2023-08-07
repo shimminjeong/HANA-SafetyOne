@@ -21,6 +21,7 @@
     </div>
     <input type="button" class="button" value="로그인" onclick="loginFormFunc(); return false;">
     <input type="button" class="button" value="회원가입" onclick="joinFunc(); return false;">
+    <a href="/selectAll">회원목록</a>
 </form>
 </body>
 <script>
@@ -58,6 +59,12 @@
         link.href = "/join";
         link.click();
     }
+
+    // function selectAllFunc(){
+    //     var link = document.createElement("a");
+    //     link.href = "selectmember";
+    //     link.click();
+    // }
 
 </script>
 </html>

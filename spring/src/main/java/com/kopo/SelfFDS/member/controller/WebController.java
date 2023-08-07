@@ -1,4 +1,6 @@
 package com.kopo.SelfFDS.member.controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
 import com.kopo.SelfFDS.member.model.dto.Member;
@@ -7,15 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class WebController {
@@ -38,12 +38,56 @@ public class WebController {
         return mav;
     }
 
-    @RequestMapping("/join")
-    public ModelAndView join() {
+    @GetMapping("/join")
+    public String createForm(){
+        return "join";
+    }
+
+    @RequestMapping("/update")
+    public ModelAndView update(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("id");
+        Member memberInfo = memberService.selectNameOfMember(id);
+
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("join");
+        mav.addObject("member",memberInfo);
+        mav.setViewName("update");
         return mav;
     }
+
+    @PostMapping("/updateMember")
+    @ResponseBody
+    public String modifyMember(@RequestBody Member member) {
+        try {
+            System.out.println("Received memberId: " + member.getId());
+            Member updatemember=memberService.selectNameOfMember(member.getId());
+            updatemember.setEmail(member.getEmail());
+            updatemember.setName(member.getName());
+            updatemember.setPassword(member.getPassword());
+            updatemember.setPhone(member.getPhone());
+
+            memberService.modifyMember(updatemember);
+            return "회원 수정 성공";
+        } catch (Exception e) {
+            // 회원가입 처리 중 예외가 발생하면 "회원등록실패"를 반환합니다.
+            e.printStackTrace();
+            return "회원 수정 실패";
+        }
+    }
+
+    @PostMapping("/deleteMember")
+    @ResponseBody
+    public String deleteMember(@RequestBody String id) {
+        try {
+            memberService.deleteMember(id);
+            return "회원 삭제 성공";
+        } catch (Exception e) {
+            // 회원가입 처리 중 예외가 발생하면 "회원등록실패"를 반환합니다.
+            e.printStackTrace();
+            return "회원 삭제 성공";
+        }
+    }
+
 
 
 //    postmapping
@@ -65,9 +109,15 @@ public class WebController {
 
     @PostMapping("/joinMember")
     @ResponseBody
-    public ResponseEntity<String> joinMember(@RequestBody Member member){
+    public String joinMember(@RequestBody Member member) {
+        try {
             memberService.joinMember(member);
-        return null;
+            return "회원 등록 성공";
+        } catch (Exception e) {
+            // 회원가입 처리 중 예외가 발생하면 "회원등록실패"를 반환합니다.
+            e.printStackTrace();
+            return "회원 등록 실패";
+        }
     }
 
 
@@ -76,13 +126,22 @@ public class WebController {
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("id");
         Member memberInfo = memberService.selectNameOfMember(id);
-        ModelAndView mav = new ModelAndView();
 
+        ModelAndView mav = new ModelAndView();
         mav.addObject("member",memberInfo);
         mav.setViewName("mypage");
         return mav;
     }
 
+    @GetMapping("/selectAll")
+    public ModelAndView selectmember(HttpServletRequest request) {
+        List<Member> memberList = memberService.getAllMember();
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("members",memberList);
+        mav.setViewName("selectmember");
+        return mav;
+    }
 
 
 

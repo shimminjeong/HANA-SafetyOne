@@ -12,4 +12,8 @@ public interface MemberService {
     Member loginMember(HashMap<String, String> loginData);
 
     public void joinMember(Member member);
+
+    public void modifyMember(Member member);
+
+    public void deleteMember(String id);
 }

@@ -31,53 +31,80 @@
         <label for="phone">핸드폰</label>
         <input type="text" id="phone" name="phone">
     </div>
-    <input type="submit" class="button" value="회원가입신청">
-
+    <input type="button" class="button" value="회원가입신청" onclick="joinFormFunc(); return false;">
 </form>
 </body>
 <script>
+    function joinFormFunc(){
+        const form = document.getElementById('joinForm');
+        const formData = new FormData(form);
+        const jsonData = {};
 
-    function joinForm(){
-    $(document).ready(function() {
-        $("#joinForm").submit(function (event) {
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
 
-        const formData = $("#joinForm").serialize();
-        const id = $("#id").val();
-        const password = $("#password").val();
-        const name = $("#name").val();
-        const email = $("#email").val();
-        const phone = $("#phone").val();
+        // jsonData를 JSON 문자열로 변환
+        const jsonString = JSON.stringify(jsonData);
 
-        const data = {
-            id: id,
-            password: password,
-            name: name,
-            email: email,
-            phone: phone
-        }
-
+        // AJAX 요청으로 데이터를 서버로 전송
         $.ajax({
-            type: "POST",
-            url: "/joinMember",
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            error: function (xhr, status, error) {
-                alert(error + "error");
-            },
+            type: 'POST', // 요청 방식 (POST, GET 등)
+            url: '/joinMember', // 요청을 보낼 서버의 URL
+            data: jsonString, // 변환된 JSON 데이터를 전송
+            contentType: 'application/json', // 전송 데이터 타입을 JSON으로 지정
             success: function (response) {
-                if (response === "회원가입 성공") {
-                    alert("회원가입 성공");
+                if (response === "회원 등록 성공") {
+                    alert("회원 등록 성공");
                     var link = document.createElement("a");
                     link.href = "/";
                     link.click();
                 } else {
-                    console.error("회원가입 실패");
+                    console.error("회원 등록 실패");
                 }
-
             }
         });
-    });
-    });
     }
 </script>
+<%--<script>--%>
+
+<%--    function joinForm(){--%>
+<%--    $(document).ready(function() {--%>
+<%--        $("#joinForm").submit(function (event) {--%>
+
+<%--        const id = $("#id").val();--%>
+<%--        const password = $("#password").val();--%>
+<%--        const name = $("#name").val();--%>
+<%--        const email = $("#email").val();--%>
+<%--        const phone = $("#phone").val();--%>
+
+<%--        const data = {--%>
+<%--            id: id,--%>
+<%--            password: password,--%>
+<%--            name: name,--%>
+<%--            email: email,--%>
+<%--            phone: phone--%>
+<%--        }--%>
+
+<%--        $.ajax({--%>
+<%--            type: "POST",--%>
+<%--            url: "/joinMember",--%>
+<%--            data: JSON.stringify(data),--%>
+<%--            contentType: 'application/json',--%>
+<%--            success: function (response) {--%>
+<%--                if (response === "회원등록성공") {--%>
+<%--                    alert("회원가입 성공");--%>
+<%--                    var link = document.createElement("a");--%>
+<%--                    link.href = "/";--%>
+<%--                    link.click();--%>
+<%--                } else {--%>
+<%--                    console.error("회원가입 실패");--%>
+<%--                }--%>
+
+<%--            }--%>
+<%--        });--%>
+<%--    });--%>
+<%--    });--%>
+<%--    }--%>
+<%--</script>--%>
 </html>

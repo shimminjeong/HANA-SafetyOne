@@ -16,6 +16,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberServiceImpl(MemberMapper memberMapper) {
         this.memberMapper = memberMapper;
     }
+
     @Override
     public List<Member> getAllMember() {
         return memberMapper.getAllMember();
@@ -32,6 +33,16 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void joinMember(Member member) {
         memberMapper.insertMember(member);
+    }
+
+    @Override
+    public void modifyMember(Member member) {
+        memberMapper.updateMember(member);
+    }
+
+    @Override
+    public void deleteMember(String id) {
+        memberMapper.deleteMember(id);
     }
 
 }
