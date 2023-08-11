@@ -31,7 +31,7 @@
         const formData = new FormData(form);
         const jsonData = {};
 
-        //input으로 넘기는애만 가능
+        //input으로 넘기는것만 가능
         formData.forEach((value, key) => {
             jsonData[key] = value;
         });

@@ -19,7 +19,7 @@
         <input type="password" id="password" name="password">
     </div>
     <input type="button" class="button" value="로그인" onclick="loginFormFunc(); return false;">
-    <input type="button" class="button" value="회원가입" onclick="joinFunc(); return false;">
+<%--    <input type="button" class="button" value="회원가입" onclick="joinFunc(); return false;">--%>
     <a href="/selectAll">회원목록</a>
 </form>
 <%@ include file="include/footer.jsp" %>
@@ -58,11 +58,11 @@
         });
     }
 
-    function joinFunc(){
-        var link = document.createElement("a");
-        link.href = "/join";
-        link.click();
-    }
+    // function joinFunc(){
+    //     var link = document.createElement("a");
+    //     link.href = "/join";
+    //     link.click();
+    // }
 
 
 </script>

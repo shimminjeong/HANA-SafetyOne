@@ -4,12 +4,11 @@
 <head>
     <title>header</title>
     <style>
-        /* 네비게이션 바 스타일 */
         .nav-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            background-color: #00857F; /* 바탕색 설정 */
+            background-color: #00857F;
             overflow: hidden;
         }
 
@@ -25,7 +24,6 @@
             text-decoration: none;
         }
 
-
     </style>
 </head>
 <body>
@@ -36,6 +34,7 @@
         <span>하나카드</span>
         <a href="/login">로그인</a>
         <a href="/logout">로그아웃</a>
+        <a href="/join">회원가입</a>
 
     </div>
     <nav>
@@ -51,7 +50,7 @@
                 <a href="customerservice" class="nav-menu">고객센터</a>
             </li>
             <li class="nav-item">
-                <a href="mypage" class="nav-menu">마이페이지</a>
+                <a href="/mypage" class="nav-menu">마이페이지</a>
             </li>
         </ul>
     </nav>

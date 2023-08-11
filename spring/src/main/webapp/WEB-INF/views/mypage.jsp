@@ -10,6 +10,7 @@
 <p>아이디 : <%=session.getAttribute("id")%></p>
 <p>이름 :${member.name}</p>
 <p>이메일 : ${member.email}</p>
+<p>비밀번호 : ${member.password}</p>
 <p>전화번호 : ${member.phone}</p>
 <a href="update">회원정보수정</a>
 </body>

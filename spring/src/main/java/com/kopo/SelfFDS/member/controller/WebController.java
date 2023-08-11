@@ -42,6 +42,11 @@ public class WebController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String loginForm() {
+        return "login";
+    }
+
 
     @GetMapping("/join")
     public String createForm() {
@@ -131,15 +136,14 @@ public class WebController {
     }
 
 
-    @RequestMapping("/mypage")
-    public ModelAndView index(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    @GetMapping("/mypage")
+    public ModelAndView mypage(HttpSession session) {
         String id = (String) session.getAttribute("id");
         Member memberInfo = memberService.selectNameOfMember(id);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("member",memberInfo);
-        mav.setViewName("/");
+        mav.setViewName("mypage");
         return mav;
     }
 

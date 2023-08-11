@@ -20,20 +20,15 @@
     </select>
 
     <select id="selectNameOfMember" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.Member">
-        SELECT
-            id as id,
-            password as password,
-            name as name,
-            email as email,
-            phone as phone
+        SELECT *
         FROM member
         where id = #{id}
     </select>
 
 
     <insert id="insertMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
-        INSERT INTO member (id, password, name, email, phone)
-        VALUES (#{id}, #{password}, #{name}, #{email}, #{phone})
+        INSERT INTO MEMBER (ID, NAME, EMAIL, PASSWORD, PHONE,SEX,ADDRESS,IDENTITY_NM)
+        VALUES (#{id},  #{name}, #{email},#{password}, #{phone},#{sex},#{address},#{identityNum})
     </insert>
 
     <update id="updateMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">

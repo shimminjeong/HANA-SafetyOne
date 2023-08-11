@@ -11,6 +11,7 @@
 <body>
 <%@ include file="include/header.jsp" %>
 <h2>main</h2>
+
 <%
     String name = (String) session.getAttribute("name");
     String id = (String) session.getAttribute("id");

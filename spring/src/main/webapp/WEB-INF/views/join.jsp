@@ -16,10 +16,6 @@
         <input type="text" id="id" name="id">
     </div>
     <div>
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" name="password">
-    </div>
-    <div>
         <label for="name">이름</label>
         <input type="text" id="name" name="name">
     </div>
@@ -28,8 +24,24 @@
         <input type="text" id="email" name="email">
     </div>
     <div>
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <div>
         <label for="phone">핸드폰</label>
         <input type="text" id="phone" name="phone">
+    </div>
+    <div>
+        <label for="sex">성별</label>
+        <input type="text" id="sex" name="sex">
+    </div>
+    <div>
+        <label for="address">주소</label>
+        <input type="text" id="address" name="address">
+    </div>
+    <div>
+        <label for="identityNum">주민등록번호</label>
+        <input type="text" id="identityNum" name="identityNum">
     </div>
     <input type="button" class="button" value="회원가입신청" onclick="joinFormFunc(); return false;">
 </form>
