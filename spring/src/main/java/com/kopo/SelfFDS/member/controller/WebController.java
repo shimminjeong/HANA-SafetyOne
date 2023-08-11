@@ -1,4 +1,5 @@
 package com.kopo.SelfFDS.member.controller;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +29,6 @@ public class WebController {
     }
 
 
-//    requestmapping
-//    다양한 HTTP 요청 메서드(GET, POST, PUT, DELETE 등)에 대해 URL을 매핑하는 데 사용됩니다.
-//    method 속성을 사용하여 특정 HTTP 메서드에 대해서만 매핑할 수 있습니다.
     @RequestMapping("/")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView();
@@ -38,8 +36,15 @@ public class WebController {
         return mav;
     }
 
+    @GetMapping("/logout")
+    public String logoutForm(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
+
+
     @GetMapping("/join")
-    public String createForm(){
+    public String createForm() {
         return "join";
     }
 
@@ -50,7 +55,7 @@ public class WebController {
         Member memberInfo = memberService.selectNameOfMember(id);
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("member",memberInfo);
+        mav.addObject("member", memberInfo);
         mav.setViewName("update");
         return mav;
     }
@@ -89,8 +94,7 @@ public class WebController {
     }
 
 
-
-//    postmapping
+    //    postmapping
 //    HTTP POST 요청에 대해 특정 URL을 매핑하는 데 사용됩니다.
 //    주로 웹 폼 데이터를 서버로 전송하는 경우 사용합니다.
 //    이 어노테이션은 @RequestMapping의 축약형으로, method 속성이 기본적으로 RequestMethod.POST로 설정되어 있습니다.
@@ -98,9 +102,15 @@ public class WebController {
     public ResponseEntity<String> loginMember(@RequestBody HashMap<String, String> loginData, HttpServletRequest request) {
         Member loginMember = memberService.loginMember(loginData);
         HttpSession session = request.getSession();
-        if (loginMember!=null) {
-            session.setAttribute("name",loginMember.getName());
-            session.setAttribute("id",loginMember.getId());
+        System.out.println("세션에 저장된 name: ");
+
+        if (loginMember != null) {
+            session.setAttribute("name", loginMember.getName());
+            session.setAttribute("id", loginMember.getId());
+
+            System.out.println("세션에 저장된 name: " + session.getAttribute("name"));
+            System.out.println("세션에 저장된 id: " + session.getAttribute("id"));
+
             return ResponseEntity.ok("로그인 성공");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 실패");
@@ -129,7 +139,7 @@ public class WebController {
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("member",memberInfo);
-        mav.setViewName("mypage");
+        mav.setViewName("/");
         return mav;
     }
 
@@ -138,12 +148,10 @@ public class WebController {
         List<Member> memberList = memberService.getAllMember();
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("members",memberList);
+        mav.addObject("members", memberList);
         mav.setViewName("selectmember");
         return mav;
     }
-
-
 
 
 }
