@@ -3,34 +3,13 @@
 <html>
 <head>
     <title>header</title>
-    <style>
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            background-color: #00857F;
-            overflow: hidden;
-        }
-
-        .nav-item {
-            float: left;
-        }
-
-        .nav-menu {
-            display: block;
-            color: white; /* 글자색 설정 */
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-    </style>
 </head>
 <body>
 <header>
 
     <div>
-        <img src="../../resources/img/logo.png" height="50">
+
+        <img src="../../resources/img/logo.png" height="60">
         <span>하나카드</span>
         <a href="/login">로그인</a>
         <a href="/logout">로그아웃</a>

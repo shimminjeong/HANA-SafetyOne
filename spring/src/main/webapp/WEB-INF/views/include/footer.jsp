@@ -4,17 +4,6 @@
 <html>
 <head>
     <title>footer</title>
-    <style>
-        /* footer 스타일 */
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #f2f2f2; /* 배경색 설정 */
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
 <footer>
