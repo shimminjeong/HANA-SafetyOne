@@ -1,27 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link href="../../resources/css/common.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<style>
+    .container {
+
+    }
+</style>
 <body>
 <%@ include file="include/header.jsp" %>
-<h2>로그인</h2>
-<form id="loginForm" method="post">
-    <div>
-        <label for="email">이메일</label>
-        <input type="text" id="email" name="email">
+<div class="container">
+    <div class="img">
+        <img src="../../resources/img/payment.gif" height="200">
     </div>
-    <div>
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" name="password">
+    <div class="login">
+        <form id="loginForm" method="post">
+            <div>
+                <label for="email">이메일</label>
+                <input type="text" id="email" name="email">
+            </div>
+            <div>
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <input type="button" class="button" value="로그인" onclick="loginFormFunc(); return false;">
+            <%--    <input type="button" class="button" value="회원가입" onclick="joinFunc(); return false;">--%>
+            <a href="/selectAll">회원목록</a>
+        </form>
     </div>
-    <input type="button" class="button" value="로그인" onclick="loginFormFunc(); return false;">
-<%--    <input type="button" class="button" value="회원가입" onclick="joinFunc(); return false;">--%>
-    <a href="/selectAll">회원목록</a>
-</form>
+</div>
 <%@ include file="include/footer.jsp" %>
 </body>
 <script>
@@ -57,13 +69,6 @@
             }
         });
     }
-
-    // function joinFunc(){
-    //     var link = document.createElement("a");
-    //     link.href = "/join";
-    //     link.click();
-    // }
-
 
 </script>
 </html>

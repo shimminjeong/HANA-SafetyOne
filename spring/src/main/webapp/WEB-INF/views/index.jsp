@@ -9,9 +9,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-<div class="container">
-<%@ include file="include/header.jsp" %>
 
+<%@ include file="include/header.jsp" %>
+<div class="container">
     <h2>main</h2>
 <%
     String name = (String) session.getAttribute("name");
@@ -20,9 +20,9 @@
 <span><%= name %> 님 환영합니다</span>
 <span><%= email %> 님 환영합니다</span>
 <% } %>
-
+</div>
 <%@ include file="include/footer.jsp" %>
 
-</div>
+
 </body>
 </html>

@@ -39,6 +39,11 @@
     font-family: 'Hana-bold';
 }
 
+header {
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
 .nav-list {
     list-style: none;
     padding: 0;
@@ -60,8 +65,8 @@
 }
 
 .container {
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 body {
@@ -83,4 +88,6 @@ footer {
     background-color: #f2f2f2; /* 배경색 설정 */
     padding: 10px 0; /* 필요한 여백 설정 */
     text-align: left;
+    margin-left: 150px;
+    margin-right: 150px;
 }
