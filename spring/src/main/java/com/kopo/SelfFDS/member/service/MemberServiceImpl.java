@@ -22,8 +22,8 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.getAllMember();
     }
     @Override
-    public Member selectNameOfMember(String id) {
-        return memberMapper.selectNameOfMember(id);
+    public Member selectNameOfMember(String email) {
+        return memberMapper.selectNameOfMember(email);
     }
     @Override
     public Member loginMember(HashMap<String, String> loginData) {
@@ -41,8 +41,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void deleteMember(String id) {
-        memberMapper.deleteMember(id);
+    public void deleteMember(String email) {
+        memberMapper.deleteMember(email);
     }
 
 }

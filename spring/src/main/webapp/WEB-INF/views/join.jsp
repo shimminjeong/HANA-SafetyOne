@@ -12,16 +12,12 @@
 <h2> 회원가입</h2>
 <form id="joinForm" method="post">
     <div>
-        <label for="id">아이디</label>
-        <input type="text" id="id" name="id">
+        <label for="email">이메일</label>
+        <input type="text" id="email" name="email">
     </div>
     <div>
         <label for="name">이름</label>
         <input type="text" id="name" name="name">
-    </div>
-    <div>
-        <label for="email">이메일</label>
-        <input type="text" id="email" name="email">
     </div>
     <div>
         <label for="password">비밀번호</label>

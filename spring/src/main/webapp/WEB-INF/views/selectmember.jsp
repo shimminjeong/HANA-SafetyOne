@@ -46,10 +46,9 @@
         <table>
             <thead>
             <tr>
-                <th>아이디</th>
+                <th>이메일</th>
                 <th>비밀번호</th>
                 <th>이름</th>
-                <th>이메일</th>
                 <th>핸드폰</th>
                 <th>삭제</th>
 
@@ -58,13 +57,12 @@
             <tbody>
             <c:forEach items="${members}" var="member">
                 <tr>
-                    <td>${member.id}</td>
+                    <td>${member.email}</td>
                     <td>${member.password}</td>
                     <td>${member.name}</td>
-                    <td>${member.email}</td>
                     <td>${member.phone}</td>
                     <td>
-                        <button class="delete-button" onclick="deleteMember('${member.id}')">삭제</button>
+                        <button class="delete-button" onclick="deleteMember('${member.email}')">삭제</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -74,11 +72,11 @@
 </div>
 </body>
 <script>
-    function deleteMember(memberId){
+    function deleteMember(memberEmail){
         $.ajax({
             url: '/deleteMember',
             type: 'POST',
-            data: memberId,
+            data: memberEmail,
             contentType: 'application/json',
             success: function(response) {
                 if (response === "회원 삭제 성공") {

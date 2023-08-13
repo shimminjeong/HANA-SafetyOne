@@ -15,10 +15,10 @@
     <h2>main</h2>
 <%
     String name = (String) session.getAttribute("name");
-    String id = (String) session.getAttribute("id");
+    String email = (String) session.getAttribute("email");
     if (name != null) { %>
 <span><%= name %> 님 환영합니다</span>
-<span><%= id %> 님 환영합니다</span>
+<span><%= email %> 님 환영합니다</span>
 <% } %>
 
 <%@ include file="include/footer.jsp" %>

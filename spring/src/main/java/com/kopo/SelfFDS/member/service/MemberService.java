@@ -8,12 +8,12 @@ import java.util.List;
 public interface MemberService {
 
     public List<Member> getAllMember();
-    Member selectNameOfMember(String id);
+    Member selectNameOfMember(String email);
     Member loginMember(HashMap<String, String> loginData);
 
     public void joinMember(Member member);
 
     public void modifyMember(Member member);
 
-    public void deleteMember(String id);
+    public void deleteMember(String email);
 }

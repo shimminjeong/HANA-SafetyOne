@@ -10,14 +10,14 @@ import java.util.List;
 public interface MemberMapper {
 
     List<Member> getAllMember();
-    Member selectNameOfMember(String id);
+    Member selectNameOfMember(String email);
     Member loginMember(HashMap<String, String> loginData);
 
     void insertMember(Member member);
 
     void updateMember(Member member);
 
-    void deleteMember(String id);
+    void deleteMember(String email);
 
 
 }

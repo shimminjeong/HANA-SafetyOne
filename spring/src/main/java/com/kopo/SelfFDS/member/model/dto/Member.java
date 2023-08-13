@@ -11,9 +11,8 @@ import java.util.Date;
 @Setter
 public class Member {
     private int m_id;
-    private String id;
-    private String name;
     private String email;
+    private String name;
     private String password;
     private String phone;
     private String sex;

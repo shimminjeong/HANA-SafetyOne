@@ -56,8 +56,8 @@ public class WebController {
     @RequestMapping("/update")
     public ModelAndView update(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String id = (String) session.getAttribute("id");
-        Member memberInfo = memberService.selectNameOfMember(id);
+        String email = (String) session.getAttribute("email");
+        Member memberInfo = memberService.selectNameOfMember(email);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("member", memberInfo);
@@ -69,9 +69,8 @@ public class WebController {
     @ResponseBody
     public String modifyMember(@RequestBody Member member) {
         try {
-            System.out.println("Received memberId: " + member.getId());
-            Member updatemember=memberService.selectNameOfMember(member.getId());
-            updatemember.setEmail(member.getEmail());
+            System.out.println("Received memberId: " + member.getEmail());
+            Member updatemember=memberService.selectNameOfMember(member.getEmail());
             updatemember.setName(member.getName());
             updatemember.setPassword(member.getPassword());
             updatemember.setPhone(member.getPhone());
@@ -87,9 +86,9 @@ public class WebController {
 
     @PostMapping("/deleteMember")
     @ResponseBody
-    public String deleteMember(@RequestBody String id) {
+    public String deleteMember(@RequestBody String email) {
         try {
-            memberService.deleteMember(id);
+            memberService.deleteMember(email);
             return "회원 삭제 성공";
         } catch (Exception e) {
             // 회원가입 처리 중 예외가 발생하면 "회원등록실패"를 반환합니다.
@@ -111,10 +110,10 @@ public class WebController {
 
         if (loginMember != null) {
             session.setAttribute("name", loginMember.getName());
-            session.setAttribute("id", loginMember.getId());
+            session.setAttribute("email", loginMember.getEmail());
 
             System.out.println("세션에 저장된 name: " + session.getAttribute("name"));
-            System.out.println("세션에 저장된 id: " + session.getAttribute("id"));
+            System.out.println("세션에 저장된 email: " + session.getAttribute("email"));
 
             return ResponseEntity.ok("로그인 성공");
         } else {
@@ -138,8 +137,8 @@ public class WebController {
 
     @GetMapping("/mypage")
     public ModelAndView mypage(HttpSession session) {
-        String id = (String) session.getAttribute("id");
-        Member memberInfo = memberService.selectNameOfMember(id);
+        String email = (String) session.getAttribute("email");
+        Member memberInfo = memberService.selectNameOfMember(email);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("member",memberInfo);

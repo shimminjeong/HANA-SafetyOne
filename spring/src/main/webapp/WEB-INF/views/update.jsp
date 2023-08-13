@@ -16,11 +16,10 @@
 <body>
 <h2>회원정보수정</h2>
 <form id="updateForm" method="post">
-    <p>아이디 : ${member.id}</p>
-    <input type="hidden" name="id" value="${member.id}">
+    <p>이메일 : ${member.email}</p>
+    <input type="hidden" name="email" value="${member.email}">
     <p>이름 : <input type="text" name="name" value="${member.name}"></p>
     <p>비밀번호 : <input type="text" name="password" value="${member.password}"></p>
-    <p>이메일 : <input type="text" name="email" value="${member.email}"></p>
     <p>전화번호 : <input type="text" name="phone" value="${member.phone}"></p>
     <input type="button" class="button" value="수정완료" onclick="updateFormFunc(); return false;">
 </form>

@@ -11,8 +11,8 @@
 <h2>로그인</h2>
 <form id="loginForm" method="post">
     <div>
-        <label for="id">아이디</label>
-        <input type="text" id="id" name="id">
+        <label for="email">이메일</label>
+        <input type="text" id="email" name="email">
     </div>
     <div>
         <label for="password">비밀번호</label>
@@ -27,18 +27,18 @@
 <script>
     function loginFormFunc() {
         var formData = $("#loginForm").serialize();
-        var id = $("#id").val();
+        var email = $("#email").val();
         var password = $("#password").val();
 
         console.log("FormData:", formData); // 전체 폼 데이터 확인
-        console.log("ID:", id); // 아이디 확인
+        console.log("email:", email); // 아이디 확인
         console.log("Password:", password); // 비밀번호 확인
 
         $.ajax({
             type: "POST",
             url: "/loginMember",
             data: JSON.stringify({
-                id: id,
+                email: email,
                 password: password
             }),
             contentType: 'application/json',
