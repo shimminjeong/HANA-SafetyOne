@@ -1,6 +1,6 @@
-package com.kopo.SelfFDS.member.service;
+package com.kopo.SelfFDS.service;
 
-import com.kopo.SelfFDS.member.model.dto.Member;
+import com.kopo.SelfFDS.model.dto.Member;
 
 import java.util.HashMap;
 import java.util.List;

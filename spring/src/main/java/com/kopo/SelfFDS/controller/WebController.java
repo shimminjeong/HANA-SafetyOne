@@ -1,11 +1,8 @@
-package com.kopo.SelfFDS.member.controller;
+package com.kopo.SelfFDS.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.kopo.SelfFDS.model.dto.Member;
 
-import com.kopo.SelfFDS.member.model.dao.MemberMapper;
-import com.kopo.SelfFDS.member.model.dto.Member;
-import com.kopo.SelfFDS.member.service.MemberService;
+import com.kopo.SelfFDS.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,10 +33,17 @@ public class WebController {
         return mav;
     }
 
-    @GetMapping("/logout")
-    public String logoutForm(HttpSession session) {
+
+    @RequestMapping(value = "/logout")
+    public ModelAndView deleteGuest(HttpSession session) {
+        String guest_id = (String) session.getAttribute("guest_id");
+        System.out.println(guest_id);
+        ModelAndView mav = new ModelAndView();
         session.invalidate();
-        return "index";
+        mav.addObject("msg", "로그아웃 성공");
+        mav.addObject("loc", "/");
+        mav.setViewName("message");
+        return mav;
     }
 
     @GetMapping("/login")
@@ -52,6 +56,8 @@ public class WebController {
     public String createForm() {
         return "join";
     }
+
+
 
     @RequestMapping("/update")
     public ModelAndView update(HttpServletRequest request) {

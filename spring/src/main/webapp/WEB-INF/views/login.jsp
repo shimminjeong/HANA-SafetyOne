@@ -8,17 +8,18 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <style>
-    .container {
-
+    .login{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 </style>
+
 <body>
 <%@ include file="include/header.jsp" %>
 <div class="container">
-    <div class="img">
-        <img src="../../resources/img/payment.gif" height="200">
-    </div>
     <div class="login">
+        <img src="../../resources/img/payment.gif" height="200" class="imgLoginForm">
         <form id="loginForm" method="post">
             <div>
                 <label for="email">이메일</label>
@@ -34,7 +35,7 @@
         </form>
     </div>
 </div>
-<%@ include file="include/footer.jsp" %>
+<%--<%@ include file="include/footer.jsp" %>--%>
 </body>
 <script>
     function loginFormFunc() {

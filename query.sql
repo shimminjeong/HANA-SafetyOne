@@ -51,11 +51,18 @@ CREATE TABLE CARD_HISTORY (
       CONSTRAINT CARD_ID    FOREIGN KEY (CARD_ID) REFERENCES CARD (CARD_ID)
 );
 
-
-
+select count(*) from card_history
+where card_his_date between to_char('23/03/01') and to_char('23/06/01');
+select count(*) from card_history
+where card_his_date between to_char('23/06/02') and to_char('23/09/01');
+select * from card;
 select count(*) from card;
 SELECT count(*) FROM MEMBER;
-SELECT count(*) FROM CARD_HISTORY;
+SELECT * FROM CARD_HISTORY;
+
+select category,sum(amount),count(*) from CARD_HISTORY
+group by category
+order by count(*);
 
 
 SELECT TO_CHAR(CARD_HIS_DATE, 'YYYY/MM/DD'),count(*) AS CNT

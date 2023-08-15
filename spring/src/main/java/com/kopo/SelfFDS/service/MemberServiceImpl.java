@@ -1,7 +1,7 @@
-package com.kopo.SelfFDS.member.service;
+package com.kopo.SelfFDS.service;
 
-import com.kopo.SelfFDS.member.model.dao.MemberMapper;
-import com.kopo.SelfFDS.member.model.dto.Member;
+import com.kopo.SelfFDS.model.dao.MemberMapper;
+import com.kopo.SelfFDS.model.dto.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

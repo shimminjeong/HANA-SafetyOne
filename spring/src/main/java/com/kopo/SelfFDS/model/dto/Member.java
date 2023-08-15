@@ -1,4 +1,4 @@
-package com.kopo.SelfFDS.member.model.dto;
+package com.kopo.SelfFDS.model.dto;
 
 import lombok.Data;
 import lombok.Getter;

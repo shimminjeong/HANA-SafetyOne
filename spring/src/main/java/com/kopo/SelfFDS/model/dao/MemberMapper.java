@@ -1,6 +1,6 @@
-package com.kopo.SelfFDS.member.model.dao;
+package com.kopo.SelfFDS.model.dao;
 
-import com.kopo.SelfFDS.member.model.dto.Member;
+import com.kopo.SelfFDS.model.dto.Member;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
