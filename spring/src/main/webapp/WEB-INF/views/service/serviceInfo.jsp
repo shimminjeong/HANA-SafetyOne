@@ -4,7 +4,7 @@
 <head>
     <title>Title</title>
     <link href="../../../resources/css/common.css" rel="stylesheet">
-    <link href="../../../resources/css/subnav.css" rel="stylesheet">
+    <link href="../../../resources/css/service.css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>

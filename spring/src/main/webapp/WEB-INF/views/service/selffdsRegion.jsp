@@ -7,8 +7,22 @@
   <link href="../../../resources/css/common.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<style>
+  #formsize img {
+    max-width: 50%;
+    height: auto;
+  }
+</style>
 <body>
-<h1>지역 설정</h1>
+<%@ include file="../include/header.jsp" %>
+<div class="container">
+  <div id="formsize">
+    <img src="../../../resources/img/map.png">
 
+    <button class="okBtn">등록</button>
+
+  </div>
+
+</div>
 </body>
 </html>

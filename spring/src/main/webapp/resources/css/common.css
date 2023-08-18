@@ -37,11 +37,14 @@
 
 * {
     font-family: 'Hana-bold';
+    text-decoration-line: none;
 }
 
-header {
+#headerLogo {
     align-items: center;
     justify-content: center;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 #headerLogo{
     padding: 5px;
@@ -75,47 +78,88 @@ header {
     margin-right: 10px;
 }
 
-Button {
+#loginBtn, #joinBtn, #logoutBtn {
     display: inline-block;
-    color: black; /* 글자색 */
+    color: black; /* 글자색 변경 */
     padding: 10px 20px; /* 패딩 */
     border: none; /* 테두리 없음 */
     border-radius: 5px; /* 둥근 모서리 */
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 12px; /* 폰트 크기 변경 */
     cursor: pointer;
+    background-color: #ffffff; /* 배경색 추가 */
+    transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
-nav {
+button:hover {
     background-color: #00857F;
-    padding: 15px;
 }
 
-ul.nav-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.navbar {
+    overflow: hidden;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    background-color: #00857F;
+
 }
 
-li.nav-item {
-    margin: 0;
-    padding: 0;
-}
-
-a.nav-menu {
+/* Links inside the navbar */
+.navbar a {
+    font-size: 16px;
+    text-align: center;
+    padding: 12px 40px;
     text-decoration: none;
-    color: #fff;
-    padding: 10px;
-    transition: background-color 0.3s;
+    color: white;
+}
+
+.dropdown {
+    overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+    color: white;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 12px 40px;
+    background-color: inherit;
+    font-family: inherit; /* Important for vertical align on mobile phones */
+    margin: 0; /* Important for vertical align on mobile phones */
+}
+
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .container {
-    justify-content: center;
-    align-items: center;
-    /*height: 100vh;*/
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 body {
@@ -124,6 +168,7 @@ body {
 }
 
 .content {
+
     display: flex;
     align-items: center;
     text-align: center;
@@ -139,3 +184,38 @@ footer {
     margin-right: 150px;
 }
 
+#formsize {
+    /*display: inline-block;*/
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black; /* 글자색 변경 */
+    padding: 30px 30px; /* 패딩 */
+    border: none; /* 테두리 없음 */
+    border-radius: 10px; /* 둥근 모서리 */
+    text-decoration: none;
+    font-size: 12px; /* 폰트 크기 변경 */
+    cursor: pointer;
+    background-color: #ffffff; /* 배경색 추가 */
+    transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* 그림자 추가 */
+    width: 600px; /* 가로 크기 */
+    height: 500px; /* 세로 크기 */
+}
+
+
+.okBtn{
+    display: inline-block;
+    color: white;
+    border: none;
+    padding: 12px 20px 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00857F;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block;
+    bottom: 0;
+}

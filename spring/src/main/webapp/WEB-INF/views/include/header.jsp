@@ -18,7 +18,7 @@
             if (email != null) {%>
         <span id="welcomeMessage">
             <span><%= name %> 님 환영합니다</span>
-            <a href="/logout"><button>로그아웃</button></a>
+            <a href="/logout"><button id="logoutBtn">로그아웃</button></a>
         </span>
         <% } else { %>
         <div id="loginout">
@@ -27,21 +27,66 @@
         </div>
         <%}%>
         <%--        <a href="/join">회원가입</a>--%>
-
     </div>
     <nav>
-        <ul class="nav-list">
-            <li class="nav-item">
-                <a href="/service/serviceInfo" class="nav-menu">안심결제서비스</a>
-            </li>
-            <li class="nav-item">
-                <a href="/lostcard" class="nav-menu">고객센터</a>
-            </li>
-            <li class="nav-item">
-                <a href="/mypage" class="nav-menu">마이페이지</a>
-            </li>
-        </ul>
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn">안심결제서비스
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/service/selffds">SelfFDS</a>
+                    <a href="/service/fds">FDS</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">고객센터
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/lostcard">분실/도난 신고</a>
+                    <a href="#">부정사용신고</a>
+                    <a href="#">카드재발급</a>
+                </div>
+            </div>
+            <a href="/mypage">마이페이지</a>
+            <a href="/payment/paymentPage">결제</a>
+        </div>
+        <%--        <div class="navbar">--%>
+        <%--            <div class="dropdown">--%>
+        <%--                <button class="dropbtn">안심결제서비스--%>
+        <%--                    <i class="fa fa-caret-down"></i>--%>
+        <%--                </button>--%>
+        <%--                <div class="dropdown-content">--%>
+        <%--                    <a href="/service/serviceInfo">서비스소개</a>--%>
+        <%--                    <a href="/service/selffds">SelfFDS</a>--%>
+        <%--                    <a href="/service/fds">FDS</a>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--            <div class="dropdown">--%>
+        <%--                <button class="dropbtn">고객센터--%>
+        <%--                    <i class="fa fa-caret-down"></i>--%>
+        <%--                </button>--%>
+        <%--                <div class="dropdown-content">--%>
+        <%--                    <a href="/lostcard">분실/도난 신고</a>--%>
+        <%--                    <a href="/service/selffds">부정사용신고</a>--%>
+        <%--                    <a href="/service/fds">카드 재발급</a>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--            <a href="/mypage" class="nav-menu">마이페이지</a>--%>
+        <%--        </div>--%>
     </nav>
+    <%--        <ul class="nav-list">--%>
+    <%--            <li class="nav-item">--%>
+    <%--                <a href="/service/serviceInfo" class="nav-menu">안심결제서비스</a>--%>
+    <%--            </li>--%>
+    <%--            <li class="nav-item">--%>
+    <%--                <a href="/lostcard" class="nav-menu">고객센터</a>--%>
+    <%--            </li>--%>
+    <%--            <li class="nav-item">--%>
+    <%--                <a href="/mypage" class="nav-menu">마이페이지</a>--%>
+    <%--            </li>--%>
+    <%--        </ul>--%>
 
 </header>
 

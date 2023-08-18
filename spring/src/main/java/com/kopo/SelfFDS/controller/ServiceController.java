@@ -1,7 +1,6 @@
 package com.kopo.SelfFDS.controller;
 
 import com.kopo.SelfFDS.model.dto.Card;
-import com.kopo.SelfFDS.model.dto.Member;
 import com.kopo.SelfFDS.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
