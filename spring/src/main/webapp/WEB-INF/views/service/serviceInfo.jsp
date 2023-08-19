@@ -10,7 +10,7 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="subnav-container">
-        <ul class="subnav">
+        <ul class="subnav-li">
             <li>
                 <a href="/service/selffds">SELFFDS서비스</a>
             </li>

@@ -14,8 +14,10 @@
     <div id="service">
         <div class="serviceTitle"><h3>카드사용안심설정(Self FDS)</h3></div>
         <div class="service-content">
-            <div class="sub-tit">안전한 결제를 위한 안심설정 서비스</div>
-            <div class="sub-txt">결제 차단 지역, 시간, 업종 등 나만의 Rule을 간편하게 설정</div>
+            <div class="text_div">
+                <p><div class="sub-tit">안전한 결제를 위한 안심설정 서비스</div><br>
+                    <div class="sub-txt">결제 차단 지역, 시간, 업종 등 나만의 Rule을 간편하게 설정</div></p>
+            </div>
             <a href="/service/cardSelect">
                 <button class="regBtn">등록/해제</button>
             </a>
@@ -30,9 +32,9 @@
                     필요시 특정 기간동안 거래를 허용하는 서비스를 제공함. 이외의 거래는 부정사용 예방을 위해 안전하게 차단됨
                 </li>
             </ul>
-<%--            <p class="marker_refer">--%>
-<%--                ※ 해외부정거래 차단서비스 등록을 해주시면 해외를 가실 때 마다 Self FDS설정할 필요 없이 로밍 정보를 활용해 자동으로 해외 현지(MS)거래를 ON/OFF시켜드립니다.--%>
-<%--            </p>--%>
+            <%--            <p class="marker_refer">--%>
+            <%--                ※ 해외부정거래 차단서비스 등록을 해주시면 해외를 가실 때 마다 Self FDS설정할 필요 없이 로밍 정보를 활용해 자동으로 해외 현지(MS)거래를 ON/OFF시켜드립니다.--%>
+            <%--            </p>--%>
         </div>
     </div>
 </div>

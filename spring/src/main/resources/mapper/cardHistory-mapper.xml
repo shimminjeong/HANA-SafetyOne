@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kopo.SelfFDS.model.dao.CardHistoryMapper">
+    <!-- 카드 전체 조회 -->
+    <select id="selectAllOfCardId" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+        SELECT *
+        FROM cardhistory
+    </select>
+
+    <!-- 카드별 지역통계 -->
+    <select id="selectCountRegionOfCardId"  resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+        SELECT REGION_NAME, COUNT(*) AS region_cnt,SUM(AMOUNT) AS amount_sum FROM CARD_HISTORY WHERE CARD_ID=#{card_id}
+        GROUP BY REGION_NAME
+    </select>
+
+    <!-- 카드별 업종통계 -->
+    <select id="selectCountCategoryOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+        SELECT CATEGORY, COUNT(*) AS CATEGORY_CNT,SUM(AMOUNT) AS amount_sum FROM CARD_HISTORY WHERE CARD_ID=#{card_id}
+        GROUP BY CATEGORY
+    </select>
+
+    <!-- 카드별 거래시간통계 -->
+    <select id="selectCountTimeOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+        SELECT card_his_time, COUNT(*) AS time_CNT,SUM(AMOUNT) AS amount_sum FROM CARD_HISTORY WHERE CARD_ID=#{card_id}
+        GROUP BY card_his_time
+    </select>
+
+
+
+
+</mapper>
+

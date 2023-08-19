@@ -76,7 +76,7 @@
 <body>
 <%@ include file="include/header.jsp" %>
 <div class="container">
-    <div class="login">
+    <div class="formsize">
         <img src="../../resources/img/payment.gif" height="250" class="imgLoginForm">
         <form id="loginForm" method="post">
             <div id="rowinput">

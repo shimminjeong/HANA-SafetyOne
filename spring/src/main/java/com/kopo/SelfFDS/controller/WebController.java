@@ -112,7 +112,6 @@ public class WebController {
     public ResponseEntity<String> loginMember(@RequestBody HashMap<String, String> loginData, HttpServletRequest request) {
         Member loginMember = memberService.loginMember(loginData);
         HttpSession session = request.getSession();
-        System.out.println("세션에 저장된 name: ");
 
         if (loginMember != null) {
             session.setAttribute("name", loginMember.getName());
@@ -144,6 +143,7 @@ public class WebController {
     @GetMapping("/mypage")
     public ModelAndView mypage(HttpSession session) {
         String email = (String) session.getAttribute("email");
+        System.out.println("email "+email);
         Member memberInfo = memberService.selectNameOfMember(email);
 
         ModelAndView mav = new ModelAndView();

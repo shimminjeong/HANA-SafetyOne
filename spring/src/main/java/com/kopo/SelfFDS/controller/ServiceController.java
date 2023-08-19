@@ -32,10 +32,22 @@ public class ServiceController {
         return "service/selffds";
     }
 
+    @GetMapping("/selffdsCategory")
+    public String selfCategoryPage() {
+        return "service/selffdsCategory";
+    }
+
+    @GetMapping("/selffdsTime")
+    public String selfTimePage() {
+        return "service/selffdsTime";
+    }
+
     @GetMapping("/selffdsRegion")
-    public String selffdsRegionPage() {
+    public String selffdsRegion() {
         return "service/selffdsRegion";
     }
+
+
 
     @GetMapping("/fds")
     public String fdsPage() {
@@ -53,12 +65,6 @@ public class ServiceController {
         String email = (String) session.getAttribute("email");
         List<Card> cardInfo = cardService.selectCardOfEmail(email);
 
-        for (Card card : cardInfo) {
-            System.out.println("Card ID: " + card.getCard_id());
-            System.out.println("CVC: " + card.getCard_cvc());
-            // 나머지 카드 정보도 출력하거나 원하는 대로 수정하세요
-        }
-
         ModelAndView mav = new ModelAndView();
         mav.addObject("cards", cardInfo);
         mav.setViewName("service/cardSelect");
@@ -68,10 +74,13 @@ public class ServiceController {
 
     @PostMapping("/registerCard")
     @ResponseBody
-    public String registerCard(@RequestBody String cardId) {
+    public String registerCard(@RequestBody String cardId,HttpServletRequest request) {
         Card updateCard = cardService.selectCardOfCardId(cardId);
+        HttpSession session = request.getSession();
+
         if (updateCard.getSelffds_ser_status().equals("N")) {
             updateCard.setSelffds_ser_status("Y");
+            session.setAttribute("card_id",cardId);
             cardService.updateSelfFdsStatus(updateCard);
             return "selffds 서비스 신청 성공";
         } else {
@@ -83,7 +92,7 @@ public class ServiceController {
     @ResponseBody
     public String cancleCard(@RequestBody String cardId) {
         Card updateCard = cardService.selectCardOfCardId(cardId);
-        if (updateCard.getSelffds_ser_status().equals("Y"))  {
+        if (updateCard.getSelffds_ser_status().equals("Y")) {
             updateCard.setSelffds_ser_status("N");
             cardService.updateSelfFdsStatus(updateCard);
             return "selffds 서비스 해제 성공";

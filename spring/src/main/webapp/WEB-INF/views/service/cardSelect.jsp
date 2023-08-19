@@ -55,7 +55,7 @@
         margin-left: 40px;
     }
 
-    #card-box {
+    .card-box {
         border: 1px solid #ccc; /* 테두리 스타일 설정 */
         padding: 10px; /* 내부 여백 설정 */
         margin: 10px 0; /* 바깥쪽 여백 설정 */
@@ -67,12 +67,12 @@
         border-radius: 3px;
     }
 
-    #card-img {
+    .card-img {
 
         width: 100px;
     }
 
-    #content-div{
+    .content-div {
         margin-bottom: 20px;
     }
 </style>
@@ -82,21 +82,21 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="container">
-    <div id="formsize">
-        <div id="content-div">
+    <div class="formsize">
+        <div class="content-div">
             <h1>안심결제(SelfFDS)</h1>
             <h2>안심결제(SelfFDS) 이용현황</h2>
             <h3>설정할 카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h3></ㅗ4>
         </div>
-        <div id="card-list">
+        <div class="card-list">
             <c:forEach items="${cards}" var="card" varStatus="loop">
-                <div id="card-box">
+                <div class="card-box">
                     <div>
                         <input type="checkbox" name="selectedCards" value="${card.card_id}">
                     </div>
                     <div>본인</div>
                     <div>${card.card_id}</div>
-                    <img id="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
+                    <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
                         <%--                <div>${card.card_reg_date}</div>--%>
                 </div>
             </c:forEach>
@@ -122,7 +122,9 @@
             success: function (response) {
                 if (response === "selffds 서비스 신청 성공") {
                     alert("selffds 서비스 신청 성공");
-                    window.location.href = '/service/selffdsRegion';
+                    var link = document.createElement("a");
+                    link.href = "/service/selffdsRegion";
+                    link.click();
                 } else
                     alert("이미 신청이 완료된 카드입니다.");
             }
@@ -142,7 +144,6 @@
             success: function (response) {
                 if (response === "selffds 서비스 해제 성공") {
                     alert("selffds 서비스 해제 성공");
-                    window.location.href = '/service/serviceInfo';
                 } else
                     alert("해당 서비스 신청안된 카드입니다.");
             }
@@ -150,5 +151,6 @@
     }
 
 </script>
-<%--</script>--%>
 </html>
+
+
