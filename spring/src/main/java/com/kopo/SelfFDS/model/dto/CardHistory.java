@@ -20,9 +20,7 @@ public class CardHistory {
     private int amount;
     private int region_cnt;
     private int amount_sum;
-
     private int amount_mean;
-
     private int history_cnt;
     private int time_cnt;
     private int category_cnt;

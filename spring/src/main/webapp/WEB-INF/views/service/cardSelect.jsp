@@ -68,24 +68,42 @@
     }
 
     .card-img {
-
-        width: 100px;
+        width: 90px;
     }
 
-    .content-div {
-        margin-bottom: 20px;
+    .ajax-content {
+        font-size: 14px;
+        display: flex;
+        justify-content: center
+    }
+
+    .formsize {
+        margin: 50px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: black; /* 글자색 변경 */
+        padding: 30px 80px; /* 패딩 */
+        border: none; /* 테두리 없음 */
+        border-radius: 10px; /* 둥근 모서리 */
+        text-decoration: none;
+        font-size: 12px; /* 폰트 크기 변경 */
+        cursor: pointer;
+        background-color: #ffffff; /* 배경색 추가 */
+        transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* 그림자 추가 */
+        max-width: 600px; /* 가로 크기 */
+        max-height: 500px; /* 세로 크기 */
     }
 </style>
 
-
-</style>
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="formsize">
         <div class="content-div">
-            <h1>안심결제(SelfFDS)</h1>
-            <h2>안심결제(SelfFDS) 이용현황</h2>
+            <h1>안심결제서비스</h1>
+            <h2>안심결제서비스 이용현황</h2>
             <h3>설정할 카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h3></ㅗ4>
         </div>
         <div class="card-list">
@@ -97,10 +115,10 @@
                     <div>본인</div>
                     <div>${card.card_id}</div>
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
-                        <%--                <div>${card.card_reg_date}</div>--%>
                 </div>
             </c:forEach>
         </div>
+        <div class="ajax-content"></div>
         <div class="reg-cancle-btn">
             <button class="cancle-Btn" onclick="cancleCard()">해제</button>
             <button class="reg-Btn" onclick="registerCard()">등록</button>
@@ -120,13 +138,17 @@
             data: selectedIds,
             contentType: 'application/json',
             success: function (response) {
+                const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "selffds 서비스 신청 성공") {
-                    alert("selffds 서비스 신청 성공");
                     var link = document.createElement("a");
                     link.href = "/service/selffdsRegion";
                     link.click();
                 } else
-                    alert("이미 신청이 완료된 카드입니다.");
+                    ajaxContent.textContent = "이미 신청이 완료된 카드입니다.";
+                    ajaxContent.style.color = "red";
+                    selectedCards.forEach(card => {
+                    card.checked = false; // 이미 체크된 카드 체크 해제
+                });
             }
         });
     }
@@ -142,10 +164,18 @@
             data: selectedIds,
             contentType: 'application/json',
             success: function (response) {
+                const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "selffds 서비스 해제 성공") {
-                    alert("selffds 서비스 해제 성공");
+                    ajaxContent.textContent = "selffds 서비스가 해제되었습니다.";
+                    ajaxContent.style.color = "green";
+                    // 페이지 옮기기
                 } else
-                    alert("해당 서비스 신청안된 카드입니다.");
+
+                    ajaxContent.textContent = "이 카드는 해당 서비스 신청내역이 존재하지 않습니다.";
+                    ajaxContent.style.color = "red";
+                    selectedCards.forEach(card => {
+                    card.checked = false; // 이미 체크된 카드 체크 해제
+                });
             }
         });
     }

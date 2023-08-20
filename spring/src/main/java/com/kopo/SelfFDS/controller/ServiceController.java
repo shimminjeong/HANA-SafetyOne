@@ -48,7 +48,6 @@ public class ServiceController {
     }
 
 
-
     @GetMapping("/fds")
     public String fdsPage() {
         return "service/fds";
@@ -74,13 +73,13 @@ public class ServiceController {
 
     @PostMapping("/registerCard")
     @ResponseBody
-    public String registerCard(@RequestBody String cardId,HttpServletRequest request) {
+    public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
         Card updateCard = cardService.selectCardOfCardId(cardId);
         HttpSession session = request.getSession();
 
         if (updateCard.getSelffds_ser_status().equals("N")) {
             updateCard.setSelffds_ser_status("Y");
-            session.setAttribute("card_id",cardId);
+            session.setAttribute("card_id", cardId);
             cardService.updateSelfFdsStatus(updateCard);
             return "selffds 서비스 신청 성공";
         } else {
@@ -99,7 +98,6 @@ public class ServiceController {
         } else {
             return "selffds 서비스 해제 실패";
         }
-
     }
 
 

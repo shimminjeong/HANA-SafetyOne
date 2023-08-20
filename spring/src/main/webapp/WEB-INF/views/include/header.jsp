@@ -51,7 +51,7 @@
             </div>
             <a href="/mypage">마이페이지</a>
             <a href="/payment/paymentPage">결제</a>
-            <a href="/payment/drawChartex">결제</a>
+            <a href="/payment/drawChartex">차트</a>
         </div>
         <%--        <div class="navbar">--%>
         <%--            <div class="dropdown">--%>

@@ -1,0 +1,69 @@
+.seoul-btn {
+    top: 98px;
+    left: 90px;
+}
+.gyeonggi-btn {
+    top: 116px;
+    left: 90px;
+}
+
+.incheon-btn {
+    top: 100px;
+    left: 64px;
+}
+.gangwon-btn {
+    top: 88px;
+    left: 152px;
+}
+.chungnam-btn {
+    top: 149px;
+    left: 50px;
+}
+.daejeon-btn {
+    top: 172px;
+    left: 114px;
+}
+
+.chungbuk-btn {
+    top: 137px;
+    left: 119px;
+}
+.busan-btn {
+    top: 248px;
+    left: 200px;
+}
+.ulsan-btn {
+    top: 225px;
+    left: 211px;
+}
+.daegu-btn {
+    top: 205px;
+    left: 170px;
+}
+
+.gyeongbuk-btn {
+    top: 165px;
+    left: 166px;
+}
+.gyeonggnam-btn {
+    top: 235px;
+    left: 145px;
+}
+
+.jeollanam-btn {
+    top: 270px;
+    left: 66px;
+}
+.gwangju-btn {
+    top: 250px;
+    left: 82px;
+}
+
+.jeollabuk-btn {
+    top: 214px;
+    left: 86px;
+}
+.jejudo-btn {
+    top: 328px;
+    left: 67px;
+}
