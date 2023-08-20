@@ -140,28 +140,29 @@
             <div class="info">
                 <h1>안심결제서비스</h1>
                 <h2>결제를 차단할 지역을 선택해주세요</h2>
+                <p>${regionList[0]}</p>
             </div>
 
             <div class="info-content">
                 <span class="spot-container">
                     <img src="../../../resources/img/map.png" style="height: 380px">
-                    <button class="seoul-btn" onclick="selectRegion(this)" value="서울">서울</button>
-                    <button class="gyeonggi-btn" onclick="selectRegion(this)" value="경기도">경기도</button>
-                    <button class="incheon-btn" onclick="selectRegion(this)" value="인천">인천</button>
-                    <button class="gangwon-btn" onclick="selectRegion(this)" value="강원도">강원도</button>
-                    <button class="chungnam-btn" onclick="selectRegion(this)" value="충청남도">충청남도</button>
-                    <button class="daejeon-btn" onclick="selectRegion(this)" value="대전">대전</button>
-                    <button class="chungbuk-btn" onclick="selectRegion(this)" value="충청북도">충청북도</button>
-                    <button class="sejong-btn" onclick="selectRegion(this)" value="세종">세종</button>
-                    <button class="busan-btn" onclick="selectRegion(this)" value="부산">부산</button>
-                    <button class="ulsan-btn" onclick="selectRegion(this)" value="울산">울산</button>
-                    <button class="daegu-btn" onclick="selectRegion(this)" value="대구">대구</button>
-                    <button class="gyeongbuk-btn" onclick="selectRegion(this)" value="경상북도">경상북도</button>
-                    <button class="gyeonggnam-btn" onclick="selectRegion(this)" value="경상남도"> 경상남도</button>
-                    <button class="jeollanam-btn" onclick="selectRegion(this)" value="전라남도">전라남도</button>
-                    <button class="gwangju-btn" onclick="selectRegion(this)" value="광주">광주</button>
-                    <button class="jeollabuk-btn" onclick="selectRegion(this)" value="전라북도">전라북도</button>
-                    <button class="jejudo-btn" onclick="selectRegion(this)" value="제주도">제주도</button>
+                    <button class="seoul-btn" onclick="selectRegion(this)" value="${regionList[0]}">서울</button>
+                    <button class="gyeonggi-btn" onclick="selectRegion(this)" value="${regionList[1]}">경기도</button>
+                    <button class="incheon-btn" onclick="selectRegion(this)" value="${regionList[2]}">인천</button>
+                    <button class="gangwon-btn" onclick="selectRegion(this)" value="${regionList[3]}">강원도</button>
+                    <button class="chungnam-btn" onclick="selectRegion(this)" value="${regionList[4]}">충청남도</button>
+                    <button class="daejeon-btn" onclick="selectRegion(this)" value="${regionList[5]}">대전</button>
+                    <button class="chungbuk-btn" onclick="selectRegion(this)" value="${regionList[6]}">충청북도</button>
+                    <button class="sejong-btn" onclick="selectRegion(this)" value="${regionList[7]}">세종</button>
+                    <button class="busan-btn" onclick="selectRegion(this)" value="${regionList[8]}">부산</button>
+                    <button class="ulsan-btn" onclick="selectRegion(this)" value="${regionList[9]}">울산</button>
+                    <button class="daegu-btn" onclick="selectRegion(this)" value="${regionList[10]}">대구</button>
+                    <button class="gyeongbuk-btn" onclick="selectRegion(this)" value="${regionList[11]}">경상북도</button>
+                    <button class="gyeonggnam-btn" onclick="selectRegion(this)" value="${regionList[12]}"> 경상남도</button>
+                    <button class="jeollanam-btn" onclick="selectRegion(this)" value="${regionList[13]}">전라남도</button>
+                    <button class="gwangju-btn" onclick="selectRegion(this)" value="${regionList[14]}">광주</button>
+                    <button class="jeollabuk-btn" onclick="selectRegion(this)" value="${regionList[15]}">전라북도</button>
+                    <button class="jejudo-btn" onclick="selectRegion(this)" value="${regionList[16]}">제주도</button>
                 </span>
                 <div class="mychoice">
                     <div class="myreport">

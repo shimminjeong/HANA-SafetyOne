@@ -13,4 +13,6 @@ public interface CardHistoryService {
     List<CardHistory> selectCountCategoryOfCardId(String card_id);
 
     List<CardHistory> selectCountTimeOfCardId(String card_id);
+
+    List<String> selectAllRegionName();
 }

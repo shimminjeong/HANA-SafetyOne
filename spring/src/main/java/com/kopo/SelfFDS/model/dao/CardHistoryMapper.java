@@ -17,5 +17,7 @@ public interface CardHistoryMapper {
 
     List<CardHistory> selectCountTimeOfCardId(String card_id);
 
+    List<String> selectAllRegionName();
+
 
 }

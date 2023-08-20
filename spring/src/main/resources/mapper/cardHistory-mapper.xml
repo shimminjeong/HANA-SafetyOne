@@ -27,6 +27,10 @@
         GROUP BY card_his_time
     </select>
 
+    <select id="selectAllRegionName" resultType="String">
+        SELECT REGION_NAME FROM REGION ORDER BY REGION_CODE
+    </select>
+
 
 
 

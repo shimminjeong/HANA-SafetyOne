@@ -1,6 +1,7 @@
 package com.kopo.SelfFDS.controller;
 
 import com.kopo.SelfFDS.model.dto.Card;
+import com.kopo.SelfFDS.service.CardHistoryService;
 import com.kopo.SelfFDS.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,12 @@ public class ServiceController {
 
     private final CardService cardService;
 
+    private final CardHistoryService cardHistoryService;
+
     @Autowired
-    public ServiceController(CardService cardService) {
+    public ServiceController(CardService cardService, CardHistoryService cardHistoryService) {
         this.cardService = cardService;
+        this.cardHistoryService = cardHistoryService;
     }
 
     @GetMapping("/serviceInfo")
@@ -43,8 +47,12 @@ public class ServiceController {
     }
 
     @GetMapping("/selffdsRegion")
-    public String selffdsRegion() {
-        return "service/selffdsRegion";
+    public ModelAndView selffdsRegionPage() {
+        List<String> regionList=cardHistoryService.selectAllRegionName();
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("regionList",regionList);
+        mav.setViewName("service/selffdsRegion");
+        return mav;
     }
 
 

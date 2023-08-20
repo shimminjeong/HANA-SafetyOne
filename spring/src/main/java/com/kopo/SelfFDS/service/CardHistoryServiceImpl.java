@@ -34,4 +34,9 @@ public class CardHistoryServiceImpl implements CardHistoryService{
     public List<CardHistory> selectCountTimeOfCardId(String card_id) {
         return cardHistoryMapper.selectCountTimeOfCardId(card_id);
     }
+
+    @Override
+    public List<String> selectAllRegionName() {
+        return cardHistoryMapper.selectAllRegionName();
+    }
 }
