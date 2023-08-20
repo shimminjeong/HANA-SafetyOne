@@ -5,81 +5,14 @@
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/common.css" rel="stylesheet">
+    <link href="../../../resources/css/service.css" rel="stylesheet">
     <link href="../../../resources/css/regionspot.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 </head>
 <style>
 
-    .setting-container {
-        display: flex;
-        justify-content: space-between;
-        margin: 50px auto;
-        max-width: 842px;
-        height: 600px;
-        text-decoration: none;
 
-    }
-
-    .setting-nav {
-        background-color: #f9f9f9;
-        width: 120px;
-        margin-right: 20px;
-        padding-top: 25px;
-
-        height: 150px;
-        border: none;
-        display: flex;
-        flex-direction: column;
-        border-radius: 10px;
-        text-decoration: none;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-        align-items: center;
-    }
-
-    .setting-nav a {
-        margin-bottom: 10px;
-        font-size: 18px;
-        text-decoration: none;
-        color: black;
-    }
-
-
-    .setting-form {
-        margin: 0px 0px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        color: black; /* 글자색 변경 */
-        padding: 30px 50px; /* 패딩 */
-        border: none; /* 테두리 없음 */
-        border-radius: 10px; /* 둥근 모서리 */
-        text-decoration: none;
-        font-size: 12px; /* 폰트 크기 변경 */
-        cursor: pointer;
-        background-color: #ffffff; /* 배경색 추가 */
-        transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* 그림자 추가 */
-        width: 700px; /* 가로 크기 */
-        max-height: 500px; /* 세로 크기 */
-    }
-
-
-    .info {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .info h1 {
-        margin: auto 0px;
-
-    }
-
-    .info h2 {
-        margin-bottom: 0px;
-    }
 
     #myChartmodal {
         position: absolute;
@@ -93,6 +26,13 @@
 
     }
 
+    .info-content {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        align-items: stretch;
+
+    }
 
 
     .spot-container {
@@ -110,22 +50,85 @@
         color: black;
     }
 
+    .mychoice {
+        display: flex;
+        padding: 10px;
+        box-sizing: border-box;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    button.selected-region {
+        background-color: #00857F;
+        color: white;
+        border: none;
+        padding: 12px;
+        margin: 2px;
+        cursor: pointer;
+        border-radius: 20px;
+        font-size: 16px;
+    }
+
+
+    .myreport {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        margin: 10px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+    }
+
+    .selected-btn{
+        flex: 1;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        margin: 10px;
+        padding : 20px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+    }
+
+    .recommend{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .recommend p{
+        margin: 5px;
+        color: black;
+        font-size: 16px;
+    }
+
+    .show-modal {
+        margin: 18px;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .show-modal:hover {
+        background-color: #2980b9;
+    }
+
+
 
 </style>
-<script>
-    const locationButtons = document.querySelectorAll('.location-button');
-    const selectedLocation = document.querySelector('.selected-location');
 
-    locationButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            selectedLocation.textContent = button.textContent;
-        });
-    });
-</script>
 <%@ include file="../include/header.jsp" %>
 <body>
 <div class="container">
-    <%--                <a href="#" onclick="openChartModal()" style="color:black">나의소비보기(지역)</a>--%>
     <div class="setting-container">
         <div class="setting-nav">
             <a href="/service/selffdsRegion">지역설정</a>
@@ -142,27 +145,37 @@
             <div class="info-content">
                 <span class="spot-container">
                     <img src="../../../resources/img/map.png" style="height: 380px">
-                    <button class="seoul-btn">서울</button>
-                    <button class="gyeonggi-btn">경기도</button>
-                    <button class="incheon-btn">인천</button>
-                    <button class="gangwon-btn">강원도</button>
-                    <button class="chungnam-btn">충청남도</button>
-                    <button class="daejeon-btn">대전</button>
-                    <button class="chungbuk-btn">충청북도</button>
-                    <button class="busan-btn">부산</button>
-                    <button class="ulsan-btn">울산</button>
-                    <button class="daegu-btn">대구</button>
-                    <button class="gyeongbuk-btn">경상북도</button>
-                    <button class="gyeonggnam-btn">경상남도</button>
-                    <button class="jeollanam-btn">전라남도</button>
-                    <button class="gwangju-btn">광주</button>
-                    <button class="jeollabuk-btn">전라북도</button>
-                    <button class="jejudo-btn">제주도</button>
-
+                    <button class="seoul-btn" onclick="selectRegion(this)" value="서울">서울</button>
+                    <button class="gyeonggi-btn" onclick="selectRegion(this)" value="경기도">경기도</button>
+                    <button class="incheon-btn" onclick="selectRegion(this)" value="인천">인천</button>
+                    <button class="gangwon-btn" onclick="selectRegion(this)" value="강원도">강원도</button>
+                    <button class="chungnam-btn" onclick="selectRegion(this)" value="충청남도">충청남도</button>
+                    <button class="daejeon-btn" onclick="selectRegion(this)" value="대전">대전</button>
+                    <button class="chungbuk-btn" onclick="selectRegion(this)" value="충청북도">충청북도</button>
+                    <button class="sejong-btn" onclick="selectRegion(this)" value="세종">세종</button>
+                    <button class="busan-btn" onclick="selectRegion(this)" value="부산">부산</button>
+                    <button class="ulsan-btn" onclick="selectRegion(this)" value="울산">울산</button>
+                    <button class="daegu-btn" onclick="selectRegion(this)" value="대구">대구</button>
+                    <button class="gyeongbuk-btn" onclick="selectRegion(this)" value="경상북도">경상북도</button>
+                    <button class="gyeonggnam-btn" onclick="selectRegion(this)" value="경상남도"> 경상남도</button>
+                    <button class="jeollanam-btn" onclick="selectRegion(this)" value="전라남도">전라남도</button>
+                    <button class="gwangju-btn" onclick="selectRegion(this)" value="광주">광주</button>
+                    <button class="jeollabuk-btn" onclick="selectRegion(this)" value="전라북도">전라북도</button>
+                    <button class="jejudo-btn" onclick="selectRegion(this)" value="제주도">제주도</button>
                 </span>
+                <div class="mychoice">
+                    <div class="myreport">
+                        <h2>결제 차단 추천 지역 TOP3</h2>
+                        <div class="recommend"></div>
+                        <a href="#" class="show-modal" onclick="openChartModal()">나의 소비 돌아보기</a>
+                    </div>
+                    <div class="selected-btn">
+
+                    </div>
+
+                </div>
             </div>
-            <div class="selected-location"></div>
-            <button class="okBtn">다음</button>
+            <button class="okBtn"><a href="/service/selffdsCategory">다음</a></button>
 
         </div>
     </div>
@@ -223,6 +236,46 @@
 
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/chart/regionServiceChart')
+            .then(response => response.json())
+            .then(data => {
+                const recommendElements = document.querySelector('.recommend');
+                for (let i = 1; i < 4; i++) {
+                    const regionName = data[data.length - i].region_name;
+                    const pTag = document.createElement('p');
+                    pTag.textContent = regionName;
+                    recommendElements.appendChild(pTag);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+
+
+    function selectRegion(button) {
+        var value = button.value;
+        var selectedBtnDiv = document.querySelector('.selected-btn');
+
+        // 새로운 버튼 생성
+        var newButton = document.createElement('button');
+        newButton.textContent = value;
+        newButton.classList.add('selected-region');
+
+        // 새로운 버튼을 선택된 버튼 영역에 추가
+        selectedBtnDiv.appendChild(newButton);
+
+        document.querySelector('.selected-btn').addEventListener('click', function (event) {
+            // 클릭된 요소가 버튼인 경우에만 동작
+            if (event.target.tagName === 'BUTTON') {
+                // 클릭된 버튼 제거
+                event.target.remove();
+            }
+        });
+    }
 
 
     // 모달 열기 함수

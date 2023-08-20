@@ -16,8 +16,8 @@
     left: 152px;
 }
 .chungnam-btn {
-    top: 149px;
-    left: 50px;
+    top: 146px;
+    left: 52px;
 }
 .daejeon-btn {
     top: 172px;
@@ -28,6 +28,12 @@
     top: 137px;
     left: 119px;
 }
+
+.sejong-btn {
+    top: 160px;
+    left: 91px;
+}
+
 .busan-btn {
     top: 248px;
     left: 200px;

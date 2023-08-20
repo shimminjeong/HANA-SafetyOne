@@ -195,3 +195,7 @@ footer {
     display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
     margin: 0 auto;
 }
+
+.okBtn a{
+    color: white;
+}

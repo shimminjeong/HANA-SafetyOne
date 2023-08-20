@@ -34,13 +34,7 @@ public class ChartController {
 
         String card_id = (String) session.getAttribute("card_id");
         List<CardHistory> resultList = cardHistoryService.selectCountRegionOfCardId(card_id);
-        System.out.println("CardHistory"+resultList);
-        for (CardHistory ch : resultList) {
-            System.out.println("Card ID: " + ch.getRegion_name());
-            System.out.println("Region Name: " + ch.getRegion_cnt());
-            // 필요한 다른 정보도 필요한대로 출력
-            System.out.println("----------------------------------");
-        }
+
         if (!resultList.isEmpty()) {
             return ResponseEntity.ok(resultList);
         } else {
