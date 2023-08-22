@@ -15,15 +15,19 @@
 
 
     .grid-container {
-        margin:30px;
+        margin-top: 40px;
+        margin-bottom: 30px;
         display: grid;
-        grid-template-columns: repeat(7, 80px); /* 2열로 반복 */
+        grid-template-columns: repeat(7, 87px); /* 2열로 반복 */
         /*grid-gap: 10px; !* 박스 사이의 간격 설정 *!*/
         align-items: center; /* 내용 수직 가운데 정렬 */
         text-align: center; /* 내용 가로 가운데 정렬 */
-
     }
 
+    .recommend {
+        top: 225px;
+        left: 211px;
+    }
 
     .grid-item {
         display: flex;
@@ -33,7 +37,43 @@
         height: 80px; /* 그리드 컨테이너의 높이 설정 */
         cursor: pointer;
         transition: background-color 0.3s;
+        position: relative;
+        font-size: 15px;
 
+    }
+
+    .dropdown-item {
+        display: none;
+        cursor: pointer;
+        margin: auto;
+        font-size: 12px;
+        line-height: 25px;
+        height: 25px;
+        background-color: transparent; /* 초기 배경 설정 */
+        transition: background-color 0.3s ease; /* 배경 변경 시 부드러운 효과를 위한 트랜지션 추가 */
+        padding: 0px 3px;
+    }
+
+    .dropdown-item:hover {
+        background-color: #00857F; /* 마우스 호버 시 배경 변경 */
+    }
+
+
+
+    .dropdown-list {
+        position: absolute;
+        top: 100%; /* Position the dropdown below the grid item */
+        left: 0;
+        width: 100%; /* Make the dropdown width match the grid item width */
+        z-index: 1; /* Ensure the dropdown appears above other content */
+        background-color: #ffffff; /* Add a background color */
+        /*border: 1px solid  !* Add a border for visual separation *!*/
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    }
+
+    .grid-item:hover .dropdown-item {
+        display: block;
+        color: black;
     }
 
     .grid-image {
@@ -48,93 +88,124 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        color: black;
     }
+
 
     .grid-item:hover {
         background-color: #00857F;
-        border: 1px solid #888;
+        border: 1px solid #ffffff;
+        color: black;
     }
 
-    .grid-item:hover {
-        display: block;
+    .selected-category button {
+        margin: 5px;
+        padding: 5px 10px;
+        background-color: #00857F;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .recommend {
+        width: 300px; /* 원하는 너비(px)로 수정 */
+        height: 200px; /* 원하는 높이(px)로 수정 */
+        background-color: lightgray;
+        border: 1px solid gray;
+        position: absolute;
+        top: 50px; /* 원하는 수직 위치(px)로 수정 */
+        left: 100px; /* 원하는 수평 위치(px)로 수정 */
     }
 
 
+    .info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info h1 {
+        margin: auto 0px;
+    }
+
+    .info h2 {
+        margin-bottom: 0px;
+    }
 
 
 </style>
 <%@ include file="../include/header.jsp" %>
 <body>
+
 <div class="container">
     <div class="setting-container">
         <div class="setting-nav">
             <a href="/service/selffdsRegion">지역설정</a>
-            <a href="/service/selffdsCategory">업종설정</a>
+            <a href="/service/selffdsCategory" style="color: #00857F">업종설정</a>
             <a href="/service/selffdsTime">시간설정</a>
             <a href="/service/selffdsTotal">통합설정</a>
         </div>
 
         <div class="setting-form">
-            <div class="info">
-                <h1>안심결제서비스</h1>
-                <h2>결제를 차단할 업종을 선택해주세요</h2>
-            </div>
+            <span class="info">
+                <a>안심결제서비스</a>
+                <a>결제를 차단할 업종을 선택해주세요</a>
+            </span>
             <div class="info-content">
+<%--                <div class="recommend">--%>
+<%--                    추천--%>
+<%--                </div>--%>
                 <div class="grid-container">
-                    <%
-                        List<String> itemList = Arrays.asList("요식/유흥", "유통", "음/식료품", "의류/잡화", "스포츠/문화", "여행/교통", "미용",
-                                "생활서비스", "교육/학원", "의료", "가전/가구", "자동차", "주유");
-                        List<String> imgList = Arrays.asList("restaurant.png", "shopping-cart.png", "butcher-shop.png", "fashion.png", "sports.png",
-                                "world.png", "cosmetics.png", "laundry-shop.png", "education.png", "hospital.png",
-                                "electronics.png", "taxi.png", "oilstation.png");
-                        List<String> categoryList = Arrays.asList("한식", "중식/일식", "커피전문점", "노래방");
+                    <c:set var="imgList"
+                           value="${['restaurant.png', 'shopping-cart.png', 'butcher-shop.png', 'fashion.png', 'sports.png', 'world.png', 'cosmetics.png', 'laundry-shop.png', 'education.png', 'hospital.png', 'electronics.png', 'taxi.png', 'oilstation.png']}"/>
 
-                        for (int i = 0; i < itemList.size(); i++) {
-                            String item = itemList.get(i);
-                            String imgSrc = "../../../resources/img/" + imgList.get(i);
-                    %>
-                    <div class="grid-item">
-                        <img class="grid-image" src="<%= imgSrc %>" alt="<%= item %> 이미지">
-                        <div class="item-name"><%= item %></div>
-                    </div>
-                    <%
-                        }
-                    %>
+                    <c:forEach var="entry" items="${categoryMap}" varStatus="loop">
+                        <div class="grid-item" onmouseover="showDropdown(this)">
+                            <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
+                            <c:set var="imageName" value="${imgList[imgIndex]}"/>
+                            <img class="grid-image" src="../../../resources/img/${imageName}" alt="${entry.key}">
+                            <div class="item-name">${entry.key}</div>
+                            <div class="dropdown-list">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <c:forEach var="category" items="${entry.value}">
+                                        <a class="dropdown-item"
+                                           onclick="selectCategory('${category.category_small}')">${category.category_small}</a>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
-
             </div>
-            <div class="category-select">
-            </div>
-            <button class="okBtn">등록</button>
+            <div class="selected-category"></div>
+            <button class="okBtn"><a href="/service/selffdsTime">다음</a></button>
         </div>
+
+
     </div>
 </div>
 </body>
-<%--<script>--%>
 
-<%--    function positionCategoryDropdown(itemIndex) {--%>
-<%--        const gridItem = document.getElementById('grid-item-${itemIndex}');--%>
-<%--        const dropdown = document.getElementById('category-dropdown-${itemIndex}');--%>
+<script>
+    function selectCategory(selectedCategory) {
+        // Create a new button element
+        var button = document.createElement("button");
+        button.innerText = selectedCategory; // Set the button's text
+        button.className = "selected"; // Add a class for styling
 
-<%--        const gridItemRect = gridItem.getBoundingClientRect();--%>
-<%--        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;--%>
-<%--        const topPosition = gridItemRect.bottom + scrollTop;--%>
+        // Append the button to the category-select div
+        var categorySelectDiv = document.querySelector(".selected-category");
+        categorySelectDiv.appendChild(button);
 
-<%--        dropdown.style.left = '${gridItemRect.left}px';--%>
-<%--        dropdown.style.top = '${topPosition}px'--%>
-<%--        dropdown.style.display = "block";--%>
-<%--    }--%>
+        document.querySelector('.selected').addEventListener('click', function (event) {
+            // 클릭된 요소가 버튼인 경우에만 동작
+            if (event.target.tagName === 'BUTTON') {
+                // 클릭된 버튼 제거
+                event.target.remove();
+            }
+        });
+    }
+</script>
 
 
-<%--    function showCategoryDropdown(itemIndex) {--%>
-<%--        const dropdown = document.getElementById('category-dropdown-${itemIndex}');--%>
-<%--        dropdown.style.display = "block";--%>
-<%--    }--%>
-
-<%--    function hideCategoryDropdown(itemIndex) {--%>
-<%--        const dropdown = document.getElementById('category-dropdown-${itemIndex}');--%>
-<%--        dropdown.style.display = "none";--%>
-<%--    }--%>
-<%--</script>--%>
 </html>
-

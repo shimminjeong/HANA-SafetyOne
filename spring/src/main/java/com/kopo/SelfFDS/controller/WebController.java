@@ -46,7 +46,7 @@ public class WebController {
         return mav;
     }
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String loginForm() {
         return "login";
     }

@@ -19,5 +19,9 @@ public interface CardHistoryMapper {
 
     List<String> selectAllRegionName();
 
+    List<String> selectAllBigCategory();
+
+    List<CardHistory> selectSmallCategoryOfBigCategory(String category_big);
+
 
 }

@@ -12,8 +12,6 @@
 </head>
 <style>
 
-
-
     #myChartmodal {
         position: absolute;
         top: 0;
@@ -58,7 +56,7 @@
         width: 100%;
     }
 
-    button.selected-region {
+    button.selected-btn {
         background-color: #00857F;
         color: white;
         border: none;
@@ -122,6 +120,10 @@
         background-color: #2980b9;
     }
 
+    .okBtn a {
+        flex: 1;
+    }
+
 
 
 </style>
@@ -131,7 +133,7 @@
 <div class="container">
     <div class="setting-container">
         <div class="setting-nav">
-            <a href="/service/selffdsRegion">지역설정</a>
+            <a href="/service/selffdsRegion" style="color: #00857F">지역설정</a>
             <a href="/service/selffdsCategory">업종설정</a>
             <a href="/service/selffdsTime">시간설정</a>
             <a href="/service/selffdsTotal">통합설정</a>
@@ -140,7 +142,6 @@
             <div class="info">
                 <h1>안심결제서비스</h1>
                 <h2>결제를 차단할 지역을 선택해주세요</h2>
-                <p>${regionList[0]}</p>
             </div>
 
             <div class="info-content">

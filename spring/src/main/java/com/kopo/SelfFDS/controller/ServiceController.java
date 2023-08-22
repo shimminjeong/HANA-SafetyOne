@@ -1,6 +1,7 @@
 package com.kopo.SelfFDS.controller;
 
 import com.kopo.SelfFDS.model.dto.Card;
+import com.kopo.SelfFDS.model.dto.CardHistory;
 import com.kopo.SelfFDS.service.CardHistoryService;
 import com.kopo.SelfFDS.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/service")
@@ -34,36 +38,6 @@ public class ServiceController {
     @GetMapping("/selffds")
     public String selffdsPage() {
         return "service/selffds";
-    }
-
-    @GetMapping("/selffdsCategory")
-    public String selfCategoryPage() {
-        return "service/selffdsCategory";
-    }
-
-    @GetMapping("/selffdsTime")
-    public String selfTimePage() {
-        return "service/selffdsTime";
-    }
-
-    @GetMapping("/selffdsRegion")
-    public ModelAndView selffdsRegionPage() {
-        List<String> regionList=cardHistoryService.selectAllRegionName();
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("regionList",regionList);
-        mav.setViewName("service/selffdsRegion");
-        return mav;
-    }
-
-
-    @GetMapping("/fds")
-    public String fdsPage() {
-        return "service/fds";
-    }
-
-    @GetMapping("/lostcard")
-    public String lostCardPage() {
-        return "service/lostcard";
     }
 
     @RequestMapping("/cardSelect")
@@ -106,6 +80,72 @@ public class ServiceController {
         } else {
             return "selffds 서비스 해제 실패";
         }
+    }
+
+
+    @GetMapping("/selffdsRegion")
+    public ModelAndView selffdsRegionPage() {
+        List<String> regionList = cardHistoryService.selectAllRegionName();
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("regionList", regionList);
+        mav.setViewName("service/selffdsRegion");
+        return mav;
+    }
+
+    @GetMapping("/selffdsCategory")
+    public ModelAndView selfCategoryPage() {
+        Map<String, List<CardHistory>> categoryMap = new HashMap<>();
+
+        List<String> bigCategory = cardHistoryService.selectAllBigCategory();
+
+        for (String bigcategory : bigCategory) {
+            List<CardHistory> smallCategoryList = cardHistoryService.selectSmallCategoryOfBigCategory(bigcategory);
+            categoryMap.put(bigcategory, smallCategoryList);
+        }
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("categoryMap", categoryMap);
+        mav.setViewName("service/selffdsCategory");
+        return mav;
+    }
+
+    @GetMapping("/selffdsTime")
+    public String selffdsTimePage() {
+        return "service/selffdsTime";
+    }
+
+    @GetMapping("/selffdsTotal")
+    public ModelAndView selffdsTotalPage() {
+
+        ModelAndView mav = new ModelAndView();
+        //region
+        List<String> regionList = cardHistoryService.selectAllRegionName();
+        mav.addObject("regionList", regionList);
+
+        //category
+        Map<String, List<CardHistory>> categoryMap = new HashMap<>();
+
+        List<String> bigCategory = cardHistoryService.selectAllBigCategory();
+
+        for (String bigcategory : bigCategory) {
+            List<CardHistory> smallCategoryList = cardHistoryService.selectSmallCategoryOfBigCategory(bigcategory);
+            categoryMap.put(bigcategory, smallCategoryList);
+        }
+
+        mav.addObject("categoryMap", categoryMap);
+        mav.setViewName("service/selffdsTotal");
+        return mav;
+    }
+
+
+    @GetMapping("/fds")
+    public String fdsPage() {
+        return "service/fds";
+    }
+
+    @GetMapping("/lostcard")
+    public String lostCardPage() {
+        return "service/lostcard";
     }
 
 

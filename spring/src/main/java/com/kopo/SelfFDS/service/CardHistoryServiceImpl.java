@@ -39,4 +39,14 @@ public class CardHistoryServiceImpl implements CardHistoryService{
     public List<String> selectAllRegionName() {
         return cardHistoryMapper.selectAllRegionName();
     }
+
+    @Override
+    public List<String> selectAllBigCategory() {
+        return cardHistoryMapper.selectAllBigCategory();
+    }
+
+    @Override
+    public List<CardHistory> selectSmallCategoryOfBigCategory(String category_big) {
+        return cardHistoryMapper.selectSmallCategoryOfBigCategory(category_big);
+    }
 }

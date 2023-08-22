@@ -83,30 +83,33 @@
 }
 
 .setting-nav {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     width: 130px;
     margin-right: 20px;
     padding-top: 25px;
-
     height: 150px;
     border: none;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     text-decoration: none;
-    cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
     align-items: center;
 }
 
+
 .setting-nav a {
-    margin-bottom: 10px;
+    cursor: pointer;
+    margin-bottom: 13px;
     font-size: 18px;
     text-decoration: none;
     color: black;
 }
 
+.setting-nav a .here{
+    color: #00857F;
+}
 
 .setting-form {
     margin: 0px 0px;
@@ -119,7 +122,6 @@
     border-radius: 10px; /* 둥근 모서리 */
     text-decoration: none;
     font-size: 12px; /* 폰트 크기 변경 */
-    cursor: pointer;
     background-color: #ffffff; /* 배경색 추가 */
     transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* 그림자 추가 */
@@ -127,15 +129,3 @@
     max-height: 500px; /* 세로 크기 */
 }
 
-.info {
-    display: flex;
-    flex-direction: column;
-}
-
-.info h1 {
-    margin: auto 0px;
-}
-
-.info h2 {
-    margin-bottom: 0px;
-}

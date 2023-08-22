@@ -10,28 +10,48 @@
     </select>
 
     <!-- 카드별 지역통계 -->
-    <select id="selectCountRegionOfCardId"  resultType="com.kopo.SelfFDS.model.dto.CardHistory">
-        SELECT REGION_NAME, COUNT(*) AS region_cnt,SUM(AMOUNT) AS amount_sum FROM CARD_HISTORY WHERE CARD_ID=#{card_id}
+    <select id="selectCountRegionOfCardId" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+        SELECT REGION_NAME, COUNT(*) AS region_cnt, SUM(AMOUNT) AS amount_sum
+        FROM CARD_HISTORY
+        WHERE CARD_ID = #{card_id}
         GROUP BY REGION_NAME
     </select>
 
     <!-- 카드별 업종통계 -->
     <select id="selectCountCategoryOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
-        SELECT CATEGORY, COUNT(*) AS CATEGORY_CNT,SUM(AMOUNT) AS amount_sum FROM CARD_HISTORY WHERE CARD_ID=#{card_id}
+        SELECT CATEGORY, COUNT(*) AS CATEGORY_CNT, SUM(AMOUNT) AS amount_sum
+        FROM CARD_HISTORY
+        WHERE CARD_ID = #{card_id}
         GROUP BY CATEGORY
     </select>
 
     <!-- 카드별 거래시간통계 -->
     <select id="selectCountTimeOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
-        SELECT card_his_time, COUNT(*) AS time_CNT,SUM(AMOUNT) AS amount_sum FROM CARD_HISTORY WHERE CARD_ID=#{card_id}
+        SELECT card_his_time, COUNT(*) AS time_CNT, SUM(AMOUNT) AS amount_sum
+        FROM CARD_HISTORY
+        WHERE CARD_ID = #{card_id}
         GROUP BY card_his_time
     </select>
 
+    <!--    지역이름 가져오기-->
     <select id="selectAllRegionName" resultType="String">
-        SELECT REGION_NAME FROM REGION ORDER BY REGION_CODE
+        SELECT REGION_NAME
+        FROM REGION
+        ORDER BY REGION_CODE
     </select>
 
+    <!--    업종이름 가져오기-->
+    <select id="selectAllBigCategory" resultType="String">
+        SELECT CATEGORY_BIG FROM CATEGORY
+        GROUP BY CATEGORY_BIG
+    </select>
 
+<!--    업종 대분류로 소분류 가져오기-->
+    <select id="selectSmallCategoryOfBigCategory" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+        SELECT *
+        FROM CATEGORY
+        WHERE CATEGORY_BIG = #{category_big}
+    </select>
 
 
 </mapper>

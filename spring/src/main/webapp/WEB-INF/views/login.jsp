@@ -78,7 +78,6 @@
 <div class="container">
     <div class="formsize">
         <img src="../../resources/img/payment.gif" height="250" class="imgLoginForm">
-        <form id="loginForm" method="post">
             <div id="rowinput">
                 <label for="email">이메일</label>
                 <input type="text" id="email" name="email">
@@ -90,18 +89,15 @@
             <button id="loginBtn" onclick="loginFormFunc()">로그인</button>
             <%--    <input type="button" class="button" value="회원가입" onclick="joinFunc(); return false;">--%>
             <a href="/selectAll">회원목록</a>
-        </form>
     </div>
 </div>
 <%--<%@ include file="include/footer.jsp" %>--%>
 </body>
 <script>
     function loginFormFunc() {
-        var formData = $("#loginForm").serialize();
         var email = $("#email").val();
         var password = $("#password").val();
 
-        console.log("FormData:", formData); // 전체 폼 데이터 확인
         console.log("email:", email); // 아이디 확인
         console.log("Password:", password); // 비밀번호 확인
 
@@ -119,9 +115,7 @@
             success: function (response) {
                 if (response === "로그인 성공") {
                     alert("로그인 성공");
-                    var link = document.createElement("a");
-                    link.href = "/";
-                    link.click();
+                    location.href = "/";
                 } else {
                     console.error("로그인 실패");
                 }

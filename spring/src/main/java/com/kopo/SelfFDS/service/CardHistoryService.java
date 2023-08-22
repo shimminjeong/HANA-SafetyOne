@@ -15,4 +15,8 @@ public interface CardHistoryService {
     List<CardHistory> selectCountTimeOfCardId(String card_id);
 
     List<String> selectAllRegionName();
+
+    List<String> selectAllBigCategory();
+
+    List<CardHistory> selectSmallCategoryOfBigCategory(String category_big);
 }
