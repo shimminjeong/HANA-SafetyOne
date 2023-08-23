@@ -23,5 +23,8 @@ public interface CardHistoryMapper {
 
     List<CardHistory> selectSmallCategoryOfBigCategory(String category_big);
 
+//    List<CardHistory> selectManyCategoryLatestMonthOfCardID(String card_id);
+
+    List<CardHistory> selectAllCardHistoryOfCardId(String card_id);
 
 }

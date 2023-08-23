@@ -10,10 +10,8 @@
 
 </head>
 <body>
-
 <%@ include file="include/header.jsp" %>
 <div class="container">
-    main
 </div>
 <%--<%@ include file="include/footer.jsp" %>--%>
 

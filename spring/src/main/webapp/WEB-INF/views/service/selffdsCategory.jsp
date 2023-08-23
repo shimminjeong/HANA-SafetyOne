@@ -56,6 +56,9 @@
 
     .dropdown-item:hover {
         background-color: #00857F; /* 마우스 호버 시 배경 변경 */
+        transform: scale(1.1); /* hover 시 약간 확대되는 효과 */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* hover 시 그림자 약간 강화 */
+        color: white;
     }
 
 
@@ -143,7 +146,6 @@
             <a href="/service/selffdsRegion">지역설정</a>
             <a href="/service/selffdsCategory" style="color: #00857F">업종설정</a>
             <a href="/service/selffdsTime">시간설정</a>
-            <a href="/service/selffdsTotal">통합설정</a>
         </div>
 
         <div class="setting-form">

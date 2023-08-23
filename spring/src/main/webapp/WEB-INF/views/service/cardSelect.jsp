@@ -95,6 +95,93 @@
         max-width: 600px; /* 가로 크기 */
         max-height: 500px; /* 세로 크기 */
     }
+
+
+    /*모달*/
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 25px;
+        cursor: pointer;
+        border: none;
+        background-color: white;
+    }
+
+    .modal-content {
+        background-color: white;
+        width: 400px;
+        height: 450px;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+
+    .modal-header {
+        margin-top: 25px;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .modal-message {
+        font-size: 18px;
+        margin: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .modal-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .modal-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 45px;
+        margin: 10px;
+    }
+
+    .select-content img {
+        margin-bottom: 20px;
+    }
+
+    .select-content {
+        border: 1px solid #ccc; /* 그리드 간격 사이에 테두리 설정 */
+        padding: 20px;
+    }
+
+
+
+    .spancon {
+        margin-bottom: 30px;
+        margin-top: 15px;
+    }
+
+
 </style>
 
 <body>
@@ -102,8 +189,8 @@
 <div class="container">
     <div class="formsize">
         <div class="content-div">
-            <h1>안심결제서비스</h1>
-            <h2>안심결제서비스 이용현황</h2>
+            <h1>안심카드설정</h1>
+            <h2>안심카드서비스 이용현황</h2>
             <h3>설정할 카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h3></ㅗ4>
         </div>
         <div class="card-list">
@@ -124,9 +211,67 @@
             <button class="reg-Btn" onclick="registerCard()">등록</button>
         </div>
     </div>
+    <div id="selectModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">안심카드설정</div>
+            <div class="modal-message">
+                <span>안녕하세요</span>
+                <span class="spancon">차단할 항목을 선택하세요</span>
+                <span class="spancon">원하시는 조합을 엮어보세요</span>
+                <%--                <div class="venn-container">--%>
+                <%--        <span id="circle1" class="circle">--%>
+                <%--            <img class="img-select1" src="../../resources/img/category.png" alt="Option Lines">--%>
+                <%--        </span>--%>
+                <%--                    <span id="circle2" class="circle">--%>
+                <%--            <img class="img-select2" src="../../resources/img/region.png" alt="Location">--%>
+                <%--        </span>--%>
+                <%--                    <span id="circle3" class="circle">--%>
+                <%--            <img class="img-select3" src="../../resources/img/time.png" alt="Clock">--%>
+                <%--        </span>--%>
+                <%--                </div>--%>
+
+                <div class="modal-grid">
+                    <div class="select-content" onclick="window.location.href='/service/selffdsRegion';">
+                        <img class="img-select" src="../../resources/img/location.png" height="60">
+                        <div>위치</div>
+                    </div>
+                    <div class="select-content" onclick="window.location.href='/service/selffdsCategory';">
+                        <img class="img-select" src="../../resources/img/optionslines.png" height="60">
+                        <div>업종</div>
+                    </div>
+                    <div class="select-content" onclick="window.location.href='/service/selffdsTime';">
+                        <img class="img-select" src="../../resources/img/clock.png" height="60">
+                        <div>시간</div>
+                    </div>
+                </div>
+            </div>
+            <button class="close-button" onclick="closeSelectModal()">&times;</button>
+
+        </div>
+    </div>
 </div>
+
 </body>
 <script>
+
+    function openSelectModal() {
+        // 모달 열기 코드를 여기에 작성합니다.
+        // 예시: 모달 엘리먼트를 선택하고 display 스타일을 변경하여 모달을 표시합니다.
+        var successModal = document.getElementById("selectModal");
+        if (successModal) {
+            successModal.style.display = "block";
+        }
+    }
+
+    // 모달 닫기 함수
+    function closeSelectModal() {
+        var successModal = document.getElementById("selectModal");
+        if (successModal) {
+            successModal.style.display = "none";
+        }
+    }
+
+
     function registerCard() {
         const selectedCards = document.querySelectorAll('input[name="selectedCards"]:checked');
         const selectedIds = Array.from(selectedCards).map(card => card.value).join(',');
@@ -140,13 +285,13 @@
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "selffds 서비스 신청 성공") {
-                    var link = document.createElement("a");
-                    link.href = "/service/selffdsRegion";
-                    link.click();
+                    // 모달 열기
+                    openSelectModal();
+
                 } else
                     ajaxContent.textContent = "이미 신청이 완료된 카드입니다.";
-                    ajaxContent.style.color = "red";
-                    selectedCards.forEach(card => {
+                ajaxContent.style.color = "red";
+                selectedCards.forEach(card => {
                     card.checked = false; // 이미 체크된 카드 체크 해제
                 });
             }
@@ -172,13 +317,14 @@
                 } else
 
                     ajaxContent.textContent = "이 카드는 해당 서비스 신청내역이 존재하지 않습니다.";
-                    ajaxContent.style.color = "red";
-                    selectedCards.forEach(card => {
+                ajaxContent.style.color = "red";
+                selectedCards.forEach(card => {
                     card.checked = false; // 이미 체크된 카드 체크 해제
                 });
             }
         });
     }
+
 
 </script>
 </html>

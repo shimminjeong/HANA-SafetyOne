@@ -19,4 +19,7 @@ public interface CardHistoryService {
     List<String> selectAllBigCategory();
 
     List<CardHistory> selectSmallCategoryOfBigCategory(String category_big);
+
+    List<CardHistory> selectAllCardHistoryOfCardId(String card_id);
+
 }

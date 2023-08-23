@@ -106,13 +106,14 @@
 </body>
 <script>
     function selectNumber(number) {
-        document.getElementById("inputBox1").value = number;
-        document.getElementById("inputBox2").value = number;
+        document.querySelector(".inputBox1").value = number;
+        document.querySelector(".inputBox2").value = number;
+
     }
 
     function registerTime() {
-        var startHour = parseInt(document.getElementById("inputBox1").value);
-        var endHour = parseInt(document.getElementById("inputBox2").value);
+        var startHour = parseInt(document.querySelector(".inputBox1").value);
+        var endHour = parseInt(document.querySelector(".inputBox2").value);
         var selectedTimeDiv = document.querySelector(".selected-time");
 
         if (!isNaN(startHour) && !isNaN(endHour)) {

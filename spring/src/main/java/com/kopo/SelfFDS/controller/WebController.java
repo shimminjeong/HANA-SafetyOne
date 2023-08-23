@@ -1,8 +1,13 @@
 package com.kopo.SelfFDS.controller;
 
+import com.kopo.SelfFDS.model.dto.Card;
+import com.kopo.SelfFDS.model.dto.CardHistory;
 import com.kopo.SelfFDS.model.dto.Member;
 
+import com.kopo.SelfFDS.service.CardHistoryService;
+import com.kopo.SelfFDS.service.CardService;
 import com.kopo.SelfFDS.service.MemberService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +19,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WebController {
 
     private final MemberService memberService;
+    private final CardService cardService;
+
+    private final CardHistoryService cardHistoryService;
 
     @Autowired
-    public WebController(MemberService memberService) {
+    public WebController(MemberService memberService, CardService cardService, CardHistoryService cardHistoryService) {
         this.memberService = memberService;
+        this.cardService = cardService;
+        this.cardHistoryService = cardHistoryService;
     }
 
 
@@ -140,17 +151,35 @@ public class WebController {
     }
 
 
-    @GetMapping("/mypage")
-    public ModelAndView mypage(HttpSession session) {
+    @RequestMapping("/mypage")
+    public ModelAndView mypage(HttpServletRequest request) {
+        HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         System.out.println("email "+email);
         Member memberInfo = memberService.selectNameOfMember(email);
+        List<Card> cardInfo = cardService.selectCardOfEmail(email);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("member",memberInfo);
-        mav.setViewName("mypage");
+        mav.addObject("cards", cardInfo);
+
+        mav.setViewName("member/mypage");
         return mav;
     }
+
+    @PostMapping("/cardinfo")
+    @ResponseBody
+    public ResponseEntity<List<CardHistory>> postCardInfo(@RequestBody CardHistory cardHistory) {
+        System.out.println("Received cardId: " + cardHistory.getCard_id());
+
+        List<CardHistory> cardHistoryServiceList=cardHistoryService.selectAllCardHistoryOfCardId(cardHistory.getCard_id());
+        if (!cardHistoryServiceList.isEmpty()) {
+            return ResponseEntity.ok(cardHistoryServiceList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping("/selectAll")
     public ModelAndView selectmember(HttpServletRequest request) {

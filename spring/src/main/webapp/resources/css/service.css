@@ -11,10 +11,10 @@
     font-size: 30px;
     font-weight: bold;
 }
-
-
+/*#cbf8e7*/
+/*#eafaf3*/
 .service-content {
-    background-color: #F4F7FC;
+    background-color: #eafaf3;
     width: 100vw;
     margin-bottom: 40px;
     padding: 34px 0 40px;
@@ -128,4 +128,3 @@
     width: 700px; /* 가로 크기 */
     max-height: 500px; /* 세로 크기 */
 }
-

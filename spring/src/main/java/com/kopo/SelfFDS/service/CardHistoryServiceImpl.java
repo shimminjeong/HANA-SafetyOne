@@ -49,4 +49,9 @@ public class CardHistoryServiceImpl implements CardHistoryService{
     public List<CardHistory> selectSmallCategoryOfBigCategory(String category_big) {
         return cardHistoryMapper.selectSmallCategoryOfBigCategory(category_big);
     }
+
+    @Override
+    public List<CardHistory> selectAllCardHistoryOfCardId(String card_id) {
+        return cardHistoryMapper.selectAllCardHistoryOfCardId(card_id);
+    }
 }

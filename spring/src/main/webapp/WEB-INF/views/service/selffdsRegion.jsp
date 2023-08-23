@@ -51,7 +51,8 @@
     .mychoice {
         display: flex;
         padding: 10px;
-        box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
         flex-direction: column;
         width: 100%;
     }
@@ -73,21 +74,14 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        border: 2px solid #ccc;
-        border-radius: 10px;
         margin: 10px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        box-sizing: border-box;
     }
 
     .selected-btn{
         flex: 1;
-        border: 2px solid #ccc;
-        border-radius: 10px;
         margin: 10px;
         padding : 20px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        box-sizing: border-box;
+
     }
 
     .recommend{
@@ -140,7 +134,6 @@
         </div>
         <div class="setting-form">
             <div class="info">
-                <h1>안심결제서비스</h1>
                 <h2>결제를 차단할 지역을 선택해주세요</h2>
             </div>
 
@@ -167,12 +160,12 @@
                 </span>
                 <div class="mychoice">
                     <div class="myreport">
-                        <h2>결제 차단 추천 지역 TOP3</h2>
+                        <h2>차단 추천 지역</h2>
                         <div class="recommend"></div>
-                        <a href="#" class="show-modal" onclick="openChartModal()">나의 소비 돌아보기</a>
+                        <a href="#" class="show-modal" onclick="openChartModal()">나의 소비 확인</a>
                     </div>
                     <div class="selected-btn">
-
+                    <h2>선택한 차단 지역</h2>
                     </div>
 
                 </div>
