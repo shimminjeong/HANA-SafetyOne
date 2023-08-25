@@ -197,10 +197,10 @@
             <c:forEach items="${cards}" var="card" varStatus="loop">
                 <div class="card-box">
                     <div>
-                        <input type="checkbox" name="selectedCards" value="${card.card_id}">
+                        <input type="checkbox" name="selectedCards" value="${card.cardId}">
                     </div>
                     <div>본인</div>
-                    <div>${card.card_id}</div>
+                    <div>${card.cardId}</div>
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
                 </div>
             </c:forEach>
@@ -299,7 +299,7 @@
     }
 
 
-    function cancleCard(card_id) {
+    function cancleCard(cardId) {
         const selectedCards = document.querySelectorAll('input[name="selectedCards"]:checked');
         const selectedIds = Array.from(selectedCards).map(card => card.value).join(',');
         console.log("Selected card ID:", selectedIds); // cardId 출력

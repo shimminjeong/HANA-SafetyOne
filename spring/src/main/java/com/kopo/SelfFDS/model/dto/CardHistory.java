@@ -11,14 +11,16 @@ import java.util.Date;
 @Setter
 public class CardHistory {
 
-    private String card_id;
+    private String cardId;
     private String category;
-    private String region_name;
+    private String categoryBig;
+    private String categorySmall;
+    private String regionName;
     private String store;
-    private Date card_his_date;
+    private Date cardHisDate;
     private Date startDate;
     private Date endDate;
-    private String card_his_time;
+    private String cardHisTime;
     private int amount;
 
 //    statistic

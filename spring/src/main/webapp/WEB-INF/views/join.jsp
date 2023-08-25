@@ -28,8 +28,8 @@
         <input type="text" id="phone" name="phone">
     </div>
     <div>
-        <label for="sex">성별</label>
-        <input type="text" id="sex" name="sex">
+        <label for="gender">성별</label>
+        <input type="text" id="gender" name="gender">
     </div>
     <div>
         <label for="address">주소</label>

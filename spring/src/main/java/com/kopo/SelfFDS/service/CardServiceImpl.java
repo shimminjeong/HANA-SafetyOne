@@ -34,8 +34,8 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public Card selectCardOfCardId(String card_id) {
-        return cardMapper.selectCardOfCardId(card_id);
+    public Card selectCardOfCardId(String cardId) {
+        return cardMapper.selectCardOfCardId(cardId);
     }
 
     @Override

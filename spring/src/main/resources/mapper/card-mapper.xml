@@ -15,8 +15,8 @@
         SELECT
             *
         FROM card
-        where CARD_ID = #{cardId}
-          and CARD_PASSWORD = #{cardPassword}
+        where cardId = #{cardId}
+          and cardPassword = #{cardPassword}
     </select>
 
     <select id="selectCardOfEmail" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.Card">
@@ -28,13 +28,13 @@
     <select id="selectCardOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.Card">
         SELECT *
         FROM card
-        where CARD_ID = #{card_id}
+        where cardId = #{cardId}
     </select>
 
     <update id="updateSelfFdsStatus" parameterType="com.kopo.SelfFDS.model.dto.Card">
         UPDATE card
-        SET SELFFDS_SER_STATUS = #{selffds_ser_status}
-        WHERE CARD_ID = #{card_id}
+        SET SELFfdsSerStatus = #{selffdsSerStatus}
+        WHERE cardId = #{cardId}
     </update>
 
 

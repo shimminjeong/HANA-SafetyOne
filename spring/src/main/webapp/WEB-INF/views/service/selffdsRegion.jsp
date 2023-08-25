@@ -179,7 +179,7 @@
         <script>
 
             $(document).ready(function () {
-                let region_nameList = [];
+                let regionNameList = [];
                 let region_cntList = [];
                 let amount_sumList = [];
                 $.ajax({
@@ -188,7 +188,7 @@
                     success: function (data) {
                         // 데이터 가공
                         for (let i = 0; i < data.length; i++) {
-                            region_nameList.push(data[i].region_name)
+                            regionNameList.push(data[i].regionName)
                             region_cntList.push(data[i].region_cnt)
                             amount_sumList.push(data[i].amount_sum)
                         }
@@ -198,7 +198,7 @@
                         new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: region_nameList,
+                                labels: regionNameList,
                                 datasets: [{
                                     label: 'Amount Count',
                                     data: region_cntList,
@@ -238,7 +238,7 @@
             .then(data => {
                 const recommendElements = document.querySelector('.recommend');
                 for (let i = 1; i < 4; i++) {
-                    const regionName = data[data.length - i].region_name;
+                    const regionName = data[data.length - i].regionName;
                     const pTag = document.createElement('p');
                     pTag.textContent = regionName;
                     recommendElements.appendChild(pTag);

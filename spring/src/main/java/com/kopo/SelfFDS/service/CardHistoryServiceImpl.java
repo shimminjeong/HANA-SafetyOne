@@ -16,23 +16,23 @@ public class CardHistoryServiceImpl implements CardHistoryService{
         this.cardHistoryMapper=cardHistoryMapper;
     }
     @Override
-    public List<CardHistory> selectAllOfCardId(String card_id) {
-        return cardHistoryMapper.selectAllOfCardId(card_id);
+    public List<CardHistory> selectAllOfCardId(String cardId) {
+        return cardHistoryMapper.selectAllOfCardId(cardId);
     }
 
     @Override
-    public List<CardHistory> selectCountRegionOfCardId(String card_id) {
-        return cardHistoryMapper.selectCountRegionOfCardId(card_id);
+    public List<CardHistory> selectCountRegionOfCardId(String cardId) {
+        return cardHistoryMapper.selectCountRegionOfCardId(cardId);
     }
 
     @Override
-    public List<CardHistory> selectCountCategoryOfCardId(String card_id) {
-        return cardHistoryMapper.selectCountCategoryOfCardId(card_id);
+    public List<CardHistory> selectCountCategoryOfCardId(String cardId) {
+        return cardHistoryMapper.selectCountCategoryOfCardId(cardId);
     }
 
     @Override
-    public List<CardHistory> selectCountTimeOfCardId(String card_id) {
-        return cardHistoryMapper.selectCountTimeOfCardId(card_id);
+    public List<CardHistory> selectCountTimeOfCardId(String cardId) {
+        return cardHistoryMapper.selectCountTimeOfCardId(cardId);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CardHistoryServiceImpl implements CardHistoryService{
     }
 
     @Override
-    public List<CardHistory> selectAllCardHistoryOfCardId(String card_id) {
-        return cardHistoryMapper.selectAllCardHistoryOfCardId(card_id);
+    public List<CardHistory> selectAllCardHistoryOfCardId(String cardId) {
+        return cardHistoryMapper.selectAllCardHistoryOfCardId(cardId);
     }
 }

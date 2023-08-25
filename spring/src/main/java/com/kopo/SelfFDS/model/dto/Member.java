@@ -15,10 +15,12 @@ public class Member {
     private String name;
     private String password;
     private String phone;
-    private String sex;
+    private String gender;
     private String address;
     private String identityNum;
-    private Date registerDate;
+    private int age;
+    private Date regDate;
+    private String authority;
     public Member() {
     }
 

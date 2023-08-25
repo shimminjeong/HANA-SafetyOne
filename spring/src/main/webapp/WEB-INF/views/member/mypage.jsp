@@ -60,7 +60,7 @@
     }
 
     /* Caption text */
-    .cardId {
+    .cardIdtext {
         font-size: 15px;
         padding: 20px 12px;
         text-align: center;
@@ -152,13 +152,16 @@
         <a href="#">안심카드설정</a>
         <a href="#">나의소비현황</a>
     </div>
+<%--    <c:forEach items="${cards}" var="card">--%>
+<%--        ${card.cardId}--%>
+<%--    </c:forEach>--%>
     <div class="sub-container">
         <div class="who" style="font-size: 25px; margin-top:30px">${member.name}님의 카드정보</div>
         <div class="slideshow-container">
             <c:forEach items="${cards}" var="card" varStatus="loop">
                 <div class="mySlides fade">
                     <img src="../../resources/img/cardImg${loop.index + 1}.png" style="width:100%">
-                    <div class="cardId">${card.card_id}</div>
+                    <div class="cardIdtext">${card.cardId}</div>
                 </div>
             </c:forEach>
             <!-- Next and previous buttons -->
@@ -233,9 +236,10 @@
         slides[slideIndex - 1].style.display = "block";
 
         let currentSlide = slides[slideIndex - 1];
-        let currentCardId = currentSlide.querySelector(".cardId").textContent;
+        let currentCardId = currentSlide.querySelector(".cardIdtext").textContent;
 
         sendCardIdToServer(currentCardId);
+        console.log(currentCardId)
 
     }
 
@@ -244,15 +248,15 @@
         $.ajax({
             type: "POST",
             url: "/cardinfo",
-            data: JSON.stringify({card_id: cardId}),
+            data: JSON.stringify({cardId: cardId}),
             contentType: 'application/json',
-            success: function (response) {
+            success: function (data) {
                 // 서버에서 받은 카드 히스토리 정보를 테이블에 추가
                 var tableBody = $("#cardHistoryTable tbody");
                 tableBody.empty(); // 기존 내용 삭제
 
-                response.forEach(function (history) {
-                    var row = "<tr><td>" + history.card_id + "</td><td>" + history.category + "</td><td>" + history.store + "</td><td>" + history.card_his_date + "</td><td>" + history.card_his_time + "</td><td>" + history.amount + "</td></tr>";
+                data.forEach(function (history) {
+                    var row = "<tr><td>" + history.cardId + "<td>" + history.categoryBig + "</td><td>" + history.store + "</td><td>" + history.cardHisDate + "</td><td>" + history.cardHisTime + "</td><td>" + history.amount + "</td></tr>";
                     tableBody.append(row);
                 });
             },

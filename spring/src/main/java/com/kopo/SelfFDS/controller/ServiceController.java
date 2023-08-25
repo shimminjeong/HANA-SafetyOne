@@ -59,9 +59,9 @@ public class ServiceController {
         Card updateCard = cardService.selectCardOfCardId(cardId);
         HttpSession session = request.getSession();
 
-        if (updateCard.getSelffds_ser_status().equals("N")) {
-            updateCard.setSelffds_ser_status("Y");
-            session.setAttribute("card_id", cardId);
+        if (updateCard.getSelffdsSerStatus().equals("N")) {
+            updateCard.setSelffdsSerStatus("Y");
+            session.setAttribute("cardId", cardId);
             cardService.updateSelfFdsStatus(updateCard);
             return "selffds 서비스 신청 성공";
         } else {
@@ -73,8 +73,8 @@ public class ServiceController {
     @ResponseBody
     public String cancleCard(@RequestBody String cardId) {
         Card updateCard = cardService.selectCardOfCardId(cardId);
-        if (updateCard.getSelffds_ser_status().equals("Y")) {
-            updateCard.setSelffds_ser_status("N");
+        if (updateCard.getSelffdsSerStatus().equals("Y")) {
+            updateCard.setSelffdsSerStatus("N");
             cardService.updateSelfFdsStatus(updateCard);
             return "selffds 서비스 해제 성공";
         } else {

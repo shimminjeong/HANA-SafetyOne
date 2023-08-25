@@ -155,9 +155,11 @@ public class WebController {
     public ModelAndView mypage(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
-        System.out.println("email "+email);
         Member memberInfo = memberService.selectNameOfMember(email);
         List<Card> cardInfo = cardService.selectCardOfEmail(email);
+        System.out.println(cardInfo.get(0).getCardId());
+        System.out.println(cardInfo.get(1).getCardId());
+        System.out.println(cardInfo.get(2).getCardId());
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("member",memberInfo);
@@ -167,12 +169,15 @@ public class WebController {
         return mav;
     }
 
-    @PostMapping("/cardinfo")
+    @GetMapping("/cardinfo")
     @ResponseBody
     public ResponseEntity<List<CardHistory>> postCardInfo(@RequestBody CardHistory cardHistory) {
-        System.out.println("Received cardId: " + cardHistory.getCard_id());
+        System.out.println("Received cardId: " + cardHistory.getCardId());
 
-        List<CardHistory> cardHistoryServiceList=cardHistoryService.selectAllCardHistoryOfCardId(cardHistory.getCard_id());
+        List<CardHistory> cardHistoryServiceList=cardHistoryService.selectAllCardHistoryOfCardId(cardHistory.getCardId());
+        System.out.println(cardHistoryServiceList.get(0).getCardId());
+        System.out.println(cardHistoryServiceList.get(0).getAmount());
+        System.out.println(cardHistoryServiceList.get(0).getCategoryBig());
         if (!cardHistoryServiceList.isEmpty()) {
             return ResponseEntity.ok(cardHistoryServiceList);
         } else {

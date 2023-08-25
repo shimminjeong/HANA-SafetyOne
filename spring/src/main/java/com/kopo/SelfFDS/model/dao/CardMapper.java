@@ -13,7 +13,7 @@ public interface CardMapper {
     List<Card> selectCardOfEmail(String email);
     Card paymentCard(HashMap<String, String> paymentCardData);
 
-    Card selectCardOfCardId(String card_id);
+    Card selectCardOfCardId(String cardId);
 
     void updateSelfFdsStatus(Card card);
 

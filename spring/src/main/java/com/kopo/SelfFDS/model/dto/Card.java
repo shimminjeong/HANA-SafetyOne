@@ -11,14 +11,14 @@ import java.util.Date;
 @Setter
 public class Card {
     private int c_id;
-    private String card_id;
+    private String cardId;
     private String email;
-    private String card_cvc;
-    private String card_password;
-    private Date card_reg_date;
-    private String amount_limit;
-    private String fds_ser_status;
-    private String selffds_ser_status;
+    private String cardCvc;
+    private String cardPassword;
+    private Date cardRegDate;
+    private String amountLimit;
+    private String fdsSerStatus;
+    private String selffdsSerStatus;
     public Card() {
     }
 

@@ -32,8 +32,8 @@ public class ChartController {
     public ResponseEntity<List<CardHistory>> regionServiceChart(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        String card_id = (String) session.getAttribute("card_id");
-        List<CardHistory> resultList = cardHistoryService.selectCountRegionOfCardId(card_id);
+        String cardId = (String) session.getAttribute("cardId");
+        List<CardHistory> resultList = cardHistoryService.selectCountRegionOfCardId(cardId);
 
         if (!resultList.isEmpty()) {
             return ResponseEntity.ok(resultList);

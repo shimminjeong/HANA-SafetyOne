@@ -27,8 +27,8 @@
 
 
     <insert id="insertMember" parameterType="com.kopo.SelfFDS.model.dto.Member">
-        INSERT INTO MEMBER (EMAIL, NAME, PASSWORD, PHONE,SEX,ADDRESS,IDENTITY_NM)
-        VALUES (#{email}, #{name},#{password}, #{phone},#{sex},#{address},#{identityNum})
+        INSERT INTO MEMBER (EMAIL, NAME, PASSWORD, PHONE,gender,ADDRESS,IDENTITYNUM)
+        VALUES (#{email}, #{name},#{password}, #{phone},#{gender},#{address},#{identityNum})
     </insert>
 
     <update id="updateMember" parameterType="com.kopo.SelfFDS.model.dto.Member">

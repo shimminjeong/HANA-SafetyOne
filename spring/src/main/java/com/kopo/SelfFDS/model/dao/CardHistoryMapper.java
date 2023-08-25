@@ -9,13 +9,13 @@ import java.util.List;
 @Mapper
 public interface CardHistoryMapper {
 
-    List<CardHistory> selectAllOfCardId(String card_id);
+    List<CardHistory> selectAllOfCardId(String cardId);
 
-    List<CardHistory> selectCountRegionOfCardId(String card_id);
+    List<CardHistory> selectCountRegionOfCardId(String cardId);
 
-    List<CardHistory> selectCountCategoryOfCardId(String card_id);
+    List<CardHistory> selectCountCategoryOfCardId(String cardId);
 
-    List<CardHistory> selectCountTimeOfCardId(String card_id);
+    List<CardHistory> selectCountTimeOfCardId(String cardId);
 
     List<String> selectAllRegionName();
 
@@ -23,8 +23,8 @@ public interface CardHistoryMapper {
 
     List<CardHistory> selectSmallCategoryOfBigCategory(String category_big);
 
-//    List<CardHistory> selectManyCategoryLatestMonthOfCardID(String card_id);
+//    List<CardHistory> selectManyCategoryLatestMonthOfCardID(String cardId);
 
-    List<CardHistory> selectAllCardHistoryOfCardId(String card_id);
+    List<CardHistory> selectAllCardHistoryOfCardId(String cardId);
 
 }
