@@ -2,16 +2,16 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kopo.SelfFDS.model.dao.CardMapper">
+<mapper namespace="com.kopo.SelfFDS.cardService.model.dao.CardMapper">
     <!-- 카드 전체 조회 -->
-    <select id="getAllCard" parameterType="com.kopo.SelfFDS.model.dto.Card"
-            resultType="com.kopo.SelfFDS.model.dto.Card">
+    <select id="getAllCard" parameterType="com.kopo.SelfFDS.cardService.model.dto.Card"
+            resultType="com.kopo.SelfFDS.cardService.model.dto.Card">
         SELECT *
         FROM card
     </select>
 
     <!-- 결제카드 & 비밀번호 -->
-    <select id="selectPaymentCard" parameterType="HashMap" resultType="com.kopo.SelfFDS.model.dto.Card">
+    <select id="selectPaymentCard" parameterType="HashMap" resultType="com.kopo.SelfFDS.cardService.model.dto.Card">
         SELECT
             *
         FROM card
@@ -19,19 +19,19 @@
           and cardPassword = #{cardPassword}
     </select>
 
-    <select id="selectCardOfEmail" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.Card">
+    <select id="selectCardOfEmail" parameterType="String" resultType="com.kopo.SelfFDS.cardService.model.dto.Card">
         SELECT *
         FROM card
         where EMAIL = #{email}
     </select>
 
-    <select id="selectCardOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.Card">
+    <select id="selectCardOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.cardService.model.dto.Card">
         SELECT *
         FROM card
         where cardId = #{cardId}
     </select>
 
-    <update id="updateSelfFdsStatus" parameterType="com.kopo.SelfFDS.model.dto.Card">
+    <update id="updateSelfFdsStatus" parameterType="com.kopo.SelfFDS.cardService.model.dto.Card">
         UPDATE card
         SET SELFfdsSerStatus = #{selffdsSerStatus}
         WHERE cardId = #{cardId}

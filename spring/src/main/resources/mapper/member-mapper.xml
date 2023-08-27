@@ -2,16 +2,16 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kopo.SelfFDS.model.dao.MemberMapper">
+<mapper namespace="com.kopo.SelfFDS.member.model.dao.MemberMapper">
     <!-- 회원 전체 조회 -->
-    <select id="getAllMember" parameterType="com.kopo.SelfFDS.model.dto.Member"
-            resultType="com.kopo.SelfFDS.model.dto.Member">
+    <select id="getAllMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member"
+            resultType="com.kopo.SelfFDS.member.model.dto.Member">
         SELECT *
         FROM member
     </select>
 
     <!-- 로그인 -->
-    <select id="loginMember" parameterType="HashMap" resultType="com.kopo.SelfFDS.model.dto.Member">
+    <select id="loginMember" parameterType="HashMap" resultType="com.kopo.SelfFDS.member.model.dto.Member">
         SELECT
             *
         FROM member
@@ -19,19 +19,19 @@
           and PASSWORD = #{password}
     </select>
 
-    <select id="selectNameOfMember" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.Member">
+    <select id="selectNameOfMember" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.Member">
         SELECT *
         FROM member
         where EMAIL = #{email}
     </select>
 
 
-    <insert id="insertMember" parameterType="com.kopo.SelfFDS.model.dto.Member">
+    <insert id="insertMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
         INSERT INTO MEMBER (EMAIL, NAME, PASSWORD, PHONE,gender,ADDRESS,IDENTITYNUM)
         VALUES (#{email}, #{name},#{password}, #{phone},#{gender},#{address},#{identityNum})
     </insert>
 
-    <update id="updateMember" parameterType="com.kopo.SelfFDS.model.dto.Member">
+    <update id="updateMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
         UPDATE member
         SET password = #{password}, name = #{name}, phone = #{phone}
         WHERE EMAIL = #{email}

@@ -2,14 +2,11 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kopo.SelfFDS.model.dao.CardHistoryMapper">
+<mapper namespace="com.kopo.SelfFDS.chart.model.dao.CardHistoryMapper">
     <!-- 카드 전체 조회 -->
-    <select id="selectAllOfCardId" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
-        SELECT *
-        FROM CARDHISTORY
-    </select>
 
-    <select id="selectAllCardHistoryOfCardId" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+
+    <select id="selectAllCardHistoryOfCardId" resultType="com.kopo.SelfFDS.chart.model.dto.CardHistory">
         SELECT *
         FROM CARDHISTORY
         WHERE cardId=#{cardId}
@@ -17,18 +14,18 @@
 
 
     <!-- 카드별 지역통계 -->
-    <select id="selectCountRegionOfCardId" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+    <select id="selectCountRegionOfCardId" resultType="com.kopo.SelfFDS.chart.model.dto.CardHistory">
         SELECT regionName, COUNT(*) AS region_cnt, SUM(AMOUNT) AS amount_sum
         FROM CARDHISTORY
         WHERE cardId = #{cardId}
-        <if test="startDate != null and endDate != null">
-            AND cardHisDate BETWEEN TO_DATE(#{startDate, jdbcType=DATE}, 'YYYY-MM-DD') AND TO_DATE(#{endDate, jdbcType=DATE}, 'YYYY-MM-DD')
-        </if>
+<!--        <if test="startDate != null and endDate != null">-->
+<!--            AND cardHisDate BETWEEN TO_DATE(#{startDate, jdbcType=DATE}, 'YYYY-MM-DD') AND TO_DATE(#{endDate, jdbcType=DATE}, 'YYYY-MM-DD')-->
+<!--        </if>-->
         GROUP BY regionName
     </select>
 
     <!-- 카드별 업종통계 -->
-    <select id="selectCountCategoryOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+    <select id="selectCountCategoryOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.chart.model.dto.CardHistory">
         SELECT CATEGORY, COUNT(*) AS CATEGORY_CNT, SUM(AMOUNT) AS amount_sum
         FROM CARDHISTORY
         WHERE cardId = #{cardId}
@@ -36,32 +33,14 @@
     </select>
 
     <!-- 카드별 거래시간통계 -->
-    <select id="selectCountTimeOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
+    <select id="selectCountTimeOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.chart.model.dto.CardHistory">
         SELECT cardHisTime, COUNT(*) AS time_CNT, SUM(AMOUNT) AS amount_sum
         FROM CARDHISTORY
         WHERE cardId = #{cardId}
         GROUP BY cardHisTime
     </select>
 
-    <!--    지역이름 가져오기-->
-    <select id="selectAllRegionName" resultType="String">
-        SELECT regionName
-        FROM REGION
-        ORDER BY REGIONCODE
-    </select>
 
-    <!--    업종이름 가져오기-->
-    <select id="selectAllBigCategory" resultType="String">
-        SELECT CATEGORY_BIG FROM CATEGORY
-        GROUP BY CATEGORY_BIG
-    </select>
-
-<!--    업종 대분류로 소분류 가져오기-->
-    <select id="selectSmallCategoryOfBigCategory" resultType="com.kopo.SelfFDS.model.dto.CardHistory">
-        SELECT *
-        FROM CATEGORY
-        WHERE CATEGORY_BIG = #{category_big}
-    </select>
 
 <!--    <select id="selectManyCategoryLatestMonthOfCardID" resultType="com.kopo.SelfFDS.model.dto.CardHistory">-->
 <!--        SELECT category, COUNT(*) AS CATEGORY_CNT-->

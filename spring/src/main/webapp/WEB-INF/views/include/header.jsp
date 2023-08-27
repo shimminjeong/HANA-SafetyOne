@@ -30,7 +30,7 @@
     </div>
     <nav>
         <div class="navbar">
-            <a href="/service/selffds">안심카드설정</a>
+            <a href="/safetyCard/">안심카드설정</a>
 
             <%--            <a href="/service/fds">FDS</a>--%>
 

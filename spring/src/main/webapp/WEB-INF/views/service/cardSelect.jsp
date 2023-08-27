@@ -231,15 +231,15 @@
                 <%--                </div>--%>
 
                 <div class="modal-grid">
-                    <div class="select-content" onclick="window.location.href='/service/selffdsRegion';">
+                    <div class="select-content" onclick="window.location.href='/safetyCard/region';">
                         <img class="img-select" src="../../resources/img/location.png" height="60">
                         <div>위치</div>
                     </div>
-                    <div class="select-content" onclick="window.location.href='/service/selffdsCategory';">
+                    <div class="select-content" onclick="window.location.href='/safetyCard/category';">
                         <img class="img-select" src="../../resources/img/optionslines.png" height="60">
                         <div>업종</div>
                     </div>
-                    <div class="select-content" onclick="window.location.href='/service/selffdsTime';">
+                    <div class="select-content" onclick="window.location.href='/safetyCard/time';">
                         <img class="img-select" src="../../resources/img/clock.png" height="60">
                         <div>시간</div>
                     </div>
@@ -278,7 +278,7 @@
 
         console.log("Selected card ID:", selectedIds); // cardId 출력
         $.ajax({
-            url: '/service/registerCard',
+            url: '/safetyCard/registerCard',
             type: 'POST',
             data: selectedIds,
             contentType: 'application/json',
@@ -304,7 +304,7 @@
         const selectedIds = Array.from(selectedCards).map(card => card.value).join(',');
         console.log("Selected card ID:", selectedIds); // cardId 출력
         $.ajax({
-            url: '/service/cancleCard',
+            url: '/safetyCard/cancleCard',
             type: 'POST',
             data: selectedIds,
             contentType: 'application/json',

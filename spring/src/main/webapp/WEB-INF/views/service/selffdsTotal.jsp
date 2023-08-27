@@ -166,9 +166,9 @@
 
     <div class="setting-container">
         <div class="setting-nav">
-            <a href="/service/selffdsRegion">지역설정</a>
-            <a href="/service/selffdsCategory">업종설정</a>
-            <a href="/service/selffdsTime">시간설정</a>
+            <a href="/service/region">지역설정</a>
+            <a href="/service/category">업종설정</a>
+            <a href="/service/time">시간설정</a>
             <a href="/service/selffdsTotal" style="color: #00857F">통합설정</a>
         </div>
         <div class="setting-form">
@@ -217,7 +217,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <c:forEach var="category" items="${entry.value}">
                                                 <a class="dropdown-item"
-                                                   onclick="selectCategory('${category.category_small}')">${category.category_small}</a>
+                                                   onclick="selectCategory('${category.categorySmall}')">${category.categorySmall}</a>
                                             </c:forEach>
                                         </div>
                                     </div>
