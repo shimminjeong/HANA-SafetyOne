@@ -1,7 +1,7 @@
-package com.kopo.SelfFDS.chart.controller;
+package com.kopo.SelfFDS.member.controller;
 
-import com.kopo.SelfFDS.chart.model.dto.CardHistory;
-import com.kopo.SelfFDS.chart.service.CardHistoryService;
+import com.kopo.SelfFDS.member.model.dto.CardHistory;
+import com.kopo.SelfFDS.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,11 +16,11 @@ import java.util.List;
 @RequestMapping("/chart")
 public class ChartController {
 
-    private final CardHistoryService cardHistoryService;
+    private final MemberService memberService;
 
     @Autowired
-    public ChartController(CardHistoryService cardHistoryService) {
-        this.cardHistoryService = cardHistoryService;
+    public ChartController(MemberService memberService) {
+        this.memberService = memberService;
     }
 
     @GetMapping ("/regionServiceChart")
@@ -28,7 +28,7 @@ public class ChartController {
         HttpSession session = request.getSession();
 
         String cardId = (String) session.getAttribute("cardId");
-        List<CardHistory> resultList = cardHistoryService.selectCountRegionOfCardId(cardId);
+        List<CardHistory> resultList = memberService.selectCountRegionOfCardId(cardId);
 
         if (!resultList.isEmpty()) {
             return ResponseEntity.ok(resultList);

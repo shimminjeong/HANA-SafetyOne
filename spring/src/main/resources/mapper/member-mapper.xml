@@ -41,5 +41,101 @@
         DELETE FROM member WHERE EMAIL = #{email}
     </delete>
 
+
+
+<!--    card-->
+    <!-- 카드 전체 조회 -->
+    <select id="getAllCard" parameterType="com.kopo.SelfFDS.member.model.dto.Card"
+            resultType="com.kopo.SelfFDS.member.model.dto.Card">
+        SELECT *
+        FROM card
+    </select>
+
+    <!-- 결제카드 & 비밀번호 -->
+    <select id="selectPaymentCard" parameterType="HashMap" resultType="com.kopo.SelfFDS.member.model.dto.Card">
+        SELECT
+            *
+        FROM card
+        where cardId = #{cardId}
+          and cardPassword = #{cardPassword}
+    </select>
+
+    <select id="selectCardOfEmail" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.Card">
+        SELECT *
+        FROM card
+        where EMAIL = #{email}
+    </select>
+
+    <select id="selectCardOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.Card">
+        SELECT *
+        FROM card
+        where cardId = #{cardId}
+    </select>
+
+    <update id="updateSelfFdsStatus" parameterType="com.kopo.SelfFDS.member.model.dto.Card">
+        UPDATE card
+        SET SELFfdsSerStatus = #{selffdsSerStatus}
+        WHERE cardId = #{cardId}
+    </update>
+
+
+<!--safetycard    -->
+    <!--    지역이름 가져오기-->
+    <select id="selectAllRegionName" resultType="String">
+        SELECT regionName
+        FROM REGION
+        ORDER BY REGIONCODE
+    </select>
+
+    <!--    업종이름 가져오기-->
+    <select id="selectAllBigCategory" resultType="String">
+        SELECT CATEGORYBIG FROM CATEGORY
+        GROUP BY CATEGORYBIG
+    </select>
+
+    <!--    업종 대분류로 소분류 가져오기-->
+    <select id="selectSmallCategoryOfBigCategory" resultType="com.kopo.SelfFDS.member.model.dto.SafetyRegister">
+        SELECT *
+        FROM CATEGORY
+        WHERE CATEGORYBIG = #{categoryBig}
+    </select>
+
+
+
+<!--    cardhistory-->
+    <select id="selectAllCardHistoryOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT *
+        FROM CARDHISTORY
+        WHERE cardId=#{cardId}
+    </select>
+
+
+    <!-- 카드별 지역통계 -->
+    <select id="selectCountRegionOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT regionName, COUNT(*) AS region_cnt, SUM(AMOUNT) AS amount_sum
+        FROM CARDHISTORY
+        WHERE cardId = #{cardId}
+        <!--        <if test="startDate != null and endDate != null">-->
+        <!--            AND cardHisDate BETWEEN TO_DATE(#{startDate, jdbcType=DATE}, 'YYYY-MM-DD') AND TO_DATE(#{endDate, jdbcType=DATE}, 'YYYY-MM-DD')-->
+        <!--        </if>-->
+        GROUP BY regionName
+    </select>
+
+    <!-- 카드별 업종통계 -->
+    <select id="selectCountCategoryOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT CATEGORY, COUNT(*) AS CATEGORY_CNT, SUM(AMOUNT) AS amount_sum
+        FROM CARDHISTORY
+        WHERE cardId = #{cardId}
+        GROUP BY CATEGORYBIG
+    </select>
+
+    <!-- 카드별 거래시간통계 -->
+    <select id="selectCountTimeOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT cardHisTime, COUNT(*) AS time_CNT, SUM(AMOUNT) AS amount_sum
+        FROM CARDHISTORY
+        WHERE cardId = #{cardId}
+        GROUP BY cardHisTime
+    </select>
+
 </mapper>
 

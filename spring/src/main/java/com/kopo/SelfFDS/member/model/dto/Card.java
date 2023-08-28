@@ -1,4 +1,4 @@
-package com.kopo.SelfFDS.cardService.model.dto;
+package com.kopo.SelfFDS.member.model.dto;
 
 import lombok.Data;
 import lombok.Getter;

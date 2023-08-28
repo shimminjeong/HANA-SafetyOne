@@ -1,10 +1,8 @@
 package com.kopo.SelfFDS.member.controller;
 
-import com.kopo.SelfFDS.cardService.model.dto.Card;
-import com.kopo.SelfFDS.chart.model.dto.CardHistory;
-import com.kopo.SelfFDS.chart.service.CardHistoryService;
+import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.Member;
-import com.kopo.SelfFDS.cardService.service.CardService;
+import com.kopo.SelfFDS.member.model.dto.Card;
 import com.kopo.SelfFDS.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,15 +20,10 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final CardService cardService;
-
-    private final CardHistoryService cardHistoryService;
 
     @Autowired
-    public MemberController(MemberService memberService, CardService cardService, CardHistoryService cardHistoryService) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
-        this.cardService = cardService;
-        this.cardHistoryService = cardHistoryService;
     }
 
 
@@ -66,7 +59,6 @@ public class MemberController {
     }
 
 
-
     @RequestMapping("/update")
     public ModelAndView update(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -84,7 +76,7 @@ public class MemberController {
     public String modifyMember(@RequestBody Member member) {
         try {
             System.out.println("Received memberId: " + member.getEmail());
-            Member updatemember=memberService.selectNameOfMember(member.getEmail());
+            Member updatemember = memberService.selectNameOfMember(member.getEmail());
             updatemember.setName(member.getName());
             updatemember.setPassword(member.getPassword());
             updatemember.setPhone(member.getPhone());
@@ -152,7 +144,7 @@ public class MemberController {
     public ModelAndView mypage(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
-        List<Card> cardInfo = cardService.selectCardOfEmail(email);
+        List<Card> cardInfo = memberService.selectCardOfEmail(email);
         System.out.println(cardInfo.get(0).getCardId());
         System.out.println(cardInfo.get(1).getCardId());
         System.out.println(cardInfo.get(2).getCardId());
@@ -169,7 +161,7 @@ public class MemberController {
     public ResponseEntity<List<CardHistory>> postCardInfo(@RequestBody CardHistory cardHistory) {
         System.out.println("Received cardId: " + cardHistory.getCardId());
 
-        List<CardHistory> cardHistoryServiceList=cardHistoryService.selectAllCardHistoryOfCardId(cardHistory.getCardId());
+        List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardHistory.getCardId());
         System.out.println(cardHistoryServiceList.get(0).getCardId());
         System.out.println(cardHistoryServiceList.get(0).getAmount());
         System.out.println(cardHistoryServiceList.get(0).getCategoryBig());

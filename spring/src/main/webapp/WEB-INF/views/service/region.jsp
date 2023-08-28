@@ -170,8 +170,6 @@
 
                 </div>
             </div>
-<%--            <button class="okBtn"><a href="/service/category">다음</a></button>--%>
-
         </div>
     </div>
     <div id="myChartmodal">

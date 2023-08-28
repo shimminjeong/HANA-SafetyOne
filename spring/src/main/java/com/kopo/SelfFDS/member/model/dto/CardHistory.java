@@ -1,11 +1,11 @@
-package com.kopo.SelfFDS.chart.model.dto;
+package com.kopo.SelfFDS.member.model.dto;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
+
 @Data
 @Getter
 @Setter

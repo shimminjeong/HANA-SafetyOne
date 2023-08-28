@@ -175,10 +175,13 @@
     }
 
 
-
     .spancon {
         margin-bottom: 30px;
         margin-top: 15px;
+    }
+
+    .select-content.selected {
+        background-color: lightblue; /* 선택한 옵션의 배경색을 변경할 스타일 지정 */
     }
 
 
@@ -218,35 +221,23 @@
                 <span>안녕하세요</span>
                 <span class="spancon">차단할 항목을 선택하세요</span>
                 <span class="spancon">원하시는 조합을 엮어보세요</span>
-                <%--                <div class="venn-container">--%>
-                <%--        <span id="circle1" class="circle">--%>
-                <%--            <img class="img-select1" src="../../resources/img/category.png" alt="Option Lines">--%>
-                <%--        </span>--%>
-                <%--                    <span id="circle2" class="circle">--%>
-                <%--            <img class="img-select2" src="../../resources/img/region.png" alt="Location">--%>
-                <%--        </span>--%>
-                <%--                    <span id="circle3" class="circle">--%>
-                <%--            <img class="img-select3" src="../../resources/img/time.png" alt="Clock">--%>
-                <%--        </span>--%>
-                <%--                </div>--%>
-
                 <div class="modal-grid">
-                    <div class="select-content" onclick="window.location.href='/safetyCard/region';">
+                    <div class="select-content" id="region">
                         <img class="img-select" src="../../resources/img/location.png" height="60">
                         <div>위치</div>
                     </div>
-                    <div class="select-content" onclick="window.location.href='/safetyCard/category';">
+                    <div class="select-content" id="category">
                         <img class="img-select" src="../../resources/img/optionslines.png" height="60">
                         <div>업종</div>
                     </div>
-                    <div class="select-content" onclick="window.location.href='/safetyCard/time';">
+                    <div class="select-content" id="time">
                         <img class="img-select" src="../../resources/img/clock.png" height="60">
                         <div>시간</div>
                     </div>
                 </div>
+                <button class="setting-btn" onclick="selectSetting()">설정</button>
             </div>
             <button class="close-button" onclick="closeSelectModal()">&times;</button>
-
         </div>
     </div>
 </div>
@@ -254,9 +245,90 @@
 </body>
 <script>
 
+
+    function selectSetting() {
+        const selectedOptions = getSelectedOptions();
+
+        // 선택된 옵션들을 사용하여 URL 생성
+        let url = '/service/selffdsTotal';
+
+        if (selectedOptions.length > 0) {
+            url += `?${selectedOptions.join('&')}`;
+        }
+
+        // Redirect to selffdsTotal.jsp with selected preferences
+        console.log("url", url); // 콘솔에 출력해서 확인해보세요
+        // window.location.href = url;
+    }
+
+    function getSelectedOptions() {
+        const selectedOptions = [];
+        const optionElements = document.querySelectorAll('.select-content');
+        console.log("optionElements",optionElements)
+
+        optionElements.forEach(element => {
+            selectedOptions.push(element.id);
+        });
+
+        console.log("selectedOptions",selectedOptions)
+        return selectedOptions;
+    }
+
+
+    // 선택한 옵션을 토글하는 함수
+    function toggleSelect(element) {
+        element.classList.toggle('selected');
+    }
+
+    // select-content 요소에 이벤트 핸들러를 추가하여 클릭 시 toggleSelect 함수 호출
+    const selectContentElements = document.querySelectorAll('.select-content');
+    selectContentElements.forEach(element => {
+        element.addEventListener('click', function() {
+            toggleSelect(this);
+        });
+    });
+    // function selectSetting() {
+    // var selectedItems = [];
+    //
+    // // 모든 선택 항목을 가져옴
+    // var selectContents = document.querySelectorAll('.select-content');
+    //
+    // // 선택된 항목을 확인하고 selectedItems 배열에 추가
+    // for (var i = 0; i < selectContents.length; i++) {
+    // var selectContent = selectContents[i];
+    // if (selectContent.classList.contains('selected')) {
+    // selectedItems.push(selectContent.querySelector('div').textContent);
+    // }
+    // }
+    //
+    // showSelectedItems(selectedItems);
+    // }
+    //
+    // function showSelectedItems(items) {
+    // var newPageContent = document.createElement('div');
+    // for (var i = 0; i < items.length; i++) {
+    // var newItemDiv = document.createElement('div');
+    // newItemDiv.textContent = items[i];
+    // newPageContent.appendChild(newItemDiv);
+    // }
+    //
+    // var newPage = document.createElement('div');
+    // newPage.appendChild(newPageContent);
+    // document.body.innerHTML = '';
+    // document.body.appendChild(newPage);
+    // }
+    //
+    // var selectContents = document.querySelectorAll('.select-content');
+    // for (var i = 0; i < selectContents.length; i++) {
+    // selectContents[i].addEventListener('click', function(event) {
+    // event.currentTarget.classList.toggle('selected');
+    // });
+    // }
+
+
     function openSelectModal() {
-        // 모달 열기 코드를 여기에 작성합니다.
-        // 예시: 모달 엘리먼트를 선택하고 display 스타일을 변경하여 모달을 표시합니다.
+// 모달 열기 코드를 여기에 작성합니다.
+// 예시: 모달 엘리먼트를 선택하고 display 스타일을 변경하여 모달을 표시합니다.
         var successModal = document.getElementById("selectModal");
         if (successModal) {
             successModal.style.display = "block";
@@ -285,7 +357,7 @@
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "selffds 서비스 신청 성공") {
-                    // 모달 열기
+// 모달 열기
                     openSelectModal();
 
                 } else
@@ -313,7 +385,7 @@
                 if (response === "selffds 서비스 해제 성공") {
                     ajaxContent.textContent = "selffds 서비스가 해제되었습니다.";
                     ajaxContent.style.color = "green";
-                    // 페이지 옮기기
+// 페이지 옮기기
                 } else
 
                     ajaxContent.textContent = "이 카드는 해당 서비스 신청내역이 존재하지 않습니다.";

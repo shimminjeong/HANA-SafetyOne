@@ -154,9 +154,6 @@
                 <a>결제를 차단할 업종을 선택해주세요</a>
             </span>
             <div class="info-content">
-<%--                <div class="recommend">--%>
-<%--                    추천--%>
-<%--                </div>--%>
                 <div class="grid-container">
                     <c:set var="imgList"
                            value="${['restaurant.png', 'shopping-cart.png', 'butcher-shop.png', 'fashion.png', 'sports.png', 'world.png', 'cosmetics.png', 'laundry-shop.png', 'education.png', 'hospital.png', 'electronics.png', 'taxi.png', 'oilstation.png']}"/>

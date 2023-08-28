@@ -7,13 +7,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/payment")
 public class PaymentController {
 
- /*   private final CardService cardService;
-
-    @Autowired
-    public PaymentController(CardService cardService) {
-        this.cardService = cardService;
-    }*/
-
     @GetMapping("/paymentPage")
     public String paymentPage() {
         return "payment/paymentPage";
