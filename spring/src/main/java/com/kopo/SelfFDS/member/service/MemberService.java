@@ -37,7 +37,7 @@ public interface MemberService {
 
     List<CardHistory> selectCountRegionOfCardId(String cardId);
 
-    List<CardHistory> selectCountCategoryOfCardId(String cardId);
+    List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(String cardId,String categoryBig);
 
     List<CardHistory> selectCountTimeOfCardId(String cardId);
 

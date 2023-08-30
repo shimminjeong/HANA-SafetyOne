@@ -16,8 +16,8 @@
     input[type="checkbox"] {
         -webkit-appearance: none;
         appearance: none;
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         background-color: white;
         border: 2px solid #ccc;
         border-radius: 3px;
@@ -119,19 +119,27 @@
         font-size: 25px;
         cursor: pointer;
         border: none;
-        background-color: white;
+        background-color: #f8f8f8;
+    }
+
+    .setting-btn {
+
     }
 
     .modal-content {
-        background-color: white;
-        width: 400px;
-        height: 450px;
+        background-color: #f8f8f8; /* Slightly off-white for a softer appearance */
+        width: 450px;
+        height: 400px;
         padding: 20px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Box shadow for depth */
+        border-radius: 8px; /* Rounded corners */
+        font-size: 16px; /* Larger font size for readability */
+        font-weight: 400; /* Regular font weight */
     }
 
 
@@ -185,6 +193,26 @@
     }
 
 
+    .setting-btn {
+        width: 80px;
+        height: 40px;
+        background-color: #3498db; /* Vivid blue */
+        color: white; /* White text */
+        margin: 30px;
+        padding: 10px 15px; /* Padding for size */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        font-size: 16px; /* Font size */
+        font-weight: 600; /* Slightly bold font weight */
+        cursor: pointer; /* Hand cursor on hover */
+        transition: background-color 0.3s; /* Smooth background color transition */
+    }
+
+    .setting-btn:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+    }
+
+
 </style>
 
 <body>
@@ -220,20 +248,19 @@
             <div class="modal-message">
                 <span>안녕하세요</span>
                 <span class="spancon">차단할 항목을 선택하세요</span>
-                <span class="spancon">원하시는 조합을 엮어보세요</span>
                 <div class="modal-grid">
-                    <div class="select-content" id="region">
+                    <button class="select-content" id="region">
                         <img class="img-select" src="../../resources/img/location.png" height="60">
                         <div>위치</div>
-                    </div>
-                    <div class="select-content" id="category">
+                    </button>
+                    <button class="select-content" id="category">
                         <img class="img-select" src="../../resources/img/optionslines.png" height="60">
                         <div>업종</div>
-                    </div>
-                    <div class="select-content" id="time">
+                    </button>
+                    <button class="select-content" id="time">
                         <img class="img-select" src="../../resources/img/clock.png" height="60">
                         <div>시간</div>
-                    </div>
+                    </button>
                 </div>
                 <button class="setting-btn" onclick="selectSetting()">설정</button>
             </div>
@@ -245,102 +272,36 @@
 </body>
 <script>
 
+    const selectedButtons = [];
+    // 버튼 요소들을 가져옴
+    const button1 = document.getElementById("region");
+    const button2 = document.getElementById("category");
+    const button3 = document.getElementById("time");
+    // 클릭 이벤트 리스너를 추가
+    button1.addEventListener("click", () => handleButtonClick(button1));
+    button2.addEventListener("click", () => handleButtonClick(button2));
+    button3.addEventListener("click", () => handleButtonClick(button3));
+
+    function handleButtonClick(clickedButton) {
+
+        const buttonText = clickedButton.id;
+        const index = selectedButtons.indexOf(buttonText);
+
+        if (index === -1) {
+            selectedButtons.push(buttonText);
+            clickedButton.classList.add("selected");
+
+        } else {
+            selectedButtons.splice(index, 1);
+            clickedButton.classList.remove("selected");
+        }
+        console.log(selectedButtons);
+    }
 
     function selectSetting() {
-        const selectedOptions = getSelectedOptions();
 
-        // 선택된 옵션들을 사용하여 URL 생성
-        let url = '/service/selffdsTotal';
-
-        if (selectedOptions.length > 0) {
-            url += `?${selectedOptions.join('&')}`;
-        }
-
-        // Redirect to selffdsTotal.jsp with selected preferences
-        console.log("url", url); // 콘솔에 출력해서 확인해보세요
-        // window.location.href = url;
-    }
-
-    function getSelectedOptions() {
-        const selectedOptions = [];
-        const optionElements = document.querySelectorAll('.select-content');
-        console.log("optionElements",optionElements)
-
-        optionElements.forEach(element => {
-            selectedOptions.push(element.id);
-        });
-
-        console.log("selectedOptions",selectedOptions)
-        return selectedOptions;
-    }
-
-
-    // 선택한 옵션을 토글하는 함수
-    function toggleSelect(element) {
-        element.classList.toggle('selected');
-    }
-
-    // select-content 요소에 이벤트 핸들러를 추가하여 클릭 시 toggleSelect 함수 호출
-    const selectContentElements = document.querySelectorAll('.select-content');
-    selectContentElements.forEach(element => {
-        element.addEventListener('click', function() {
-            toggleSelect(this);
-        });
-    });
-    // function selectSetting() {
-    // var selectedItems = [];
-    //
-    // // 모든 선택 항목을 가져옴
-    // var selectContents = document.querySelectorAll('.select-content');
-    //
-    // // 선택된 항목을 확인하고 selectedItems 배열에 추가
-    // for (var i = 0; i < selectContents.length; i++) {
-    // var selectContent = selectContents[i];
-    // if (selectContent.classList.contains('selected')) {
-    // selectedItems.push(selectContent.querySelector('div').textContent);
-    // }
-    // }
-    //
-    // showSelectedItems(selectedItems);
-    // }
-    //
-    // function showSelectedItems(items) {
-    // var newPageContent = document.createElement('div');
-    // for (var i = 0; i < items.length; i++) {
-    // var newItemDiv = document.createElement('div');
-    // newItemDiv.textContent = items[i];
-    // newPageContent.appendChild(newItemDiv);
-    // }
-    //
-    // var newPage = document.createElement('div');
-    // newPage.appendChild(newPageContent);
-    // document.body.innerHTML = '';
-    // document.body.appendChild(newPage);
-    // }
-    //
-    // var selectContents = document.querySelectorAll('.select-content');
-    // for (var i = 0; i < selectContents.length; i++) {
-    // selectContents[i].addEventListener('click', function(event) {
-    // event.currentTarget.classList.toggle('selected');
-    // });
-    // }
-
-
-    function openSelectModal() {
-// 모달 열기 코드를 여기에 작성합니다.
-// 예시: 모달 엘리먼트를 선택하고 display 스타일을 변경하여 모달을 표시합니다.
-        var successModal = document.getElementById("selectModal");
-        if (successModal) {
-            successModal.style.display = "block";
-        }
-    }
-
-    // 모달 닫기 함수
-    function closeSelectModal() {
-        var successModal = document.getElementById("selectModal");
-        if (successModal) {
-            successModal.style.display = "none";
-        }
+        let url = '/safetyCard/selffdsTotal?selectedButtons=' + selectedButtons;
+        window.location.href = url;
     }
 
 
@@ -348,7 +309,7 @@
         const selectedCards = document.querySelectorAll('input[name="selectedCards"]:checked');
         const selectedIds = Array.from(selectedCards).map(card => card.value).join(',');
 
-        console.log("Selected card ID:", selectedIds); // cardId 출력
+        console.log("Selected card ID:", selectedIds);
         $.ajax({
             url: '/safetyCard/registerCard',
             type: 'POST',
@@ -357,15 +318,16 @@
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "selffds 서비스 신청 성공") {
-// 모달 열기
                     openSelectModal();
-
                 } else
                     ajaxContent.textContent = "이미 신청이 완료된 카드입니다.";
-                ajaxContent.style.color = "red";
-                selectedCards.forEach(card => {
-                    card.checked = false; // 이미 체크된 카드 체크 해제
-                });
+                    ajaxContent.style.color = "red";
+                    selectedCards.forEach(card => {
+                        card.checked = false; // 이미 체크된 카드 체크 해제
+
+                }
+            )
+                ;
             }
         });
     }
@@ -385,7 +347,6 @@
                 if (response === "selffds 서비스 해제 성공") {
                     ajaxContent.textContent = "selffds 서비스가 해제되었습니다.";
                     ajaxContent.style.color = "green";
-// 페이지 옮기기
                 } else
 
                     ajaxContent.textContent = "이 카드는 해당 서비스 신청내역이 존재하지 않습니다.";
@@ -395,6 +356,20 @@
                 });
             }
         });
+    }
+
+    function openSelectModal() {
+        var successModal = document.getElementById("selectModal");
+        if (successModal) {
+            successModal.style.display = "block";
+        }
+    }
+
+    function closeSelectModal() {
+        var successModal = document.getElementById("selectModal");
+        if (successModal) {
+            successModal.style.display = "none";
+        }
     }
 
 

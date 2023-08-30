@@ -117,31 +117,36 @@ public class CardServiceController {
     }
 
     @GetMapping("/selffdsTotal")
-    public ModelAndView selffdsTotalPage(@RequestParam(name = "selectedOptions", required = false) List<String> selectedOptions) {
+    public ModelAndView selffdsTotalPage(@RequestParam("selectedButtons") String selectedButtons) {
         ModelAndView mav = new ModelAndView();
-
-        System.out.println("selectedOptions"+selectedOptions);
+        System.out.println("selectedButtons : "+selectedButtons);
+        String[] buttonsArray = selectedButtons.split(",");
+        mav.addObject("selectArray", buttonsArray);
+        for(int i=0;i<buttonsArray.length;i++){
+            System.out.println(buttonsArray[i]);
+        }
         //region
         List<String> regionList = memberService.selectAllRegionName();
         mav.addObject("regionList", regionList);
-
         Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
 
         List<String> bigCategory = memberService.selectAllBigCategory();
+        System.out.println(bigCategory.get(0));
 
         for (String bigcategory : bigCategory) {
             List<SafetyRegister> smallCategoryList = memberService.selectSmallCategoryOfBigCategory(bigcategory);
             categoryMap.put(bigcategory, smallCategoryList);
         }
 
+        mav.addObject("categoryBigList",bigCategory);
         mav.addObject("categoryMap", categoryMap);
 
-        // Process selectedOptions as needed and pass them to the view
-        mav.addObject("selectedOptions", selectedOptions);
 
         mav.setViewName("service/selffdsTotal");
+        System.out.println("modelandview로 넘어감");
         return mav;
     }
+
 
 
 }

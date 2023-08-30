@@ -94,8 +94,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<CardHistory> selectCountCategoryOfCardId(String cardId) {
-        return memberMapper.selectCountCategoryOfCardId(cardId);
+    public List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(String cardId,String categoryBig) {
+        return memberMapper.selectCountSmallCategoryOfCardIdCategoryBig(cardId,categoryBig);
     }
 
     @Override

@@ -18,8 +18,11 @@ public class SafetyRegister {
     private String categoryMiddle;
     private String categorySmall;
 
+
+
     private String regionCode;
     private String regionName;
+
 
 
 }

@@ -14,24 +14,23 @@ public class CardHistory {
     private String cardId;
     private String regionName;
     private String store;
-    private Date cardHisDate;
-    private Date startDate;
-    private Date endDate;
-    private String cardHisTime;
+    private String cardHisDate;
+    private String startDate;
+    private String endDate;
+    private String time;
     private int amount;
+    private String categoryBig;
+    private String categorySmall;
+
 //    private List<CardHistory> cardHistoryList;
 //    statistic
 
-    private int region_cnt;
-    private int category_cnt;
-    private int time_cnt;
-    private int amount_sum;
-    private int amount_mean;
+    private int regionCnt;
+    private int categoryCnt;
+    private int timeCnt;
+    private int amountSum;
+    private int amountMean;
     private int history_cnt;
 
-    //    code entitiy
-    private String category;
-    private String categoryBig;
-    private String categoryMiddle;
-    private String categorySmall;
+
 }

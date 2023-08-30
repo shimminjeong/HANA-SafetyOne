@@ -112,29 +112,36 @@
 
     <!-- 카드별 지역통계 -->
     <select id="selectCountRegionOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        SELECT regionName, COUNT(*) AS region_cnt, SUM(AMOUNT) AS amount_sum
+        SELECT regionName, COUNT(*) AS regionCnt, SUM(AMOUNT) AS amountSum
         FROM CARDHISTORY
         WHERE cardId = #{cardId}
-        <!--        <if test="startDate != null and endDate != null">-->
-        <!--            AND cardHisDate BETWEEN TO_DATE(#{startDate, jdbcType=DATE}, 'YYYY-MM-DD') AND TO_DATE(#{endDate, jdbcType=DATE}, 'YYYY-MM-DD')-->
-        <!--        </if>-->
         GROUP BY regionName
     </select>
 
-    <!-- 카드별 업종통계 -->
+    <!-- 카드별 대분류 업종통계 -->
     <select id="selectCountCategoryOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        SELECT CATEGORY, COUNT(*) AS CATEGORY_CNT, SUM(AMOUNT) AS amount_sum
+        SELECT CATEGORYBIG, COUNT(*) AS categoryCnt, SUM(AMOUNT) AS amountSum
         FROM CARDHISTORY
-        WHERE cardId = #{cardId}
-        GROUP BY CATEGORYBIG
+        WHERE CARDID = #{cardId}
+        GROUP BY CATEGORYBIG;
+    </select>
+
+    <!-- 카드별 소분류 업종통계 -->
+    <select id="selectCountSmallCategoryOfCardIdCategoryBig" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT CATEGORYBIG, CATEGORYSMALL as categorySmall, COUNT(*) AS categoryCnt, SUM(AMOUNT) AS amountSum
+        FROM CARDHISTORY
+        WHERE CARDID = #{cardId}
+        GROUP BY CATEGORYBIG, CATEGORYSMALL
+        HAVING CATEGORYBIG=#{categoryBig}
     </select>
 
     <!-- 카드별 거래시간통계 -->
-    <select id="selectCountTimeOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        SELECT cardHisTime, COUNT(*) AS time_CNT, SUM(AMOUNT) AS amount_sum
+    <select id="selectCountTimeOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT SUBSTR(CARDHISTIME,1,2) AS TIME, COUNT(*) AS timeCnt, SUM(AMOUNT) AS amountSum
         FROM CARDHISTORY
-        WHERE cardId = #{cardId}
-        GROUP BY cardHisTime
+        WHERE CARDID = #{cardId}
+        GROUP BY SUBSTR(CARDHISTIME,1,2)
+        ORDER BY TIME
     </select>
 
 </mapper>

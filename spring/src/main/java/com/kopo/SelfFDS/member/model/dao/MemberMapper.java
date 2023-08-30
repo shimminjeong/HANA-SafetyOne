@@ -5,6 +5,7 @@ import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
 import com.kopo.SelfFDS.member.model.dto.Member;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +46,7 @@ public interface MemberMapper {
 //    cardhistory
     List<CardHistory> selectCountRegionOfCardId(String cardId);
 
-    List<CardHistory> selectCountCategoryOfCardId(String cardId);
+    List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(@Param("cardId") String cardId, @Param("categoryBig")String categoryBig);
 
     List<CardHistory> selectCountTimeOfCardId(String cardId);
 
