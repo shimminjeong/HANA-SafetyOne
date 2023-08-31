@@ -144,5 +144,11 @@
         ORDER BY TIME
     </select>
 
+
+    <select id="selectAllSafetyCardOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        select * from safetycard
+        WHERE CARDID = #{cardId}
+    </select>
+
 </mapper>
 

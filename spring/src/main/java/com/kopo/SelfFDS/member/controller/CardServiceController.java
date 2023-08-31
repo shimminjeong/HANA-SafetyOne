@@ -2,9 +2,12 @@ package com.kopo.SelfFDS.member.controller;
 
 
 import com.kopo.SelfFDS.member.model.dto.Card;
+import com.kopo.SelfFDS.member.model.dto.CardHistory;
+import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
 import com.kopo.SelfFDS.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -145,6 +148,54 @@ public class CardServiceController {
         mav.setViewName("service/selffdsTotal");
         System.out.println("modelandview로 넘어감");
         return mav;
+    }
+
+
+
+    @GetMapping("/safetySetting")
+    public ModelAndView safetySettingPage(@RequestParam("selectedButtons") String selectedButtons) {
+        ModelAndView mav = new ModelAndView();
+        System.out.println("selectedButtons : "+selectedButtons);
+        String[] buttonsArray = selectedButtons.split(",");
+        mav.addObject("selectArray", buttonsArray);
+        for(int i=0;i<buttonsArray.length;i++){
+            System.out.println(buttonsArray[i]);
+        }
+        //region
+        List<String> regionList = memberService.selectAllRegionName();
+        mav.addObject("regionList", regionList);
+        Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
+
+        List<String> bigCategory = memberService.selectAllBigCategory();
+        System.out.println(bigCategory.get(0));
+
+        for (String bigcategory : bigCategory) {
+            List<SafetyRegister> smallCategoryList = memberService.selectSmallCategoryOfBigCategory(bigcategory);
+            categoryMap.put(bigcategory, smallCategoryList);
+        }
+
+        mav.addObject("categoryBigList",bigCategory);
+        mav.addObject("categoryMap", categoryMap);
+
+
+        mav.setViewName("service/safetySetting");
+        System.out.println("modelandview로 넘어감");
+        return mav;
+    }
+
+    @PostMapping("/info")
+    @ResponseBody
+    public ResponseEntity<List<SafetyCard>> safetyInfo(@RequestBody SafetyCard safetyCard) {
+        System.out.println("safetyCard.getCardId()"+safetyCard.getCardId());
+        List<SafetyCard> resultList = memberService.selectAllSafetyCardOfCardId(safetyCard.getCardId());
+        System.out.println(resultList.get(0).getSafetyStartDate());
+        System.out.println(resultList.get(0).getCardId());
+
+        if (!resultList.isEmpty()) {
+            return ResponseEntity.ok(resultList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

@@ -1,9 +1,6 @@
 package com.kopo.SelfFDS.member.service;
 
-import com.kopo.SelfFDS.member.model.dto.Card;
-import com.kopo.SelfFDS.member.model.dto.CardHistory;
-import com.kopo.SelfFDS.member.model.dto.Member;
-import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
+import com.kopo.SelfFDS.member.model.dto.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,4 +40,6 @@ public interface MemberService {
 
 
     List<CardHistory> selectAllCardHistoryOfCardId(String cardId);
+
+    List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
 }

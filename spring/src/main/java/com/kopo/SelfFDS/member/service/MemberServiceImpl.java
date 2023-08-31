@@ -1,10 +1,7 @@
 package com.kopo.SelfFDS.member.service;
 
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
-import com.kopo.SelfFDS.member.model.dto.Card;
-import com.kopo.SelfFDS.member.model.dto.CardHistory;
-import com.kopo.SelfFDS.member.model.dto.Member;
-import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
+import com.kopo.SelfFDS.member.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -107,6 +104,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<CardHistory> selectAllCardHistoryOfCardId(String cardId) {
         return memberMapper.selectAllCardHistoryOfCardId(cardId);
+    }
+
+    @Override
+    public List<SafetyCard> selectAllSafetyCardOfCardId(String cardId) {
+        return memberMapper.selectAllSafetyCardOfCardId(cardId);
     }
 
 }

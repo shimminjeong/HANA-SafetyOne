@@ -15,10 +15,9 @@
     .setting-container {
         width: 100%;
         height: 100%;
-
     }
 
-    .info-content {
+    .region-content {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -304,10 +303,15 @@
     .sub-container {
         display: flex;
         align-items: center;
-        align-items: center;
         box-sizing: border-box;
+        flex-direction: column;
         width: 100%;
         margin-top: 10px;
+    }
+
+    .subsub-container{
+        display: flex;
+        align-items: center;
     }
 
     .recommend {
@@ -332,7 +336,6 @@
         font-size: 16px;
         cursor: pointer;
     }
-
 
 
 </style>
@@ -405,75 +408,85 @@
     <h1 style="margin-top: 50px"> 안심카드설정</h1>
     <h2 style="margin-top: 30px">결제를 차단할 조합을 설정하세요</h2>
     <div class="setting-container">
-        <div class="info-content">
+        <div class="region-content">
             <div id="region" class="sub-container">
-                <a style="font-size: 20px">지역 선택</a>
-                <div class="spot">
-                    <img src="../../../resources/img/map.png" style="height: 380px">
-                    <button class="seoul-btn" onclick="selectRegion(this)" value="${regionList[0]}">서울</button>
-                    <button class="gyeonggi-btn" onclick="selectRegion(this)" value="${regionList[1]}">경기도</button>
-                    <button class="incheon-btn" onclick="selectRegion(this)" value="${regionList[2]}">인천</button>
-                    <button class="gangwon-btn" onclick="selectRegion(this)" value="${regionList[3]}">강원도</button>
-                    <button class="chungnam-btn" onclick="selectRegion(this)" value="${regionList[4]}">충청남도</button>
-                    <button class="daejeon-btn" onclick="selectRegion(this)" value="${regionList[5]}">대전</button>
-                    <button class="chungbuk-btn" onclick="selectRegion(this)" value="${regionList[6]}">충청북도</button>
-                    <button class="sejong-btn" onclick="selectRegion(this)" value="${regionList[7]}">세종</button>
-                    <button class="busan-btn" onclick="selectRegion(this)" value="${regionList[8]}">부산</button>
-                    <button class="ulsan-btn" onclick="selectRegion(this)" value="${regionList[9]}">울산</button>
-                    <button class="daegu-btn" onclick="selectRegion(this)" value="${regionList[10]}">대구</button>
-                    <button class="gyeongbuk-btn" onclick="selectRegion(this)" value="${regionList[11]}">경상북도</button>
-                    <button class="gyeonggnam-btn" onclick="selectRegion(this)" value="${regionList[12]}"> 경상남도</button>
-                    <button class="jeollanam-btn" onclick="selectRegion(this)" value="${regionList[13]}">전라남도</button>
-                    <button class="gwangju-btn" onclick="selectRegion(this)" value="${regionList[14]}">광주</button>
-                    <button class="jeollabuk-btn" onclick="selectRegion(this)" value="${regionList[15]}">전라북도</button>
-                    <button class="jejudo-btn" onclick="selectRegion(this)" value="${regionList[16]}">제주도</button>
-                </div>
-                <div class="myconsume">
-                    <h2>차단 추천</h2>
-                    <div id="region-recommend" class="recommend"></div>
-                    <a href="#" class="show-modal" onclick="openChartRegionModal()">지역 나의 소비 확인</a>
+                <h2>지역 선택</h2>
+                <div class="subsub-container">
+                    <div class="spot">
+                        <img src="../../../resources/img/map.png" style="height: 380px">
+                        <button class="seoul-btn" onclick="selectRegion(this)" value="${regionList[0]}">서울</button>
+                        <button class="gyeonggi-btn" onclick="selectRegion(this)" value="${regionList[1]}">경기도</button>
+                        <button class="incheon-btn" onclick="selectRegion(this)" value="${regionList[2]}">인천</button>
+                        <button class="gangwon-btn" onclick="selectRegion(this)" value="${regionList[3]}">강원도</button>
+                        <button class="chungnam-btn" onclick="selectRegion(this)" value="${regionList[4]}">충청남도</button>
+                        <button class="daejeon-btn" onclick="selectRegion(this)" value="${regionList[5]}">대전</button>
+                        <button class="chungbuk-btn" onclick="selectRegion(this)" value="${regionList[6]}">충청북도</button>
+                        <button class="sejong-btn" onclick="selectRegion(this)" value="${regionList[7]}">세종</button>
+                        <button class="busan-btn" onclick="selectRegion(this)" value="${regionList[8]}">부산</button>
+                        <button class="ulsan-btn" onclick="selectRegion(this)" value="${regionList[9]}">울산</button>
+                        <button class="daegu-btn" onclick="selectRegion(this)" value="${regionList[10]}">대구</button>
+                        <button class="gyeongbuk-btn" onclick="selectRegion(this)" value="${regionList[11]}">경상북도
+                        </button>
+                        <button class="gyeonggnam-btn" onclick="selectRegion(this)" value="${regionList[12]}"> 경상남도
+                        </button>
+                        <button class="jeollanam-btn" onclick="selectRegion(this)" value="${regionList[13]}">전라남도
+                        </button>
+                        <button class="gwangju-btn" onclick="selectRegion(this)" value="${regionList[14]}">광주</button>
+                        <button class="jeollabuk-btn" onclick="selectRegion(this)" value="${regionList[15]}">전라북도
+                        </button>
+                        <button class="jejudo-btn" onclick="selectRegion(this)" value="${regionList[16]}">제주도</button>
+                    </div>
+                    <div class="myconsume">
+                        <h2>차단 추천</h2>
+                        <div id="region-recommend" class="recommend"></div>
+                        <a href="#" class="show-modal" onclick="openChartRegionModal()">지역 나의 소비 확인</a>
+                    </div>
                 </div>
             </div>
             <div id="time" class="sub-container">
-                <a style="font-size: 20px">시간 선택</a>
-                <div class="time-select">
-                    <input type="number" class="inputBox1" name="inputBox1">
-                    <p>시 ~ </p>
-                    <input type="number" class="inputBox2" name="inputBox2">
-                    <p>시 차단 </p>
-                </div>
-                <div class="myconsume">
-                    <h2>차단 추천</h2>
-                    <div id="time-recommend" class="recommend"></div>
-                    <a href="#" class="show-modal" onclick="openChartTimeModal()">시간 나의 소비 확인</a>
+                <h2>시간 선택</h2>
+                <div class="subsub-container">
+                    <div class="time-select">
+                        <input type="number" class="inputBox1" name="inputBox1">
+                        <p>시 ~ </p>
+                        <input type="number" class="inputBox2" name="inputBox2">
+                        <p>시 차단 </p>
+                    </div>
+                    <div class="myconsume">
+                        <h2>차단 추천</h2>
+                        <div id="time-recommend" class="recommend"></div>
+                        <a href="#" class="show-modal" onclick="openChartTimeModal()">시간 나의 소비 확인</a>
+                    </div>
                 </div>
             </div>
             <div id="category" class="sub-container">
-                <a style="font-size: 20px">업종 선택</a>
-                <div class="grid-container">
-                    <c:set var="imgList"
-                           value="${['restaurant.png', 'shopping-cart.png', 'butcher-shop.png', 'fashion.png', 'sports.png', 'world.png', 'cosmetics.png', 'laundry-shop.png', 'education.png', 'hospital.png', 'electronics.png', 'taxi.png', 'oilstation.png']}"/>
-                    <c:forEach var="entry" items="${categoryMap}" varStatus="loop">
-                        <div class="grid-item">
-                            <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
-                            <c:set var="imageName" value="${imgList[imgIndex]}"/>
-                            <img class="grid-image" src="../../../resources/img/${imageName}" alt="${entry.key}">
-                            <div class="item-name">${entry.key}</div>
-                            <div class="dropdown-list">
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <c:forEach var="category" items="${entry.value}">
-                                        <a class="dropdown-item"
-                                           onclick="selectCategory('${category.categorySmall}')">${category.categorySmall}</a>
-                                    </c:forEach>
+                <h2>업종 선택</h2>
+                <div class="subsub-container">
+                    <div class="grid-container">
+                        <c:set var="imgList"
+                               value="${['restaurant.png', 'shopping-cart.png', 'butcher-shop.png', 'fashion.png', 'sports.png', 'world.png', 'cosmetics.png', 'laundry-shop.png', 'education.png', 'hospital.png', 'electronics.png', 'taxi.png', 'oilstation.png']}"/>
+                        <c:forEach var="entry" items="${categoryMap}" varStatus="loop">
+                            <div class="grid-item">
+                                <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
+                                <c:set var="imageName" value="${imgList[imgIndex]}"/>
+                                <img class="grid-image" src="../../../resources/img/${imageName}" alt="${entry.key}">
+                                <div class="item-name">${entry.key}</div>
+                                <div class="dropdown-list">
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <c:forEach var="category" items="${entry.value}">
+                                            <a class="dropdown-item"
+                                               onclick="selectCategory('${category.categorySmall}')">${category.categorySmall}</a>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <div class="myconsume">
-                    <h2>차단 추천</h2>
-                    <div id="category-recommend" class="recommend"></div>
-                    <a href="#" class="show-modal" onclick="openChartCategoryModal()">업종 나의 소비 확인</a>
+                        </c:forEach>
+                    </div>
+                    <div class="myconsume">
+                        <h2>차단 추천</h2>
+                        <div id="category-recommend" class="recommend"></div>
+                        <a href="#" class="show-modal" onclick="openChartCategoryModal()">업종 나의 소비 확인</a>
+                    </div>
                 </div>
             </div>
         </div>

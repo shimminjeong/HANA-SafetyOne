@@ -88,7 +88,7 @@
                 <h1>안심결제서비스</h1>
                 <h2>결제를 차단할 시간을 선택해주세요</h2>
             </div>
-            <div class="info-content">
+            <div class="time-content">
                 <div id="timeForm">
                     <input type="number" class="inputBox1" name="inputBox1" placeholder="시작시간">
                     <p>시 부터 </p>

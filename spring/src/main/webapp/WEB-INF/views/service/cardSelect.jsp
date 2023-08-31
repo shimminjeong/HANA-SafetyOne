@@ -55,20 +55,13 @@
         margin-left: 40px;
     }
 
-    .card-box {
-        border: 1px solid #ccc; /* 테두리 스타일 설정 */
-        padding: 10px; /* 내부 여백 설정 */
-        margin: 10px 0; /* 바깥쪽 여백 설정 */
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 18px;
-        border-radius: 3px;
-    }
 
     .card-img {
         width: 90px;
+    }
+
+    .lock-img {
+        width: 40px;
     }
 
     .ajax-content {
@@ -78,22 +71,15 @@
     }
 
     .formsize {
-        margin: 50px auto;
+        margin: 20px auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
         color: black; /* 글자색 변경 */
         padding: 30px 80px; /* 패딩 */
-        border: none; /* 테두리 없음 */
-        border-radius: 10px; /* 둥근 모서리 */
         text-decoration: none;
         font-size: 12px; /* 폰트 크기 변경 */
         cursor: pointer;
-        background-color: #ffffff; /* 배경색 추가 */
-        transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* 그림자 추가 */
-        max-width: 600px; /* 가로 크기 */
-        max-height: 500px; /* 세로 크기 */
     }
 
 
@@ -109,7 +95,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
     }
 
     .close-button {
@@ -122,9 +107,6 @@
         background-color: #f8f8f8;
     }
 
-    .setting-btn {
-
-    }
 
     .modal-content {
         background-color: #f8f8f8; /* Slightly off-white for a softer appearance */
@@ -212,6 +194,44 @@
         background-color: #2980b9; /* Darker blue on hover */
     }
 
+    .accordion {
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        border-radius: 8px; /* 상단의 둥근 모서리 지정 */
+        background-color: #ffffff;
+        transition: background-color 0.3s, transform 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        margin-top: 20px;
+
+    }
+
+
+    /* Style the accordion panel. Note: hidden by default */
+    .panel {
+        padding: 0 18px;
+        background-color: #e0e0e0;
+        display: none;
+        overflow: hidden;
+
+    }
+
+    .info-list{
+        margin-top: 12px;
+        margin-bottom: 12px;
+        display: flex;
+        flex-direction: row;
+        font-size: 14px;
+    }
+
+    .info-header{
+        width: 100px;
+    }
+
+
 
 </style>
 
@@ -226,13 +246,26 @@
         </div>
         <div class="card-list">
             <c:forEach items="${cards}" var="card" varStatus="loop">
-                <div class="card-box">
+                <div class="accordion" id="${card.cardId}">
                     <div>
                         <input type="checkbox" name="selectedCards" value="${card.cardId}">
                     </div>
-                    <div>본인</div>
-                    <div>${card.cardId}</div>
+                    <div>본인 | ${card.cardId}</div>
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
+                    <c:if test="${card.selffdsSerStatus eq 'Y'}">
+                    <img class="lock-img" src="../../../resources/img/padlock.png">
+                    </c:if>
+                    <c:if test="${card.selffdsSerStatus eq 'N'}">
+                        <img class="lock-img" src="../../../resources/img/unlock.png">
+                    </c:if>
+                        <%-- <img class="lock-img" src="../../../resources/img/padlock.png">--%>
+                </div>
+                <div class="panel">
+                    <h2>안심카드 맞춤설정 이용중입니다.</h2>
+                    <hr>
+                    <div id="cardInfo-${card.cardId}">
+                        <!-- 서버로부터 받아온 정보가 이곳에 추가될 것입니다. -->
+                    </div>
                 </div>
             </c:forEach>
         </div>
@@ -272,6 +305,53 @@
 </body>
 <script>
 
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+                var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
+                console.log("cardid",cardId);
+                // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
+                $.ajax({
+                    url: "/safetyCard/info",
+                    type: 'POST',
+                    data: JSON.stringify({cardId: cardId}),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        var cardInfoList = $("#cardInfo-" + cardId);
+                        cardInfoList.empty();
+                        data.forEach(function (item) {
+                            cardInfoList.append("<div class='info-list'><div class='info-header'>선택카드</div><span class='info-content'>" + item.cardId + "</span></div>" +
+                                "<div class='info-list'><div class='info-header'>사용가능기간 </div><span class='info-content'>" + item.safetyStartDate + " ~ " +item.safetyEndDate+"</span></div>");
+                            if (item.regionName!== null) {
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>사용가능지역 </div><span class='info-content'>" + item.regionName + "</span></div>");
+                            }
+
+                            if (item.categorySmall!== null) {
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>사용가능업종 </div><span class='info-content'>" + item.categorySmall + "</span></div>");
+                            }
+
+                            if (item.time !== null) {
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>사용가능시간 </div><span class='info-content'>" + item.time + "시</span></div>");
+                            }
+                            cardInfoList.append("<hr>");
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+
+
     const selectedButtons = [];
     // 버튼 요소들을 가져옴
     const button1 = document.getElementById("region");
@@ -298,9 +378,15 @@
         console.log(selectedButtons);
     }
 
+    // function selectSetting() {
+    //
+    //     let url = '/safetyCard/selffdsTotal?selectedButtons=' + selectedButtons;
+    //     window.location.href = url;
+    // }
+
     function selectSetting() {
 
-        let url = '/safetyCard/selffdsTotal?selectedButtons=' + selectedButtons;
+        let url = '/safetyCard/safetySetting?selectedButtons=' + selectedButtons;
         window.location.href = url;
     }
 
@@ -321,12 +407,12 @@
                     openSelectModal();
                 } else
                     ajaxContent.textContent = "이미 신청이 완료된 카드입니다.";
-                    ajaxContent.style.color = "red";
-                    selectedCards.forEach(card => {
+                ajaxContent.style.color = "red";
+                selectedCards.forEach(card => {
                         card.checked = false; // 이미 체크된 카드 체크 해제
 
-                }
-            )
+                    }
+                )
                 ;
             }
         });

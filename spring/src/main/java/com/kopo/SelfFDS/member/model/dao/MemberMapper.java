@@ -1,9 +1,6 @@
 package com.kopo.SelfFDS.member.model.dao;
 
-import com.kopo.SelfFDS.member.model.dto.Card;
-import com.kopo.SelfFDS.member.model.dto.CardHistory;
-import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
-import com.kopo.SelfFDS.member.model.dto.Member;
+import com.kopo.SelfFDS.member.model.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -55,6 +52,8 @@ public interface MemberMapper {
 //    List<CardHistory> selectManyCategoryLatestMonthOfCardID(String cardId);
 
     List<CardHistory> selectAllCardHistoryOfCardId(String cardId);
+
+    List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
 
 
 }

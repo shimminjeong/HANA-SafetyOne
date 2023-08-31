@@ -24,7 +24,7 @@
 
     }
 
-    .info-content {
+    .region-content {
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -137,7 +137,7 @@
                 <h2>결제를 차단할 지역을 선택해주세요</h2>
             </div>
 
-            <div class="info-content">
+            <div class="region-content">
                 <span class="spot-container">
                     <img src="../../../resources/img/map.png" style="height: 380px">
                     <button class="seoul-btn" onclick="selectRegion(this)" value="${regionList[0]}">서울</button>

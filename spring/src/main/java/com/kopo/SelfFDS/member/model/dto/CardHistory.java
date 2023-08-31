@@ -15,8 +15,8 @@ public class CardHistory {
     private String regionName;
     private String store;
     private String cardHisDate;
-    private String startDate;
-    private String endDate;
+    private String safetyStartDate;
+    private String safetyEndDate;
     private String time;
     private int amount;
     private String categoryBig;
