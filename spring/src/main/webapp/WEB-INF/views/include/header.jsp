@@ -30,7 +30,8 @@
     </div>
     <nav>
         <div class="navbar">
-            <a href="/safetyCard/">안심카드설정</a>
+            <a href="/safetyCard/">안심카드서비스</a>
+            <a href="#">이상소비알림서비스</a>
 
             <%--            <a href="/service/fds">FDS</a>--%>
 
@@ -46,8 +47,8 @@
                 </div>
             </div>
             <a href="/mypage">마이페이지</a>
-            <a href="/payment/paymentPage">결제</a>
-            <a href="/payment/drawChartex">차트</a>
+<%--            <a href="/payment/paymentPage">결제</a>--%>
+<%--            <a href="/payment/drawChartex">차트</a>--%>
         </div>
     </nav>
 </header>

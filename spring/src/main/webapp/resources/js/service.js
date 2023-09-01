@@ -247,6 +247,9 @@ function openChartTimeModal() {
     });
 }
 
+
+
+
 function closeChartRegionModal() {
     document.getElementById("myRegionmodal").style.display = "none";
 }
@@ -258,3 +261,22 @@ function closeChartCategoryModal() {
 function closeChartTimeModal() {
     document.getElementById("myTimemodal").style.display = "none";
 }
+
+function openMapModal() {
+    document.getElementById("mapmodal").style.display = "block";
+}
+
+function closeMapModal() {
+    document.getElementById("mapmodal").style.display = "none";
+}
+
+function openCategoryModal() {
+    document.getElementById("categorymodal").style.display = "block";
+}
+
+function closeCategoryModal() {
+    document.getElementById("categorymodal").style.display = "none";
+}
+
+
+

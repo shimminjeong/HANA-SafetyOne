@@ -96,16 +96,13 @@
     }
 
     .show-modal {
-        margin: 18px;
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: white;
-        border: none;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background: white;
         border-radius: 5px;
+
         text-align: center;
-        text-decoration: none;
-        font-size: 16px;
+        font-size: 15px;
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
@@ -162,7 +159,7 @@
                     <div class="myreport">
                         <h2>차단 추천 지역</h2>
                         <div class="recommend"></div>
-                        <a href="#" class="show-modal" onclick="openChartModal()">나의 소비 확인</a>
+                        <button class="show-modal" onclick="openChartModal()">나의 소비 확인</button>
                     </div>
                     <div class="selected-btn">
                     <h2>선택한 차단 지역</h2>
