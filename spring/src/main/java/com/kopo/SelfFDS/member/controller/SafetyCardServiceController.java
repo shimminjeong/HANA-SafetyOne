@@ -2,7 +2,6 @@ package com.kopo.SelfFDS.member.controller;
 
 
 import com.kopo.SelfFDS.member.model.dto.Card;
-import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
 import com.kopo.SelfFDS.member.service.MemberService;
@@ -20,30 +19,30 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/safetyCard")
-public class CardServiceController {
+public class SafetyCardServiceController {
 
     private final MemberService memberService;
 
     @Autowired
-    public CardServiceController(MemberService memberService) {
+    public SafetyCardServiceController(MemberService memberService) {
         this.memberService = memberService;
     }
 
     @GetMapping("/")
-    public String selffdsPage() {
+    public String safetyCardPage() {
         return "service/safetyCard";
     }
 
 
-    @RequestMapping("/cardSelect")
-    public ModelAndView cardSelectPage(HttpServletRequest request) {
+    @RequestMapping("/safetyCardSelect")
+    public ModelAndView safetyCardSelectPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         List<Card> cardInfo = memberService.selectCardOfEmail(email);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("cards", cardInfo);
-        mav.setViewName("service/cardSelect");
+        mav.setViewName("service/safetyCardSelect");
         return mav;
     }
 
@@ -54,7 +53,7 @@ public class CardServiceController {
         Card updateCard = memberService.selectCardOfCardId(cardId);
         HttpSession session = request.getSession();
         session.setAttribute("cardId", cardId);
-        return "selffds 서비스 신청 성공";
+        return "이상 소비 알림 서비스 신청 성공";
     }
 
 

@@ -67,6 +67,10 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
+    @Override
+    public void updateFdsStatus(Card card) {
+        memberMapper.updateFdsStatus(card);
+    }
 
 
     @Override

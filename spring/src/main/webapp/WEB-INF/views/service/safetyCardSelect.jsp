@@ -29,13 +29,11 @@
         border: 2px solid #00857F;
     }
 
-
     .reg-cancle-btn {
         display: flex;
         flex-direction: row;
         justify-content: center;
         margin-top: 30px;
-
     }
 
     .reg-Btn, .cancle-Btn {
@@ -54,7 +52,6 @@
     .reg-Btn {
         margin-left: 40px;
     }
-
 
     .card-img {
         width: 90px;
@@ -82,8 +79,6 @@
         cursor: pointer;
     }
 
-
-    /*모달*/
     .modal {
         display: none;
         position: fixed;
@@ -107,7 +102,6 @@
         background-color: #f8f8f8;
     }
 
-
     .modal-content {
         background-color: #f8f8f8; /* Slightly off-white for a softer appearance */
         width: 450px;
@@ -123,7 +117,6 @@
         font-size: 16px; /* Larger font size for readability */
         font-weight: 400; /* Regular font weight */
     }
-
 
     .modal-header {
         margin-top: 25px;
@@ -231,7 +224,9 @@
         width: 100px;
     }
 
-
+    .ajax-content{
+        margin-top: 30px;
+    }
 
 </style>
 
@@ -258,7 +253,6 @@
                     <c:if test="${card.selffdsSerStatus eq 'N'}">
                         <img class="lock-img" src="../../../resources/img/unlock.png">
                     </c:if>
-                        <%-- <img class="lock-img" src="../../../resources/img/padlock.png">--%>
                 </div>
                 <div class="panel">
                     <h2>안심카드 맞춤설정 이용중입니다.</h2>
@@ -301,7 +295,6 @@
         </div>
     </div>
 </div>
-
 </body>
 <script>
 
@@ -378,11 +371,6 @@
         console.log(selectedButtons);
     }
 
-    // function selectSetting() {
-    //
-    //     let url = '/safetyCard/selffdsTotal?selectedButtons=' + selectedButtons;
-    //     window.location.href = url;
-    // }
 
     function selectSetting() {
 

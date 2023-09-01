@@ -16,12 +16,9 @@
         position: absolute;
         top: 0;
         left: 0;
-
         width: 500px;
         height: 500px;
-
         display: none;
-
     }
 
     .region-content {
@@ -29,7 +26,6 @@
         flex-direction: row;
         width: 100%;
         align-items: stretch;
-
     }
 
 
@@ -115,8 +111,6 @@
         flex: 1;
     }
 
-
-
 </style>
 
 <%@ include file="../include/header.jsp" %>
@@ -164,7 +158,6 @@
                     <div class="selected-btn">
                     <h2>선택한 차단 지역</h2>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -172,7 +165,6 @@
     <div id="myChartmodal">
         <canvas id="myChart" width="500px" height="500px"></canvas>
         <script>
-
             $(document).ready(function () {
                 let regionNameList = [];
                 let region_cntList = [];
@@ -210,8 +202,6 @@
                                 }
                             }
                         });
-
-
                     },
                     error: function () {
                         console.error("Error while fetching data");

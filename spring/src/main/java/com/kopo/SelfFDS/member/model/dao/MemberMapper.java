@@ -29,6 +29,7 @@ public interface MemberMapper {
     Card selectCardOfCardId(String cardId);
 
     void updateSelfFdsStatus(Card card);
+    void updateFdsStatus(Card card);
 
 
 //    safetycard

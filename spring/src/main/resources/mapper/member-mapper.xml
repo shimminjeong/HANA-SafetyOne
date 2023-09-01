@@ -78,8 +78,15 @@
         WHERE cardId = #{cardId}
     </update>
 
+    <update id="updateFdsStatus" parameterType="com.kopo.SelfFDS.member.model.dto.Card">
+        UPDATE card
+        SET fdsSerStatus = #{fdsSerStatus}
+        WHERE cardId = #{cardId}
+    </update>
 
-<!--safetycard    -->
+
+
+    <!--safetycard    -->
     <!--    지역이름 가져오기-->
     <select id="selectAllRegionName" resultType="String">
         SELECT regionName

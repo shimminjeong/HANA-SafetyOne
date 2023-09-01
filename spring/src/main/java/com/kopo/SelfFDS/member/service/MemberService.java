@@ -24,6 +24,7 @@ public interface MemberService {
     Card selectCardOfCardId(String cardId);
 
     void updateSelfFdsStatus(Card card);
+    void updateFdsStatus(Card card);
 
     List<String> selectAllRegionName();
 
