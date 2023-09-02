@@ -81,78 +81,7 @@
 
 
     /*category*/
-    .grid-container {
-        margin-top: 40px;
-        margin-bottom: 30px;
-        display: grid;
-        grid-template-columns: repeat(5, 87px); /* 2열로 반복 */
-        /*grid-gap: 10px; !* 박스 사이의 간격 설정 *!*/
-        align-items: center; /* 내용 수직 가운데 정렬 */
-        text-align: center; /* 내용 가로 가운데 정렬 */
-    }
 
-    .grid-item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border: 1px solid black;
-        padding: 10px 5px;
-        height: 100px; /* 그리드 컨테이너의 높이 설정 */
-        cursor: pointer;
-        transition: background-color 0.3s;
-        position: relative;
-        font-size: 15px;
-
-    }
-
-    .dropdown-item {
-        display: none;
-        cursor: pointer;
-        margin: auto;
-        font-size: 12px;
-        line-height: 25px;
-        height: 25px;
-        background-color: transparent; /* 초기 배경 설정 */
-        transition: background-color 0.3s ease; /* 배경 변경 시 부드러운 효과를 위한 트랜지션 추가 */
-        padding: 0px 3px;
-    }
-
-    .dropdown-item:hover {
-        background-color: #00857F; /* 마우스 호버 시 배경 변경 */
-        transform: scale(1.1); /* hover 시 약간 확대되는 효과 */
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* hover 시 그림자 약간 강화 */
-        color: white;
-    }
-
-    .dropdown-list {
-        position: absolute;
-        top: 100%; /* Position the dropdown below the grid item */
-        left: 0;
-        width: 100%; /* Make the dropdown width match the grid item width */
-        z-index: 1; /* Ensure the dropdown appears above other content */
-        background-color: #ffffff; /* Add a background color */
-        /*border: 1px solid  !* Add a border for visual separation *!*/
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-    }
-
-    .grid-item:hover .dropdown-item {
-        display: block;
-        color: black;
-    }
-
-    .grid-image {
-        width: 50px; /* 이미지 너비 설정 */
-        height: 50px; /* 이미지 높이 설정 */
-        padding-bottom: 14px;
-        margin: 0 auto; /* 이미지 가운데 정렬 */
-        /*display: block; !* 이미지를 블록 요소로 변경 *!*/
-    }
-
-    .grid-item:hover {
-        background-color: #00857F;
-        border: 1px solid #ffffff;
-        color: black;
-    }
 
     /* 모달의 기본 스타일 */
     #myRegionmodal, #myCategorymodal, #myTimemodal {

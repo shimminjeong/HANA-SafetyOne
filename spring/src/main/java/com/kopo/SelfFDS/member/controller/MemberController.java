@@ -58,6 +58,11 @@ public class MemberController {
         return "join";
     }
 
+    @GetMapping("/lostcard")
+    public String lost() {
+        return "lostcard";
+    }
+
 
     @RequestMapping("/update")
     public ModelAndView update(HttpServletRequest request) {

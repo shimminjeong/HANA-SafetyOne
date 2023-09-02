@@ -17,12 +17,9 @@
 
         .main {
             width: 100%;
-            margin: 0 auto;
+            margin: 70px auto;
         }
 
-        mian h4 {
-            margin: 5px 0 10px 0;
-        }
 
         main hr {
             border: 1px solid;
@@ -69,11 +66,12 @@
             font-weight: 700;
             text-align: left;
             margin: 13px;
+            font-size: 18px;
+
         }
 
         .setting-type > span {
             padding: 10px;
-            font-weight: 700;
         }
 
         .buttons {
@@ -89,32 +87,31 @@
             flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
             /*margin: 0 5px; !* 요소 사이 간격 조절 *!*/
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid black;
             background: white;
-            border-radius: 5px;
+            border-radius: 2px;
+            font-size: 16px;
         }
 
         .buttons > button:hover {
             border: 2px solid #00857F;
-            border-radius: 5px;
+            border-radius: 2px;
             color: #00857F;
-            font-weight: 700;
         }
 
         .buttons > input {
             flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
             /*margin: 0 5px; !* 요소 사이 간격 조절 *!*/
             padding: 10px;
-            font-size: 14px;
+            font-size: 16px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 2px;
         }
 
         .buttons > input:hover {
             border: 2px solid #00857F;
-            border-radius: 5px;
+            border-radius: 2px;
             color: #00857F;
-            font-weight: 700;
         }
 
         .buttons input[type="text"]::placeholder {
@@ -129,19 +126,67 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+
         }
+
+        #selectCategoryBig{
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            width: 50%;
+            border-radius: 2px;
+        }
+
+
+        .myselect-region, .myselect-category {
+            /*padding: 50px 0px 30px 0px;*/
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+        }
+
+        .select-con {
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            width: 100%;
+            border-radius: 2px;
+        }
+
+        .select-con > .select-element {
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 75%;
+            background-color: rgba(238, 238, 238, 0.5);
+            border-radius: 2px;
+            color : #717171;
+        }
+
+        .select-con > .delete-btn {
+            padding: 10px;
+            border: 1px solid black;
+            background-color: white;
+            width: 25%;
+            margin-left: 10px;
+            border-radius: 2px;
+        }
+
 
         .select-list > select {
             padding: 10px;
             border: 1px solid #ccc;
             width: 100%;
             margin-bottom: 20px;
-            border-radius: 5px;
+            border-radius: 2px;
+            font-size: 16px;
         }
 
         .select-list > select:hover {
             border: 2px solid #00857F;
-            border-radius: 5px;
+            border-radius: 2px;
             color: #00857F;
             font-weight: 700;
         }
@@ -150,7 +195,6 @@
             flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
             padding: 10px;
             border: 1px solid #ccc;
-
         }
 
         .tui-timepicker {
@@ -172,7 +216,7 @@
             color: white;
             border: none;
             padding: 12px 40px 12px 40px;
-            border-radius: 5px;
+            border-radius: 2px;
             cursor: pointer;
             text-decoration: none;
             background-color: #00857F;
@@ -187,12 +231,7 @@
             margin-right: 15px;
         }
 
-        #time-recommend {
-            display: flex;
-            flex-direction: column;
-            width: 30%;
-            margin-right: 0px;
-        }
+
 
         .info {
             display: flex;
@@ -205,18 +244,18 @@
             background: white;
             border-radius: 5px;
             text-align: center;
-            font-size: 12px;
+            font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
 
-        select.limited-options {
+        .limited-options {
             max-height: 130px; /* 이 값을 조절하여 5개의 항목에 대한 대략적인 높이를 설정하세요. */
             overflow-y: auto; /* 수직 스크롤을 활성화합니다. */
         }
 
-        #myRegionmodal, #myCategorymodal, #myTimemodal {
+        #myRegionmodal, #myCategorymodal, #myTimemodal, #categorymodal {
             display: none; /* 처음에는 숨겨둠. JavaScript로 보이게 할 예정 */
             position: fixed; /* 스크롤 해도 위치 고정 */
             top: 50%;
@@ -239,7 +278,7 @@
         }
 
         /* 닫기 버튼 스타일 */
-        #myRegionmodal .close, #myCategorymodal .close, #myTimemodal .close {
+        #myRegionmodal .close, #myCategorymodal .close, #myTimemodal .close, #categorymodal .close {
             position: absolute;
             right: 10px;
             top: 10px;
@@ -249,7 +288,7 @@
             font-size: 18px;
         }
 
-        #myRegionmodal .close:hover, #myCategorymodal .close:hover, #myTimemodal .close:hover {
+        #myRegionmodal .close:hover, #myCategorymodal .close:hover, #myTimemodal .close:hover, #categorymodal .close:hover {
             background-color: #00857F;
         }
 
@@ -259,6 +298,86 @@
             flex-direction: row;
         }
 
+        .buttons .select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .grid-container {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(5, 87px); /* 2열로 반복 */
+            /*grid-gap: 10px; !* 박스 사이의 간격 설정 *!*/
+            align-items: center; /* 내용 수직 가운데 정렬 */
+            text-align: center; /* 내용 가로 가운데 정렬 */
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid black;
+            padding: 10px 5px;
+            height: 100px; /* 그리드 컨테이너의 높이 설정 */
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: relative;
+            font-size: 15px;
+
+        }
+
+        .dropdown-item {
+            display: none;
+            cursor: pointer;
+            margin: auto;
+            font-size: 12px;
+            line-height: 25px;
+            height: 25px;
+            background-color: transparent; /* 초기 배경 설정 */
+            transition: background-color 0.3s ease; /* 배경 변경 시 부드러운 효과를 위한 트랜지션 추가 */
+            padding: 0px 3px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #00857F; /* 마우스 호버 시 배경 변경 */
+            transform: scale(1.1); /* hover 시 약간 확대되는 효과 */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* hover 시 그림자 약간 강화 */
+            color: white;
+        }
+
+        .dropdown-list {
+            position: absolute;
+            top: 100%; /* Position the dropdown below the grid item */
+            left: 0;
+            width: 100%; /* Make the dropdown width match the grid item width */
+            z-index: 1; /* Ensure the dropdown appears above other content */
+            background-color: #ffffff; /* Add a background color */
+            /*border: 1px solid  !* Add a border for visual separation *!*/
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+
+        .grid-item:hover .dropdown-item {
+            display: block;
+            color: black;
+        }
+
+        .grid-image {
+            width: 50px; /* 이미지 너비 설정 */
+            height: 50px; /* 이미지 높이 설정 */
+            padding-bottom: 14px;
+            margin: 0 auto; /* 이미지 가운데 정렬 */
+            /*display: block; !* 이미지를 블록 요소로 변경 *!*/
+        }
+
+        .grid-item:hover {
+            background-color: #00857F;
+            border: 1px solid #ffffff;
+            color: black;
+        }
+
     </style>
 </head>
 <body>
@@ -266,7 +385,6 @@
 <div class="container">
     <div class="main">
         <h2>안심카드설정</h2>
-        <h4>서비스선택</h4>
         <h3>대상카드</h3>
         <hr>
         <div>
@@ -299,15 +417,6 @@
                         <input type="text" id="toDate" name="toDate" placeholder="📅">
                     </div>
                 </div>
-                <div class="setting-buttons">
-                    <div class="setting-type">
-                        <span>적용구분</span>
-                    </div>
-                    <div class="buttons">
-                        <button class="custom-setting1">맞춤설정</button>
-                        <button class="custom-setting2">해외전체 정지</button>
-                    </div>
-                </div>
                 <div id="region" class="setting-buttons">
                     <div class="setting-type">
                         <span>지역선택</span>
@@ -318,9 +427,11 @@
                                 <option name="${entry}">${entry}</option>
                             </c:forEach>
                         </select>
-                        <div id="region-recommend" class="recommend">
+                        <div class="recommend">
                             <button class="show-modal" onclick="openMapModal()">지도보기</button>
                             <button class="show-modal" onclick="openChartRegionModal()">지역별 소비 확인</button>
+                        </div>
+                        <div class="myselect-region">
                         </div>
                     </div>
                 </div>
@@ -331,11 +442,12 @@
                     <div class="buttons" style="flex-direction: column">
                         <div class="info">
                             <div id="starttimepicker-container" class="tui-timepicker"
-                                 style="margin-right: 15px;"></div>
+                                 style="margin-right: 15px; font-size: 16px;"></div>
                             <p style="position: relative; top:-10px;"><strong>~</strong></p>
-                            <div id="endtimepicker-container" class="tui-timepicker" style="margin-left: 15px;"></div>
+                            <div id="endtimepicker-container" class="tui-timepicker"
+                                 style="margin-left: 15px;"></div>
                         </div>
-                        <div id="time-recommend" class="recommend">
+                        <div class="recommend">
                             <button class="show-modal" onclick="openChartTimeModal()">시간별 소비 확인</button>
                         </div>
                     </div>
@@ -353,53 +465,68 @@
                         </select>
                         <select id="selectCategorySmall-list">
                         </select>
-                        <div id="category-recommend" class="recommend">
+                        <div class="recommend">
                             <button class="show-modal" onclick="openCategoryModal()">업종 한눈에 보기</button>
                             <button class="show-modal" onclick="openChartCategoryModal()">업종별 소비 확인</button>
                         </div>
+                        <div class="myselect-category"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <button class="reg-Btn"> 다음</button>
+    <button class="reg-Btn"> 등록 </button>
 </div>
+
 <div id="myRegionmodal">
     <canvas id="myRegionCntChart"></canvas>
-    <canvas id="myRegionSumChart"></canvas>
     <span class="close" onclick="closeChartRegionModal()">&times;</span>
 </div>
 <div id="myCategorymodal">
     <h2>업종별 소비내역 확인</h2>
-    <select id="selectCategoryBig">
+    <select id="selectCategoryBig" class="limited-options">
         <c:forEach var="entry" items="${categoryBigList}">
             <option name="${entry}">${entry}</option>
         </c:forEach>
     </select>
-    <button onclick="selectCategoryBig()">전송</button>
     <canvas id="myCategoryCntChart"></canvas>
-    <canvas id="myCategorySumChart"></canvas>
     <span class="close" onclick="closeChartCategoryModal()">&times;</span>
 </div>
 <div id="myTimemodal">
     <canvas id="myTimeCntChart"></canvas>
-    <canvas id="myTimeSumChart"></canvas>
     <span class="close" onclick="closeChartTimeModal()">&times;</span>
 </div>
-
 <div id="mapmodal" style="display: none">
     <div>지도모달</div>
     <img src="../../../resources/img/map.png" style="height: 380px">
     <span class="close" onclick="closeMapModal()">&times;</span>
 </div>
-
 <div id="categorymodal" style="display: none">
-    <div>업종모달</div>
+    <h2>업종 한눈에 보기</h2>
+    <div class="grid-container">
+        <c:set var="imgList"
+               value="${['restaurant.png', 'shopping-cart.png', 'butcher-shop.png', 'fashion.png', 'sports.png', 'world.png', 'cosmetics.png', 'laundry-shop.png', 'education.png', 'hospital.png', 'electronics.png', 'taxi.png', 'oilstation.png']}"/>
+        <c:forEach var="entry" items="${categoryMap}" varStatus="loop">
+            <div class="grid-item">
+                <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
+                <c:set var="imageName" value="${imgList[imgIndex]}"/>
+                <img class="grid-image" src="../../../resources/img/${imageName}" alt="${entry.key}">
+                <div class="item-name">${entry.key}</div>
+                <div class="dropdown-list">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <c:forEach var="category" items="${entry.value}">
+                            <a class="dropdown-item"
+                               onclick="selectCategory('${category.categorySmall}')">${category.categorySmall}</a>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
     <span class="close" onclick="closeCategoryModal()">&times;</span>
 </div>
 
 <script>
-
 
     $(document).ready(function () {
         $("#category, #time, #region").hide();
@@ -415,23 +542,57 @@
         }
     });
 
+    function appendSelectedValueToMySelect(selectedValue, containerSelector) {
+        const myselectContainer = document.querySelector(containerSelector);
 
-    document.getElementById('selectCategoryBig-list').addEventListener('change', function () {
-        let selectedCategory = this.value;
+        const newSelectDiv = document.createElement('div');
+        newSelectDiv.classList.add('select-con');
 
+        const newSelectElement = document.createElement('div');
+        newSelectElement.classList.add('select-element');
+        newSelectElement.textContent = selectedValue;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-btn');
+        deleteButton.textContent = '삭제';
+        deleteButton.addEventListener('click', function () {
+            myselectContainer.removeChild(newSelectDiv);
+            if (!myselectContainer.querySelector('.select-con')) {
+                myselectContainer.style.display = 'none';
+            }
+        });
+
+        newSelectDiv.appendChild(newSelectElement);
+        newSelectDiv.appendChild(deleteButton);
+
+        myselectContainer.appendChild(newSelectDiv);
+        myselectContainer.style.display = 'flex';
+    }
+
+    // 첫 번째 select element에 대한 이벤트 핸들러
+    document.querySelector('.limited-options').addEventListener('change', function () {
+        appendSelectedValueToMySelect(this.value, '.myselect-region');
+    });
+
+    // 두 번째 select element에 대한 이벤트 핸들러
+    document.getElementById('selectCategorySmall-list').addEventListener('change', function () {
+        appendSelectedValueToMySelect(this.value, '.myselect-category');
+    });
+
+
+    function selectSmallCategory(selectedCategory) {
         let categorySmallList = [];
 
         $.ajax({
             url: '/chart/categoryServiceChart',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({categoryBig: selectedCategory}),
+            data: JSON.stringify({ categoryBig: selectedCategory }),
             success: function (data) {
                 categorySmallList = data.map(item => item.categorySmall);
 
-                // Populate categorySmall dropdown
                 let selectCategorySmall = document.getElementById('selectCategorySmall-list');
-                // selectCategorySmall.innerHTML = '<option value="" selected disabled>Select a category</option>';
+                selectCategorySmall.innerHTML = '<option value="" selected disabled></option>';
 
                 for (let i = 0; i < categorySmallList.length; i++) {
                     let option = document.createElement('option');
@@ -444,9 +605,18 @@
                 console.log('Error fetching categorySmall data.');
             }
         });
+    }
+
+    document.getElementById('selectCategoryBig-list').addEventListener('change', function () {
+        selectSmallCategory(this.value);
     });
 
 
+
+
+    document.getElementById('selectCategoryBig').addEventListener('change', function () {
+        updateCategoryChart(this.value);
+    });
 
 
     const starttimepicker = new tui.TimePicker('#starttimepicker-container', {
@@ -524,25 +694,7 @@
 
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectElems = document.querySelectorAll('.limited-options');
-
-        selectElems.forEach(function (selectElem) {
-            // 페이지 로드 시 size를 1로 설정
-            selectElem.size = 1;
-
-            selectElem.addEventListener('click', function () {
-                this.size = 5; // 항목을 5개로 제한합니다.
-            });
-
-            selectElem.addEventListener('blur', function () {
-                this.size = 1;
-            });
-        });
-    });
 
 </script>
 </body>
-
-
 </html>

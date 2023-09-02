@@ -255,8 +255,6 @@
                     </c:if>
                 </div>
                 <div class="panel">
-                    <h2>안심카드 맞춤설정 이용중입니다.</h2>
-                    <hr>
                     <div id="cardInfo-${card.cardId}">
                         <!-- 서버로부터 받아온 정보가 이곳에 추가될 것입니다. -->
                     </div>
@@ -321,21 +319,22 @@
                     success: function (data) {
                         var cardInfoList = $("#cardInfo-" + cardId);
                         cardInfoList.empty();
+                        cardInfoList.append("<h2>안심카드 맞춤설정 이용중입니다.</h2>");
                         data.forEach(function (item) {
-                            cardInfoList.append("<div class='info-list'><div class='info-header'>선택카드</div><span class='info-content'>" + item.cardId + "</span></div>" +
+                            cardInfoList.append("<hr><div class='info-list'><div class='info-header'>선택카드</div><span class='info-content'>" + item.cardId + "</span></div>" +
                                 "<div class='info-list'><div class='info-header'>사용가능기간 </div><span class='info-content'>" + item.safetyStartDate + " ~ " +item.safetyEndDate+"</span></div>");
                             if (item.regionName!== null) {
-                                cardInfoList.append("<div class='info-list'><div class='info-header'>사용가능지역 </div><span class='info-content'>" + item.regionName + "</span></div>");
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단지역 </div><span class='info-content'>" + item.regionName + "</span></div>");
+                            }
+
+                            if (item.startTime !== null) {
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단시간 </div><span class='info-content'>" + item.startTime + " ~ " +item.endTime+"</span></div>");
                             }
 
                             if (item.categorySmall!== null) {
-                                cardInfoList.append("<div class='info-list'><div class='info-header'>사용가능업종 </div><span class='info-content'>" + item.categorySmall + "</span></div>");
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단업종 </div><span class='info-content'>" + item.categorySmall + "</span></div>");
                             }
 
-                            if (item.time !== null) {
-                                cardInfoList.append("<div class='info-list'><div class='info-header'>사용가능시간 </div><span class='info-content'>" + item.time + "시</span></div>");
-                            }
-                            cardInfoList.append("<hr>");
                         });
                     }
                 });
@@ -391,17 +390,18 @@
             contentType: 'application/json',
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
-                if (response === "selffds 서비스 신청 성공") {
+                if (response === "안심카드 서비스 신청 성공") {
                     openSelectModal();
-                } else
-                    ajaxContent.textContent = "이미 신청이 완료된 카드입니다.";
-                ajaxContent.style.color = "red";
-                selectedCards.forEach(card => {
-                        card.checked = false; // 이미 체크된 카드 체크 해제
+                };
+                    // else
+                //     ajaxContent.textContent = "선택하신 카드는 안심카드설정이 이미 신청이 완료된 카드입니다.";
+                // ajaxContent.style.color = "red";
+                // selectedCards.forEach(card => {
+                //         card.checked = false; // 이미 체크된 카드 체크 해제
+                //
+                //     }
+                // )
 
-                    }
-                )
-                ;
             }
         });
     }
@@ -418,12 +418,12 @@
             contentType: 'application/json',
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
-                if (response === "selffds 서비스 해제 성공") {
-                    ajaxContent.textContent = "selffds 서비스가 해제되었습니다.";
+                if (response === "안심카드 서비스 해제 성공") {
+                    ajaxContent.textContent = "안심카드 서비스가 해제되었습니다.";
                     ajaxContent.style.color = "green";
                 } else
 
-                    ajaxContent.textContent = "이 카드는 해당 서비스 신청내역이 존재하지 않습니다.";
+                    ajaxContent.textContent = "선택하신 카드는 해당 서비스 등록내역이 존재하지 않습니다.";
                 ajaxContent.style.color = "red";
                 selectedCards.forEach(card => {
                     card.checked = false; // 이미 체크된 카드 체크 해제

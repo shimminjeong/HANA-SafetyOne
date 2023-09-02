@@ -1,89 +1,62 @@
 var myCategoryCntChart;
 var myCategorySumChart;
 
-function selectCategoryBig() {
+let myChart = null; // 전역 변수로 차트 선언
 
-    if (myCategoryCntChart) {
-        console.log("myCategoryCntChart", myCategoryCntChart)
-        myCategoryCntChart.destroy();
-    }
+function updateCategoryChart(selectedCategory) {
+    let categorySmallList = [];
+    let categoryCntList = [];
 
-    if (myCategorySumChart) {
-        myCategorySumChart.destroy();
-    }
-
-
-    setTimeout(() => {
-        var selectedCategory = document.getElementById('selectCategoryBig').value;
-
-        let categorySmallList = [];
-        let categoryCntList = [];
-        let amountSumList = [];
-
-        $.ajax({
-            url: '/chart/categoryServiceChart',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({categoryBig: selectedCategory}),
-            success: function (data) {
-                for (let i = 0; i < data.length; i++) {
-                    categorySmallList.push(data[i].categorySmall);
-                    categoryCntList.push(data[i].categoryCnt);
-                    amountSumList.push(data[i].amountSum);
-                }
-
-                // 첫 번째 바 차트 그리기
-                var ctx1 = document.getElementById('myCategoryCntChart').getContext('2d');
-                new Chart(ctx1, {
-                    type: 'bar',
-                    data: {
-                        labels: categorySmallList,
-                        datasets: [{
-                            label: 'Amount Count',
-                            data: categoryCntList,
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgb(75, 192, 192)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-
-                // 두 번째 바 차트 그리기
-                var ctx2 = document.getElementById('myCategorySumChart').getContext('2d');
-                new Chart(ctx2, {
-                    type: 'bar',
-                    data: {
-                        labels: categorySmallList,
-                        datasets: [{
-                            label: 'Amount Sum',
-                            data: amountSumList,
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            },
-            error: function () {
-                console.error("Error while fetching data");
+    $.ajax({
+        url: '/chart/categoryServiceChart',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ categoryBig: selectedCategory }),
+        success: function (data) {
+            for (let i = 0; i < data.length; i++) {
+                categorySmallList.push(data[i].categorySmall);
+                categoryCntList.push(data[i].categoryCnt);
             }
-        });
 
-    }, 100);
+            var ctx1 = document.getElementById('myCategoryCntChart').getContext('2d');
+
+            if (myChart) {
+                myChart.destroy(); // 이미 차트가 있으면 파괴
+            }
+
+            // 색상 배열 - 데이터 포인트마다 다른 색상을 제공합니다.
+            let colors = [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(99, 255, 132, 0.2)',
+                'rgba(255, 99, 255, 0.2)',
+                'rgba(255, 255, 0, 0.2)',
+                'rgba(132, 99, 255, 0.2)'
+                // 필요한 만큼 더 많은 색상을 추가할 수 있습니다.
+            ];
+
+            myChart = new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: categorySmallList,
+                    datasets: [{
+                        label: 'Amount Count',
+                        data: categoryCntList,
+                        backgroundColor: colors,  // 각 데이터 항목에 대한 색상 배열
+                        borderColor: 'rgb(75, 192, 192)',
+                        borderWidth: 1
+                    }]
+                }
+            });
+        },
+        error: function () {
+            console.log('Error fetching categorySmall data.');
+        }
+    });
 }
 
 function selectRegion(button) {
@@ -145,29 +118,6 @@ function openChartRegionModal() {
                     }
                 }
             });
-
-            var ctx2 = document.getElementById('myRegionSumChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'bar',
-                data: {
-                    labels: regionNameList,
-                    datasets: [{
-                        label: 'Amount Sum',
-                        data: amount_sumList,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
         },
         error: function () {
             console.error("Error while fetching data");
@@ -218,36 +168,12 @@ function openChartTimeModal() {
                     }
                 }
             });
-
-            var ctx2 = document.getElementById('myTimeSumChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'bar',
-                data: {
-                    labels: timeNameList,
-                    datasets: [{
-                        label: 'Amount Sum',
-                        data: timeSumList,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
         },
         error: function () {
             console.error("Error while fetching data");
         }
     });
 }
-
-
 
 
 function closeChartRegionModal() {

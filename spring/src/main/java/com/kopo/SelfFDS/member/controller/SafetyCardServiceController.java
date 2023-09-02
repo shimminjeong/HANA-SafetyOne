@@ -47,31 +47,31 @@ public class SafetyCardServiceController {
     }
 
 
+//    @PostMapping("/registerCard")
+//    @ResponseBody
+//    public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
+//        Card updateCard = memberService.selectCardOfCardId(cardId);
+//        HttpSession session = request.getSession();
+//        session.setAttribute("cardId", cardId);
+//        return "안심카드 서비스 신청 성공";
+//    }
+
+
     @PostMapping("/registerCard")
     @ResponseBody
     public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
         HttpSession session = request.getSession();
-        session.setAttribute("cardId", cardId);
-        return "이상 소비 알림 서비스 신청 성공";
+
+        if (updateCard.getSelffdsSerStatus().equals("N")) {
+            updateCard.setSelffdsSerStatus("Y");
+            session.setAttribute("cardId", cardId);
+            memberService.updateSelfFdsStatus(updateCard);
+            return "안심카드 서비스 신청 성공";
+        } else {
+            return "안심카드 서비스 신청 실패";
+        }
     }
-
-
-//    @PostMapping("/registerCard")
-//    @ResponseBody
-//    public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
-//        Card updateCard = cardService.selectCardOfCardId(cardId);
-//        HttpSession session = request.getSession();
-//
-//        if (updateCard.getSelffdsSerStatus().equals("N")) {
-//            updateCard.setSelffdsSerStatus("Y");
-//            session.setAttribute("cardId", cardId);
-//            cardService.updateSelfFdsStatus(updateCard);
-//            return "selffds 서비스 신청 성공";
-//        } else {
-//            return "selffds 서비스 신청 실패";
-//        }
-//    }
 
     @PostMapping("/cancleCard")
     @ResponseBody
@@ -80,9 +80,9 @@ public class SafetyCardServiceController {
         if (updateCard.getSelffdsSerStatus().equals("Y")) {
             updateCard.setSelffdsSerStatus("N");
             memberService.updateSelfFdsStatus(updateCard);
-            return "selffds 서비스 해제 성공";
+            return "안심카드 서비스 해제 성공";
         } else {
-            return "selffds 서비스 해제 실패";
+            return "안심카드 서비스 해제 실패";
         }
     }
 

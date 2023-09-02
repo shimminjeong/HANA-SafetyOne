@@ -15,7 +15,7 @@
         <div class="serviceTitle"><h3>안심카드</h3></div>
         <div class="service-content">
             <div class="text_div">
-                <p><div class="sub-tit">안전한 결제를 위한 안심설정 서비스</div><br>
+                <p><div class="sub-tit">안전한 결제를 위한 안심카드설정 서비스</div><br>
                     <div class="sub-txt">결제 차단 지역, 시간, 업종 등 나만의 Rule을 간편하게 설정</div></p>
             </div>
             <a href="/safetyCard/safetyCardSelect">

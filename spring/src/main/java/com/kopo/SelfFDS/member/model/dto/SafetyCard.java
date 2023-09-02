@@ -13,7 +13,9 @@ public class SafetyCard {
     private String safetyStartDate;
     private String safetyEndDate;
     private String regionName;
-    private String CategorySmall;
-    private String time;
+    private String categorySmall;
+    private String startTime;
+    private String endTime;
+    private String status;
 
 }
