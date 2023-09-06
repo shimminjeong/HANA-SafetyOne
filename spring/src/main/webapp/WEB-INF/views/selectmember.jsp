@@ -19,7 +19,7 @@
     }
 
     thead th {
-        background-color: #f2f2f2;
+        background-safetyCardSelect: #f2f2f2;
         border: 1px solid #ccc;
         padding: 8px;
         text-align: left;
@@ -30,14 +30,14 @@
         padding: 8px;
     }
 
-    /* Apply alternating row colors for better readability */
+    /* Apply alternating row safetyCardSelects for better readability */
     tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
+        background-safetyCardSelect: #f2f2f2;
     }
 
     /* Add hover effect to the table rows */
     tbody tr:hover {
-        background-color: #ddd;
+        background-safetyCardSelect: #ddd;
     }
 </style>
 <body>

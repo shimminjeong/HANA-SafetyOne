@@ -18,4 +18,17 @@ public class SafetyCard {
     private String endTime;
     private String status;
 
+    @Override
+    public String toString() {
+        return "SafetyCard{" +
+                "cardId='" + cardId + '\'' +
+                ", safetyStartDate='" + safetyStartDate + '\'' +
+                ", safetyEndDate='" + safetyEndDate + '\'' +
+                ", regionName='" + regionName + '\'' +
+                ", categorySmall='" + categorySmall + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

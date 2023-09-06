@@ -18,14 +18,14 @@
         appearance: none;
         width: 22px;
         height: 22px;
-        background-color: white;
+        background-safetyCardSelect: white;
         border: 2px solid #ccc;
         border-radius: 3px;
         cursor: pointer;
     }
 
     input[type="checkbox"]:checked {
-        background-color: #00857F;
+        background-safetyCardSelect: #00857F;
         border: 2px solid #00857F;
     }
 
@@ -37,13 +37,13 @@
     }
 
     .reg-Btn, .cancle-Btn {
-        color: white;
+        safetyCardSelect: white;
         border: none;
         padding: 12px 40px 12px 40px;
         border-radius: 5px;
         cursor: pointer;
         text-decoration: none;
-        background-color: #00857F;
+        background-safetyCardSelect: #00857F;
         font-size: 16px;
         transition: background-color 0.3s;
         display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */

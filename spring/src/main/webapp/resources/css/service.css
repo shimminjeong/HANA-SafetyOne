@@ -8,13 +8,31 @@
 }
 
 .serviceTitle {
-    font-size: 30px;
+    margin-top: 1.5%;
+    margin-bottom: 5%;
+    font-size: 40px;
     font-weight: bold;
+    display: flex;
 }
+
+.serviceTitle > img{
+    width: 40px;
+    margin-right: 10px;
+}
+
 /*#cbf8e7*/
 /*#eafaf3*/
-.service-content {
+.service-content1 {
     background-color: #eafaf3;
+    width: 100vw;
+    margin-bottom: 40px;
+    padding: 34px 0 40px;
+    align-items: center;
+
+}
+
+.service-content2 {
+    background-color: #faefea;
     width: 100vw;
     margin-bottom: 40px;
     padding: 34px 0 40px;
@@ -25,7 +43,6 @@
 /* Sub Title styles */
 .text_div {
     text-align: center;
-
 }
 
 
@@ -53,7 +70,8 @@
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    background-color: #00857F;
+    /*background-color: #00857F;*/
+    background-color: #0e9d97;
     font-size: 16px;
     transition: background-color 0.3s;
     display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */

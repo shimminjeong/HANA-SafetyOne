@@ -2,6 +2,7 @@ package com.kopo.SelfFDS.member.controller;
 
 
 import com.kopo.SelfFDS.member.model.dto.Card;
+import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
 import com.kopo.SelfFDS.member.service.MemberService;
@@ -121,10 +122,10 @@ public class SafetyCardServiceController {
     @GetMapping("/selffdsTotal")
     public ModelAndView selffdsTotalPage(@RequestParam("selectedButtons") String selectedButtons) {
         ModelAndView mav = new ModelAndView();
-        System.out.println("selectedButtons : "+selectedButtons);
+        System.out.println("selectedButtons : " + selectedButtons);
         String[] buttonsArray = selectedButtons.split(",");
         mav.addObject("selectArray", buttonsArray);
-        for(int i=0;i<buttonsArray.length;i++){
+        for (int i = 0; i < buttonsArray.length; i++) {
             System.out.println(buttonsArray[i]);
         }
         //region
@@ -140,7 +141,7 @@ public class SafetyCardServiceController {
             categoryMap.put(bigcategory, smallCategoryList);
         }
 
-        mav.addObject("categoryBigList",bigCategory);
+        mav.addObject("categoryBigList", bigCategory);
         mav.addObject("categoryMap", categoryMap);
 
 
@@ -150,16 +151,16 @@ public class SafetyCardServiceController {
     }
 
 
-
     @GetMapping("/safetySetting")
-    public ModelAndView safetySettingPage(@RequestParam("selectedButtons") String selectedButtons) {
+    public ModelAndView safetySettingPage() {
         ModelAndView mav = new ModelAndView();
-        System.out.println("selectedButtons : "+selectedButtons);
-        String[] buttonsArray = selectedButtons.split(",");
-        mav.addObject("selectArray", buttonsArray);
-        for(int i=0;i<buttonsArray.length;i++){
-            System.out.println(buttonsArray[i]);
-        }
+//        @RequestParam("selectedButtons") String selectedButtons
+//        System.out.println("selectedButtons : "+selectedButtons);
+//        String[] buttonsArray = selectedButtons.split(",");
+//        mav.addObject("selectArray", buttonsArray);
+//        for(int i=0;i<buttonsArray.length;i++){
+//            System.out.println(buttonsArray[i]);
+//        }
         //region
         List<String> regionList = memberService.selectAllRegionName();
         mav.addObject("regionList", regionList);
@@ -173,7 +174,7 @@ public class SafetyCardServiceController {
             categoryMap.put(bigcategory, smallCategoryList);
         }
 
-        mav.addObject("categoryBigList",bigCategory);
+        mav.addObject("categoryBigList", bigCategory);
         mav.addObject("categoryMap", categoryMap);
 
 
@@ -182,10 +183,20 @@ public class SafetyCardServiceController {
         return mav;
     }
 
+
+    @PostMapping("/insertsetting")
+    public String insertSafetyInfo(@RequestBody SafetyCard safetyCard) {
+
+        memberService.insertSafetySetting(safetyCard);
+        System.out.println(safetyCard);
+        return "success";
+    }
+
+
     @PostMapping("/info")
     @ResponseBody
     public ResponseEntity<List<SafetyCard>> safetyInfo(@RequestBody SafetyCard safetyCard) {
-        System.out.println("safetyCard.getCardId()"+safetyCard.getCardId());
+        System.out.println("safetyCard.getCardId()" + safetyCard.getCardId());
         List<SafetyCard> resultList = memberService.selectAllSafetyCardOfCardId(safetyCard.getCardId());
         System.out.println(resultList.get(0).getSafetyStartDate());
         System.out.println(resultList.get(0).getCardId());
@@ -196,7 +207,6 @@ public class SafetyCardServiceController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
 
 }

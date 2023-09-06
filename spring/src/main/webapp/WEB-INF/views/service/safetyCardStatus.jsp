@@ -18,7 +18,7 @@
         appearance: none;
         width: 22px;
         height: 22px;
-        background-safetyCardSelect: white;
+        background-color: white;
         border: 2px solid #ccc;
         border-radius: 3px;
         cursor: pointer;
@@ -212,7 +212,7 @@
 
     }
 
-    .info-list {
+    .info-list{
         margin-top: 12px;
         margin-bottom: 12px;
         display: flex;
@@ -220,11 +220,11 @@
         font-size: 14px;
     }
 
-    .info-header {
+    .info-header{
         width: 100px;
     }
 
-    .ajax-content {
+    .ajax-content{
         margin-top: 30px;
     }
 
@@ -236,6 +236,7 @@
     <div class="formsize">
         <div class="content-div">
             <h1>안심카드설정</h1>
+            <h2>안심카드서비스 이용현황</h2>
             <h3>설정할 카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h3></ㅗ4>
         </div>
         <div class="card-list">
@@ -247,11 +248,16 @@
                     <div>본인 | ${card.cardId}</div>
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
                     <c:if test="${card.selffdsSerStatus eq 'Y'}">
-                        <img class="lock-img" src="../../../resources/img/padlock.png">
+                    <img class="lock-img" src="../../../resources/img/padlock.png">
                     </c:if>
                     <c:if test="${card.selffdsSerStatus eq 'N'}">
                         <img class="lock-img" src="../../../resources/img/unlock.png">
                     </c:if>
+                </div>
+                <div class="panel">
+                    <div id="cardInfo-${card.cardId}">
+                        <!-- 서버로부터 받아온 정보가 이곳에 추가될 것입니다. -->
+                    </div>
                 </div>
             </c:forEach>
         </div>
@@ -261,67 +267,115 @@
             <button class="reg-Btn" onclick="registerCard()">등록</button>
         </div>
     </div>
-    <%--    <div id="selectModal" class="modal" style="display: none;">--%>
-    <%--        <div class="modal-content">--%>
-    <%--            <div class="modal-header">안심카드설정</div>--%>
-    <%--            <div class="modal-message">--%>
-    <%--                <span>안녕하세요</span>--%>
-    <%--                <span class="spancon">차단할 항목을 선택하세요</span>--%>
-    <%--                <div class="modal-grid">--%>
-    <%--                    <button class="select-content" id="region">--%>
-    <%--                        <img class="img-select" src="../../resources/img/location.png" height="60">--%>
-    <%--                        <div>위치</div>--%>
-    <%--                    </button>--%>
-    <%--                    <button class="select-content" id="category">--%>
-    <%--                        <img class="img-select" src="../../resources/img/optionslines.png" height="60">--%>
-    <%--                        <div>업종</div>--%>
-    <%--                    </button>--%>
-    <%--                    <button class="select-content" id="time">--%>
-    <%--                        <img class="img-select" src="../../resources/img/clock.png" height="60">--%>
-    <%--                        <div>시간</div>--%>
-    <%--                    </button>--%>
-    <%--                </div>--%>
-    <%--                <button class="setting-btn" onclick="selectSetting()">설정</button>--%>
-    <%--            </div>--%>
-    <%--            <button class="close-button" onclick="closeSelectModal()">&times;</button>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
+    <div id="selectModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">안심카드설정</div>
+            <div class="modal-message">
+                <span>안녕하세요</span>
+                <span class="spancon">차단할 항목을 선택하세요</span>
+                <div class="modal-grid">
+                    <button class="select-content" id="region">
+                        <img class="img-select" src="../../resources/img/location.png" height="60">
+                        <div>위치</div>
+                    </button>
+                    <button class="select-content" id="category">
+                        <img class="img-select" src="../../resources/img/optionslines.png" height="60">
+                        <div>업종</div>
+                    </button>
+                    <button class="select-content" id="time">
+                        <img class="img-select" src="../../resources/img/clock.png" height="60">
+                        <div>시간</div>
+                    </button>
+                </div>
+                <button class="setting-btn" onclick="selectSetting()">설정</button>
+            </div>
+            <button class="close-button" onclick="closeSelectModal()">&times;</button>
+        </div>
+    </div>
 </div>
 </body>
 <script>
 
-    // const selectedButtons = [];
-    // // 버튼 요소들을 가져옴
-    // const button1 = document.getElementById("region");
-    // const button2 = document.getElementById("category");
-    // const button3 = document.getElementById("time");
-    // // 클릭 이벤트 리스너를 추가
-    // button1.addEventListener("click", () => handleButtonClick(button1));
-    // button2.addEventListener("click", () => handleButtonClick(button2));
-    // button3.addEventListener("click", () => handleButtonClick(button3));
-    //
-    // function handleButtonClick(clickedButton) {
-    //
-    //     const buttonText = clickedButton.id;
-    //     const index = selectedButtons.indexOf(buttonText);
-    //
-    //     if (index === -1) {
-    //         selectedButtons.push(buttonText);
-    //         clickedButton.classList.add("selected");
-    //
-    //     } else {
-    //         selectedButtons.splice(index, 1);
-    //         clickedButton.classList.remove("selected");
-    //     }
-    //     console.log(selectedButtons);
-    // }
-    //
-    //
-    // function selectSetting() {
-    //
-    //     let url = '/safetyCard/safetySetting?selectedButtons=' + selectedButtons;
-    //     window.location.href = url;
-    // }
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+                var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
+                console.log("cardid",cardId);
+                // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
+                $.ajax({
+                    url: "/safetyCard/info",
+                    type: 'POST',
+                    data: JSON.stringify({cardId: cardId}),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        var cardInfoList = $("#cardInfo-" + cardId);
+                        cardInfoList.empty();
+                        cardInfoList.append("<h2>안심카드 맞춤설정 이용중입니다.</h2>");
+                        data.forEach(function (item) {
+                            cardInfoList.append("<hr><div class='info-list'><div class='info-header'>선택카드</div><span class='info-content'>" + item.cardId + "</span></div>" +
+                                "<div class='info-list'><div class='info-header'>사용가능기간 </div><span class='info-content'>" + item.safetyStartDate + " ~ " +item.safetyEndDate+"</span></div>");
+                            if (item.regionName!== null) {
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단지역 </div><span class='info-content'>" + item.regionName + "</span></div>");
+                            }
+
+                            if (item.startTime !== null) {
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단시간 </div><span class='info-content'>" + item.startTime + " ~ " +item.endTime+"</span></div>");
+                            }
+
+                            if (item.categorySmall!== null) {
+                                cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단업종 </div><span class='info-content'>" + item.categorySmall + "</span></div>");
+                            }
+
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+
+
+    const selectedButtons = [];
+    // 버튼 요소들을 가져옴
+    const button1 = document.getElementById("region");
+    const button2 = document.getElementById("category");
+    const button3 = document.getElementById("time");
+    // 클릭 이벤트 리스너를 추가
+    button1.addEventListener("click", () => handleButtonClick(button1));
+    button2.addEventListener("click", () => handleButtonClick(button2));
+    button3.addEventListener("click", () => handleButtonClick(button3));
+
+    function handleButtonClick(clickedButton) {
+
+        const buttonText = clickedButton.id;
+        const index = selectedButtons.indexOf(buttonText);
+
+        if (index === -1) {
+            selectedButtons.push(buttonText);
+            clickedButton.classList.add("selected");
+
+        } else {
+            selectedButtons.splice(index, 1);
+            clickedButton.classList.remove("selected");
+        }
+        console.log(selectedButtons);
+    }
+
+
+    function selectSetting() {
+
+        let url = '/safetyCard/safetySetting?selectedButtons=' + selectedButtons;
+        window.location.href = url;
+    }
 
 
     function registerCard() {
@@ -337,11 +391,9 @@
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "안심카드 서비스 신청 성공") {
-                    // openSelectModal();
-                    window.location.href = "/safetyCard/safetySetting";
+                    openSelectModal();
                 };
-
-                // else
+                    // else
                 //     ajaxContent.textContent = "선택하신 카드는 안심카드설정이 이미 신청이 완료된 카드입니다.";
                 // ajaxContent.style.color = "red";
                 // selectedCards.forEach(card => {
@@ -378,6 +430,20 @@
                 });
             }
         });
+    }
+
+    function openSelectModal() {
+        var successModal = document.getElementById("selectModal");
+        if (successModal) {
+            successModal.style.display = "block";
+        }
+    }
+
+    function closeSelectModal() {
+        var successModal = document.getElementById("selectModal");
+        if (successModal) {
+            successModal.style.display = "none";
+        }
     }
 
 

@@ -12,8 +12,8 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div id="service">
-        <div class="serviceTitle"><h3>이상소비알림서비스</h3></div>
-        <div class="service-content">
+        <div class="serviceTitle"><img src="../../../resources/img/bell.png"/><div>이상소비알림서비스</div></div>
+        <div class="service-content2">
             <div class="text_div">
                 <p><div class="sub-tit">부정사용방지를 위한 알림 서비스</div><br>
                 <div class="sub-txt">평소 나의 소비와 다른 결제패턴이 감지되면 알림을 보내드립니다.</div></p>

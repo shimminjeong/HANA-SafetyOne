@@ -115,4 +115,9 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.selectAllSafetyCardOfCardId(cardId);
     }
 
+    @Override
+    public void insertSafetySetting(SafetyCard safetyCard) {
+
+    }
+
 }

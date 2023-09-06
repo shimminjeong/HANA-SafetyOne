@@ -40,7 +40,7 @@
         width: auto;
         margin-top: -22px;
         padding: 16px;
-        color: white;
+        safetyCardSelect: white;
         font-weight: bold;
         font-size: 18px;
         transition: 0.6s ease;
@@ -54,9 +54,9 @@
         border-radius: 3px 0 0 3px;
     }
 
-    /* On hover, add a black background color with a little bit see-through */
+    /* On hover, add a black background safetyCardSelect with a little bit see-through */
     .prev:hover, .next:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-safetyCardSelect: rgba(0, 0, 0, 0.8);
     }
 
     /* Caption text */
@@ -73,14 +73,14 @@
         height: 15px;
         width: 15px;
         margin: 0 2px;
-        background-color: #bbb;
+        background-safetyCardSelect: #bbb;
         border-radius: 50%;
         display: inline-block;
-        transition: background-color 0.6s ease;
+        transition: background-safetyCardSelect 0.6s ease;
     }
 
     .active, .dot:hover {
-        background-color: #717171;
+        background-safetyCardSelect: #717171;
     }
 
     /* Fading animation */

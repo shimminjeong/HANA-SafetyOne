@@ -57,4 +57,7 @@ public interface MemberMapper {
     List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
 
 
+    void insertSafetySetting(SafetyCard safetyCard);
+
+
 }

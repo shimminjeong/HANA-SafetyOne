@@ -43,4 +43,6 @@ public interface MemberService {
     List<CardHistory> selectAllCardHistoryOfCardId(String cardId);
 
     List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
+
+    void insertSafetySetting(SafetyCard safetyCard);
 }

@@ -37,11 +37,11 @@
     .spot-container button {
         position: absolute;
         cursor: pointer;
-        background-color: transparent;
+        background-safetyCardSelect: transparent;
         border: none;
         padding: 0;
         font-size: 12px;
-        color: black;
+        safetyCardSelect: black;
     }
 
     .mychoice {
@@ -54,8 +54,8 @@
     }
 
     button.selected-btn {
-        background-color: #00857F;
-        color: white;
+        background-safetyCardSelect: #00857F;
+        safetyCardSelect: white;
         border: none;
         padding: 12px;
         margin: 2px;
@@ -87,7 +87,7 @@
 
     .recommend p{
         margin: 5px;
-        color: black;
+        safetyCardSelect: black;
         font-size: 16px;
     }
 
@@ -100,11 +100,11 @@
         text-align: center;
         font-size: 15px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-safetyCardSelect 0.3s ease;
     }
 
     .show-modal:hover {
-        background-color: #2980b9;
+        background-safetyCardSelect: #2980b9;
     }
 
     .okBtn a {
@@ -118,7 +118,7 @@
 <div class="container">
     <div class="setting-container">
         <div class="setting-nav">
-            <a href="/safetyCard/region" style="color: #00857F">지역설정</a>
+            <a href="/safetyCard/region" style="safetyCardSelect: #00857F">지역설정</a>
             <a href="/safetyCard/category">업종설정</a>
             <a href="/safetyCard/time">시간설정</a>
             <a href="/safetyCard/selffdsTotal">통합설정</a>
@@ -189,8 +189,8 @@
                                 datasets: [{
                                     label: 'Amount Count',
                                     data: region_cntList,
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgb(75, 192, 192)',
+                                    backgroundsafetyCardSelect: 'rgba(75, 192, 192, 0.2)',
+                                    bordersafetyCardSelect: 'rgb(75, 192, 192)',
                                     borderWidth: 1
                                 }]
                             },

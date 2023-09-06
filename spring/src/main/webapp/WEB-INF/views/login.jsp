@@ -11,7 +11,7 @@
     .login{
         margin-top: 120px;
         display: inline-block;
-        color: black; /* 글자색 변경 */
+        safetyCardSelect: black; /* 글자색 변경 */
         padding: 7px 20px; /* 패딩 */
         border: none; /* 테두리 없음 */
         border-radius: 5px; /* 둥근 모서리 */
@@ -19,8 +19,8 @@
         text-decoration: none;
         font-size: 12px; /* 폰트 크기 변경 */
         cursor: pointer;
-        background-color: #ffffff; /* 배경색 추가 */
-        transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
+        background-safetyCardSelect: #ffffff; /* 배경색 추가 */
+        transition: background-safetyCardSelect 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
         display: flex;
         flex-direction: row;

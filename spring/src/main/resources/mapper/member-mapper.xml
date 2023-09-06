@@ -157,5 +157,21 @@
         WHERE CARDID = #{cardId}
     </select>
 
+
+    <insert id="insertMember" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE
+        <if test="regionName != null">, REGIONNAME</if>
+        <if test="categorySmall != null">, CATEGORYSMALL</if>
+         <if test="startTime != null">, STARTTIME</if>
+          <if test="endTime != null">, ENDTIME</if>
+        <if test="status != null">, STATUS</if>)VALUES(#{cardId}, #{safetyStartDate}, #{safetyEndDate}
+        <if test="regionName != null">, #{regionName}</if><if test="categorySmall != null">,
+                        #{categorySmall}</if><if test="startTime != null">, #{startTime}</if>
+        <if test="endTime != null">, #{endTime}</if><if test="status != null">, #{status}</if>)
+    </insert>
+
+
+
+
 </mapper>
 

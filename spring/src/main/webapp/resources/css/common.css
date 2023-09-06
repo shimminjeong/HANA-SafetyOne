@@ -105,17 +105,17 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
-    background-color: #00857F;
+    /*background-color: #00857F;*/
 
 }
 
 /* Links inside the navbar */
 .navbar a {
-    font-size: 16px;
+    font-size: 17px;
     text-align: center;
     padding: 12px 40px;
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .dropdown {
@@ -124,8 +124,8 @@
 
 /* Dropdown button */
 .dropdown .dropbtn {
-    color: white;
-    font-size: 16px;
+    color: black;
+    font-size: 17px;
     border: none;
     outline: none;
     padding: 12px 40px;
