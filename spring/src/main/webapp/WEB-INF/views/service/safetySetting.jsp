@@ -97,7 +97,8 @@
             </div>
         </div>
     </div>
-    <button class="reg-Btn" onclick="sendSettingsToController()"> 등록</button>
+<%--    <button class="reg-Btn" onclick="sendSettingsToController()"> 등록</button>--%>
+    <button class="reg-Btn" onclick="modalCheck()"> 등록</button>
 </div>
 <div class="modal">
     <div id="myRegionmodal">
@@ -127,12 +128,14 @@
                 <div class="grid-item">
                     <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
                     <c:set var="imageName" value="${imgList[imgIndex]}"/>
-                    <img class="grid-image" onclick="handleClick('${entry.key}')" src="../../../resources/img/${imageName}" alt="${entry.key}">
+                    <img class="grid-image" onclick="handleClick('${entry.key}')"
+                         src="../../../resources/img/${imageName}" alt="${entry.key}">
                     <div class="item-name">${entry.key}</div>
                     <div class="dropdown-list">
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <c:forEach var="category" items="${entry.value}">
-                                <a class="dropdown-item"onclick="handleClick('${category.categorySmall}')">${category.categorySmall}</a>
+                                <a class="dropdown-item"
+                                   onclick="handleClick('${category.categorySmall}')">${category.categorySmall}</a>
                             </c:forEach>
                         </div>
                     </div>
@@ -141,6 +144,15 @@
         </div>
         <span class="close" onclick="closeCategoryModal()">&times;</span>
     </div>
+
+    <div id="customModal" class="modal-style">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <p><%=session.getAttribute("cardId")%> 해당 카드 사용에 아래와 같은 거래조건을 차단하시겠습니까?</p>
+            <div class="myselect-contentok"></div>
+        </div>
+    </div>
+
 </div>
 <script>
     function collectSettings() {
@@ -161,27 +173,142 @@
         return settingsList;
     }
 
-
-
-    function sendSettingsToController() {
+    function modalCheck() {
         const settings = collectSettings();
         console.log("settings", settings);
+        const contentDiv = document.querySelector('.myselect-contentok');
+        contentDiv.innerHTML = "";  // Clear existing content
 
-        fetch('/safetyCard/insertsetting', {
-            method: 'POST',  // 'GET' 대신 'POST'를 사용
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(settings),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        // Define labels for the settings
+        const labels = ["차단지역", "차단시간", "차단업종"];
+
+        settings.forEach((setting, index) => {
+            if (setting && setting.length > 0) {  // Check if the setting is not null and has values
+                const settingDiv = document.createElement('div');
+                settingDiv.innerHTML = labels[index] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + setting.join(", ");
+                contentDiv.appendChild(settingDiv);
+            }
+        });
+
+        const btn = document.createElement("button");
+        btn.textContent = "확인";
+        btn.onclick = safetySettingOk;
+        contentDiv.appendChild(btn);
+
+        const modal = document.getElementById("customModal");
+        const span = document.querySelector(".modal-close");
+
+        modal.style.display = "block";
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
     }
+
+    function safetySettingOk() {
+        console.log("satetySetting");
+        const settings = collectSettings();
+        $.ajax({
+            url: '/safetyCard/insertSetting',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(settings),
+            dataType: 'text',
+            success: function(response) {
+                console.log(response);
+                console.log("sss");
+                if (response === "insert성공") {
+                    location.href = "/safetyCard/safetySettingOk";
+                } else {
+                    console.error('insert실패');
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+
+    // $.ajax({
+        //     url: '/safetyCard/insertSetting',
+        //     type: 'POST',
+        //     contentType: 'application/json',
+        //     data: JSON.stringify(settings),
+        //     dataType: 'json',
+        //     success: function(data) {
+        //
+        //         const cards = data;
+        //
+        //         const modalBody = document.getElementById("modalBody");
+        //         modalBody.innerHTML = ""; // Clear existing content
+        //
+        //
+        //         const cardDetails = document.createElement("div");
+        //         const infohead = document.createTextNode(`다음과 같은 조건의 거래내역을 차단하시겠습니까?`);
+        //         cardDetails.appendChild(infohead);
+        //
+        //         const cardIdText = document.createTextNode(`cardId : ` + cards[0].cardId);
+        //         cardDetails.appendChild(cardIdText);
+        //         cardDetails.appendChild(document.createElement("br"));
+        //
+        //         const dateText = document.createTextNode(`서비스 제공기간 :` + cards[0].safetyStartDate + ` ~ ` + cards[0].safetyEndDate);
+        //         cardDetails.appendChild(dateText);
+        //
+        //         cardDetails.appendChild(document.createElement("br"));
+        //         cardDetails.appendChild(document.createElement("br"));
+        //
+        //         modalBody.appendChild(cardDetails);
+        //
+        //         // Create table
+        //         const table = document.createElement("table");
+        //         table.border = '1';
+        //         // Thead
+        //         const thead = document.createElement("thead");
+        //         const trHead = document.createElement("tr");
+        //         ["region", "starttime", "endtime", "categorySmall"].forEach(header => {
+        //             const th = document.createElement("th");
+        //             th.textContent = header;
+        //             trHead.appendChild(th);
+        //         });
+        //         thead.appendChild(trHead);
+        //         table.appendChild(thead);
+        //
+        //         // Tbody
+        //         const tbody = document.createElement("tbody");
+        //         for (let card of cards) {
+        //             const tr = document.createElement("tr");
+        //             [card.regionName, card.startTime, card.endTime, card.categorySmall].forEach(text => {
+        //                 const td = document.createElement("td");
+        //                 td.textContent = text || ''; // In case any value is null
+        //                 tr.appendChild(td);
+        //             });
+        //             tbody.appendChild(tr);
+        //         }
+        //         table.appendChild(tbody);
+        //
+        //         modalBody.appendChild(table);
+        //
+        //         const btn = document.createElement("button");
+        //         btn.textContent = "확인";
+        //         btn.onclick = safetySettingOk; // Attach event listener
+        //
+        //         modalBody.appendChild(btn);
+        //
+        //         document.getElementById("myModal").style.display = "block";
+        //     },
+        //     error: function(error) {
+        //         console.error('Error:', error);
+        //     }
+        // });
+
+
 
 
     function handleClick(value) {
@@ -211,8 +338,6 @@
         myselectContainer.appendChild(newSelectDiv);
         myselectContainer.style.display = 'flex';
     }
-
-
 
 
     function populateTimeOptions() {
@@ -263,7 +388,6 @@
         myselectContainer.style.display = 'flex';
 
     }
-
 
 
     $(function () {
@@ -373,51 +497,6 @@
         updateCategoryChart(this.value);
     });
 
-
-    $(function () {
-        $('.select-date').on('click', function () {
-            var rangeSelect = $('#rangeSelect');
-            if (rangeSelect.is(':visible')) {
-                rangeSelect.hide();
-            } else {
-                rangeSelect.show();
-            }
-        });
-    });
-
-
-    var today = $.datepicker.formatDate('yy-mm-dd', new Date());
-    $(function () {
-
-        $.datepicker.setDefaults($.datepicker.regional['ko']);
-
-        $('#fromDate').datepicker({
-            dateFormat: "yy-mm-dd",
-            monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-            dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-            buttonImage: "/jdAdmin/images/calendar.png", // 버튼 이미지
-            buttonImageOnly: true,             // 버튼 이미지만 표시할지 여부
-            buttonText: "날짜선택",             // 버튼의 대체 텍스트
-            changeMonth: true,                  // 월을 이동하기 위한 선택상자 표시여부
-            maxDate: 1000,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-            onClose: function (selectedDate) {
-                $("#toDate").datepicker("option", "minDate", selectedDate);
-            }
-        });
-
-        $('#toDate').datepicker({
-            dateFormat: "yy-mm-dd",
-            monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-            dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-            changeMonth: true,
-            maxDate: 1000,
-            onClose: function (selectedDate) {
-                $("#fromDate").datepicker("option", "maxDate", selectedDate);
-            }
-        });
-
-
-    });
 
 
 </script>

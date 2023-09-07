@@ -1,10 +1,7 @@
 package com.kopo.SelfFDS.member.controller;
 
 
-import com.kopo.SelfFDS.member.model.dto.Card;
-import com.kopo.SelfFDS.member.model.dto.CardHistory;
-import com.kopo.SelfFDS.member.model.dto.SafetyCard;
-import com.kopo.SelfFDS.member.model.dto.SafetyRegister;
+import com.kopo.SelfFDS.member.model.dto.*;
 import com.kopo.SelfFDS.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,23 @@ public class SafetyCardServiceController {
     @GetMapping("/")
     public String safetyCardPage() {
         return "service/safetyCard";
+    }
+
+    @GetMapping("/safetySettingOk")
+    public String safetySettingOkPage() {
+        return "service/safetySettingOk";
+    }
+
+    @GetMapping("/safetyCardStatus")
+    public ModelAndView safetyCardStatusPage(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        List<Card> cardInfo = memberService.selectCardOfEmail(email);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("cards", cardInfo);
+        mav.setViewName("service/safetyCardStatus");
+        return mav;
     }
 
 
@@ -89,16 +103,6 @@ public class SafetyCardServiceController {
         }
     }
 
-
-    @GetMapping("/region")
-    public ModelAndView regionPage() {
-        List<String> regionList = memberService.selectAllRegionName();
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("regionList", regionList);
-        mav.setViewName("service/region");
-        return mav;
-    }
-
     @GetMapping("/category")
     public ModelAndView selfCategoryPage() {
         Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
@@ -116,10 +120,6 @@ public class SafetyCardServiceController {
         return mav;
     }
 
-    @GetMapping("/time")
-    public String timePage() {
-        return "service/time";
-    }
 
     @GetMapping("/selffdsTotal")
     public ModelAndView selffdsTotalPage(@RequestParam("selectedButtons") String selectedButtons) {
@@ -186,26 +186,27 @@ public class SafetyCardServiceController {
     }
 
 
-    @PostMapping("/insertsetting")
-    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard,HttpSession session) {
-        System.out.println("controller safetyCard"+safetyCard);
+    @PostMapping("/insertSetting")
+    @ResponseBody
+    public  String insertSafetyInfo(@RequestBody List<List<String>> safetyCard,HttpSession session) {
         String cardId=(String) session.getAttribute("cardId");
-        memberService.insertSafetySetting(cardId,safetyCard);
-
-        return "Success";
+        int enrollSeq=memberService.selectSafetySettingEnrollSeqByCardId(cardId);
+        System.out.println(enrollSeq+cardId);
+        memberService.insertSafetySetting(cardId,enrollSeq,safetyCard);
+        System.out.println("gogo");
+        return "insert성공";
     }
 
 
-    @PostMapping("/info")
-    @ResponseBody
-    public ResponseEntity<List<SafetyCard>> safetyInfo(@RequestBody SafetyCard safetyCard) {
-        System.out.println("safetyCard.getCardId()" + safetyCard.getCardId());
-        List<SafetyCard> resultList = memberService.selectAllSafetyCardOfCardId(safetyCard.getCardId());
-        System.out.println(resultList.get(0).getSafetyStartDate());
-        System.out.println(resultList.get(0).getCardId());
 
-        if (!resultList.isEmpty()) {
-            return ResponseEntity.ok(resultList);
+    @PostMapping("/selectSafetyInfo")
+    @ResponseBody
+    public  ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard) {
+        String cardId=safetyCard.getCardId();
+        List<SafetyCard> safetyCardList = memberService.selectAllSafetyCardOfCardId(cardId);
+        System.out.println("safetyCardList"+safetyCardList);
+        if (!safetyCardList.isEmpty()) {
+            return ResponseEntity.ok(safetyCardList);
         } else {
             return ResponseEntity.notFound().build();
         }

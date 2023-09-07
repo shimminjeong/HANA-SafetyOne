@@ -117,31 +117,15 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.selectAllSafetyCardOfCardId(cardId);
     }
 
-//    @Override
-//    public void insertSafetySetting(List<List<String>> safetyCard) {
-//        List<String> regionList = null;
-//        List<String> timeList = null;
-//        List<String> categoryList = null;
-//
-//        for(List<String> list : safetyCard){
-//            System.out.println(list);
-//            for(String string : list){
-//                System.out.println("서비스 : 리스트 안의 값 " + string);
-//                memberMapper.insertSafetySetting(string);
-//            }
-//        }
-////        System.out.println("timeList"+timeList);
-////
-//    }
-
     @Override
-    public void insertSafetySetting(String cardId,List<List<String>> safetyCard) {
+    public void insertSafetySetting(String cardId,int enrollSeq,List<List<String>> safetyCard) {
 
         List<String> regionList = safetyCard.get(0);
         List<String> timeList = safetyCard.get(1);
         List<String> categoryList = safetyCard.get(2);
         SafetyCard safety = new SafetyCard();
         safety.setCardId(cardId);
+        safety.setEnrollSeq(enrollSeq+1);
 
         if (!regionList.isEmpty()) {
             for (String regionName : regionList) {
@@ -197,6 +181,16 @@ public class MemberServiceImpl implements MemberService {
                 memberMapper.insertSafetySetting(safety);
             }
         }
+    }
+
+    @Override
+    public List<SafetyCard> selectSafetySettingByCardId(String cardId, int enrollSeq) {
+        return memberMapper.selectSafetySettingByCardId(cardId,enrollSeq);
+    }
+
+    @Override
+    public int selectSafetySettingEnrollSeqByCardId(String cardId) {
+        return memberMapper.selectSafetySettingEnrollSeqByCardId(cardId);
     }
 
 }

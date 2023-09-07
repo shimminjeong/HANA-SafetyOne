@@ -19,6 +19,7 @@ public class SafetyCard {
     private String startTime;
     private String endTime;
     private String status;
+    private int enrollSeq;
 
 
 }

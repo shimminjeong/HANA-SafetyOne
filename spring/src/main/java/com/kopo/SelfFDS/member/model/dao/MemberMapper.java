@@ -3,6 +3,7 @@ package com.kopo.SelfFDS.member.model.dao;
 import com.kopo.SelfFDS.member.model.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,9 @@ public interface MemberMapper {
 
 
     void insertSafetySetting(SafetyCard safetyCard);
+
+    List<SafetyCard> selectSafetySettingByCardId(@Param("cardId") String cardId,@Param("enrollSeq") int enrollSeq);
+    int selectSafetySettingEnrollSeqByCardId(String cardId);
 
 
 }

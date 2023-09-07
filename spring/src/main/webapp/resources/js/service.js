@@ -204,4 +204,9 @@ function closeCategoryModal() {
 }
 
 
+function closeOkModal() {
+    document.getElementById("myModal").style.display = "none";
+}
+
+
 

@@ -159,14 +159,14 @@
 
 
     <insert id="insertSafetySetting" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE
+        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE,ENROLLSEQ
         <if test="regionName != null">,REGIONNAME</if>
         <if test="startTime != null">,STARTTIME</if>
         <if test="endTime != null">,ENDTIME</if>
         <if test="categorySmall != null">,CATEGORYSMALL</if>
         )
         VALUES(
-        #{cardId},sysdate, TO_DATE('2023/05/27', 'YYYY/MM/DD')
+        #{cardId},sysdate, TO_DATE('2023/05/27', 'YYYY/MM/DD'),#{enrollSeq}
         <!-- Conditionally add values -->
         <if test="regionName != null">,#{regionName}</if>
         <if test="startTime != null">,#{startTime}</if>
@@ -174,6 +174,17 @@
         <if test="categorySmall != null">,#{categorySmall}</if>
         )
     </insert>
+
+    <select id="selectSafetySettingByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        select * from safetycard
+        where cardId=#{cardId} and ENROLLSEQ=#{enrollSeq}
+    </select>
+
+    <select id="selectSafetySettingEnrollSeqByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        SELECT COALESCE(MAX(ENROLLSEQ), 0) AS ENROLLSEQ
+        FROM safetycard
+        WHERE cardId=#{cardId}
+    </select>
 
 
 

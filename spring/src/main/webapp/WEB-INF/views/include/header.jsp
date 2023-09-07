@@ -10,7 +10,7 @@
     <div id="headerLogo">
         <div id="logo">
             <img class="imgLogo" src="../../resources/img/logo.png" height="60">
-            <a class="nameLogo" href="/">하나카드</a>
+            <a class="nameLogo" href="/">SafetyOne</a>
         </div>
         <%
             String email = (String) session.getAttribute("email");

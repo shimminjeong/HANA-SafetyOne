@@ -1,0 +1,214 @@
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #00857F;
+    border: 2px solid #00857F;
+}
+
+.reg-cancle-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.reg-Btn, .cancle-Btn {
+    color: white;
+    border: none;
+    padding: 12px 40px 12px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00857F;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
+}
+
+.reg-Btn {
+    margin-left: 40px;
+}
+
+.card-img {
+    width: 90px;
+}
+
+.lock-img {
+    width: 40px;
+}
+
+.ajax-content {
+    font-size: 14px;
+    display: flex;
+    justify-content: center
+}
+
+.formsize {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black; /* 글자색 변경 */
+    padding: 30px 80px; /* 패딩 */
+    text-decoration: none;
+    font-size: 12px; /* 폰트 크기 변경 */
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    border: none;
+    background-color: #f8f8f8;
+}
+
+.modal-content {
+    background-color: #f8f8f8; /* Slightly off-white for a softer appearance */
+    width: 450px;
+    height: 400px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Box shadow for depth */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Larger font size for readability */
+    font-weight: 400; /* Regular font weight */
+}
+
+.modal-header {
+    margin-top: 25px;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.modal-message {
+    font-size: 18px;
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 45px;
+    margin: 10px;
+}
+
+.select-content img {
+    margin-bottom: 20px;
+}
+
+.select-content {
+    border: 1px solid #ccc; /* 그리드 간격 사이에 테두리 설정 */
+    padding: 20px;
+}
+
+
+.spancon {
+    margin-bottom: 30px;
+    margin-top: 15px;
+}
+
+.select-content.selected {
+    background-color: lightblue; /* 선택한 옵션의 배경색을 변경할 스타일 지정 */
+}
+
+
+.setting-btn {
+    width: 80px;
+    height: 40px;
+    background-color: #3498db; /* Vivid blue */
+    color: white; /* White text */
+    margin: 30px;
+    padding: 10px 15px; /* Padding for size */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    font-weight: 600; /* Slightly bold font weight */
+    cursor: pointer; /* Hand cursor on hover */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.setting-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+.accordion {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    border-radius: 8px; /* 상단의 둥근 모서리 지정 */
+    background-color: #ffffff;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+
+}
+
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: #e0e0e0;
+    display: none;
+    overflow: hidden;
+
+}
+
+.info-list{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+}
+
+.info-header{
+    width: 100px;
+}
+
+.ajax-content{
+    margin-top: 30px;
+}
