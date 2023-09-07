@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 var myCategoryCntChart;
 var myCategorySumChart;
 
@@ -186,14 +193,6 @@ function closeChartCategoryModal() {
 
 function closeChartTimeModal() {
     document.getElementById("myTimemodal").style.display = "none";
-}
-
-function openMapModal() {
-    document.getElementById("mapmodal").style.display = "block";
-}
-
-function closeMapModal() {
-    document.getElementById("mapmodal").style.display = "none";
 }
 
 function openCategoryModal() {

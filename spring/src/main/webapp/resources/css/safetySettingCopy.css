@@ -1,0 +1,403 @@
+.main {
+    width: 100%;
+    margin: 70px auto;
+}
+
+
+main hr {
+    border: 1px solid;
+}
+
+.card-info {
+    width: 100%;
+    float: left;
+    padding: 20px 10px 20px 10px;
+}
+
+.card-details {
+    width: 30%;
+    float: left;
+    padding: 10px;
+}
+
+.card-type {
+    width: 60%;
+    padding: 10px;
+}
+
+.setting-options {
+    width: 100%;
+    height: 100%;
+    background: #eafaf3;
+    /*float: left;*/
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.section{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    justify-content: center;
+    margin: 0 auto;
+    flex: 1;
+    border: 1px solid black;
+    background: white;
+    border-radius: 2px;
+
+}
+
+/*.setting-buttons {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    margin: 0 auto;*/
+/*    width: 800px;*/
+/*    justify-content: center;*/
+/*    margin-bottom: -50px;*/
+
+/*}*/
+
+
+.setting-type {
+    width: 20%;
+    padding: 50px 0px 30px 0;
+    font-weight: 700;
+    text-align: left;
+    margin: 13px;
+    font-size: 18px;
+
+}
+
+.setting-type > span {
+    padding: 10px;
+}
+
+/*.buttons {*/
+/*    padding: 50px 0px 30px 0px;*/
+/*    width: 50%;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    text-align: center;*/
+/*    justify-content: center;*/
+/*}*/
+
+.buttons > button {
+    flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
+    /*margin: 0 5px; !* 요소 사이 간격 조절 *!*/
+    padding: 10px;
+    border: 1px solid black;
+    background: white;
+    border-radius: 2px;
+    font-size: 16px;
+}
+
+.buttons > button:hover {
+    border: 2px solid #00857F;
+    border-radius: 2px;
+    color: #00857F;
+}
+
+.buttons > input {
+    flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
+    /*margin: 0 5px; !* 요소 사이 간격 조절 *!*/
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.buttons > input:hover {
+    border: 2px solid #00857F;
+    border-radius: 2px;
+    color: #00857F;
+}
+
+.buttons input[type="text"]::placeholder {
+    direction: rtl; /* 텍스트 방향을 오른쪽에서 왼쪽으로 설정 */
+    text-align: right; /* 텍스트를 오른쪽으로 정렬 */
+}
+
+.select-list {
+    padding: 50px 0px 30px 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+#selectCategoryBig {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 50%;
+    border-radius: 2px;
+}
+
+
+.myselect-region, .myselect-category, .myselect-time {
+    /*padding: 50px 0px 30px 0px;*/
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+.select-con {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.select-con > .select-element {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 75%;
+    background-color: rgba(238, 238, 238, 0.5);
+    border-radius: 2px;
+    color: #717171;
+}
+
+.select-con > .delete-btn {
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+    width: 25%;
+    margin-left: 10px;
+    border-radius: 2px;
+}
+
+
+.select-list > select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    font-size: 16px;
+}
+
+.select-list > select:hover {
+    border: 2px solid #00857F;
+    border-radius: 2px;
+    color: #00857F;
+    font-weight: 700;
+}
+
+.time-select > input {
+    flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.tui-timepicker {
+    position: relative;
+    font-weight: bold;
+    background: none;
+    text-align: center;
+    border: none;
+    padding: 0;
+    height: 30px;
+}
+
+.tui-timepicker select {
+    height: 40px;
+    background-color: white;
+    font-size: 16px;
+}
+
+.reg-Btn {
+    color: white;
+    border: none;
+    padding: 12px 40px 12px 40px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00857F;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    align-items: center;
+    margin: 0px auto;
+    display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
+}
+
+.custom-setting1 {
+    margin-right: 15px;
+}
+
+
+
+
+.show-modal {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.limited-options {
+    max-height: 130px; /* 이 값을 조절하여 5개의 항목에 대한 대략적인 높이를 설정하세요. */
+    overflow-y: auto; /* 수직 스크롤을 활성화합니다. */
+}
+
+#myRegionmodal, #myCategorymodal, #myTimemodal, #categorymodal, #mapmodal {
+    display: none; /* 처음에는 숨겨둠. JavaScript로 보이게 할 예정 */
+    position: fixed; /* 스크롤 해도 위치 고정 */
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    width: 436px;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    padding: 20px;
+    border-radius: 8px; /* 모서리 둥글게 */
+    z-index: 1000; /* 다른 요소 위에 위치 */
+}
+
+/* 캔버스 스타일 */
+#myRegionmodal canvas, #myCategorymodal canvas, #myTimemodal canvas {
+    width: 50%;
+    max-width: 750px;
+    margin: 10px 0;
+
+}
+
+/* 닫기 버튼 스타일 */
+#myRegionmodal .close, #myCategorymodal .close, #myTimemodal .close, #categorymodal .close, #mapmodal .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: black;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#myRegionmodal .close:hover, #myCategorymodal .close:hover, #myTimemodal .close:hover, #categorymodal .close:hover, #mapmodal .close:hover {
+    background-color: #00857F;
+}
+
+.recommend {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.buttons .select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 2px;
+}
+
+.grid-container {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(5, 87px); /* 2열로 반복 */
+    /*grid-gap: 10px; !* 박스 사이의 간격 설정 *!*/
+    align-items: center; /* 내용 수직 가운데 정렬 */
+    text-align: center; /* 내용 가로 가운데 정렬 */
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 10px 5px;
+    height: 100px; /* 그리드 컨테이너의 높이 설정 */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    font-size: 15px;
+
+}
+
+.dropdown-item {
+    display: none;
+    cursor: pointer;
+    margin: auto;
+    font-size: 12px;
+    line-height: 25px;
+    height: 25px;
+    background-color: transparent; /* 초기 배경 설정 */
+    transition: background-color 0.3s ease; /* 배경 변경 시 부드러운 효과를 위한 트랜지션 추가 */
+    padding: 0px 3px;
+}
+
+.dropdown-item:hover {
+    background-color: #00857F; /* 마우스 호버 시 배경 변경 */
+    transform: scale(1.1); /* hover 시 약간 확대되는 효과 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* hover 시 그림자 약간 강화 */
+    color: white;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%; /* Position the dropdown below the grid item */
+    left: 0;
+    width: 100%; /* Make the dropdown width match the grid item width */
+    z-index: 1; /* Ensure the dropdown appears above other content */
+    background-color: #ffffff; /* Add a background color */
+    /*border: 1px solid  !* Add a border for visual separation *!*/
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.grid-item:hover .dropdown-item {
+    display: block;
+    color: black;
+}
+
+.grid-image {
+    width: 50px; /* 이미지 너비 설정 */
+    height: 50px; /* 이미지 높이 설정 */
+    padding-bottom: 14px;
+    margin: 0 auto; /* 이미지 가운데 정렬 */
+    /*display: block; !* 이미지를 블록 요소로 변경 *!*/
+}
+
+.grid-item:hover {
+    background-color: #00857F;
+    border: 1px solid #ffffff;
+    color: black;
+}
+
+.select-no {
+    margin-right: 15px;
+}
+
+.buttons > .active-button {
+    background-color: #dddddd;
+}
+
+.recommend{
+    margin-bottom: 30px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 20px;
+}
+
+#startHour, #endHour , #startMinute, #endMinute{
+    width: 80px;
+    height: 38px;
+    font-size: 16px;
+}

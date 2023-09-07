@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.IconUIResource;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,14 +59,13 @@ public class SafetyCardServiceController {
 //        session.setAttribute("cardId", cardId);
 //        return "안심카드 서비스 신청 성공";
 //    }
-
+{}
 
     @PostMapping("/registerCard")
     @ResponseBody
     public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
         HttpSession session = request.getSession();
-
         if (updateCard.getSelffdsSerStatus().equals("N")) {
             updateCard.setSelffdsSerStatus("Y");
             session.setAttribute("cardId", cardId);
@@ -185,11 +187,12 @@ public class SafetyCardServiceController {
 
 
     @PostMapping("/insertsetting")
-    public String insertSafetyInfo(@RequestBody SafetyCard safetyCard) {
+    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard,HttpSession session) {
+        System.out.println("controller safetyCard"+safetyCard);
+        String cardId=(String) session.getAttribute("cardId");
+        memberService.insertSafetySetting(cardId,safetyCard);
 
-        memberService.insertSafetySetting(safetyCard);
-        System.out.println(safetyCard);
-        return "success";
+        return "Success";
     }
 
 

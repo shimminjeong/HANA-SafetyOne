@@ -29,70 +29,108 @@
             </div>
         </div>
         <div class="setting-options">
-            <div class="section">
-                <button class="select-thing" id="select-region">위치</button>
-                <div id="region" class="setting-buttons" style="display: none">
-                    <div class="select-list">
-                        <div class="recommend">
-                            <button class="show-modal" onclick="openChartRegionModal()">지역별 소비 확인</button>
-                        </div>
-                        <div class="buttons">
-                            <button id="region-ok" style="margin-right:10px">허용지역선택</button>
-                            <button id="region-no">차단지역선택</button>
-                        </div>
-                        <select class="limited-options">
-                            <c:forEach var="entry" items="${regionList}">
-                                <option name="${entry}">${entry}</option>
-                            </c:forEach>
-                        </select>
-                        <div class="myselect-region">
-                        </div>
+            <div class="setting-buttons">
+                <div class="setting-type">
+                    <span>서비스사용기간</span>
+                </div>
+                <div class="buttons">
+                    <button class="custom-setting1">카드유효기간까지</button>
+                    <button class="select-date">직접선택</button>
+                </div>
+            </div>
+            <div class="setting-buttons" id="rangeSelect" style="display: none;">
+                <div class="setting-type">
+                    <span>기간선택</span>
+                </div>
+                <div class="buttons">
+                    <input type="text" style="width: 155px" id="fromDate" name="fromDate" placeholder="📅">
+                    <p style="margin: 0 10px 0 10px"><strong> ~ </strong></p>
+                    <input type="text" style="width: 155px"  id="toDate" name="toDate" placeholder="📅">
+                </div>
+            </div>
+            <div class="setting-buttons">
+                <div class="setting-type">
+                    <span>차단지역선택</span>
+                </div>
+                <div class="buttons">
+                    <button class="select-no" id="region-no">선택안함</button>
+                    <button class ="select-thing" id="select-region">직접선택</button>
+                </div>
+            </div>
+            <div id="region" class="setting-buttons" style="display: none;">
+                <div class="setting-type">
+                    <span></span>
+                </div>
+                <div class="select-list">
+                    <div class="recommend">
+                        <button class="show-modal" onclick="openMapModal()">지도보기</button>
+                        <button class="show-modal" onclick="openChartRegionModal()">지역별 소비 확인</button>
+                    </div>
+                    <select class="limited-options">
+                        <c:forEach var="entry" items="${regionList}">
+                            <option name="${entry}">${entry}</option>
+                        </c:forEach>
+                    </select>
+                    <div class="myselect-region">
                     </div>
                 </div>
             </div>
-            <div class="section">
-                <button class="select-thing" id="select-time">시간</button>
-                <div id="time" class="setting-buttons" style="display: none">
-                    <div class="select-list">
-                        <div class="recommend">
-                            <button class="show-modal" onclick="openChartTimeModal()">시간별 소비 확인</button>
-                        </div>
-                        <div class="buttons" style="flex-direction: column">
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                        </div>
-                        <div class="info">
-                            <select id="startHour"></select>
-                            <p style="margin: 0 10px 0 10px"><strong> 시 </strong></p>
-                            <p style="margin: 0 10px 0 10px"><strong> ~ </strong></p>
-                            <select id="endHour" onchange="updateTime()"></select>
-                            <p style="margin: 0 10px 0 10px"><strong> 시 </strong></p>
-                        </div>
-                        <div class="myselect-time"></div>
-                    </div>
+            <div class="setting-buttons">
+                <div class="setting-type">
+                    <span>차단시간선택</span>
+                </div>
+                <div class="buttons">
+                    <button class="select-no" id="time-no">선택안함</button>
+                    <button class ="select-thing" id="select-time">직접선택</button>
                 </div>
             </div>
-            <div class="section">
-                <button class="select-thing" id="select-category">업종</button>
-                <div id="category" class="setting-buttons" style="display: none">
-                    <div class="select-list">
-                        <div class="recommend">
-                            <button class="show-modal" onclick="openCategoryModal()">업종 한눈에 보기</button>
-                            <button class="show-modal" onclick="openChartCategoryModal()">업종별 소비 확인</button>
-                        </div>
-                        <select id="selectCategoryBig-list" class="limited-options">
-                            <option value="" selected disabled>대분류 선택</option>
-                            <c:forEach var="entry" items="${categoryBigList}">
-                                <option name="${entry}">${entry}</option>
-                            </c:forEach>
-                        </select>
-                        <select id="selectCategorySmall-list">
-                        </select>
-                        <div class="myselect-category"></div>
+            <div id="time" class="setting-buttons" style="display: none;">
+                <div class="setting-type">
+                    <span></span>
+                </div>
+                <div class="buttons" style="flex-direction: column">
+                    <div class="recommend">
+                        <button class="show-modal" onclick="openChartTimeModal()">시간별 소비 확인</button>
                     </div>
+                    <div class="info">
+                        <select id="startHour"></select>
+                        <p style="margin: 0 10px 0 10px"><strong> : </strong></p>
+                        <select id="startMinute"></select>
+                        <p style="margin: 0 10px 0 10px"><strong> ~ </strong></p>
+                        <select id="endHour" ></select>
+                        <p style="margin: 0 10px 0 10px"><strong> : </strong></p>
+                        <select id="endMinute" onchange="updateTime()"></select>
+                    </div>
+                    <div class="myselect-time"></div>
+                </div>
+            </div>
+            <div class="setting-buttons">
+                <div class="setting-type">
+                    <span>차단업종선택</span>
+                </div>
+                <div class="buttons">
+                    <button class="select-no" id="category-no">선택안함</button>
+                    <button class ="select-thing" id="select-category">직접선택</button>
+                </div>
+            </div>
+            <div id="category" class="setting-buttons" style="display: none;">
+                <div class="setting-type">
+                    <span></span>
+                </div>
+                <div class="select-list">
+                    <div class="recommend">
+                        <button class="show-modal" onclick="openCategoryModal()">업종 한눈에 보기</button>
+                        <button class="show-modal" onclick="openChartCategoryModal()">업종별 소비 확인</button>
+                    </div>
+                    <select id="selectCategoryBig-list" class="limited-options">
+                        <option value="" selected disabled>대분류 선택</option>
+                        <c:forEach var="entry" items="${categoryBigList}">
+                            <option name="${entry}">${entry}</option>
+                        </c:forEach>
+                    </select>
+                    <select id="selectCategorySmall-list">
+                    </select>
+                    <div class="myselect-category"></div>
                 </div>
             </div>
         </div>
@@ -118,6 +156,11 @@
         <canvas id="myTimeCntChart"></canvas>
         <span class="close" onclick="closeChartTimeModal()">&times;</span>
     </div>
+    <div id="mapmodal">
+        <h2>지도 한눈에 보기</h2>
+        <img src="../../../resources/img/map.png" style="height: 380px">
+        <span class="close" onclick="closeMapModal()">&times;</span>
+    </div>
     <div id="categorymodal">
         <h2>업종 한눈에 보기</h2>
         <div class="grid-container">
@@ -127,12 +170,13 @@
                 <div class="grid-item">
                     <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
                     <c:set var="imageName" value="${imgList[imgIndex]}"/>
-                    <img class="grid-image" onclick="handleClick('${entry.key}')" src="../../../resources/img/${imageName}" alt="${entry.key}">
+                    <img class="grid-image" src="../../../resources/img/${imageName}" alt="${entry.key}">
                     <div class="item-name">${entry.key}</div>
                     <div class="dropdown-list">
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <c:forEach var="category" items="${entry.value}">
-                                <a class="dropdown-item"onclick="handleClick('${category.categorySmall}')">${category.categorySmall}</a>
+                                <a class="dropdown-item"
+                                   onclick="selectCategory('${category.categorySmall}')">${category.categorySmall}</a>
                             </c:forEach>
                         </div>
                     </div>
@@ -143,29 +187,54 @@
     </div>
 </div>
 <script>
+
     function collectSettings() {
-        let settingsList = [];
+
+
+        let settingsMap = {};
+
+        const safetyStartDate = document.getElementById('fromDate').value;
+        const safetyEndDate = document.getElementById('toDate').value;
+        settingsMap['safetyStartDate']=safetyStartDate;
+        settingsMap['safetyEndDate']=safetyEndDate;
+        settingsMap['cardId']='<%= session.getAttribute("cardId") %>';
 
         // regions 값 추출
         const regionSelectedElements = document.querySelectorAll('.myselect-region .select-element');
-        settingsList.push(Array.from(regionSelectedElements).map(ele => ele.textContent));
-
-        // time 값 추출
-        const timeSelectedElements = document.querySelectorAll('.myselect-time .select-element');
-        settingsList.push(Array.from(timeSelectedElements).map(ele => ele.textContent));
+        if (regionSelectedElements.length > 0) {
+            settingsMap['regions'] = Array.from(regionSelectedElements).map(ele => ele.textContent);
+        }
 
         // category 값 추출
         const categorySelectedElements = document.querySelectorAll('.myselect-category .select-element');
-        settingsList.push(Array.from(categorySelectedElements).map(ele => ele.textContent));
+        if (categorySelectedElements.length > 0) {
+            settingsMap['category'] = Array.from(categorySelectedElements).map(ele => ele.textContent);
 
-        return settingsList;
+        }
+
+        // time 값 추출
+        const timeSelectedValue = document.querySelector('.myselect-time .select-element');
+        if (timeSelectedValue) {
+            const timeParts = timeSelectedValue.textContent.split(' ~ ');
+            settingsMap['startTime'] = timeParts[0].trim();
+            settingsMap['endTime'] = timeParts[1].trim();
+        }
+
+        // null 또는 빈 배열 제거
+        for (let key in settingsMap) {
+            if (settingsMap[key] === null || (Array.isArray(settingsMap[key]) && settingsMap[key].length === 0)) {
+                delete settingsMap[key];
+            }
+        }
+
+        console.log(settingsMap);
+
+        return settingsMap;
     }
-
-
 
     function sendSettingsToController() {
         const settings = collectSettings();
-        console.log("settings", settings);
+        console.log("settings",settings);
 
         fetch('/safetyCard/insertsetting', {
             method: 'POST',  // 'GET' 대신 'POST'를 사용
@@ -184,40 +253,14 @@
     }
 
 
-    function handleClick(value) {
-        const timeText = value;
-        const newSelectDiv = document.createElement('div');
-        newSelectDiv.classList.add('select-con');
-
-        const newSelectElement = document.createElement('div');
-        newSelectElement.classList.add('select-element');
-        newSelectElement.textContent = timeText;
-
-        const myselectContainer = document.querySelector('.myselect-category');
-
-        const deleteButton = document.createElement('button');
-        deleteButton.classList.add('delete-btn');
-        deleteButton.textContent = '삭제';
-        deleteButton.addEventListener('click', function () {
-            myselectContainer.removeChild(newSelectDiv);
-            if (!myselectContainer.querySelector('.select-con')) {
-                myselectContainer.style.display = 'none';
-            }
-        });
-
-        newSelectDiv.appendChild(newSelectElement);
-        newSelectDiv.appendChild(deleteButton);
-
-        myselectContainer.appendChild(newSelectDiv);
-        myselectContainer.style.display = 'flex';
-    }
-
 
 
 
     function populateTimeOptions() {
         const startHourSelect = document.getElementById('startHour');
         const endHourSelect = document.getElementById('endHour');
+        const startMinuteSelect = document.getElementById('startMinute');
+        const endMinuteSelect = document.getElementById('endMinute');
 
         for (let i = 1; i <= 24; i++) {
             const option1 = document.createElement('option');
@@ -228,6 +271,14 @@
             const option2 = option1.cloneNode(true);
             endHourSelect.appendChild(option2);
         }
+
+        for (let j = 0; j < 60; j+=10) {
+            const optionMinute = document.createElement('option');
+            optionMinute.value = j;
+            optionMinute.textContent = j < 10 ? '0' + j : j;  // 0 ~ 9인 경우 앞에 0을 추가
+            startMinuteSelect.appendChild(optionMinute.cloneNode(true));
+            endMinuteSelect.appendChild(optionMinute.cloneNode(true));
+        }
     }
 
     populateTimeOptions();
@@ -235,8 +286,12 @@
     // 시작 시간 업데이트
     function updateTime() {
         const startHour = document.getElementById('startHour').value;
+        console.log("updatestartHour",startHour);
+        const startMinute = document.getElementById('startMinute').value;
         const endHour = document.getElementById('endHour').value;
-        const timeText = startHour + ' 시 ~ ' + endHour + ' 시 ';
+        const endMinute = document.getElementById('endMinute').value;
+        console.log("endHour",endHour);
+        const timeText = startHour + ' : '+startMinute+' ~ ' + endHour + ' : '+endMinute;
         const newSelectDiv = document.createElement('div');
         newSelectDiv.classList.add('select-con');
 
@@ -263,6 +318,46 @@
         myselectContainer.style.display = 'flex';
 
     }
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // 카테고리 설정 버튼들
+        let categoryButtons = document.querySelectorAll('#category-no,#select-category');
+        categoryButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                categoryButtons.forEach(function (btn) {
+                    btn.classList.remove('active-button');
+                });
+                this.classList.add('active-button');
+            });
+        });
+
+        // 시간 설정 버튼들
+        let timeButtons = document.querySelectorAll('#time-no,#select-time');
+        timeButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                timeButtons.forEach(function (btn) {
+                    btn.classList.remove('active-button');
+                });
+                this.classList.add('active-button');
+            });
+        });
+
+        let regionButtons = document.querySelectorAll('#region-no,#select-region');
+        regionButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                regionButtons.forEach(function (btn) {
+                    btn.classList.remove('active-button');
+                });
+                this.classList.add('active-button');
+            });
+        });
+
+    });
+
+
 
 
 
@@ -337,6 +432,8 @@
     });
 
 
+
+
     function selectSmallCategory(selectedCategory) {
         let categorySmallList = [];
 
@@ -372,6 +469,7 @@
     document.getElementById('selectCategoryBig').addEventListener('change', function () {
         updateCategoryChart(this.value);
     });
+
 
 
     $(function () {

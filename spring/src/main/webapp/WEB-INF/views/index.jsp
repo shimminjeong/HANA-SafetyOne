@@ -31,7 +31,7 @@
             <div class="sub-main2-img">
                 <div class="img-div2"><img src="../../resources/img/credit.png"/></div>
                 <div class="img-div2"><img src="../../resources/img/search.png"/></div>
-                <div class="img-div2"><img src="../../resources/img/bellsafetyCardSelect.png"/></div>
+                <div class="img-div2"><img src="../../resources/img/bellcolor.png"/></div>
             </div>
         </div>
     </div>
@@ -87,7 +87,6 @@
 <%--    <span class="dot" onclick="currentSlide(2)"></span>--%>
 <%--    <span class="dot" onclick="currentSlide(3)"></span>--%>
 <%--</div>--%>
-<%@ include file="include/footer.jsp" %>
 
 <script>
     let slideIndex = 1;

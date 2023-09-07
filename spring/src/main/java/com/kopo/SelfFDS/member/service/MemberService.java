@@ -44,5 +44,5 @@ public interface MemberService {
 
     List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
 
-    void insertSafetySetting(SafetyCard safetyCard);
+    void insertSafetySetting(String cardId,List<List<String>> safetyCard);
 }

@@ -156,7 +156,7 @@
 <%--        ${card.cardId}--%>
 <%--    </c:forEach>--%>
     <div class="sub-container">
-        <div class="who" style="font-size: 25px; margin-top:30px">${member.name}님의 카드정보</div>
+        <div class="who" style="font-size: 25px; margin-top:30px"><%= name %>님의 카드정보</div>
         <div class="slideshow-container">
             <c:forEach items="${cards}" var="card" varStatus="loop">
                 <div class="mySlides fade">
