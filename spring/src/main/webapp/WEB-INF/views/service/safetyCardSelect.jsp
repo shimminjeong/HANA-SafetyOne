@@ -206,7 +206,7 @@
     /* Style the accordion panel. Note: hidden by default */
     .panel {
         padding: 0 18px;
-        background-color: #e0e0e0;
+        background-color: #eeeeee;
         display: none;
         overflow: hidden;
 
@@ -236,6 +236,7 @@
     <div class="formsize">
         <div class="content-div">
             <h1>안심카드설정</h1>
+            <h2>안심카드서비스 이용현황</h2>
             <h3>설정할 카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h3></ㅗ4>
         </div>
         <div class="card-list">
@@ -252,6 +253,11 @@
                     <c:if test="${card.selffdsSerStatus eq 'N'}">
                         <img class="lock-img" src="../../../resources/img/unlock.png">
                     </c:if>
+                </div>
+                <div class="panel">
+                    <div id="cardInfo-${card.cardId}">
+                        <!-- 서버로부터 받아온 정보가 이곳에 추가될 것입니다. -->
+                    </div>
                 </div>
             </c:forEach>
         </div>
@@ -289,6 +295,110 @@
 </div>
 </body>
 <script>
+
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+                var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
+                console.log("cardid", cardId);
+                // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
+                $.ajax({
+                    url: "/safetyCard/selectSafetyInfo",
+                    type: 'POST',
+                    data: JSON.stringify({cardId: cardId}),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        console.log("data : " + data);
+                        var cardInfoList = $("#cardInfo-" + cardId);
+                        cardInfoList.empty();
+                        cardInfoList.append("<h2>안심카드 맞춤설정 이용중입니다.</h2>");
+
+                        // Create a mapping of enrollSeq to regions, times, and categories
+                        let enrollMap = {};
+
+                        data.forEach(function (item) {
+                            if (!enrollMap[item.enrollSeq]) {
+                                enrollMap[item.enrollSeq] = {
+                                    cardId: item.cardId,
+                                    safetyStartDate: item.safetyStartDate,
+                                    safetyEndDate: item.safetyEndDate,
+                                    regions: [],
+                                    times: [],
+                                    categories: []
+                                };
+                            }
+
+                            if (item.regionName && !enrollMap[item.enrollSeq].regions.includes(item.regionName)) {
+                                enrollMap[item.enrollSeq].regions.push(item.regionName);
+                            }
+
+                            let timeStr = item.startTime + " ~ " + item.endTime;
+                            if (item.startTime && !enrollMap[item.enrollSeq].times.includes(timeStr)) {
+                                enrollMap[item.enrollSeq].times.push(timeStr);
+                            }
+
+                            if (item.categorySmall && !enrollMap[item.enrollSeq].categories.includes(item.categorySmall)) {
+                                enrollMap[item.enrollSeq].categories.push(item.categorySmall);
+                            }
+                        });
+
+                        let seenRegions = new Set(); // To keep track of already appended regionStr
+                        let seenTimes = new Set(); // To keep track of already appended regionStr
+                        let seenCategorys = new Set(); // To keep track of already appended regionStr
+
+                        // Now, for each enrollSeq group, add the information to cardInfoList
+                        for (let enroll of Object.values(enrollMap)) {
+                            let regionStr = enroll.regions.join(', ');
+                            let timeStr = enroll.times.join(', ');
+                            let categoryStr = enroll.categories.join(', ');
+
+                            let startDatePart = enroll.safetyStartDate.split(' ')[0];
+                            let endDatePart = enroll.safetyEndDate.split(' ')[0];
+
+
+                            cardInfoList.append(
+                                "<hr><div class='info-list'><div class='info-header'>사용가능기간 </div>" +
+                                "<span class='info-content'>" + startDatePart + " ~ " + endDatePart + "</span></div>"
+                            );
+
+                            if (regionStr && !seenRegions.has(regionStr)) {
+                                seenRegions.add(regionStr);
+                                cardInfoList.append(
+                                    "<div class='info-list'><div class='info-header'>결제차단지역 </div>" +
+                                    "<span class='info-content'>" + regionStr + "</span></div>"
+                                );
+                            }
+
+                            if (timeStr && !seenTimes.has(timeStr)) {
+                                seenTimes.add(timeStr);
+                                cardInfoList.append(
+                                    "<div class='info-list'><div class='info-header'>결제차단시간 </div>" +
+                                    "<span class='info-content'>" + timeStr + "</span></div>"
+                                );
+                            }
+
+                            if (categoryStr && !seenCategorys.has(categoryStr)) {
+                                seenCategorys.add(categoryStr);
+                                cardInfoList.append(
+                                    "<div class='info-list'><div class='info-header'>결제차단업종 </div>" +
+                                    "<span class='info-content'>" + categoryStr + "</span></div>"
+                                );
+                            }
+
+                        }
+                    }
+
+                });
+            }
+        });
+    }
 
     // const selectedButtons = [];
     // // 버튼 요소들을 가져옴

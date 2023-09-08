@@ -37,7 +37,7 @@
                             <button class="show-modal" onclick="openChartRegionModal()">지역별 소비 확인</button>
                         </div>
                         <div class="buttons">
-                            <button id="region-ok" style="margin-right:10px">허용지역선택</button>
+                            <button id="region-ok" style="margin-right:10px" >허용지역선택</button>
                             <button id="region-no">차단지역선택</button>
                         </div>
                         <select class="limited-options">
@@ -57,13 +57,13 @@
                         <div class="recommend">
                             <button class="show-modal" onclick="openChartTimeModal()">시간별 소비 확인</button>
                         </div>
-                        <div class="buttons" style="flex-direction: column">
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                            <button class="time-range">00시 ~ 6시</button>
-                        </div>
+<%--                        <div class="buttons" style="flex-direction: column">--%>
+<%--                            <button class="time-range">00시 ~ 6시</button>--%>
+<%--                            <button class="time-range">00시 ~ 6시</button>--%>
+<%--                            <button class="time-range">00시 ~ 6시</button>--%>
+<%--                            <button class="time-range">00시 ~ 6시</button>--%>
+<%--                            <button class="time-range">00시 ~ 6시</button>--%>
+<%--                        </div>--%>
                         <div class="info">
                             <select id="startHour"></select>
                             <p style="margin: 0 10px 0 10px"><strong> 시 </strong></p>
@@ -128,7 +128,7 @@
                 <div class="grid-item">
                     <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
                     <c:set var="imageName" value="${imgList[imgIndex]}"/>
-                    <img class="grid-image" onclick="handleClick('${entry.key}')"
+                    <img class="grid-image" onclick="handleClickBig('${entry.key}')"
                          src="../../../resources/img/${imageName}" alt="${entry.key}">
                     <div class="item-name">${entry.key}</div>
                     <div class="dropdown-list">
@@ -307,6 +307,55 @@
         //         console.error('Error:', error);
         //     }
         // });
+
+
+
+    function handleClickBig(key) {
+        const categoryBig = key;  // key 값을 사용하거나 필요에 따라 수정합니다.
+
+        $.ajax({
+            url: '/safetyCard/selectSmallByBigCategory',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({categoryBig: categoryBig}),
+            success: function(response) {
+                // 성공적으로 데이터를 받은 경우
+                for (let i = 0; i < response.length; i++) {
+                    const timeText = response[i].categorySmall;  // 데이터의 text 값을 timeText로 설정
+                    console.log("timeText",timeText);
+
+                    const newSelectDiv = document.createElement('div');
+                    newSelectDiv.classList.add('select-con');
+
+                    const newSelectElement = document.createElement('div');
+                    newSelectElement.classList.add('select-element');
+                    newSelectElement.textContent = timeText;
+
+                    const myselectContainer = document.querySelector('.myselect-category');
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('delete-btn');
+                    deleteButton.textContent = '삭제';
+                    deleteButton.addEventListener('click', function () {
+                        myselectContainer.removeChild(newSelectDiv);
+                        if (!myselectContainer.querySelector('.select-con')) {
+                            myselectContainer.style.display = 'none';
+                        }
+                    });
+
+                    newSelectDiv.appendChild(newSelectElement);
+                    newSelectDiv.appendChild(deleteButton);
+
+                    myselectContainer.appendChild(newSelectDiv);
+                    myselectContainer.style.display = 'flex';
+                }
+            },
+            error: function() {
+                // 오류 발생시 처리
+                alert('Error loading data');
+            }
+        });
+    }
 
 
 

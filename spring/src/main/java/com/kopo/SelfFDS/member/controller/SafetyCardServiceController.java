@@ -65,7 +65,7 @@ public class SafetyCardServiceController {
     }
 
 
-//    @PostMapping("/registerCard")
+    //    @PostMapping("/registerCard")
 //    @ResponseBody
 //    public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
 //        Card updateCard = memberService.selectCardOfCardId(cardId);
@@ -73,21 +73,17 @@ public class SafetyCardServiceController {
 //        session.setAttribute("cardId", cardId);
 //        return "안심카드 서비스 신청 성공";
 //    }
-{}
+
 
     @PostMapping("/registerCard")
     @ResponseBody
     public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
         HttpSession session = request.getSession();
-        if (updateCard.getSelffdsSerStatus().equals("N")) {
-            updateCard.setSelffdsSerStatus("Y");
-            session.setAttribute("cardId", cardId);
-            memberService.updateSelfFdsStatus(updateCard);
-            return "안심카드 서비스 신청 성공";
-        } else {
-            return "안심카드 서비스 신청 실패";
-        }
+        updateCard.setSelffdsSerStatus("Y");
+        session.setAttribute("cardId", cardId);
+        memberService.updateSelfFdsStatus(updateCard);
+        return "안심카드 서비스 신청 성공";
     }
 
     @PostMapping("/cancleCard")
@@ -152,6 +148,16 @@ public class SafetyCardServiceController {
         return mav;
     }
 
+    @PostMapping("/selectSmallByBigCategory")
+    public ResponseEntity<List<SafetyRegister>> insertSafetyInfo(@RequestBody SafetyRegister SafetyRegister) {
+        List<SafetyRegister> smallCategoryList = memberService.selectSmallCategoryOfBigCategory(SafetyRegister.getCategoryBig());
+        if (!smallCategoryList.isEmpty()) {
+            return ResponseEntity.ok(smallCategoryList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping("/safetySetting")
     public ModelAndView safetySettingPage() {
@@ -188,23 +194,22 @@ public class SafetyCardServiceController {
 
     @PostMapping("/insertSetting")
     @ResponseBody
-    public  String insertSafetyInfo(@RequestBody List<List<String>> safetyCard,HttpSession session) {
-        String cardId=(String) session.getAttribute("cardId");
-        int enrollSeq=memberService.selectSafetySettingEnrollSeqByCardId(cardId);
-        System.out.println(enrollSeq+cardId);
-        memberService.insertSafetySetting(cardId,enrollSeq,safetyCard);
+    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard, HttpSession session) {
+        String cardId = (String) session.getAttribute("cardId");
+        int enrollSeq = memberService.selectSafetySettingEnrollSeqByCardId(cardId);
+        System.out.println(enrollSeq + cardId);
+        memberService.insertSafetySetting(cardId, enrollSeq, safetyCard);
         System.out.println("gogo");
         return "insert성공";
     }
 
 
-
     @PostMapping("/selectSafetyInfo")
     @ResponseBody
-    public  ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard) {
-        String cardId=safetyCard.getCardId();
+    public ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard) {
+        String cardId = safetyCard.getCardId();
         List<SafetyCard> safetyCardList = memberService.selectAllSafetyCardOfCardId(cardId);
-        System.out.println("safetyCardList"+safetyCardList);
+        System.out.println("safetyCardList" + safetyCardList);
         if (!safetyCardList.isEmpty()) {
             return ResponseEntity.ok(safetyCardList);
         } else {
