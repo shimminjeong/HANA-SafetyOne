@@ -9,15 +9,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="../../../resources/js/service.js" type="text/javascript"></script>
+    <%--    <script src="../../../resources/js/service.js" type="text/javascript"></script>--%>
+    <link href="../../../resources/css/safetyCardCommon.css" rel="stylesheet">
     <link href="../../../resources/css/safetySettingNew.css" rel="stylesheet">
+
+
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h2>안심카드설정</h2>
-        <h3>대상카드</h3>
+        <h1>안심카드설정</h1>
+        <h2>대상카드</h2>
         <hr>
         <div class="card-info">
             <div class="card-details">
@@ -32,31 +35,111 @@
             <div class="info-header">결제를 차단할 지역, 시간, 업종 등 나만의 rule을 설정해보세요</div>
             <div class="info-content">결제를 허용할 지역을 선택하세요</div>
             <div class="setting-buttons">
-                <span>차단지역선택</span>
+                <span>허용지역선택</span>
                 <button class="select-no" id="region-no" onclick="noSelect(this)">선택안함</button>
-                <button class="select-thing" id="select-region" onclick="window.location.href='/safetyCard/region'">지역선택</button>
-                <div class="setting-value" id="select-region-setting">뭐야</div>
+                <button class="select-thing" id="select-region" onclick="window.location.href='/safetyCard/region'">
+                    지역선택
+                </button>
+            </div>
+            <div class="setting-result">
+                <c:forEach var="region" items="${regions}">
+                    <span>${region}, </span>
+                </c:forEach> 외 모든 지역의 결제를 차단하였습니다.
+                <div>결제 허용 지역에서 차단하고 싶은 나만의 rule이 있다면 추가하세요</div>
             </div>
             <div class="info-content">결제를 차단할 시간을 선택하세요</div>
             <div class="setting-buttons">
                 <span>차단시간선택</span>
                 <button class="select-no" id="time-no" onclick="noSelect()">선택안함</button>
-                <button class="select-thing" id="select-time">시간선택</button>
-                <div class="setting-value" id="select-time-setting">뭐야</div>
+                <button class="select-thing" id="select-time" onclick="redirectToTimePage()">시간선택</button>
+            </div>
+            <div class="setting-result">
+                <c:forEach var="region" items="${regions}">
+                    <span>${region}, </span>
+                </c:forEach>지역에서
+                <c:forEach var="time" items="${times}">
+                    <span>${time}, </span>
+                </c:forEach> 시간의 결제를 차단하였습니다.
+                <div>해당 조건에서 차단하고 싶은 나만의 rule이 있다면 추가하세요</div>
             </div>
             <div class="info-content">결제를 차단할 업종을 선택하세요</div>
             <div class="setting-buttons">
                 <span>차단업종선택</span>
                 <button class="select-no" id="category-no" onclick="noSelect()">선택안함</button>
-                <button class="select-thing" id="select-category">업종선택</button>
-                <div class="setting-value" id="select-category-setting">뭐야</div>
+                <button class="select-thing" id="select-category" onclick="redirectToCategoryPage()">
+                    업종선택
+                </button>
+            </div>
+            <div class="setting-result">
+                <c:forEach var="region" items="${regions}">
+                    <span>${region}, </span>
+                </c:forEach>지역에서
+                <c:forEach var="time" items="${times}">
+                    <span>${time}, </span>
+                </c:forEach> 시간에
+                <c:forEach var="categorySmall" items="${categorySmalls}">
+                    <span>${categorySmall}, </span>
+                </c:forEach>업종을 차단하였습니다.
             </div>
             <div class="gogoring">내용</div>
+            <div class="setting-result">
+                <c:if test="${not empty regions}">
+                    <c:forEach var="region" items="${regions}">
+                        <span>${region}, </span>
+                    </c:forEach>
+                    지역에
+                </c:if>
+
+                <c:if test="${not empty times}">
+                    <c:forEach var="time" items="${times}">
+                        <span>${time}, </span>
+                    </c:forEach>
+                    시간에
+                </c:if>
+
+                <c:if test="${not empty categorySmalls}">
+                    <c:forEach var="categorySmall" items="${categorySmalls}">
+                        <span>${categorySmall}, </span>
+                    </c:forEach>
+                    업종을
+                </c:if>
+
+                차단하였습니다.
+            </div>
         </div>
     </div>
     <button class="reg-Btn" onclick="sendSettingsToController()"> 등록</button>
 </div>
+</body>
 <script>
+
+    var regions = [];
+    <c:forEach var="region" items="${regions}">
+    regions.push('${region}');
+    </c:forEach>
+
+    var times = [];
+    <c:forEach var="time" items="${times}">
+    times.push('${time}');
+    </c:forEach>
+
+    function redirectToTimePage() {
+        var url = "/safetyCard/time?region=" + regions.join('&region=');
+        window.location.href = url;
+    }
+
+    function redirectToCategoryPage() {
+        var regionQueryString = regions.map(region => "region=" + region).join('&');
+        var timeQueryString = times.map(time => "time=" + time).join('&');
+
+        var url = "/safetyCard/category?" + regionQueryString;
+        if (times.length > 0) {
+            url += "&" + timeQueryString;
+        }
+
+        window.location.href = url;
+    }
+
 
 
 
@@ -159,5 +242,5 @@
     });
 
 </script>
-</body>
+
 </html>

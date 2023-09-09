@@ -6,6 +6,7 @@ import com.kopo.SelfFDS.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,6 +46,29 @@ public class SafetyCardServiceController {
         return "service/safetySettingNew";
     }
 
+
+    //setting값들 다시 settingPage로 넘겨줌
+    @GetMapping("/safetySettingValue")
+    public String safetySettingRegion(@RequestParam(value = "region", required = false) List<String> regions,
+                                      @RequestParam(value = "time", required = false) List<String> times,
+                                      @RequestParam(value = "categorySmall", required = false) List<String> categorySmalls,
+                                      Model model) {
+        if (regions != null && !regions.isEmpty()) {
+            model.addAttribute("regions", regions);
+            System.out.println("regions"+regions);
+        }
+
+        if (times != null && !times.isEmpty()) {
+            model.addAttribute("times", times);
+        }
+
+        if (categorySmalls != null && !categorySmalls.isEmpty()) {
+            model.addAttribute("categorySmalls", categorySmalls);
+        }
+        return "service/safetySettingNew";
+    }
+
+
     @GetMapping("/region")
     public ModelAndView regionPage(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
@@ -64,15 +88,17 @@ public class SafetyCardServiceController {
     }
 
     @GetMapping("/time")
-    public ModelAndView timePage() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("service/time");
-        return mav;
+    public String timePage(@RequestParam(value = "region", required = false) List<String> regions, Model model) {
+        if (regions != null && !regions.isEmpty()) {
+            model.addAttribute("regions", regions);
+        }
+        return "service/time";
     }
 
 
     @GetMapping("/category")
-    public ModelAndView CategoryPage() {
+    public ModelAndView CategoryPage(@RequestParam(value = "region", required = false) List<String> regions,
+                                     @RequestParam(value = "time", required = false) List<String> times){
         Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
         List<String> bigCategory = memberService.selectAllBigCategory();
         for (String bigcategory : bigCategory) {
@@ -83,6 +109,15 @@ public class SafetyCardServiceController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("categoryMap", categoryMap);
         mav.addObject("categoryBigList", bigCategory);
+
+        if (regions != null && !regions.isEmpty()) {
+            mav.addObject("regions", regions);
+        }
+
+        if (times != null && !times.isEmpty()) {
+            mav.addObject("times", times);
+        }
+
         mav.setViewName("service/category");
         return mav;
     }

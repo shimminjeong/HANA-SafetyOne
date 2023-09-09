@@ -71,7 +71,16 @@
                 </div>
             </div>
             <div class="thissetting-info">
-                here
+                <%
+                    String[] regions = request.getParameterValues("regions");
+                    String[] times = request.getParameterValues("times");
+                %>
+                <c:forEach var="region" items="${regions}">
+                    <span>${region}, </span>
+                </c:forEach> 지역에서
+                <c:forEach var="time" items="${times}">
+                    <span>${time}, </span>
+                </c:forEach> 시간을 차단합니다.
             </div>
             <div class="reg-btn-div">
                 <button class="reg-Btn" onclick="registerCategory()">등록</button>

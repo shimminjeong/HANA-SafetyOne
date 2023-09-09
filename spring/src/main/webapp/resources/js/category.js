@@ -157,3 +157,33 @@ function updateCategoryChart(selectedCategory) {
 function closeChartCategoryModal() {
     document.getElementById("myCategorymodal").style.display = "none";
 }
+
+function collectButtonValues() {
+    const btnDiv = document.querySelector('.myselect-category-no-content');
+    const buttons = btnDiv.querySelectorAll('button.selected-category-no');
+    let values = [];
+
+    buttons.forEach(btn => {
+        values.push(btn.textContent);
+    });
+
+    return values;
+}
+
+function registerCategory() {
+    const values = collectButtonValues();
+    const queryString = values.map(value => `categorySmall=${value}`).join('&');
+    const currentQueryString = window.location.search;
+
+    let newqueryString;
+    if (currentQueryString) {
+        // 이미 쿼리 스트링이 있는 경우 &와 함께 추가
+        newqueryString = `${currentQueryString}&${queryString}`;
+    } else {
+        // 쿼리 스트링이 없는 경우 ?와 함께 추가
+        newqueryString = `?${queryString}`;
+    }
+    console.log("newqueryString",newqueryString);
+
+    window.location.href = `/safetyCard/safetySettingValue${newqueryString}`;
+}

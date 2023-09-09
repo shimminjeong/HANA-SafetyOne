@@ -109,3 +109,23 @@ function openChartRegionModal() {
 function closeChartRegionModal() {
     document.getElementById("myRegionmodal").style.display = "none";
 }
+
+
+
+function collectButtonValues() {
+    const btnDiv = document.querySelector('.myselect-region-ok-content');
+    const buttons = btnDiv.querySelectorAll('button.selected-region-ok');
+    let values = [];
+
+    buttons.forEach(btn => {
+        values.push(btn.textContent);
+    });
+
+    return values;
+}
+
+function registerRegion() {
+    const values = collectButtonValues();
+    const queryString = values.map(value => `region=${value}`).join('&');
+    window.location.href = `/safetyCard/safetySettingValue?${queryString}`;
+}

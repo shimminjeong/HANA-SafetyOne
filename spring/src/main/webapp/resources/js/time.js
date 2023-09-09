@@ -137,3 +137,35 @@ function openChartTimeModal() {
 function closeChartTimeModal() {
     document.getElementById("myTimemodal").style.display = "none";
 }
+
+function collectButtonValues() {
+    const btnDiv = document.querySelector('.myselect-time-no-content');
+    const buttons = btnDiv.querySelectorAll('button.selected-time-no');
+    let values = [];
+
+    buttons.forEach(btn => {
+        values.push(btn.textContent);
+    });
+
+    return values;
+}
+
+function registerTime() {
+    const values = collectButtonValues();
+    const queryString = values.map(value => `time=${value}`).join('&');
+    const currentPath = window.location.pathname;
+    const currentQueryString = window.location.search;
+
+    let newqueryString;
+    if (currentQueryString) {
+        // 이미 쿼리 스트링이 있는 경우 &와 함께 추가
+        newqueryString = `${currentQueryString}&${queryString}`;
+    } else {
+        // 쿼리 스트링이 없는 경우 ?와 함께 추가
+        newqueryString = `?${queryString}`;
+    }
+    console.log("newqueryString",newqueryString);
+
+    window.location.href = `/safetyCard/safetySettingValue${newqueryString}`;
+}
+
