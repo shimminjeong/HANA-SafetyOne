@@ -1,71 +1,4 @@
 
-
-
-
-
-
-
-var myCategoryCntChart;
-var myCategorySumChart;
-
-let myChart = null; // 전역 변수로 차트 선언
-
-function updateCategoryChart(selectedCategory) {
-    let categorySmallList = [];
-    let categoryCntList = [];
-
-    $.ajax({
-        url: '/chart/categoryServiceChart',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ categoryBig: selectedCategory }),
-        success: function (data) {
-            for (let i = 0; i < data.length; i++) {
-                categorySmallList.push(data[i].categorySmall);
-                categoryCntList.push(data[i].categoryCnt);
-            }
-
-            var ctx1 = document.getElementById('myCategoryCntChart').getContext('2d');
-
-            if (myChart) {
-                myChart.destroy(); // 이미 차트가 있으면 파괴
-            }
-
-            // 색상 배열 - 데이터 포인트마다 다른 색상을 제공합니다.
-            let colors = [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(99, 255, 132, 0.2)',
-                'rgba(255, 99, 255, 0.2)',
-                'rgba(255, 255, 0, 0.2)',
-                'rgba(132, 99, 255, 0.2)'
-                // 필요한 만큼 더 많은 색상을 추가할 수 있습니다.
-            ];
-
-            myChart = new Chart(ctx1, {
-                type: 'pie',
-                data: {
-                    labels: categorySmallList,
-                    datasets: [{
-                        label: 'Amount Count',
-                        data: categoryCntList,
-                        backgroundColor: colors,  // 각 데이터 항목에 대한 색상 배열
-                        borderColor: 'rgb(75, 192, 192)',
-                        borderWidth: 1
-                    }]
-                }
-            });
-        },
-        error: function () {
-            console.log('Error fetching categorySmall data.');
-        }
-    });
-}
-
 function selectRegion(button) {
     var value = button.value;
     var selectedBtnDiv = document.querySelector('.selected-btn');
@@ -132,68 +65,9 @@ function openChartRegionModal() {
     });
 }
 
-function openChartCategoryModal() {
-    document.getElementById("myCategorymodal").style.display = "block";
-}
-
-function openChartTimeModal() {
-    document.getElementById("myTimemodal").style.display = "block";
-
-    let timeNameList = [];
-    let timeCntList = [];
-    let timeSumList = [];
-
-    $.ajax({
-        url: '/chart/timeServiceChart',
-        type: 'GET',
-        success: function (data) {
-            for (let i = 0; i < data.length; i++) {
-                timeNameList.push(data[i].time);
-                timeCntList.push(data[i].timeCnt);
-                timeSumList.push(data[i].amountSum);
-            }
-            console.log(timeNameList);
-
-            var ctx1 = document.getElementById('myTimeCntChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: timeNameList,
-                    datasets: [{
-                        label: 'Amount Count',
-                        data: timeCntList,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgb(75, 192, 192)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        },
-        error: function () {
-            console.error("Error while fetching data");
-        }
-    });
-}
 
 
-function closeChartRegionModal() {
-    document.getElementById("myRegionmodal").style.display = "none";
-}
 
-function closeChartCategoryModal() {
-    document.getElementById("myCategorymodal").style.display = "none";
-}
-
-function closeChartTimeModal() {
-    document.getElementById("myTimemodal").style.display = "none";
-}
 
 function openCategoryModal() {
     document.getElementById("categorymodal").style.display = "block";
@@ -209,4 +83,52 @@ function closeOkModal() {
 }
 
 
+function populateTimeOptions() {
+    const startHourSelect = document.getElementById('startHour');
+    const endHourSelect = document.getElementById('endHour');
+
+    for (let i = 1; i <= 24; i++) {
+        const option1 = document.createElement('option');
+        option1.value = i;
+        option1.textContent = i;
+        startHourSelect.appendChild(option1);
+
+        const option2 = option1.cloneNode(true);
+        endHourSelect.appendChild(option2);
+    }
+}
+
+populateTimeOptions();
+
+// 시작 시간 업데이트
+function updateTime() {
+    const startHour = document.getElementById('startHour').value;
+    const endHour = document.getElementById('endHour').value;
+    const timeText = startHour + ' 시 ~ ' + endHour + ' 시 ';
+    const newSelectDiv = document.createElement('div');
+    newSelectDiv.classList.add('select-con');
+
+    const newSelectElement = document.createElement('div');
+    newSelectElement.classList.add('select-element');
+    newSelectElement.textContent = timeText;
+
+    const myselectContainer = document.querySelector('.myselect-time');
+
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-btn');
+    deleteButton.textContent = '삭제';
+    deleteButton.addEventListener('click', function () {
+        myselectContainer.removeChild(newSelectDiv);
+        if (!myselectContainer.querySelector('.select-con')) {
+            myselectContainer.style.display = 'none';
+        }
+    });
+
+    newSelectDiv.appendChild(newSelectElement);
+    newSelectDiv.appendChild(deleteButton);
+
+    myselectContainer.appendChild(newSelectDiv);
+    myselectContainer.style.display = 'flex';
+
+}
 

@@ -310,83 +310,7 @@
 
 
 
-    function handleClickBig(key) {
-        const categoryBig = key;  // key 값을 사용하거나 필요에 따라 수정합니다.
 
-        $.ajax({
-            url: '/safetyCard/selectSmallByBigCategory',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({categoryBig: categoryBig}),
-            success: function(response) {
-                // 성공적으로 데이터를 받은 경우
-                for (let i = 0; i < response.length; i++) {
-                    const timeText = response[i].categorySmall;  // 데이터의 text 값을 timeText로 설정
-                    console.log("timeText",timeText);
-
-                    const newSelectDiv = document.createElement('div');
-                    newSelectDiv.classList.add('select-con');
-
-                    const newSelectElement = document.createElement('div');
-                    newSelectElement.classList.add('select-element');
-                    newSelectElement.textContent = timeText;
-
-                    const myselectContainer = document.querySelector('.myselect-category');
-
-                    const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('delete-btn');
-                    deleteButton.textContent = '삭제';
-                    deleteButton.addEventListener('click', function () {
-                        myselectContainer.removeChild(newSelectDiv);
-                        if (!myselectContainer.querySelector('.select-con')) {
-                            myselectContainer.style.display = 'none';
-                        }
-                    });
-
-                    newSelectDiv.appendChild(newSelectElement);
-                    newSelectDiv.appendChild(deleteButton);
-
-                    myselectContainer.appendChild(newSelectDiv);
-                    myselectContainer.style.display = 'flex';
-                }
-            },
-            error: function() {
-                // 오류 발생시 처리
-                alert('Error loading data');
-            }
-        });
-    }
-
-
-
-
-    function handleClick(value) {
-        const timeText = value;
-        const newSelectDiv = document.createElement('div');
-        newSelectDiv.classList.add('select-con');
-
-        const newSelectElement = document.createElement('div');
-        newSelectElement.classList.add('select-element');
-        newSelectElement.textContent = timeText;
-
-        const myselectContainer = document.querySelector('.myselect-category');
-
-        const deleteButton = document.createElement('button');
-        deleteButton.classList.add('delete-btn');
-        deleteButton.textContent = '삭제';
-        deleteButton.addEventListener('click', function () {
-            myselectContainer.removeChild(newSelectDiv);
-            if (!myselectContainer.querySelector('.select-con')) {
-                myselectContainer.style.display = 'none';
-            }
-        });
-
-        newSelectDiv.appendChild(newSelectElement);
-        newSelectDiv.appendChild(deleteButton);
-
-        myselectContainer.appendChild(newSelectDiv);
-        myselectContainer.style.display = 'flex';
-    }
 
 
     function populateTimeOptions() {
@@ -546,6 +470,91 @@
         updateCategoryChart(this.value);
     });
 
+
+
+    // // 대분류선택하면 대분류에 해당하는 모든 소분류 select에 넣기
+    // function handleClickBig(key) {
+    //     const categoryBig = key;  // key 값을 사용하거나 필요에 따라 수정합니다.
+    //
+    //     $.ajax({
+    //         url: '/safetyCard/selectSmallByBigCategory',
+    //         type: 'POST',
+    //         contentType: 'application/json',
+    //         data: JSON.stringify({categoryBig: categoryBig}),
+    //         success: function(response) {
+    //             // 성공적으로 데이터를 받은 경우
+    //             for (let i = 0; i < response.length; i++) {
+    //                 const timeText = response[i].categorySmall;  // 데이터의 text 값을 timeText로 설정
+    //                 console.log("timeText",timeText);
+    //
+    //                 const newSelectDiv = document.createElement('div');
+    //                 newSelectDiv.classList.add('select-con');
+    //
+    //                 const newSelectElement = document.createElement('div');
+    //                 newSelectElement.classList.add('select-element');
+    //                 newSelectElement.textContent = timeText;
+    //
+    //                 const myselectContainer = document.querySelector('.myselect-category');
+    //
+    //                 const deleteButton = document.createElement('button');
+    //                 deleteButton.classList.add('delete-btn');
+    //                 deleteButton.textContent = '삭제';
+    //                 deleteButton.addEventListener('click', function () {
+    //                     myselectContainer.removeChild(newSelectDiv);
+    //                     if (!myselectContainer.querySelector('.select-con')) {
+    //                         myselectContainer.style.display = 'none';
+    //                     }
+    //                 });
+    //
+    //                 newSelectDiv.appendChild(newSelectElement);
+    //                 newSelectDiv.appendChild(deleteButton);
+    //
+    //                 myselectContainer.appendChild(newSelectDiv);
+    //                 myselectContainer.style.display = 'flex';
+    //             }
+    //         },
+    //         error: function() {
+    //             // 오류 발생시 처리
+    //             alert('Error loading data');
+    //         }
+    //     });
+    // }
+    //
+    // // 소분류 select에 넣기
+    // function handleClick(value) {
+    //
+    //     const selectedBtnDiv = document.querySelector('.myselect-category-no-content');
+    //
+    //     // 새로운 버튼 생성
+    //     const newButton = document.createElement('button');
+    //     newButton.textContent = value;
+    //     newButton.classList.add('selected-category-no', 'custom-button-style');
+    //
+    //     const newSelectDiv = document.createElement('div');
+    //     newSelectDiv.classList.add('select-con');
+    //
+    //     const newSelectElement = document.createElement('div');
+    //     newSelectElement.classList.add('select-element');
+    //     newSelectElement.textContent = value;
+    //
+    //     const myselectContainer = document.querySelector('.myselect-category');
+    //
+    //     const deleteButton = document.createElement('button');
+    //     deleteButton.classList.add('delete-btn');
+    //     deleteButton.textContent = '삭제';
+    //     deleteButton.addEventListener('click', function () {
+    //         myselectContainer.removeChild(newSelectDiv);
+    //         if (!myselectContainer.querySelector('.select-con')) {
+    //             myselectContainer.style.display = 'none';
+    //         }
+    //     });
+    //
+    //     newSelectDiv.appendChild(newSelectElement);
+    //     newSelectDiv.appendChild(deleteButton);
+    //
+    //     myselectContainer.appendChild(newSelectDiv);
+    //     myselectContainer.style.display = 'flex';
+    // }
 
 
 </script>

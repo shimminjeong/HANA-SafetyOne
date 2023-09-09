@@ -1,8 +1,3 @@
-function closeChartRegionModal() {
-    document.getElementById("myRegionmodal").style.display = "none";
-}
-
-
 function registerRegion() {
     var selectedBtnDiv = document.querySelector('.myselect-region-ok-content');
     var selectedValues = Array.from(selectedBtnDiv.querySelectorAll('[data-value]'))
@@ -28,12 +23,12 @@ function registerRegion() {
 
 
 function selectRegion(button) {
-    var value = button.value;
+    const value = button.value;
     button.style.color = 'green';
-    var selectedBtnDiv = document.querySelector('.myselect-region-ok-content');
+    const selectedBtnDiv = document.querySelector('.myselect-region-ok-content');
 
     // 새로운 버튼 생성
-    var newButton = document.createElement('button');
+    const newButton = document.createElement('button');
     newButton.textContent = value;
     newButton.classList.add('selected-region-ok', 'custom-button-style');
 
@@ -109,4 +104,8 @@ function openChartRegionModal() {
             console.error("Error while fetching data");
         }
     });
+}
+
+function closeChartRegionModal() {
+    document.getElementById("myRegionmodal").style.display = "none";
 }

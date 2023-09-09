@@ -53,7 +53,7 @@ public class SafetyCardServiceController {
         Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
         mav.addObject("categoryMap", categoryMap);
 
-        //chart
+
         HttpSession session = request.getSession();
         String cardId = (String) session.getAttribute("cardId");
         List<CardHistory> resultList = memberService.selectCountRegionOfCardId(cardId);
@@ -62,36 +62,30 @@ public class SafetyCardServiceController {
         mav.setViewName("service/region");
         return mav;
     }
-    @GetMapping("/category")
-    public ModelAndView selfCategoryPage() {
-        Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
 
+    @GetMapping("/time")
+    public ModelAndView timePage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("service/time");
+        return mav;
+    }
+
+
+    @GetMapping("/category")
+    public ModelAndView CategoryPage() {
+        Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
         List<String> bigCategory = memberService.selectAllBigCategory();
         for (String bigcategory : bigCategory) {
             List<SafetyRegister> smallCategoryList = memberService.selectSmallCategoryOfBigCategory(bigcategory);
             categoryMap.put(bigcategory, smallCategoryList);
         }
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("categoryMap", categoryMap);
+        mav.addObject("categoryBigList", bigCategory);
         mav.setViewName("service/category");
         return mav;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @GetMapping("/safetySettingOk")
@@ -158,8 +152,6 @@ public class SafetyCardServiceController {
             return "안심카드 서비스 해제 실패";
         }
     }
-
-
 
 
     @GetMapping("/selffdsTotal")

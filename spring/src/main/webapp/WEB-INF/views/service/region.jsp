@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-<%@ page import="com.kopo.SelfFDS.member.model.dto.CardHistory" %>
-<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +9,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="../../../resources/js/region.js" type="text/javascript"></script>
+    <script src="../../../resources/js/region.js" type="text/javascript"></script>
+    <link href="../../../resources/css/safetyCardCommon.css" rel="stylesheet">
     <link href="../../../resources/css/region.css" rel="stylesheet">
-    <link href="../../../resources/css/regionspot.css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h2>안심카드설정</h2>
-        <h3>대상카드</h3>
+        <h1>안심카드설정</h1>
+        <h2>대상카드</h2>
         <hr>
         <div class="card-info">
             <div class="card-details">
@@ -68,8 +65,8 @@
                         <img src="../../../resources/img/pin.png">
                         <div class="chart-name">지역별 나의 소비 확인</div>
                     </div>
-                    <div class="myselect-region-ok">
-                        <div class="myselect-region-ok-head">선택한 결제 허용지역</div>
+                    <div class="myselect">
+                        <div class="myselect-head">선택한 결제 허용지역</div>
                         <div>
                             <span class="myselect-region-ok-content"></span><span class="select-alarm"></span>
                         </div>
