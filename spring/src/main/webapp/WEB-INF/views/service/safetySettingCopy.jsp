@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="../../../resources/js/service.js" type="text/javascript"></script>
-    <link href="../../../resources/css/safetySetting.css" rel="stylesheet">
+    <link href="../../../resources/css/safetySettingCopy.css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>

@@ -34,6 +34,66 @@ public class SafetyCardServiceController {
         return "service/safetyCard";
     }
 
+
+    @GetMapping("/safetySettingCopy")
+    public String safetySettginCopyPage() {
+        return "service/safetySettingCopy";
+    }
+
+    @GetMapping("/safetySettingNew")
+    public String safetySettingNewPage() {
+        return "service/safetySettingNew";
+    }
+
+    @GetMapping("/region")
+    public ModelAndView regionPage(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView();
+        List<String> regionList = memberService.selectAllRegionName();
+        mav.addObject("regionList", regionList);
+        Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
+        mav.addObject("categoryMap", categoryMap);
+
+        //chart
+        HttpSession session = request.getSession();
+        String cardId = (String) session.getAttribute("cardId");
+        List<CardHistory> resultList = memberService.selectCountRegionOfCardId(cardId);
+
+        mav.addObject("resultList", resultList);
+        mav.setViewName("service/region");
+        return mav;
+    }
+    @GetMapping("/category")
+    public ModelAndView selfCategoryPage() {
+        Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
+
+        List<String> bigCategory = memberService.selectAllBigCategory();
+        for (String bigcategory : bigCategory) {
+            List<SafetyRegister> smallCategoryList = memberService.selectSmallCategoryOfBigCategory(bigcategory);
+            categoryMap.put(bigcategory, smallCategoryList);
+        }
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("categoryMap", categoryMap);
+        mav.setViewName("service/category");
+        return mav;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @GetMapping("/safetySettingOk")
     public String safetySettingOkPage() {
         return "service/safetySettingOk";
@@ -99,22 +159,7 @@ public class SafetyCardServiceController {
         }
     }
 
-    @GetMapping("/category")
-    public ModelAndView selfCategoryPage() {
-        Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
 
-        List<String> bigCategory = memberService.selectAllBigCategory();
-
-        for (String bigcategory : bigCategory) {
-            List<SafetyRegister> smallCategoryList = memberService.selectSmallCategoryOfBigCategory(bigcategory);
-            categoryMap.put(bigcategory, smallCategoryList);
-        }
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("categoryMap", categoryMap);
-        mav.setViewName("service/category");
-        return mav;
-    }
 
 
     @GetMapping("/selffdsTotal")

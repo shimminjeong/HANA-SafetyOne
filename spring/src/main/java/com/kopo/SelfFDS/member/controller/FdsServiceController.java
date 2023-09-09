@@ -62,7 +62,7 @@ public class FdsServiceController {
         if (updateCard.getFdsSerStatus().equals("Y")) {
             updateCard.setFdsSerStatus("N");
             memberService.updateFdsStatus(updateCard);
-            return "이상 소비 알림 서비스 해제 성공";
+            return "이상 소비 알림 서비lo스 해제 성공";
         } else {
             return "이상 소비 알림 서비스 해제 실패";
         }

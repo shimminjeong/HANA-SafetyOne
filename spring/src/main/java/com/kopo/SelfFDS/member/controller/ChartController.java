@@ -28,9 +28,6 @@ public class ChartController {
 
         String cardId = (String) session.getAttribute("cardId");
         List<CardHistory> resultList = memberService.selectCountRegionOfCardId(cardId);
-        System.out.println(resultList.get(0).getRegionName());
-        System.out.println(resultList.get(0).getRegionCnt());
-        System.out.println(resultList.get(0).getAmountSum());
 
         if (!resultList.isEmpty()) {
             return ResponseEntity.ok(resultList);

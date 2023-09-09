@@ -1,0 +1,247 @@
+.main {
+    width: 80%;
+    margin: 50px auto;
+}
+
+main hr {
+    border: 1px solid;
+}
+
+.card-info {
+    width: 100%;
+    float: left;
+    padding: 20px 10px 20px 10px;
+}
+
+.card-details {
+    width: 30%;
+    float: left;
+    padding: 10px;
+    font-size: 17px;
+}
+
+.card-type {
+    width: 60%;
+    padding: 10px;
+}
+.sub-container{
+    width: 100%;
+    height: 100%;
+    margin : 0 auto;
+    padding-top: 50px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px; /* 폰트 크기 변경 */
+    border: 2px solid #ddd;
+    border-radius: 13px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sub-main{
+    display: flex;
+    flex-direction: row;
+}
+
+/*사진 위치 조정하고싶을떄 이걸로조정*/
+.sub-main-content1{
+    /*margin-left: 40px;*/
+    width: 50%;
+}
+
+
+
+
+.spot{
+    position: relative;
+}
+
+.spot > img {
+    width: 400px;
+    /*width: 100%;*/
+    /*height: 100%;*/
+}
+
+
+.spot button {
+    position: absolute;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 15px;
+    color: red;
+}
+
+
+.formsize {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black; /* 글자색 변경 */
+    padding: 30px 80px; /* 패딩 */
+    text-decoration: none;
+    font-size: 12px; /* 폰트 크기 변경 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.custom-button-style {
+    background-color: #00857F;
+    /*width: 150px;*/
+    /*height: 80px;*/
+    color: white;
+    font-size: 20px;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.custom-button-style:hover {
+    background-color: red; /* 마우스 오버시 색상 변경 */
+}
+
+
+
+.sub-info{
+    font-size: 30px;
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+
+.sub-main-content2{
+    width: 50%;
+    font-size: 20px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.myselect-region-ok{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid #000;
+    padding: 15px;
+    width: 80%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.myselect-region-ok-head{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+
+
+
+.chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid #000;
+    padding: 10px;
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 12%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.chart:hover{
+    background-color: #eafaf3;
+}
+
+.chart img{
+    width: 50%;
+    margin-left: auto; /* 가운데 정렬을 위한 설정 */
+    margin-right: auto; /* 가운데 정렬을 위한 설정 */
+    margin-bottom: 5%;
+}
+
+.chart-name{
+    margin-top: 2%;
+    font-size: 20px;
+}
+
+
+.reg-Btn {
+    color: white;
+    border: none;
+    padding: 12px 40px 12px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00857F;
+    font-size: 20px;
+    transition: background-color 0.3s;
+    margin : 0 auto;
+    margin-bottom: 30px;
+    display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
+}
+
+.chart canvas{
+    width: 50%;
+    max-width: 750px;
+    margin: 10px 0;
+}
+
+.chart-head{
+    font-size: 20px;
+}
+
+#myRegionmodal, #myCategorymodal, #myTimemodal, #categorymodal, #mapmodal {
+    display: none; /* 처음에는 숨겨둠. JavaScript로 보이게 할 예정 */
+    position: fixed; /* 스크롤 해도 위치 고정 */
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    width: 436px;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    padding: 20px;
+    border-radius: 8px; /* 모서리 둥글게 */
+    z-index: 1000; /* 다른 요소 위에 위치 */
+}
+
+/* 캔버스 스타일 */
+#myRegionmodal canvas, #myCategorymodal canvas, #myTimemodal canvas {
+    width: 50%;
+    max-width: 750px;
+    margin: 10px 0;
+
+}
+
+#myRegionmodal .close, #myCategorymodal .close, #myTimemodal .close, #categorymodal .close, #mapmodal .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: black;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#myRegionmodal .close:hover, #myCategorymodal .close:hover, #myTimemodal .close:hover, #categorymodal .close:hover, #mapmodal .close:hover {
+    background-color: #00857F;
+}
+
+
+

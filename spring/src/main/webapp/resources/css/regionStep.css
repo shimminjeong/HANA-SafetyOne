@@ -1,0 +1,87 @@
+.main {
+    width: 100%;
+    margin: 40px 0 70px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+main hr {
+    border: 1px solid;
+}
+
+.card-info {
+    width: 100%;
+    float: left;
+    padding: 20px 10px 20px 10px;
+}
+
+.card-details {
+    width: 30%;
+    float: left;
+    padding: 10px;
+}
+
+.card-type {
+    width: 60%;
+    padding: 10px;
+}
+
+.sub-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.c-stepper{
+    display: flex;
+    flex-direction: row;
+}
+
+.c-stepper__item{
+
+}
+
+
+
+
+
+.c-stepper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.c-stepper__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.c-stepper__item:before {
+    --size: 3rem;
+    content: '';
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    margin: 0 auto;
+    background-color: aqua;
+}
+
+.formsize {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black; /* 글자색 변경 */
+    padding: 30px 80px; /* 패딩 */
+    text-decoration: none;
+    font-size: 12px; /* 폰트 크기 변경 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

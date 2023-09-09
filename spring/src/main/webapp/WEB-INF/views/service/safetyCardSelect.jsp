@@ -448,7 +448,8 @@
                 const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "안심카드 서비스 신청 성공") {
                     // openSelectModal();
-                    window.location.href = "/safetyCard/safetySetting";
+                    // window.location.href = "/safetyCard/safetySetting";
+                    window.location.href = "/safetyCard/safetySettingNew";
                 };
 
                 // else
