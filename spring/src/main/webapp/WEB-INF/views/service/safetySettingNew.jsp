@@ -124,17 +124,30 @@
     </c:forEach>
 
     function redirectToTimePage() {
-        var url = "/safetyCard/time?region=" + regions.join('&region=');
+        var url = "/safetyCard/time";
+        if (regions.length > 0) {
+            url += "?region=" + regions.join('&region=');
+        }
+
         window.location.href = url;
     }
 
     function redirectToCategoryPage() {
-        var regionQueryString = regions.map(region => "region=" + region).join('&');
-        var timeQueryString = times.map(time => "time=" + time).join('&');
+        var url = "/safetyCard/category?";
 
-        var url = "/safetyCard/category?" + regionQueryString;
+        if (regions.length > 0) {
+            var regionQueryString = regions.map(region => "region=" + region).join('&');
+            url += regionQueryString;
+        }
+
         if (times.length > 0) {
-            url += "&" + timeQueryString;
+            // regions의 데이터가 있을 경우에만 &를 추가
+            if (regions.length > 0) {
+                url += '&';
+            }
+
+            var timeQueryString = times.map(time => "time=" + time).join('&');
+            url += timeQueryString;
         }
 
         window.location.href = url;
