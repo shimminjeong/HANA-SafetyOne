@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,26 +64,61 @@
                         <img src="../../../resources/img/categories.png">
                         <div class="chart-name">업종별 나의 소비 확인</div>
                     </div>
-                    <div class="myselect">
-                        <div class="myselect-head">선택한 결제 차단업종</div>
-                        <div>
-                            <span class="myselect-category-no-content"></span><span class="select-alarm"></span>
+                    <%
+                        String[] regions = request.getParameterValues("regions");
+                        String[] times = request.getParameterValues("times");
+                    %>
+                    <c:if test="${empty regions && empty times}">
+                        <div class="myselect">
+                            <div class="myselect-head">선택한 결제 차단업종</div>
+                            <div>
+                                <span class="myselect-category-no-content"></span><span class="select-alarm"></span>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                 </div>
             </div>
-            <div class="thissetting-info">
-                <%
-                    String[] regions = request.getParameterValues("regions");
-                    String[] times = request.getParameterValues("times");
-                %>
-                <c:forEach var="region" items="${regions}">
-                    <span>${region}, </span>
-                </c:forEach> 지역에서
-                <c:forEach var="time" items="${times}">
-                    <span>${time}, </span>
-                </c:forEach> 시간을 차단합니다.
-            </div>
+            <c:if test="${not empty regions || not empty times}">
+                <div class="thissetting-info">
+                    <div class="thissetting-head">결제를 차단할 나만의 rule</div>
+                    <div class="thissetting-content">
+                        <c:choose>
+                            <c:when test="${not empty regions && not empty times}">
+                                <c:forEach var="region" items="${regions}" varStatus="loop">
+                                    <span><strong>${region}</strong></span>
+                                    <c:if test="${loop.index+1 < fn:length(regions)}">
+                                        <span><strong>,</strong></span>
+                                    </c:if>
+                                </c:forEach> 에서
+                                <c:forEach var="time" items="${times}" varStatus="loop">
+                                    <span><strong>${time}</strong></span>
+                                    <c:if test="${loop.index+1 < fn:length(times)}">
+                                        <span><strong>,</strong></span>
+                                    </c:if>
+                                </c:forEach> 까지
+                            </c:when>
+                            <c:when test="${empty regions && not empty times}">
+                                <strong>모든 지역</strong>에서
+                                <c:forEach var="time" items="${times}" varStatus="loop">
+                                    <span><strong>${time}</strong></span>
+                                    <c:if test="${loop.index+1 < fn:length(times)}">
+                                        <span><strong>,</strong></span>
+                                    </c:if>
+                                </c:forEach> 까지
+                            </c:when>
+                            <c:when test="${not empty regions && empty times}">
+                                <c:forEach var="region" items="${regions}" varStatus="loop">
+                                    <span><strong>${region}</strong></span>
+                                    <c:if test="${loop.index+1 < fn:length(regions)}">
+                                        <span><strong>,</strong></span>
+                                    </c:if>
+                                </c:forEach> 에서
+                            </c:when>
+                        </c:choose>
+                        <span class="myselect-category-no-content"></span><span class="select-alarm"></span>
+                    </div>
+                </div>
+            </c:if>
             <div class="reg-btn-div">
                 <button class="reg-Btn" onclick="registerCategory()">등록</button>
             </div>

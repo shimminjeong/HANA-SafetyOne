@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +18,8 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h1>안심카드설정</h1>
-        <h2>대상카드</h2>
+        <h2>안심카드설정</h2>
+        <h3>대상카드</h3>
         <hr>
         <div class="card-info">
             <div class="card-details">
@@ -55,22 +57,33 @@
                         <img src="../../../resources/img/clock1.png">
                         <div class="chart-name">시간별 나의 소비 확인</div>
                     </div>
-                    <div class="myselect">
-                        <div class="myselect-head">선택한 결제 차단시간</div>
-                        <div>
-                            <span class="myselect-time-no-content"></span><span class="select-alarm"></span>
+                    <%
+                        String[] regions = request.getParameterValues("regions");
+                        System.out.println("regions" + regions);
+                    %>
+                    <c:if test="${empty regions}">
+                        <div class="myselect">
+                            <div class="myselect-head">선택한 결제 차단시간</div>
+                            <div>
+                                <span class="myselect-time-no-content"></span><span class="select-alarm"></span>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                 </div>
             </div>
-            <div class="thissetting-info">
-                <%
-                    String[] regions = request.getParameterValues("regions");
-                %>
-                <c:forEach var="region" items="${regions}">
-                    <span>${region}, </span>
-                </c:forEach> 지역에서 ~~시간을 차단합니다.
-            </div>
+            <c:if test="${not empty regions}">
+                <div class="thissetting-info">
+                    <div class="thissetting-head">현재까지 조합된 나만의 rule</div>
+                    <div class="thissetting-content">
+                        <c:forEach var="region" items="${regions}" varStatus="loop">
+                            <span><strong>${region}</strong></span>
+                            <c:if test="${loop.index +1 < fn:length(regions)}">
+                                <span><strong>,</strong></span>
+                            </c:if>
+                        </c:forEach>에서 <span class="myselect-time-no-content"></span><span class="select-alarm"></span>
+                    </div>
+                </div>
+            </c:if>
             <div class="reg-btn-div">
                 <button class="reg-Btn" onclick="registerTime()">등록</button>
             </div>

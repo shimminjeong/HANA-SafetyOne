@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%--    <link href="../../../resources/css/regionspot.css" rel="stylesheet">--%>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <%--    <script src="../../../resources/js/service.js" type="text/javascript"></script>--%>
     <link href="../../../resources/css/safetyCardCommon.css" rel="stylesheet">
     <link href="../../../resources/css/safetySettingNew.css" rel="stylesheet">
 
@@ -19,8 +19,8 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h1>안심카드설정</h1>
-        <h2>대상카드</h2>
+        <h2>안심카드설정</h2>
+        <h3>대상카드</h3>
         <hr>
         <div class="card-info">
             <div class="card-details">
@@ -33,86 +33,126 @@
         </div>
         <div class="setting-options">
             <div class="info-header">결제를 차단할 지역, 시간, 업종 등 나만의 rule을 설정해보세요</div>
-            <div class="info-content">결제를 허용할 지역을 선택하세요</div>
             <div class="setting-buttons">
+                <span>STEP1</span>
                 <span>허용지역선택</span>
                 <button class="select-no" id="region-no" onclick="noSelect(this)">선택안함</button>
                 <button class="select-thing" id="select-region" onclick="window.location.href='/safetyCard/region'">
                     지역선택
                 </button>
             </div>
-            <div class="setting-result">
-                <c:forEach var="region" items="${regions}">
-                    <span>${region}, </span>
-                </c:forEach> 외 모든 지역의 결제를 차단하였습니다.
-                <div>결제 허용 지역에서 차단하고 싶은 나만의 rule이 있다면 추가하세요</div>
-            </div>
-            <div class="info-content">결제를 차단할 시간을 선택하세요</div>
+            <c:if test="${not empty regions}">
+                <div class="setting-result">
+                    <c:forEach var="region" items="${regions}" varStatus="loop">
+                        <span><strong>${region}</strong></span>
+                        <c:if test="${loop.index+1 < fn:length(regions)}">
+                            <span><strong>,</strong></span>
+                        </c:if>
+                    </c:forEach> 외 <strong>모든 지역</strong>의 결제를 차단하였습니다.
+
+                </div>
+                <div class="setting-result-info">결제 허용 지역내에서 차단하고 싶은 나만의 rule이 있다면 추가하세요</div>
+            </c:if>
             <div class="setting-buttons">
+                <span>STEP2</span>
                 <span>차단시간선택</span>
                 <button class="select-no" id="time-no" onclick="noSelect()">선택안함</button>
                 <button class="select-thing" id="select-time" onclick="redirectToTimePage()">시간선택</button>
             </div>
-            <div class="setting-result">
-                <c:forEach var="region" items="${regions}">
-                    <span>${region}, </span>
-                </c:forEach>지역에서
-                <c:forEach var="time" items="${times}">
-                    <span>${time}, </span>
-                </c:forEach> 시간의 결제를 차단하였습니다.
-                <div>해당 조건에서 차단하고 싶은 나만의 rule이 있다면 추가하세요</div>
-            </div>
-            <div class="info-content">결제를 차단할 업종을 선택하세요</div>
+
+            <c:if test="${not empty times && empty categorySmalls}">
+                <div class="setting-result">
+                    <c:if test="${not empty regions}">
+                        <c:forEach var="region" items="${regions}" varStatus="loop">
+                            <span><strong>${region}</strong></span>
+                            <c:if test="${loop.index+1 < fn:length(regions)}">
+                                <span><strong>,</strong></span>
+                            </c:if>
+                        </c:forEach> 에서
+                    </c:if>
+                    <c:if test="${empty regions}">
+                        <strong>모든 지역</strong>에서
+                    </c:if>
+                    <c:forEach var="time" items="${times}" varStatus="loop">
+                        <span><strong>${time}</strong></span>
+                        <c:if test="${loop.index+1 < fn:length(times)}">
+                            <span><strong>,</strong></span>
+                        </c:if>
+                    </c:forEach>까지 결제를 차단하였습니다.
+                </div>
+            </c:if>
             <div class="setting-buttons">
+                <span>STEP3</span>
                 <span>차단업종선택</span>
                 <button class="select-no" id="category-no" onclick="noSelect()">선택안함</button>
                 <button class="select-thing" id="select-category" onclick="redirectToCategoryPage()">
                     업종선택
                 </button>
             </div>
-            <div class="setting-result">
-                <c:forEach var="region" items="${regions}">
-                    <span>${region}, </span>
-                </c:forEach>지역에서
-                <c:forEach var="time" items="${times}">
-                    <span>${time}, </span>
-                </c:forEach> 시간에
-                <c:forEach var="categorySmall" items="${categorySmalls}">
-                    <span>${categorySmall}, </span>
-                </c:forEach>업종을 차단하였습니다.
-            </div>
-            <div class="gogoring">내용</div>
-            <div class="setting-result">
-                <c:if test="${not empty regions}">
-                    <c:forEach var="region" items="${regions}">
-                        <span>${region}, </span>
-                    </c:forEach>
-                    지역에
-                </c:if>
+            <c:if test="${not empty categorySmalls}">
+                <div class="setting-result">
+                    <c:choose>
+                        <c:when test="${not empty regions && not empty times}">
+                            <c:forEach var="region" items="${regions}" varStatus="loop">
+                                <span><strong>${region}</strong></span>
+                                <c:if test="${loop.index+1 < fn:length(regions)}">
+                                    <span><strong>,</strong></span>
+                                </c:if>
+                            </c:forEach> 에서
+                            <c:forEach var="time" items="${times}" varStatus="loop">
+                                <span><strong>${time}</strong></span>
+                                <c:if test="${loop.index+1 < fn:length(times)}">
+                                    <span><strong>,</strong></span>
+                                </c:if>
+                            </c:forEach> 까지
+                        </c:when>
+                        <c:when test="${empty regions && not empty times}">
+                            <strong>모든 지역</strong>에서
+                            <c:forEach var="time" items="${times}" varStatus="loop">
+                                <span><strong>${time}</strong></span>
+                                <c:if test="${loop.index+1 < fn:length(times)}">
+                                    <span><strong>,</strong></span>
+                                </c:if>
+                            </c:forEach> 까지
+                        </c:when>
+                        <c:when test="${not empty regions && empty times}">
+                            <c:forEach var="region" items="${regions}" varStatus="loop">
+                                <span><strong>${region}</strong></span>
+                                <c:if test="${loop.index+1 < fn:length(regions)}">
+                                    <span><strong>,</strong></span>
+                                </c:if>
+                            </c:forEach> 에서
+                        </c:when>
 
-                <c:if test="${not empty times}">
-                    <c:forEach var="time" items="${times}">
-                        <span>${time}, </span>
-                    </c:forEach>
-                    시간에
-                </c:if>
-
-                <c:if test="${not empty categorySmalls}">
-                    <c:forEach var="categorySmall" items="${categorySmalls}">
-                        <span>${categorySmall}, </span>
-                    </c:forEach>
-                    업종을
-                </c:if>
-
-                차단하였습니다.
-            </div>
+                    </c:choose>
+                    <c:forEach var="categorySmall" items="${categorySmalls}" varStatus="loop">
+                        <span><strong>${categorySmall}</strong></span>
+                        <c:if test="${loop.index+1 < fn:length(categorySmalls)}">
+                            <span><strong>,</strong></span>
+                        </c:if>
+                    </c:forEach>업종의 결제를 차단하였습니다.
+                </div>
+            </c:if>
         </div>
     </div>
-    <button class="reg-Btn" onclick="sendSettingsToController()"> 등록</button>
+    <button class="reg-Btn" onclick="modalCheck()"> 등록</button>
 </div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>대상카드 : <%=session.getAttribute("cardId")%></p>
+        <div class="setting-result-modal">
+        </div>
+        <button class="modal-btn" onclick="safetySettingOk()"> 확인</button>
+    </div>
+</div>
+
 </body>
 <script>
 
+    // 각 jsp에서 설정한 값들 넘겨받기
     var regions = [];
     <c:forEach var="region" items="${regions}">
     regions.push('${region}');
@@ -121,6 +161,11 @@
     var times = [];
     <c:forEach var="time" items="${times}">
     times.push('${time}');
+    </c:forEach>
+
+    var categorySmalls = [];
+    <c:forEach var="categorySmall" items="${categorySmalls}">
+    categorySmalls.push('${categorySmall}');
     </c:forEach>
 
     function redirectToTimePage() {
@@ -154,69 +199,81 @@
     }
 
 
+    // 확인모달
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // This function will be triggered when the button is clicked
+    function modalCheck() {
+        // Get all elements with class "setting-result"
+        var settingResults = document.querySelectorAll(".setting-result");
+
+        // Assuming you have only one .setting-result-modal, so using querySelector
+        var modalContent = document.querySelector(".setting-result-modal");
+        modalContent.innerHTML = "";  // Clearing any existing content in modalContent
+
+        settingResults.forEach(function(settingResult) {
+            modalContent.innerHTML += settingResult.innerHTML;
+            modalContent.innerHTML += "<br>";
+
+        });
+
+        // Display the modal
+        modal.style.display = "block";
+    }
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
 
 
     function collectSettings() {
+        let settingsList = [];
 
-        let settingsMap = {};
+        settingsList.push(regions);
+        settingsList.push(times);
+        settingsList.push(categorySmalls);
 
-        const safetyStartDate = document.getElementById('fromDate').value;
-        const safetyEndDate = document.getElementById('toDate').value;
-        settingsMap['safetyStartDate'] = safetyStartDate;
-        settingsMap['safetyEndDate'] = safetyEndDate;
-        settingsMap['cardId'] = '<%= session.getAttribute("cardId") %>';
-
-        // regions 값 추출
-        const regionSelectedElements = document.querySelectorAll('.myselect-region .select-element');
-        if (regionSelectedElements.length > 0) {
-            settingsMap['regions'] = Array.from(regionSelectedElements).map(ele => ele.textContent);
-        }
-
-        // category 값 추출
-        const categorySelectedElements = document.querySelectorAll('.myselect-category .select-element');
-        if (categorySelectedElements.length > 0) {
-            settingsMap['category'] = Array.from(categorySelectedElements).map(ele => ele.textContent);
-
-        }
-
-        // time 값 추출
-        const timeSelectedValue = document.querySelector('.myselect-time .select-element');
-        if (timeSelectedValue) {
-            const timeParts = timeSelectedValue.textContent.split(' ~ ');
-            settingsMap['startTime'] = timeParts[0].trim();
-            settingsMap['endTime'] = timeParts[1].trim();
-        }
-
-        // null 또는 빈 배열 제거
-        for (let key in settingsMap) {
-            if (settingsMap[key] === null || (Array.isArray(settingsMap[key]) && settingsMap[key].length === 0)) {
-                delete settingsMap[key];
-            }
-        }
-
-        console.log(settingsMap);
-
-        return settingsMap;
+        return settingsList;
     }
 
-    function sendSettingsToController() {
+    function safetySettingOk() {
+        console.log("satetySetting");
         const settings = collectSettings();
-        console.log("settings", settings);
-
-        fetch('/safetyCard/insertsetting', {
-            method: 'POST',  // 'GET' 대신 'POST'를 사용
-            headers: {
-                'Content-Type': 'application/json',
+        console.log("settingList", settings);
+        $.ajax({
+            url: '/safetyCard/insertSetting',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(settings),
+            dataType: 'text',
+            success: function (response) {
+                console.log(response);
+                console.log("sss");
+                if (response === "insert성공") {
+                    location.href = "/safetyCard/safetySettingOk";
+                } else {
+                    console.error('insert실패');
+                }
             },
-            body: JSON.stringify(settings),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
+            error: function (error) {
                 console.error('Error:', error);
-            });
+            }
+        });
     }
 
 

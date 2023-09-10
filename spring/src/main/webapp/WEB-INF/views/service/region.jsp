@@ -17,8 +17,8 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h1>안심카드설정</h1>
-        <h2>대상카드</h2>
+        <h2>안심카드설정</h2>
+        <h3>대상카드</h3>
         <hr>
         <div class="card-info">
             <div class="card-details">

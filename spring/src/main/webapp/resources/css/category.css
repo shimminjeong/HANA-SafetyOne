@@ -3,7 +3,7 @@
     margin-top: 5%;
     margin-bottom: 30px;
     display: grid;
-    grid-template-columns: repeat(5, 87px); /* 2열로 반복 */
+    grid-template-columns: repeat(4, 85px); /* 2열로 반복 */
     /*grid-gap: 10px; !* 박스 사이의 간격 설정 *!*/
     align-items: center; /* 내용 수직 가운데 정렬 */
     text-align: center; /* 내용 가로 가운데 정렬 */
@@ -16,7 +16,7 @@
     justify-content: center;
     border: 1px solid black;
     padding: 10px 5px;
-    height: 100px; /* 그리드 컨테이너의 높이 설정 */
+    height: 95px; /* 그리드 컨테이너의 높이 설정 */
     cursor: pointer;
     transition: background-color 0.3s;
     position: relative;

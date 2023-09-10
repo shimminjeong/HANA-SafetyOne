@@ -55,7 +55,7 @@ public class SafetyCardServiceController {
                                       Model model) {
         if (regions != null && !regions.isEmpty()) {
             model.addAttribute("regions", regions);
-            System.out.println("regions"+regions);
+            System.out.println(regions);
         }
 
         if (times != null && !times.isEmpty()) {

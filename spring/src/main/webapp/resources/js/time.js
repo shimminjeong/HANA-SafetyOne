@@ -25,23 +25,24 @@ function populateTimeOptions() {
 function handleTimeRangeClick(button) {
     const timeText = button.textContent;
 
-    const selectedBtnDiv = document.querySelector('.myselect-time-no-content');
-    const newButton = document.createElement('button');
-    newButton.textContent = timeText;
-    newButton.classList.add('selected-time-no', 'custom-button-style');
+    const allSelectedBtnDivs = document.querySelectorAll('.myselect-time-no-content');
 
-    // 새로운 버튼을 선택된 버튼 영역에 추가
-    selectedBtnDiv.appendChild(newButton);
+    allSelectedBtnDivs.forEach(selectedBtnDiv => {
+        const newButton = document.createElement('button');
+        newButton.textContent = timeText;
+        newButton.classList.add('selected-time-no', 'custom-button-style');
+
+        // 새로운 버튼을 선택된 버튼 영역에 추가
+        selectedBtnDiv.appendChild(newButton);
+
+        // 클릭 이벤트 리스너 추가
+        newButton.addEventListener('click', function(event) {
+            event.target.remove();
+            updateAlarmText();
+        });
+    });
 
     updateAlarmText();
-
-    // 이벤트 리스너를 newButton에만 추가
-    newButton.addEventListener('click', function (event) {
-        // 클릭된 버튼 제거
-        event.target.remove();
-        // 알람 텍스트 업데이트
-        updateAlarmText();
-    });
 }
 
 
@@ -51,39 +52,39 @@ function updateTime() {
     const endHour = document.getElementById('endHour').value;
     const timeText = startHour + ' 시 ~ ' + endHour + ' 시 ';
 
-    const selectedBtnDiv = document.querySelector('.myselect-time-no-content');
+    const allSelectedBtnDivs = document.querySelectorAll('.myselect-time-no-content');
 
+    allSelectedBtnDivs.forEach(selectedBtnDiv => {
+        const newButton = document.createElement('button');
+        newButton.textContent = timeText;
+        newButton.classList.add('selected-time-no', 'custom-button-style');
 
-    const newButton = document.createElement('button');
-    newButton.textContent = timeText;
-    newButton.classList.add('selected-time-no', 'custom-button-style');
+        // 새로운 버튼을 선택된 버튼 영역에 추가
+        selectedBtnDiv.appendChild(newButton);
 
-    // 새로운 버튼을 선택된 버튼 영역에 추가
-    selectedBtnDiv.appendChild(newButton);
+        // 클릭 이벤트 리스너 추가
+        newButton.addEventListener('click', function(event) {
+            event.target.remove();
+            updateAlarmText();
+        });
+    });
 
     updateAlarmText();
-
-    // 이벤트 리스너를 newButton에만 추가
-    newButton.addEventListener('click', function (event) {
-
-        // 클릭된 버튼 제거
-        event.target.remove();
-
-        // 알람 텍스트 업데이트
-        updateAlarmText();
-    });
 }
 
 function updateAlarmText() {
     var selectedBtnDiv = document.querySelector('.myselect-time-no-content');
     var existingButtons = selectedBtnDiv.querySelectorAll('.selected-time-no');
-    var alarmSpan = document.querySelector('.select-alarm');
+    // .select-alarm 클래스를 가진 모든 요소들 선택
+    var allAlarmSpans = document.querySelectorAll('.select-alarm');
 
-    if (existingButtons.length > 0) {
-        alarmSpan.textContent = "까지 결제를 차단합니다.";
-    } else {
-        alarmSpan.textContent = ""; // 텍스트 삭제
-    }
+    allAlarmSpans.forEach(alarmSpan => {
+        if (existingButtons.length > 0) {
+            alarmSpan.textContent = "까지 결제를 차단합니다.";
+        } else {
+            alarmSpan.textContent = ""; // 텍스트 삭제
+        }
+    });
 }
 
 
