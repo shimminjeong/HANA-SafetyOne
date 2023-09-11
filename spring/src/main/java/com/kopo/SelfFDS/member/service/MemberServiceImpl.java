@@ -193,4 +193,9 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.selectSafetySettingEnrollSeqByCardId(cardId);
     }
 
+    @Override
+    public void insertLostCardInfo(LostCard lostCard) {
+        memberMapper.insertLostCardInfo(lostCard);
+    }
+
 }

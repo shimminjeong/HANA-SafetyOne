@@ -15,12 +15,11 @@
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
-<h1>${pageContext.request.contextPath}/sdf</h1>
-
 <div class="active-container">
 
-    <form action="${pageContext.request.contextPath}/customCenter/lostCardRegisterInfo" method="post">
-
+    <form action="${pageContext.request.contextPath}/customCenter/lostCardRegisterOk" method="post">
+        <input type="hidden" name="cardId" value="<%=request.getAttribute("cardId")%>">
+        <input type="hidden" name="reissued" value="<%=request.getAttribute("reissued")%>">
         <div class="cont_box_area">
             <div class="lost-header"><h2>카드분실신고 및 재발급 신청</h2></div>
             <div class="lost-header"><h3>분실신고 카드</h3></div>
@@ -35,7 +34,6 @@
                 </div>
             </div>
             <h4 class="t_tit">분실신고 접수내용</h4>
-
             <div class="lost-info">
                 <table>
                     <colgroup>
@@ -60,11 +58,11 @@
                         <td class="left">
                             <select id="lostReason" name="lostReason" onchange="changeReason(this.value);"
                                     title="경위 선택">
-                                <option value="01">지갑채분실</option>
-                                <option value="02">카드만분실</option>
-                                <option value="03">도난/소매치기</option>
-                                <option value="04">타인양도후 분실</option>
-                                <option value="09">기타</option>
+                                <option value="지갑채분실">지갑채분실</option>
+                                <option value="카드만분실">카드만분실</option>
+                                <option value="도난/소매치기">도난/소매치기</option>
+                                <option value="타인양도후 분실">타인양도후 분실</option>
+                                <option value="기타">기타</option>
                             </select>
                         </td>
                     </tr>
@@ -77,9 +75,38 @@
                     </tbody>
                 </table>
             </div>
+            <h4 class="t_tit">재발급 신청 정보</h4>
+            <div class="lost-info">
+                <table>
+                    <colgroup>
+                        <col span="1" style="width:23%;">
+                        <col span="1" style="width:77%;">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="left">카드수령지</th>
+                        <td class="left">
+                            <div class="tab_ty02" style="width: 60%;">
+                                <li class="on"><a href="#" title="현재 선택 탭">자택</a></li>
+                                <li><a href="#">직장</a></li>
+                                <li><a href="#">은행영업점</a></li>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="left">자택주소</th>
+                        <td class="left">
+                            <input type="text" placeholder="${address}>" style="width: 50%; margin-right: 10px">
+                            <a href="#">회원정보수정 > </a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
-        <input type="submit" value="다음" class="registerLostBtn" onclick="registerLostCard()">
+        <input type="submit" value="접수" class="registerLostBtn" onclick="registerLostCard()">
     </form>
 </div>
 </body>
@@ -99,8 +126,5 @@
         , minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
         , maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
     });
-</script>
-
-
 </script>
 </html>

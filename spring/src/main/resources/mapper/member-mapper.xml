@@ -188,5 +188,13 @@
 
 
 
+<!--    lostcard-->
+    <insert id="insertLostCardInfo" parameterType="com.kopo.SelfFDS.member.model.dto.LostCard">
+        INSERT INTO LostCard (lostcardidseq, regLostDate,cardId, lostDate,lostPlace,lostReason,reissued)
+        VALUES (lostcard_id_seq.nextval,sysdate, #{cardId},#{lostDate},#{lostPlace},#{lostReason},#{reissued})
+    </insert>
+
+
+
 </mapper>
 

@@ -37,8 +37,8 @@
                 <hr>
                 <div class="reissued">
                     <span>재발급 신청 여부</span>
-                    <button id="btn-ok" class="reissued-ok" onclick="setReissued('y', this)">신청</button>
-                    <button id="btn-no" class="reissued-no" onclick="setReissued('n', this)">신청 안 함</button>
+                    <button id="btn-ok" class="reissued-ok" onclick="setReissued('Y', this)">신청</button>
+                    <button id="btn-no" class="reissued-no" onclick="setReissued('N', this)">신청 안 함</button>
                 </div>
             </div>
         </c:forEach>

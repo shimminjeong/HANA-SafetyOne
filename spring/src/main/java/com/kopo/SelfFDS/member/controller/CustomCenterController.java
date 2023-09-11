@@ -52,12 +52,17 @@ public class CustomCenterController {
 
 
     @PostMapping("/lostCardRegisterOk")
-    public String lostCardRegisterOk(String cardId,String lostDate, String lostPlace,String lostReason, Model model) {
+    public String lostCardRegisterOk(String cardId,String lostDate, String lostPlace,String lostReason,String reissued,Model model) {
 
         LostCard lostCard = new LostCard();
+        lostCard.setCardId(cardId);
         lostCard.setLostDate(lostDate);
-        lostCard.setLostDate(lostPlace);
-        lostCard.setLostDate(lostReason);
+        lostCard.setLostPlace(lostPlace);
+        lostCard.setLostReason(lostReason);
+        lostCard.setReissued(reissued);
+        System.out.println("lostCard"+lostCard);
+        memberService.insertLostCardInfo(lostCard);
+
         return "customCenter/lostCardInfo";
     }
 

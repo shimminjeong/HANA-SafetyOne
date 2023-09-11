@@ -59,6 +59,7 @@ public interface MemberMapper {
 
 
     void insertSafetySetting(SafetyCard safetyCard);
+    void insertLostCardInfo(LostCard lostCard);
 
     List<SafetyCard> selectSafetySettingByCardId(@Param("cardId") String cardId,@Param("enrollSeq") int enrollSeq);
     int selectSafetySettingEnrollSeqByCardId(String cardId);

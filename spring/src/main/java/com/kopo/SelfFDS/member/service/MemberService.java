@@ -49,4 +49,6 @@ public interface MemberService {
     List<SafetyCard> selectSafetySettingByCardId(String cardId, int enrollSeq);
     int selectSafetySettingEnrollSeqByCardId(String cardId);
 
+    void insertLostCardInfo(LostCard lostCard);
+
 }
