@@ -1,0 +1,90 @@
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background-safetyCardSelect: white;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-safetyCardSelect: #00857F;
+    border: 2px solid #00857F;
+}
+
+.reg-cancle-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.reg-Btn, .cancle-Btn {
+    safetyCardSelect: white;
+    border: none;
+    padding: 12px 40px 12px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-safetyCardSelect: #00857F;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
+}
+
+.reg-Btn {
+    margin-left: 40px;
+}
+
+.card-img {
+    width: 90px;
+}
+
+.lock-img {
+    width: 40px;
+}
+
+.ajax-content {
+    font-size: 14px;
+    display: flex;
+    justify-content: center
+}
+
+.formsize {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black; /* 글자색 변경 */
+    padding: 30px 80px; /* 패딩 */
+    text-decoration: none;
+    font-size: 12px; /* 폰트 크기 변경 */
+    cursor: pointer;
+}
+
+
+.select-content img {
+    margin-bottom: 20px;
+}
+
+
+.accordion {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    border-radius: 8px; /* 상단의 둥근 모서리 지정 */
+    background-color: #ffffff;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+
+}
+
+.ajax-content {
+    margin-top: 30px;
+}

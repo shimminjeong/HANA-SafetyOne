@@ -58,10 +58,6 @@ public class MemberController {
         return "join";
     }
 
-    @GetMapping("/lostcard")
-    public String lost() {
-        return "lostcard";
-    }
 
 
     @RequestMapping("/update")
@@ -121,6 +117,8 @@ public class MemberController {
         if (loginMember != null) {
             session.setAttribute("name", loginMember.getName());
             session.setAttribute("email", loginMember.getEmail());
+            session.setAttribute("phone", loginMember.getPhone());
+            session.setAttribute("address", loginMember.getAddress());
 
             System.out.println("세션에 저장된 name: " + session.getAttribute("name"));
             System.out.println("세션에 저장된 email: " + session.getAttribute("email"));

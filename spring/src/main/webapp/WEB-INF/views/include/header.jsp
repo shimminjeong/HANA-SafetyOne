@@ -37,7 +37,7 @@
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="/lostcard">분실/도난 신고</a>
+                    <a href="/customCenter/lostCardSelect">카드 분실신고</a>
                     <a href="#">부정사용신고</a>
                     <a href="#">카드재발급</a>
                 </div>
