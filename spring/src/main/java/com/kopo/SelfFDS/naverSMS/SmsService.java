@@ -56,21 +56,22 @@ public class SmsService {
         String sig = makeSignature(time); //암호화
         headers.set("x-ncp-apigw-signature-v2", sig);
 
-        HttpEntity<String> body = new HttpEntity<>(jsonBody,headers);
+        HttpEntity<String> body = new HttpEntity<>(jsonBody, headers);
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        SmsResponseDto smsResponse = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+this.serviceId+"/messages"), body, SmsResponseDto.class);
+        SmsResponseDto smsResponse = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/" + this.serviceId + "/messages"), body, SmsResponseDto.class);
 
         return smsResponse;
 
     }
+
     public String makeSignature(Long time) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
 
         String space = " ";
         String newLine = "\n";
         String method = "POST";
-        String url = "/sms/v2/services/"+ this.serviceId+"/messages";
+        String url = "/sms/v2/services/" + this.serviceId + "/messages";
         String timestamp = time.toString();
         String accessKey = this.accessKey;
         String secretKey = this.secretKey;
@@ -93,5 +94,14 @@ public class SmsService {
         String encodeBase64String = Base64.encodeBase64String(rawHmac);
 
         return encodeBase64String;
+    }
+
+    public boolean verifyOuath(String ouathNum, String userResponseOuathNum) {
+        if (ouathNum.equals(userResponseOuathNum)) {
+            // 일치할 때
+            return true;
+        } else {
+            return false;
+        }
     }
 }

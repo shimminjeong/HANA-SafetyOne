@@ -36,26 +36,116 @@
         </div>
     </div>
 
+
+    <%--    알림문자보내기--%>
     <div class="form-group">
         <label for="phoneNumber">전화번호</label>
         <div class="input-wrapper">
-            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="010XXXXXXXX" required maxlength="11" oninput="sanitizePhoneNumber()">
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="010XXXXXXXX" required maxlength="11">
             <!-- <button type="submit" id="sendSmsButton">인증번호 전송</button> -->
             <button onclick="sendSmsRequest()" class="button">인증번호 전송</button>
         </div>
     </div>
 
+    <input type="tel" id="userOuathNum" name="userOuathNum" placeholder="인증번호입력" required maxlength="5">
+    <button onclick="verifySmsCode()" class="button">인증번호 전송</button>
+    <div id="result"></div>
+
     <script>
+
+        // 사용자 정보 입력하면 무작위로 본인인증번호 보냄
         function sendSmsRequest() {
             const phoneNumber = document.getElementById('phoneNumber').value;
 
+            const ouathNum = String(Math.floor(10000 + Math.random() * 90000));
+            console.log("ouathNum", ouathNum);
+
             const requestData = {
-                recipientPhoneNumber: '01050437629',
-                content: `[하나원페이] 하나원페이 사용을 위해 인증번호 5235를 입력하세요.` // 메시지 내용을 형식에 맞게 수정
+                recipientPhoneNumber: phoneNumber,
+                content: '[하나안심서비스] 하나안심카드서비스 사용을 위해 인증번호 [' + ouathNum + '] 를 입력하세요.',
+                ouathNum: ouathNum // 생성한 무작위 숫자 할당
+            };
+
+            $.ajax({
+                url: '/sms/sendUser',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(requestData),
+                success: function (data) {
+                    // 성공적인 응답 처리
+                    console.log('서버 응답:', data);
+                    // 여기에서 원하는 동작을 수행할 수 있습니다.
+                },
+                error: function () {
+                    console.error("사용자에게 인증번호 전송 중 에러");
+                }
+            });
+
+        }
+
+
+        // 본인인증 메세지를 받은 사용자가 인증번호를 입력하면 service에서 동일한지 확인한 후 return
+        function verifySmsCode() {
+            const smsConfirmNum = document.getElementById('userOuathNum').value;
+
+            const resultDiv = document.getElementById('result');
+
+            $.ajax({
+                url: '/sms/verify',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({smsConfirmNum: smsConfirmNum}),
+                success: function (data) {
+                    // 성공적인 응답 처리
+                    console.log('서버 응답:', data);
+                    if (data === '본인인증성공') {
+                        resultDiv.textContent = '본인인증성공';
+                    } else {
+                        resultDiv.textContent = '본인인증실패';
+                    }
+                },
+                error: function () {
+                    console.error("본인인증인증과정에러");
+                }
+            });
+
+        }
+
+
+        // function verifySmsCode() {
+        //     const userEnteredCode = document.getElementById('smsCodeInput').value;
+        //
+        //     // 서버에 사용자가 입력한 코드를 전송하여 검증합니다.
+        //     fetch('/sms/verify', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ code: userEnteredCode })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.isValid) {
+        //                 document.getElementById('verificationStatus').innerText = "본인인증이 완료되었습니다.";
+        //             } else {
+        //                 document.getElementById('verificationStatus').innerText = "인증번호가 잘못되었습니다. 다시 시도해주세요.";
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error verifying SMS code:', error);
+        //             document.getElementById('verificationStatus').innerText = "인증번호 검증 중 오류가 발생했습니다.";
+        //         });
+        // }
+
+
+        function sendSmsOuathRequest() {
+
+            const requestData = {
+                to: '01050437629'
             };
 
             // 서버로 POST 요청을 보냅니다.
-            fetch('/user/sms', {
+            fetch('/sms/send', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -75,6 +165,8 @@
                 });
         }
     </script>
+
+
     <script>
 
         const time = document.getElementById('current-time'); // id가 'current-time'인 요소
