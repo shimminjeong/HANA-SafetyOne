@@ -8,43 +8,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <style>
-    .login{
-        margin-top: 120px;
-        display: inline-block;
-        safetyCardSelect: black; /* 글자색 변경 */
-        padding: 7px 20px; /* 패딩 */
-        border: none; /* 테두리 없음 */
-        border-radius: 5px; /* 둥근 모서리 */
-        text-align: center;
-        text-decoration: none;
-        font-size: 12px; /* 폰트 크기 변경 */
-        cursor: pointer;
-        background-safetyCardSelect: #ffffff; /* 배경색 추가 */
-        transition: background-safetyCardSelect 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .login > * {
-        margin-right: 20px; /* 각 요소의 오른쪽에 마진 추가 */
-    }
-
-    #loginForm {
-
-        width: 250px;
-        margin: 50px auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #loginForm div {
-        margin-bottom: 20px;
-    }
 
     label {
         display: block;
@@ -69,15 +32,68 @@
         margin-bottom: 20px;
     }
 
+    .login-container {
+        position: fixed; /* fixed positioning makes the container cover the entire viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black background */
+        display: flex; /* flex display to center the formsize */
+        align-items: center; /* center vertically */
+        justify-content: center; /* center horizontally */
+    }
+
+    .loginForm {
+        width: 40%;
+        height: 50%;
+        background-color: #ffffff; /* white background for the form */
+        /*padding: 20px; !* spacing around the form content *!*/
+        border-radius: 8px; /* rounded corners */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* subtle shadow for a lifted appearance */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-img-div{
+        width: 50%;
+        height: 100%;
+        background-color: #00857F;
+        margin: 0 auto;
+        padding-right: 5%;
+        border-radius:  8px 0px 0px 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .login-input-div{
+        width: 50%;
+        padding-left: 5%;
+        padding-right: 5%;
+
+    }
+
+    .login-img-div img{
+        /*width: 100%;*/
+        height: 50%;
+        margin: 0 auto;
+    }
 
 
 </style>
 
 <body>
 <%@ include file="include/header.jsp" %>
-<div class="container">
-    <div class="formsize">
-        <img src="../../resources/img/payment.gif" height="250" class="imgLoginForm">
+<div class="login-container">
+    <div class="loginForm">
+        <div class="login-img-div">
+            <img src="../../resources/img/payment.png">
+        </div>
+        <div class="login-input-div">
             <div id="rowinput">
                 <label for="email">이메일</label>
                 <input type="text" id="email" name="email">
@@ -88,7 +104,8 @@
             </div>
             <button id="loginBtn" onclick="loginFormFunc()">로그인</button>
             <%--    <input type="button" class="button" value="회원가입" onclick="joinFunc(); return false;">--%>
-            <a href="/selectAll">회원목록</a>
+            <button id="joinBtn">회원가입</button>
+        </div>
     </div>
 </div>
 <%--<%@ include file="include/footer.jsp" %>--%>

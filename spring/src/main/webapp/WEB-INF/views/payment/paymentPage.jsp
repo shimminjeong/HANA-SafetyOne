@@ -5,105 +5,309 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/common.css" rel="stylesheet">
-    <link href="../../../resources/css/service.css" rel="stylesheet">
+    <link href="../../../resources/css/payment.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-<style>
-</style>
 
 <body>
-<div class="expend_wrap bg_gray">
-    <div class="form_type w_size01">
-        <div class="form_ele">
-            <div class="ele_tit">
-                <label for="radioInfo2">적용구분</label><button type="button" class="btn_tooltip" title="적용구분 툴팁보기" onclick="openTooltip('#feelTooltip', this)"><span>자세히</span></button><!-- 20.03.28 title 수정 -->
-            </div>
-            <div class="radio_wrap type_flex type_btn">
-                <label for="radioInfo2-1" class="radio_btn"><input type="radio" checked="checked" id="radioInfo2-1" name="listRadio2" value="apply" data-bind-click="selectProcType();" data-bind-value="frm.procType" class="set_AutoComplete" autocomplete="off"><span role="text">맞춤설정</span></label>
-                <label for="radioInfo2-2" class="radio_btn"><input type="radio" id="radioInfo2-2" name="listRadio2" value="pause" data-bind-click="selectProcType();" data-bind-value="frm.procType" class="set_AutoComplete" autocomplete="off"><span role="text">해외전체 정지</span></label>
-            </div>
-        </div>
-        <div class="gapt16_27" data-bind-visible="vi.showInputwriteApply" style=""><!-- //추가 20191217 조경식 -->
-            <div class="form_ele">
-                <div class="ele_tit">
-                    <label for="radioInfo1">사용가능기간</label>
-                </div>
-                <div class="radio_wrap type_flex type_btn">
-                    <label for="radioInfo1-1" class="radio_btn"><input type="radio" id="radioInfo1-1" name="C03_listRadio" value="01" checked="checked" data-bind-click="selectValidTermType();" data-bind-value="frm.validTermType" class="set_AutoComplete" autocomplete="off"><span role="text">카드유효기간 까지</span></label>
-                    <label for="radioInfo1-2" class="radio_btn"><input type="radio" data-tabbutton=".radioCon2" id="radioInfo1-2" name="C03_listRadio" value="02" data-bind-click="selectValidTermType();" data-bind-value="frm.validTermType" class="set_AutoComplete" autocomplete="off"><span role="text">직접선택</span></label>
-                </div>
-                <div class="input_wrap date_type gapt10" data-bind-visible="vi.showInputwriteValid" style="display: none;"><!-- 직접선택일 경우에만 노출 -->
-                    <span class="input_date"><input type="text" id="selectDate3" title="사용가능기간 시작일" data-bind-value="frm.startTerm" data-bind-focus="startTerm" class="datepicker onlyPC hasDatepicker set_AutoComplete" maxlength="10" autocomplete="off"><button type="button" class="ui-datepicker-trigger" title="달력 열기"><span>기간조회</span></button></span>
-                    <span class="input_mark">~</span>
-                    <span class="input_date"><input type="text" id="selectDate4" title="사용가능기간 종료일" data-bind-value="frm.endTerm" data-bind-focus="endTerm" class="datepicker onlyPC hasDatepicker set_AutoComplete" maxlength="10" autocomplete="off"><button type="button" class="ui-datepicker-trigger" title="달력 열기"><span>기간조회</span></button></span>
-                </div>
-            </div>
-            <div class="form_ele">
-                <div class="ele_tit">
-                    <label for="selectCard">사용가능국가</label>
-                </div>
-                <div class="select_wrap select_default">
-                    <span class="ui_select set_select">
-                        <button type="button" class="ui_select_btn" aria-expanded="false" aria-haspopup="listbox" title="사용가능국가 선택"><span class="ui_select_value">사용국가 선택</span></button><div class="ui_select_menu" style="display: none;"><div class="ui_select_scr mCustomScrollbar _mCS_2 mCS_no_scrollbar"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: none;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">	<ul class="ui_select_list" role="listbox"><li role="option" class="ui_select_option is_selected" aria-selected="true"><a href="javascript:;" role="button">사용국가 선택</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">전체국가 사용</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">주요국가 검색</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">ㄱ,ㄴ,ㄷ</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">ㄹ,ㅁ</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">ㅂ,ㅅ</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">ㅇ</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">ㅈ,ㅊ,ㅋ</a></li><li role="option" class="ui_select_option" aria-selected="false"><a href="javascript:;" role="button">ㅌ,ㅍ,ㅎ</a></li></ul></div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div></div><select id="selectCard" title="사용가능국가 선택" data-bind-change="selectCaracter();" data-bind-value="frm.caracterType" data-bind-focus="selectCaracter" aria-hidden="true" tabindex="-1">
-                            <option value="none">사용국가 선택</option>
-		                    <option value="group_all">전체국가 사용</option>
-		                    <option value="group_top20">주요국가 검색</option>
-		                    <option value="group_sort1">ㄱ,ㄴ,ㄷ</option>
-		                    <option value="group_sort2">ㄹ,ㅁ</option>
-		                    <option value="group_sort3">ㅂ,ㅅ</option>
-		                    <option value="group_sort4">ㅇ</option>
-		                    <option value="group_sort5">ㅈ,ㅊ,ㅋ</option>
-		                    <option value="group_sort6">ㅌ,ㅍ,ㅎ</option>
-                        </select>
-                    </span>
-                </div>
-                <div class="select_wrap select_default gapt10" data-bind-visible="vi.showFormSelect" style="display: none;">
-                    <span class="ui_select set_select">
-                        <button type="button" class="ui_select_btn" aria-expanded="false" aria-haspopup="listbox" title="국가 선택"><span class="ui_select_value"></span></button><div class="ui_select_menu" style="display: none;"><div class="ui_select_scr mCustomScrollbar _mCS_1 mCS_no_scrollbar"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">	<ul class="ui_select_list" role="listbox">	</ul></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div></div><select id="selectCard" title="국가 선택" data-bind-each="vi.countryList" data-bind-value="frm.selectedCountry" data-bind-change="addCountry();" data-placeholder="true" aria-hidden="true" tabindex="-1"></select>
-                    </span>
-                </div>
-                <!--                 <div class="select_mix side_btn gapt10" data-bind-visible="vi.showResult"> -->
-                <!--                     <div class="select_wrap select_default"> -->
-                <!--                         <span class="ui_select"> -->
-                <!--                             <select  data-placeholder="true" data-bind-each="vi.resultCountry" data-bind-value="resultCountry" disabled="disabled"> -->
-                <!--                                 <option value="{{=$data.code}}" selected>{{=$data.value}}</option> -->
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0759a386285f84663503ff0dd087258b&libraries=services"></script>
+<script src="../../../resources/js/payment.js" type="text/javascript"></script>
 
-                <!--                             </select> -->
-                <!--                         </span> -->
-                <!--                     </div> -->
-                <!--                     <button type="button" class="btn line_darkgray" value="{{=$index}}" id="deleteCountry" data-bind-click="deleteCountry('{{=$index}}');" data-bind-value="frm.index"><span>삭제</span></button> -->
-                <!--                 </div> -->
-                <div data-bind-visible="vi.showResult" data-bind-each="vi.resultCountry" data-bind-value="resultCountry" style="display: none;"></div>
-            </div>
-            <div class="form_ele">
-                <div class="ele_tit">
-                    <label for="radioInfo3">사용가능 거래유형</label>
-                </div>
-                <div class="radio_wrap type_flex type_btn">
-                    <label for="radioInfo3-1" class="radio_btn"><input type="radio" value="0" id="radioInfo3-1" name="selectDeal" data-bind-click="selectDealClick()" data-bind-value="frm.bizType" checked="checked" class="set_AutoComplete" autocomplete="off"><span role="text">전체거래</span></label>
-                    <label for="radioInfo3-2" class="radio_btn"><input type="radio" value="2" id="radioInfo3-2" name="selectDeal" data-bind-click="selectDealClick()" data-bind-value="frm.bizType" class="set_AutoComplete" autocomplete="off"><span role="text">오프라인</span></label>
-                    <label for="radioInfo3-3" class="radio_btn"><input type="radio" value="1" id="radioInfo3-3" name="selectDeal" data-bind-click="selectDealClick()" data-bind-value="frm.bizType" class="set_AutoComplete" autocomplete="off"><span role="text">온라인</span></label>
-                </div>
-                <!-- 23-03-21 추가// -->
-                <div class="check_wrap column gapt10" data-bind-visible="vi.showCheckCash" style="display: none;">
-                    <label for="checkCash" class="check_default">
-                        <input type="checkbox" id="checkCash" name="checkCash" value="3" data-bind-value="frm.checkCash" data-bind-attr="checkCash" class="set_AutoComplete" autocomplete="off"><span role="text">해외 현금서비스 거래만 사용</span>
-                    </label>
-                </div>
-                <!-- //23-03-21 추가 -->
-            </div>
-            <div class="form_ele">
-                <div class="ele_tit">
-                    <label for="inputPrice">1회 결제가능금액</label>
-                </div>
-                <div class="input_wrap unit_side no_check leng4">
-                    <input type="tel" placeholder="만원단위(10억 미만)로 입력" id="inputPrice" maxlength="6" data-bind-watch="inputPrice" data-bind-focus="inputPrice" data-bind-value="frm.payOneLimitAmount" title="만원단위(10억 미만)로 입력" class="set_AutoComplete" autocomplete="off"><span class="unit">만원 이하</span><!-- 20.03.28 title 수정 -->
-                    <p class="text_tip error" id="inputPrice" data-bind-lamp="inputPrice" style="display: none;" tabindex="0">금액을 입력해주세요.</p>
+<div class="payment-container">
+    <div class="time-container">
+        <img src="../../../resources/img/clock1.png">
+        <h1 id="current-time"></h1>
+    </div>
+    <div class="map_wrap">
+        <div id="map" style="width:100%;height:100%;overflow:hidden;"></div>
+        <div id="menu_wrap" class="bg_white">
+            <div class="option">
+                <div>
+                    <form onsubmit="searchPlaces(); return false;">
+                        키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
+                        <button type="submit">검색하기</button>
+                    </form>
                 </div>
             </div>
+            <hr>
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
         </div>
-    </div> <!-- //추가 20191217 조경식 -->
+    </div>
+
+    <div class="form-group">
+        <label for="phoneNumber">전화번호</label>
+        <div class="input-wrapper">
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="010XXXXXXXX" required maxlength="11" oninput="sanitizePhoneNumber()">
+            <!-- <button type="submit" id="sendSmsButton">인증번호 전송</button> -->
+            <button onclick="sendSmsRequest()" class="button">인증번호 전송</button>
+        </div>
+    </div>
+
+    <script>
+        function sendSmsRequest() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            const requestData = {
+                recipientPhoneNumber: '01050437629',
+                content: `[하나원페이] 하나원페이 사용을 위해 인증번호 5235를 입력하세요.` // 메시지 내용을 형식에 맞게 수정
+            };
+
+            // 서버로 POST 요청을 보냅니다.
+            fetch('/user/sms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 서버에서 받은 응답을 처리합니다.
+                    console.log(data);
+                    // 여기에서 원하는 동작을 수행할 수 있습니다.
+                })
+                .catch(error => {
+                    // 오류가 발생한 경우 처리합니다.
+                    console.error('Error sending SMS request:', error);
+                    alert('인증번호 전송 중 오류가 발생했습니다.');
+                });
+        }
+    </script>
+    <script>
+
+        const time = document.getElementById('current-time'); // id가 'current-time'인 요소
+
+        // 1초마다 현재 시각 업데이트
+        setInterval(() => {
+            const date = new Date(); // 새로운 Date 객체 생성
+            time.innerHTML = date.toLocaleTimeString();
+        }, 1000);
+
+
+        // 마커를 담을 배열입니다
+        var markers = [];
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 장소 검색 객체를 생성합니다
+        var ps = new kakao.maps.services.Places();
+
+        // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({zIndex: 1});
+
+        // 키워드로 장소를 검색합니다
+        searchPlaces();
+
+        // 키워드 검색을 요청하는 함수입니다
+        function searchPlaces() {
+
+            var keyword = document.getElementById('keyword').value;
+
+            if (!keyword.replace(/^\s+|\s+$/g, '')) {
+                alert('키워드를 입력해주세요!');
+                return false;
+            }
+
+            // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+            ps.keywordSearch(keyword, placesSearchCB);
+        }
+
+        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+        function placesSearchCB(data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                console.log("data: " + data);
+
+
+                // 정상적으로 검색이 완료됐으면
+                // 검색 목록과 마커를 표출합니다
+                displayPlaces(data);
+
+                // 페이지 번호를 표출합니다
+                displayPagination(pagination);
+
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+                alert('검색 결과가 존재하지 않습니다.');
+                return;
+
+            } else if (status === kakao.maps.services.Status.ERROR) {
+
+                alert('검색 결과 중 오류가 발생했습니다.');
+                return;
+
+            }
+        }
+
+        // 검색 결과 목록과 마커를 표출하는 함수입니다
+        function displayPlaces(places) {
+
+            var listEl = document.getElementById('placesList'),
+                menuEl = document.getElementById('menu_wrap'),
+                fragment = document.createDocumentFragment(),
+                bounds = new kakao.maps.LatLngBounds(),
+                listStr = '';
+
+            // 검색 결과 목록에 추가된 항목들을 제거합니다
+            removeAllChildNods(listEl);
+
+            // 지도에 표시되고 있는 마커를 제거합니다
+            removeMarker();
+
+            for (var i = 0; i < places.length; i++) {
+
+                console.log(places[i])
+
+
+                // 마커를 생성하고 지도에 표시합니다
+                var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+                    marker = addMarker(placePosition, i),
+                    itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+
+                // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                // LatLngBounds 객체에 좌표를 추가합니다
+                bounds.extend(placePosition);
+
+                // 마커와 검색결과 항목에 mouseover 했을때
+                // 해당 장소에 인포윈도우에 장소명을 표시합니다
+                // mouseout 했을 때는 인포윈도우를 닫습니다
+                (function (marker, title) {
+                    kakao.maps.event.addListener(marker, 'mouseover', function () {
+                        displayInfowindow(marker, title);
+                    });
+
+                    kakao.maps.event.addListener(marker, 'mouseout', function () {
+                        infowindow.close();
+                    });
+
+                    itemEl.onmouseover = function () {
+                        displayInfowindow(marker, title);
+                    };
+
+                    itemEl.onmouseout = function () {
+                        infowindow.close();
+                    };
+                })(marker, places[i].place_name);
+
+                fragment.appendChild(itemEl);
+            }
+
+            // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+            listEl.appendChild(fragment);
+            menuEl.scrollTop = 0;
+
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+            map.setBounds(bounds);
+        }
+
+        // 검색결과 항목을 Element로 반환하는 함수입니다
+        function getListItem(index, places) {
+
+            var el = document.createElement('li'),
+                itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
+                    '<div class="info">' +
+                    '   <h5>' + places.place_name + '</h5>';
+
+            if (places.road_address_name) {
+                itemStr += '    <span>' + places.road_address_name + '</span>' +
+                    '   <span class="jibun gray">' + places.address_name + '</span>';
+            } else {
+                itemStr += '    <span>' + places.address_name + '</span>';
+            }
+
+            itemStr += '  <span class="tel">' + places.phone + '</span>' +
+                '</div>';
+
+            el.innerHTML = itemStr;
+            el.className = 'item';
+
+            return el;
+        }
+
+        // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+        function addMarker(position, idx, title) {
+            var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+                imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+                imgOptions = {
+                    spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+                    spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+                    offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+                },
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+                marker = new kakao.maps.Marker({
+                    position: position, // 마커의 위치
+                    image: markerImage
+                });
+
+            marker.setMap(map); // 지도 위에 마커를 표출합니다
+            markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+
+            return marker;
+        }
+
+        // 지도 위에 표시되고 있는 마커를 모두 제거합니다
+        function removeMarker() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+        }
+
+        // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+        function displayPagination(pagination) {
+            var paginationEl = document.getElementById('pagination'),
+                fragment = document.createDocumentFragment(),
+                i;
+
+            // 기존에 추가된 페이지번호를 삭제합니다
+            while (paginationEl.hasChildNodes()) {
+                paginationEl.removeChild(paginationEl.lastChild);
+            }
+
+            for (i = 1; i <= pagination.last; i++) {
+                var el = document.createElement('a');
+                el.href = "#";
+                el.innerHTML = i;
+
+                if (i === pagination.current) {
+                    el.className = 'on';
+                } else {
+                    el.onclick = (function (i) {
+                        return function () {
+                            pagination.gotoPage(i);
+                        }
+                    })(i);
+                }
+
+                fragment.appendChild(el);
+            }
+            paginationEl.appendChild(fragment);
+        }
+
+        // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+        // 인포윈도우에 장소명을 표시합니다
+        function displayInfowindow(marker, title) {
+            var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+        }
+
+        // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+        function removeAllChildNods(el) {
+            while (el.hasChildNodes()) {
+                el.removeChild(el.lastChild);
+            }
+        }
+    </script>
 </div>
 </body>
 </html>

@@ -13,7 +13,7 @@
 <body>
 <%@ include file="include/header.jsp" %>
 <div class="main-section">
-    <div class="sub-main1">
+    <div class="sub-main1" onclick="window.location.href='/safetyCard/'">
         <div class="sub-main1-word">
             <div>안심카드서비스</div>
             <div style="margin-top:15px; font-size: 20px">사용하지 않는 거래를 차단해보세요</div>
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div class="sub-main2">
+    <div class="sub-main2" onclick="window.location.href='/fds/'">
         <div class="sub-main2-word">
             <div>이상소비알림서비스</div>
             <div style="margin-top:15px; font-size: 20px">본인의 소비패턴과 다른 거래내역은 알림을 드립니다</div>
@@ -82,13 +82,16 @@
 
 
 <!-- The dots/circles -->
-<%--<div style="text-align:center">--%>
-<%--    <span class="dot" onclick="currentSlide(1)"></span>--%>
-<%--    <span class="dot" onclick="currentSlide(2)"></span>--%>
-<%--    <span class="dot" onclick="currentSlide(3)"></span>--%>
-<%--</div>--%>
+<div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+</div>
 
 <script>
+
+
+
     let slideIndex = 1;
     showSlides(slideIndex);
 

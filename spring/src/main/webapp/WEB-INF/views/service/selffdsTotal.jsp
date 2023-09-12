@@ -206,7 +206,7 @@
     }
 
     .sub-container {
-        background-color: #f4f4f4; /* Light gray background */
+        background-color: #dddd; /* Light gray background */
         border: 1px solid #e0e0e0; /* Subtle border */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
         padding: 15px; /* Internal spacing */

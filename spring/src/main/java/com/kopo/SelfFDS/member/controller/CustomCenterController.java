@@ -52,7 +52,7 @@ public class CustomCenterController {
 
 
     @PostMapping("/lostCardRegisterOk")
-    public String lostCardRegisterOk(String cardId,String lostDate, String lostPlace,String lostReason,String reissued,Model model) {
+    public ModelAndView lostCardRegisterOk(String cardId,String lostDate, String lostPlace,String lostReason,String reissued) {
 
         LostCard lostCard = new LostCard();
         lostCard.setCardId(cardId);
@@ -63,7 +63,11 @@ public class CustomCenterController {
         System.out.println("lostCard"+lostCard);
         memberService.insertLostCardInfo(lostCard);
 
-        return "customCenter/lostCardInfo";
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("lostCard", lostCard);
+        mav.setViewName("customCenter/lostCardInfo");
+        return mav;
+
     }
 
 

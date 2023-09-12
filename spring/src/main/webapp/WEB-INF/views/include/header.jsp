@@ -43,7 +43,7 @@
                 </div>
             </div>
             <a href="/mypage">마이페이지</a>
-            <%--            <a href="/payment/paymentPage">결제</a>--%>
+                        <a href="/payment/paymentPage">결제</a>
         </div>
         <hr style="border:1px solid #00857F"/>
     </nav>

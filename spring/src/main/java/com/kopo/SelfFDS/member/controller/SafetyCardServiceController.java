@@ -49,7 +49,7 @@ public class SafetyCardServiceController {
 
     //setting값들 다시 settingPage로 넘겨줌
     @GetMapping("/safetySettingValue")
-    public String safetySettingRegion(@RequestParam(value = "region", required = false) List<String> regions,
+    public String safetySettingValue(@RequestParam(value = "region", required = false) List<String> regions,
                                       @RequestParam(value = "time", required = false) List<String> times,
                                       @RequestParam(value = "categorySmall", required = false) List<String> categorySmalls,
                                       Model model) {
@@ -71,6 +71,7 @@ public class SafetyCardServiceController {
 
     @GetMapping("/region")
     public ModelAndView regionPage(HttpServletRequest request) {
+        String regionExist="regionExist";
         ModelAndView mav = new ModelAndView();
         List<String> regionList = memberService.selectAllRegionName();
         mav.addObject("regionList", regionList);
@@ -83,15 +84,20 @@ public class SafetyCardServiceController {
         List<CardHistory> resultList = memberService.selectCountRegionOfCardId(cardId);
 
         mav.addObject("resultList", resultList);
+        mav.addObject("regionExist", regionExist);
         mav.setViewName("service/region");
         return mav;
     }
 
     @GetMapping("/time")
     public String timePage(@RequestParam(value = "region", required = false) List<String> regions, Model model) {
+        String regionExist="regionExist";
+        String timeExist="timeExist";
         if (regions != null && !regions.isEmpty()) {
             model.addAttribute("regions", regions);
+            model.addAttribute("regionExist", regionExist);
         }
+        model.addAttribute("timeExist", timeExist);
         return "service/time";
     }
 
@@ -99,6 +105,10 @@ public class SafetyCardServiceController {
     @GetMapping("/category")
     public ModelAndView CategoryPage(@RequestParam(value = "region", required = false) List<String> regions,
                                      @RequestParam(value = "time", required = false) List<String> times){
+        String regionExist="regionExist";
+        String timeExist="timeExist";
+        String categoryExist="categoryExist";
+
         Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
         List<String> bigCategory = memberService.selectAllBigCategory();
         for (String bigcategory : bigCategory) {
@@ -112,12 +122,14 @@ public class SafetyCardServiceController {
 
         if (regions != null && !regions.isEmpty()) {
             mav.addObject("regions", regions);
+            mav.addObject("regionExist", regionExist);
         }
 
         if (times != null && !times.isEmpty()) {
             mav.addObject("times", times);
+            mav.addObject("timeExist", timeExist);
         }
-
+        mav.addObject("categoryExist", categoryExist);
         mav.setViewName("service/category");
         return mav;
     }

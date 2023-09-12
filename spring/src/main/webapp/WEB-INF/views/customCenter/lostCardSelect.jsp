@@ -9,10 +9,13 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="../../../resources/css/common.css" rel="stylesheet">
     <link href="../../../resources/css/lostcard.css" rel="stylesheet">
+    <link href="../../../resources/css/cardSelectCommon.css" rel="stylesheet">
 </head>
+<style>
+
+</style>
 <body>
 <%@ include file="../include/header.jsp" %>
-
 <div class="active-container">
     <div class="cont_box_area">
         <nav class="tab_ty02">
@@ -25,7 +28,6 @@
             <div class="lostcard-list">
                 <div class="card-list-info" id="${card.cardId}">
                     <div class="card-list-info-img-div">
-                            <%--                        <input type="checkbox" name="selectedCards" value="${card.cardId}">--%>
                         <img src="../../../resources/img/circle.png" onclick="changeImage(this, '${card.cardId}')">
                     </div>
                     <div class="card-list-info-cardid">${card.cardId}</div>

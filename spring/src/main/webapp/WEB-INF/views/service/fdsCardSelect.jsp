@@ -8,60 +8,70 @@
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/common.css" rel="stylesheet">
-    <link href="../../../resources/css/fdsCardSelect.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link href="../../../resources/css/cardSelectCommon.css" rel="stylesheet">
 </head>
-<style>
-
-
-
-</style>
-
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="container">
-    <div class="formsize">
-        <div class="content-div">
-            <h1>이상소비알림서비스</h1>
-            <h2>이상소비알림서비스 이용현황</h2>
-            <h3>설정할 카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h3></ㅗ4>
+    <div class="content-div">
+        <div class="content-div-header">
+            <h2>이상소비 알림서비스</h2>
+            <h3>이상소비 알림서비스 이용현황</h3>
+            <h4>설정할 카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h4></ㅗ4>
         </div>
-        <div class="card-list">
-            <c:forEach items="${cards}" var="card" varStatus="loop">
-                <div class="accordion" id="${card.cardId}">
-                    <div>
-                        <input type="checkbox" name="selectedCards" value="${card.cardId}">
+        <c:forEach items="${cards}" var="card" varStatus="loop">
+            <div class="lostcard-list">
+                <div class="card-list-info" id="${card.cardId}">
+                    <div class="card-list-info-img-div">
+                        <img src="../../../resources/img/circle.png" onclick="changeImage(this, '${card.cardId}')">
                     </div>
-                    <div>본인 | ${card.cardId}</div>
+                    <div class="card-list-info-cardid">${card.cardId}</div>
+                    <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;<%= name %>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    </div>
+                    <div class="card-list-info-cardname">yolo</div>
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
                     <c:if test="${card.fdsSerStatus eq 'Y'}">
-                        <img class="lock-img" src="../../../resources/img/padlock.png">
+                        <img class="lock-img" src="../../../resources/img/notification.png">
                     </c:if>
                     <c:if test="${card.fdsSerStatus eq 'N'}">
-                        <img class="lock-img" src="../../../resources/img/unlock.png">
+                        <img class="lock-img" src="../../../resources/img/silent.png">
                     </c:if>
                 </div>
-            </c:forEach>
-        </div>
-        <div class="ajax-content"></div>
-        <div class="reg-cancle-btn">
-            <button class="cancle-Btn" onclick="cancleCard()">해제</button>
-            <button class="reg-Btn" onclick="registerCard()">등록</button>
-        </div>
+            </div>
+        </c:forEach>
+    </div>
+    <div class="ajax-content"></div>
+    <div class="reg-cancle-btn">
+        <button class="cancle-Btn" onclick="cancleCard()">해제</button>
+        <button class="reg-Btn" onclick="registerCard()">등록</button>
     </div>
 </div>
 </body>
 <script>
 
-    function registerCard() {
-        const selectedCards = document.querySelectorAll('input[name="selectedCards"]:checked');
-        const selectedIds = Array.from(selectedCards).map(card => card.value).join(',');
+    let selectedCardId = '';
 
-        console.log("Selected card ID:", selectedIds);
+    function changeImage(imgElement, cardId) {
+        // 이미지 경로가 circle.png인 경우 circle2.png로 변경
+        if (imgElement.src.endsWith('circle.png')) {
+            imgElement.src = "../../../resources/img/check-mark.png";
+            // cardId를 selectedCardIds에 추가
+            selectedCardId = cardId;
+        } else { // 이미지 경로가 circle2.png인 경우 circle.png로 변경
+            imgElement.src = "../../../resources/img/circle.png";
+            selectedCardId = ''
+        }
+        console.log("selectedCardId", selectedCardId);
+    }
+
+    function registerCard() {
+
+        console.log("Selected card ID:", selectedCardId);
         $.ajax({
             url: '/fds/registerCard',
             type: 'POST',
-            data: selectedIds,
+            data: selectedCardId,
             contentType: 'application/json',
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
@@ -81,13 +91,12 @@
 
 
     function cancleCard(cardId) {
-        const selectedCards = document.querySelectorAll('input[name="selectedCards"]:checked');
-        const selectedIds = Array.from(selectedCards).map(card => card.value).join(',');
-        console.log("Selected card ID:", selectedIds); // cardId 출력
+
+        console.log("Selected card ID:", selectedCardId); // cardId 출력
         $.ajax({
             url: '/fds/cancleCard',
             type: 'POST',
-            data: selectedIds,
+            data: selectedCardId,
             contentType: 'application/json',
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');

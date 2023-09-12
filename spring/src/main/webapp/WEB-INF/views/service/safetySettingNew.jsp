@@ -42,6 +42,9 @@
                 </button>
             </div>
             <c:if test="${not empty regions}">
+                <script>
+                    document.getElementById('select-region').style.background = "#dddd";
+                </script>
                 <div class="setting-result">
                     <c:forEach var="region" items="${regions}" varStatus="loop">
                         <span><strong>${region}</strong></span>
@@ -49,20 +52,25 @@
                             <span><strong>,</strong></span>
                         </c:if>
                     </c:forEach> 외 <strong>모든 지역</strong>의 결제를 차단하였습니다.
-
                 </div>
                 <div class="setting-result-info">결제 허용 지역내에서 차단하고 싶은 나만의 rule이 있다면 추가하세요</div>
             </c:if>
             <div class="setting-buttons">
                 <span>STEP2</span>
                 <span>차단시간선택</span>
-                <button class="select-no" id="time-no" onclick="noSelect()">선택안함</button>
+                <button class="select-no" id="time-no" onclick="noSelect(this)">선택안함</button>
                 <button class="select-thing" id="select-time" onclick="redirectToTimePage()">시간선택</button>
             </div>
 
             <c:if test="${not empty times && empty categorySmalls}">
+                <script>
+                    document.getElementById('select-time').style.background = "#dddd";
+                </script>
                 <div class="setting-result">
                     <c:if test="${not empty regions}">
+                        <script>
+                            document.getElementById('select-region').style.background = "#dddd";
+                        </script>
                         <c:forEach var="region" items="${regions}" varStatus="loop">
                             <span><strong>${region}</strong></span>
                             <c:if test="${loop.index+1 < fn:length(regions)}">
@@ -72,6 +80,9 @@
                     </c:if>
                     <c:if test="${empty regions}">
                         <strong>모든 지역</strong>에서
+                        <script>
+                            document.getElementById('region-no').style.background = "#dddd";
+                        </script>
                     </c:if>
                     <c:forEach var="time" items="${times}" varStatus="loop">
                         <span><strong>${time}</strong></span>
@@ -84,15 +95,20 @@
             <div class="setting-buttons">
                 <span>STEP3</span>
                 <span>차단업종선택</span>
-                <button class="select-no" id="category-no" onclick="noSelect()">선택안함</button>
+                <button class="select-no" id="category-no" onclick="noSelect(this)">선택안함</button>
                 <button class="select-thing" id="select-category" onclick="redirectToCategoryPage()">
                     업종선택
                 </button>
             </div>
             <c:if test="${not empty categorySmalls}">
+                <script>document.getElementById('select-category').style.background = "#dddd";</script>
                 <div class="setting-result">
                     <c:choose>
                         <c:when test="${not empty regions && not empty times}">
+                            <script>
+                                document.getElementById('select-region').style.background = "#dddd";
+                                document.getElementById('select-time').style.background = "#dddd";
+                            </script>
                             <c:forEach var="region" items="${regions}" varStatus="loop">
                                 <span><strong>${region}</strong></span>
                                 <c:if test="${loop.index+1 < fn:length(regions)}">
@@ -107,6 +123,10 @@
                             </c:forEach> 까지
                         </c:when>
                         <c:when test="${empty regions && not empty times}">
+                            <script>
+                                document.getElementById('region-no').style.background = "#dddd";
+                                document.getElementById('select-time').style.background = "#dddd";
+                            </script>
                             <strong>모든 지역</strong>에서
                             <c:forEach var="time" items="${times}" varStatus="loop">
                                 <span><strong>${time}</strong></span>
@@ -116,6 +136,10 @@
                             </c:forEach> 까지
                         </c:when>
                         <c:when test="${not empty regions && empty times}">
+                            <script>
+                                document.getElementById('select-region').style.background = "#dddd";
+                                document.getElementById('time-no').style.background = "#dddd";
+                            </script>
                             <c:forEach var="region" items="${regions}" varStatus="loop">
                                 <span><strong>${region}</strong></span>
                                 <c:if test="${loop.index+1 < fn:length(regions)}">
@@ -123,7 +147,12 @@
                                 </c:if>
                             </c:forEach> 에서
                         </c:when>
-
+                        <c:otherwise>
+                            <script>
+                                document.getElementById('region-no').style.background = "#dddd";
+                                document.getElementById('time-no').style.background = "#dddd";
+                            </script>
+                        </c:otherwise>
                     </c:choose>
                     <c:forEach var="categorySmall" items="${categorySmalls}" varStatus="loop">
                         <span><strong>${categorySmall}</strong></span>
@@ -142,15 +171,22 @@
     <!-- Modal content -->
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>대상카드 : <%=session.getAttribute("cardId")%></p>
-        <div class="setting-result-modal">
-        </div>
+        <p>대상카드 : <%=session.getAttribute("cardId")%>
+        </p>
+        <div class="setting-result-modal"></div>
         <button class="modal-btn" onclick="safetySettingOk()"> 확인</button>
     </div>
 </div>
 
 </body>
 <script>
+    function noSelect(buttonElement) {
+        if (buttonElement.style.background === '#dddd') {
+            buttonElement.style.background = '';  // 원래의 배경색으로 변경
+        } else {
+            buttonElement.style.background = '#dddd';
+        }
+    }
 
     // 각 jsp에서 설정한 값들 넘겨받기
     var regions = [];
@@ -215,7 +251,7 @@
         var modalContent = document.querySelector(".setting-result-modal");
         modalContent.innerHTML = "";  // Clearing any existing content in modalContent
 
-        settingResults.forEach(function(settingResult) {
+        settingResults.forEach(function (settingResult) {
             modalContent.innerHTML += settingResult.innerHTML;
             modalContent.innerHTML += "<br>";
 
@@ -227,18 +263,16 @@
 
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
-
-
 
 
     function collectSettings() {
