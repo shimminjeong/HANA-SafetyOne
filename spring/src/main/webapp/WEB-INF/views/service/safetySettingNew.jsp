@@ -209,7 +209,6 @@
         if (regions.length > 0) {
             url += "?region=" + regions.join('&region=');
         }
-
         window.location.href = url;
     }
 

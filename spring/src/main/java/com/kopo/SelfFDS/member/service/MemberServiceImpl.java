@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.apache.logging.log4j.ThreadContext.removeAll;
+
 @Service
 public class MemberServiceImpl implements MemberService {
     private MemberMapper memberMapper;
@@ -118,32 +120,44 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void insertSafetySetting(String cardId,int enrollSeq,List<List<String>> safetyCard) {
+    public void insertSafetySetting(String cardId, int enrollSeq, List<List<String>> safetyCard) {
 
         List<String> regionList = safetyCard.get(0);
         List<String> timeList = safetyCard.get(1);
         List<String> categoryList = safetyCard.get(2);
         SafetyCard safety = new SafetyCard();
         safety.setCardId(cardId);
-        safety.setEnrollSeq(enrollSeq+1);
+        safety.setEnrollSeq(enrollSeq + 1);
+
+        System.out.println("timeList" + timeList);
+
+        //전체 regionlist가져오기
+        List<String> regionAllList = memberMapper.selectAllRegionName();
+
+        //전체 regionList에서 허용 지역 빼기
+        regionAllList.removeAll(regionList);
+
+        for (String blockRegion:regionAllList){
+            safety.setRegionName(blockRegion);
+            memberMapper.insertSafetySetting(safety);
+        }
+
 
         if (!regionList.isEmpty()) {
             for (String regionName : regionList) {
                 if (!timeList.isEmpty()) {
                     for (String time : timeList) {
-                        String[] times = time.split(" ~ ");
                         if (!categoryList.isEmpty()) {
                             for (String categorySmall : categoryList) {
                                 safety.setRegionName(regionName);
-                                safety.setStartTime(times[0]);
-                                safety.setEndTime(times[1]);
+
+                                safety.setTime(time);
                                 safety.setCategorySmall(categorySmall);
                                 memberMapper.insertSafetySetting(safety);
                             }
                         } else {
                             safety.setRegionName(regionName);
-                            safety.setStartTime(times[0]);
-                            safety.setEndTime(times[1]);
+                            safety.setTime(time);
                             memberMapper.insertSafetySetting(safety);
                         }
                     }
@@ -160,18 +174,15 @@ public class MemberServiceImpl implements MemberService {
             }
         } else if (!timeList.isEmpty()) {
             for (String time : timeList) {
-                String[] times = time.split("~");
 
                 if (!categoryList.isEmpty()) {
                     for (String categorySmall : categoryList) {
-                        safety.setStartTime(times[0]);
-                        safety.setEndTime(times[1]);
+                        safety.setTime(time);
                         safety.setCategorySmall(categorySmall);
                         memberMapper.insertSafetySetting(safety);
                     }
                 } else {
-                    safety.setStartTime(times[0]);
-                    safety.setEndTime(times[1]);
+                    safety.setTime(time);
                     memberMapper.insertSafetySetting(safety);
                 }
             }
@@ -185,7 +196,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<SafetyCard> selectSafetySettingByCardId(String cardId, int enrollSeq) {
-        return memberMapper.selectSafetySettingByCardId(cardId,enrollSeq);
+        return memberMapper.selectSafetySettingByCardId(cardId, enrollSeq);
     }
 
     @Override

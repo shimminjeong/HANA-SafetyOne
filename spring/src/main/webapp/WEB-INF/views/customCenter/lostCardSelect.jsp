@@ -19,9 +19,9 @@
 <div class="active-container">
     <div class="cont_box_area">
         <nav class="tab_ty02">
-            <li class="on"><a href="#" title="현재 선택 탭">카드분실/도난신고</a></li>
+            <li class="on"><a href="/customCenter/lostCardSelect" title="현재 선택 탭">카드분실/도난신고</a></li>
             <li><a href="#">카드분실신고해제</a></li>
-            <li><a href="#">카드분실신고내역</a></li>
+            <li><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>
         </nav>
         <div class="lost-header"><h2>카드를 선택해주세요</h2></div>
         <c:forEach items="${cards}" var="card" varStatus="loop">

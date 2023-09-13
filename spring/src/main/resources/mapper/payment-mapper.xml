@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="com.kopo.SelfFDS.payment.model.dao.PaymentMapper">
+    <!-- 결제로그 전체조회-->
+    <select id="getAllPaymentLog"
+            resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select * from PAYMENTLOG
+    </select>
+
+    <!-- 거래승인,미승인내역 조회-->
+    <select id="getAllPaymentLogByPaymentapproval"
+            resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select * from PAYMENTLOG
+        where paymentapprovalstatus=#{paymentApprovalStatus}
+    </select>
+
+    <!-- 이상탐지 데이터 조회-->
+    <select id="getAllPaymentLogByFdsDetection"
+            resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select * from PAYMENTLOG
+        where fdsDetectionStatus=#{fdsDetectionStatus}
+    </select>
+
+
+    <!-- safetyRule 조회-->
+    <select id="selectSafetyRuleByCardId"
+            resultType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        select * from safetyCard where cardId=#{cardId}
+    </select>
+
+<!--    결제내역의 값이 safetyrule에 해당하는지 확인-->
+    <select id="checkSafetyRule"  resultType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        SELECT *
+        FROM SAFETYCARD
+        WHERE CARDID=#{cardId}
+        <if test="regionName != null">
+            AND (regionName=#{regionName} OR regionName IS NULL)
+        </if>
+        <if test="categorySmall != null">
+            AND (categorySmall=#{categorySmall} OR categorySmall IS NULL)
+        </if>
+        <if test="time != null">
+            AND (#{time} BETWEEN SUBSTR(time, 1, 2) AND SUBSTR(time, 7, 2) OR time IS NULL)
+        </if>
+    </select>
+
+
+</mapper>
+

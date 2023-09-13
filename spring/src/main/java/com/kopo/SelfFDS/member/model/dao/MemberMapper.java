@@ -65,4 +65,5 @@ public interface MemberMapper {
     int selectSafetySettingEnrollSeqByCardId(String cardId);
 
 
+
 }

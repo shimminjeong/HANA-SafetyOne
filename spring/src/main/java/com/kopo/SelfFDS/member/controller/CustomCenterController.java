@@ -29,6 +29,14 @@ public class CustomCenterController {
         this.memberService = memberService;
     }
 
+
+    @GetMapping("/lostCardInfo")
+    public ModelAndView lostCardInfoPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("customCenter/lostCardInfo");
+        return mav;
+    }
+
     @GetMapping("/lostCardSelect")
     public ModelAndView lostCardSelectPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -69,6 +77,8 @@ public class CustomCenterController {
         return mav;
 
     }
+
+
 
 
     @PostMapping("/loginMember")
