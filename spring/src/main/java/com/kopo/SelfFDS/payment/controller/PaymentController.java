@@ -41,21 +41,24 @@ public class PaymentController {
         System.out.println("responseSafetyCard"+responseSafetyCard);
         if (responseSafetyCard == null) {
             System.out.println("거래승인");
+            paymentLog.setPaymentApprovalStatus("Y");
+            paymentService.insertApprovalTransaction(paymentLog);
             return ResponseEntity.ok("거래승인");
         } else {
             System.out.println("거래미승인");
+            paymentLog.setPaymentApprovalStatus("N");
+            paymentService.insertNotApprovalTransaction(paymentLog);
             return ResponseEntity.ok("거래미승인");
         }
     }
 
-//    @Transactional
-//    @PostMapping("/paymentApproval")
-//    public ModelAndView(){
-//        return
-//    }
-
     @GetMapping("/paymentApproval")
     public String paymentApprovalPage() {
+        return "payment/receipt";
+    }
+
+    @GetMapping("/paymentNotApproval")
+    public String paymentNotApprovalPage() {
         System.out.println("거래승인page로 이동");
         return "payment/receipt";
     }

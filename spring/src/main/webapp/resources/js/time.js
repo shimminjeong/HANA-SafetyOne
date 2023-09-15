@@ -11,15 +11,23 @@ function populateTimeOptions() {
         return;
     }
 
-    for (let i = 1; i <= 24; i++) {
+    for (let i = 0; i <= 23; i++) {
         const option1 = document.createElement('option');
-        option1.value = i;
-        option1.textContent = i;
-        startHourSelect.appendChild(option1);
+        const option2 = document.createElement('option');
 
-        const option2 = option1.cloneNode(true);
+        // 시간을 두 자리로 포맷팅
+        const formattedHour = i.toString().padStart(2, '0');
+
+        option1.value = formattedHour;
+        option1.textContent = formattedHour;
+
+        option2.value = formattedHour;
+        option2.textContent = formattedHour;
+
+        startHourSelect.appendChild(option1);
         endHourSelect.appendChild(option2);
     }
+
 }
 
 function handleTimeRangeClick(button) {

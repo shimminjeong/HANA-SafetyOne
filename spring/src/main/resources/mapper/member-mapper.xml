@@ -114,6 +114,7 @@
         SELECT *
         FROM CARDHISTORY
         WHERE cardId=#{cardId}
+        ORDER BY CARDHISDATE DESC
     </select>
 
 

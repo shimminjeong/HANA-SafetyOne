@@ -1,0 +1,382 @@
+/* 글꼴 */
+@font-face {
+    font-family: 'Hana-light';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.ttf') format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Hana-medium';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.ttf') format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Hana-bold';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.ttf') format("truetype");
+    font-display: swap;
+}
+
+* {
+    font-family: 'Hana-medium';
+    text-decoration-line: none;
+}
+
+#headerLogo {
+    align-items: center;
+    justify-content: center;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+#headerLogo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgLogo{
+    padding-right: 10px;
+}
+
+.nameLogo {
+    text-decoration: none;
+    color: inherit;
+    font-size: 25px;
+}
+
+
+/* Additional styles for the child elements */
+.welcomeMessage > span {
+    margin-right: 10px;
+}
+
+.welcomeMessage > img {
+
+    weight: 25px;
+    height: 25px;
+}
+
+#loginBtn{
+    margin-right: 10px;
+}
+
+#loginBtn, #joinBtn, #logoutBtn {
+    display: inline-block;
+    color: black; /* 글자색 변경 */
+    padding: 10px 20px; /* 패딩 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 둥근 모서리 */
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px; /* 폰트 크기 변경 */
+    cursor: pointer;
+    background-color: #ffffff; /* 배경색 추가 */
+    transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+#loginBtn:hover, #joinBtn:hover, #logoutBtn:hover {
+    background-color: #00857F; /* hover 시 배경색 변경 */
+    transform: scale(1.05); /* hover 시 약간 확대되는 효과 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* hover 시 그림자 약간 강화 */
+}
+
+.details {
+    display: flex;
+    gap: 50px;
+    margin-top: 32px;
+}
+.details____title {
+    font-size: 28px;
+    margin-bottom: 64px;
+}
+.details__subtitle {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+.details__buttons {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}
+.details__button {
+    padding: 4px 8px;
+    font-size: 12px;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+}
+.details__button:last-child {
+    background: #00857F;
+}
+
+
+.menu {
+
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+.menu__item {
+    text-align: left; /* Align list items to the left */
+}
+
+.menu__item:hover .menu__link {
+    color: #00857F;
+    background: #eee;
+}
+
+.menu__icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 24px;
+}
+
+.menu__icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.menu__link {
+    position: relative;
+    width: 186px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align text to the left */
+    color: #666;
+    font-size: 18px;
+    text-decoration: none;
+    padding-left: 24px; /* Add left padding to adjust for the icon */
+}
+
+.detail__right{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-right: 10%;
+}
+
+
+
+
+
+
+
+.consumer {
+    background: #eee;
+    margin: 32px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    height: 400px;
+    width : 200px;
+}
+.consumer__button {
+    background: none;
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-bottom: 4px;
+}
+.consumer__text, .consumer__cheering, .consumer__notice {
+    text-align: center;
+}
+.consumer__text {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+.consumer__cheering, .consumer__notice {
+    font-size: 15px;
+    color: #555;
+}
+.consumer__image {
+    margin: 24px auto;
+    width: calc(100% - 16px);
+    height: 190px;
+    border: 1px solid #000;
+}
+.consumer__notice {
+    margin-bottom: 0px;
+}
+
+.table {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+.table td {
+    border: 1px solid #ddd;
+    height: 40px;
+}
+.table--info {
+    margin-bottom: 64px;
+}
+.table--info td {
+    text-align: center;
+}
+.table--info td:nth-child(odd) {
+    background: #eee;
+    width: 150px;
+    font-weight: bold;
+}
+.table--info td:nth-child(even) {
+    width: 250px;
+}
+.table--recent {
+    width: 100%;
+}
+.table--recent td {
+    padding: 8px;
+    width: 25%;
+}
+.table--financial {
+    width: 100%;
+}
+.table--financial th:first-child {
+    height: 40px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.table--financial td {
+    text-align: right;
+    padding-right: 8px;
+}
+
+.text--center {
+    text-align: center;
+}
+.text--bold {
+    font-weight: bold;
+}
+.text--item {
+    padding-left: 16px !important;
+}
+
+.td--bg {
+    background: #eee;
+}
+
+.tabs {
+    margin-top: 50px;
+    padding-bottom: 40px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+/* 탭 스타일 */
+.tab_item {
+    background-color: #444;
+    line-height: 32px;
+    font-size: 16px;
+    color: #fff;
+    float: right;
+    padding: 4px 8px;
+    transition: all 0.2s ease;
+    margin-right: 4px;
+    transform: translateX(4px);
+    border-radius: 4px 4px 0 0;
+}
+
+.tab_item:hover {
+    opacity: 0.75;
+}
+
+/* 라디오 버튼 UI삭제*/
+input[name=tab_item] {
+    display: none;
+}
+
+/* 탭 컨텐츠 스타일 */
+.tab_content {
+    display: none;
+    clear: both;
+    overflow: hidden;
+    width: 100%;
+    border-top: 2px solid #ddd;
+}
+
+/* 선택 된 탭 콘텐츠를 표시 */
+#recent:checked ~ #recent_content,
+#financial:checked ~ #financial_content,
+#evaluation:checked ~ #evaluation_content {
+    display: block;
+}
+
+.tab__title, .tab__period {
+    text-align: center;
+}
+.tab__title {
+    font-size: 32px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+.tab__period {
+    margin-bottom: 64px;
+}
+.tab__unit {
+    text-align: right;
+    margin-bottom: 16px;
+}
+
+.evaluation {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 64px;
+    margin: 32px 16px;
+    background: rgba(238, 238, 238, 0.5);
+}
+.evaluation__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.evaluation__text {
+    width: 60%;
+    text-align: center;
+    font-size: 28px;
+}
+.evaluation__image {
+    width: 40%;
+    height: 100px;
+    border: 1px solid #000;
+}
+.evaluation span {
+    color: red;
+    font-weight: bold;
+}
+
+#container {
+    height: 400%;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}/*# sourceMappingURL=styles.css.map */

@@ -17,4 +17,7 @@ public interface PaymentService {
     SafetyCard requestPayment(PaymentLog paymentLog, String cardId);
 
     List<SafetyCard> selectSafetyRuleByCardId(String CardId);
+
+    void insertApprovalTransaction(PaymentLog paymentLog);
+    void insertNotApprovalTransaction(PaymentLog paymentLog);
 }

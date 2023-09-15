@@ -190,7 +190,7 @@
                 <th>카드번호</th>
                 <th>카테고리</th>
                 <th>가맹점명</th>
-                <th>거래일자</th>
+<%--                <th>거래일자</th>--%>
                 <th>거래일시</th>
                 <th>거래금액</th>
 
@@ -201,7 +201,11 @@
             </tbody>
         </table>
 
-
+        <div id="pagination">
+            <button onclick="prevPage()">Prev</button>
+            <span id="currentPage">1</span>
+            <button onclick="nextPage()">Next</button>
+        </div>
     </div>
 </div>
 
@@ -256,7 +260,7 @@
                 tableBody.empty(); // 기존 내용 삭제
 
                 data.forEach(function (history) {
-                    var row = "<tr><td>" + history.cardId + "<td>" + history.categoryBig + "</td><td>" + history.store + "</td><td>" + history.cardHisDate + "</td><td>" + history.cardHisTime + "</td><td>" + history.amount + "</td></tr>";
+                    var row = "<tr><td>" + history.cardId + "<td>" + history.categoryBig + "</td><td>" + history.store + "</td><td>" + history.cardHisDate + "</td><td>" + history.amount + "</td></tr>";
                     tableBody.append(row);
                 });
             },

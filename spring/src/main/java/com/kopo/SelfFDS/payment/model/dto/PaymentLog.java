@@ -17,7 +17,7 @@ public class PaymentLog {
     private String store;
     private String paymentDate; //결제일시
     private String time;
-    private String category;
+    private String categorySmall;
     private String storePhoneNumber;
     private String product;
     private int amount;
@@ -34,7 +34,7 @@ public class PaymentLog {
                 ", store='" + store + '\'' +
                 ", paymentDate='" + paymentDate + '\'' +
                 ", time='" + time + '\'' +
-                ", category='" + category + '\'' +
+                ", categorySmall='" + categorySmall + '\'' +
                 ", storePhoneNumber='" + storePhoneNumber + '\'' +
                 ", product='" + product + '\'' +
                 ", amount=" + amount +

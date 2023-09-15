@@ -14,7 +14,27 @@
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0759a386285f84663503ff0dd087258b&libraries=services"></script>
 <script src="../../../resources/js/payment.js" type="text/javascript"></script>
 
+<style>
+    #logo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    a {
+        font-size: 25px;
+        text-align: center;
+        padding: 12px 12px;
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
 <div class="payment-container">
+    <div id="logo">
+        <img class="imgLogo" src="../../resources/img/logo.png" height="60">
+        <a class="nameLogo" href="/">SafetyOne</a>
+    </div>
     <div class="time-container">
         <img src="../../../resources/img/clock1.png">
         <h1 id="current-time"></h1>
@@ -81,12 +101,12 @@
 
 <script>
 
-    const time = document.getElementById('current-time'); // id가 'current-time'인 요소
+    const currentTime = document.getElementById('current-time'); // id가 'current-time'인 요소
 
     // 1초마다 현재 시각 업데이트
     setInterval(() => {
         const date = new Date(); // 새로운 Date 객체 생성
-        time.innerHTML = date.toLocaleTimeString();
+        currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 
 
@@ -100,16 +120,59 @@
         var road_address_name = $('.place-road_address_name').text();
         var product = $('.place-product').text();
         var amount = $('#price').val();
+        address = address.replace("경기", "제주도");
+        address = address.replace("서울", "서울특별시");
+        address = address.replace("인천", "인천광역시");
+        address = address.replace("강원특별자치도", "강원도");
+        address = address.replace("대전", "대전광역시");
+        address = address.replace("충북", "충청북도");
+        address = address.replace("충남", "충청남도");
+        address = address.replace("부산", "부산광역시");
+        address = address.replace("울산", "울산광역시");
+        address = address.replace("대구", "대구광역시");
+        address = address.replace("경북", "경상북도");
+        address = address.replace("경남", "경상남도");
+        address = address.replace("전남", "전라남도");
+        address = address.replace("광주", "광주광역시");
+        address = address.replace("전북", "전라북도");
+        address = address.replace("제주특별자치도", "제주도");
 
-        console.log("time",time.textContent);
+        console.log("currentTime",currentTime.textContent);
+        console.log("address",address);
 
+
+        var timeTextContent = currentTime.textContent;
+
+
+        var timeParts = timeTextContent.split(' ');
+
+        var time = timeParts[1].split(':');
+        var hours = parseInt(time[0]);
+        var minutes = time[1];
+        var seconds = time[2];
+
+        if (timeParts[0] === "오후") {
+            hours += 12;
+        }
+
+        if (timeParts[0] === "오전") {
+            hours -= 12;
+        }
+
+        if (hours === 24) {
+            hours = 0;
+        }
+
+        var formattedTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
+
+        console.log(formattedTime); // 결과 출력
 
         var data = {
             cardId : cardId,
             store: store,
             address: address,
-            time : time.textContent,
-            category: category,
+            time : formattedTime,
+            categorySmall: category,
             storePhoneNumber: storePhoneNumber,
             road_address_name: road_address_name,
             product: product,
@@ -135,6 +198,7 @@
                 }
                 else if (response === "거래미승인") {
                     alert("거래미승인!");
+                    window.location.href = "/payment/paymentNotApproval";
                 } else {
                     alert(response);
                 }

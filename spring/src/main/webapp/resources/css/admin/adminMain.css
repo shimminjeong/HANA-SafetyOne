@@ -1,0 +1,25 @@
+.box-container {
+    display: flex;
+    justify-content: space-between; /* Adjust the spacing between boxes */
+    width: 100%;
+    height: 150px;
+}
+.info-box {
+    width: 28%; /* Set the width of each box */
+    margin: 10px; /* Add margin for spacing between boxes */
+    border: 1px solid #dddddd; /* Set the border color to #dddddd */
+    border-radius: 10px; /* Add a 10px border radius for rounded corners */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add a box shadow */
+    transition: transform 0.2s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.info-box:hover {
+    transform: translate(5px, -5px); /* Move the box slightly on hover */
+}
+
+.info-content{
+    margin: 10%;
+
+}

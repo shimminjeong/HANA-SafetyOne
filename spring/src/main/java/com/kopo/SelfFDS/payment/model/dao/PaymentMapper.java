@@ -15,5 +15,11 @@ public interface PaymentMapper {
     List<PaymentLog> getAllPaymentLogByFdsDetection(String fdsDetectionStatus);
     List<SafetyCard> selectSafetyRuleByCardId(String cardId);
 
+
     SafetyCard checkSafetyRule(@Param("cardId") String cardId,@Param("regionName") String regionName,@Param("time") String time,  @Param("categorySmall") String categorySmall);
+
+    void insertCardHistory(PaymentLog paymentLog);
+
+    void insertPaymentLog(PaymentLog paymentLog);
+
 }
