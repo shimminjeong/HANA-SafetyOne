@@ -31,10 +31,10 @@
     </select>
 
 <!--    결제내역의 값이 safetyrule에 해당하는지 확인-->
-    <select id="checkSafetyRule"  resultType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+    <select id="checkSafetyRule" resultType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
         SELECT *
         FROM SAFETYCARD
-        WHERE CARDID=#{cardId}
+        WHERE CARDID=#{cardId} AND STATUS='Y'
         <if test="regionName != null">
             AND (regionName=#{regionName} OR regionName IS NULL)
         </if>
@@ -44,7 +44,9 @@
         <if test="time != null">
             AND (#{time} BETWEEN SUBSTR(time, 1, 2) AND SUBSTR(time, 7, 2) OR time IS NULL)
         </if>
+
     </select>
+
 
     <!--    cardhistory 테이블에 데이터 삽입-->
     <insert id="insertCardHistory">

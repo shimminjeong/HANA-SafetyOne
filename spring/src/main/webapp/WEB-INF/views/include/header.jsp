@@ -30,11 +30,18 @@
     </div>
     <nav>
         <div class="navbar">
-            <a href="/safetyCard/">안심카드서비스</a>
+
+            <div class="dropdown">
+                <button class="dropbtn"><a href="/safetyCard/">안심카드서비스</a>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/safetyCard/">등록 및 해제</a>
+                    <a href="/safetyCard/safetyCardStop">일시정지</a>
+                </div>
+            </div>
             <a href="/fds/">이상소비알림서비스</a>
             <div class="dropdown">
                 <button class="dropbtn">고객센터
-                    <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="/customCenter/lostCardSelect">카드 분실신고</a>

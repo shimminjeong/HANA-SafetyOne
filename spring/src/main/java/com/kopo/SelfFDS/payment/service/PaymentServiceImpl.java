@@ -47,6 +47,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         String pretime = paymentLog.getTime();
         String time = pretime.split(":")[0];
+        String paymentDate=paymentLog.getPaymentDate();
 
         String categorySmall = paymentLog.getCategorySmall();
         System.out.println(cardId+' '+time + ' ' + regionName + ' ' + categorySmall);

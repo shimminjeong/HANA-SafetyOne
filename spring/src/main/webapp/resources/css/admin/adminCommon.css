@@ -108,7 +108,7 @@
 .details {
     display: flex;
     gap: 50px;
-    margin-top: 32px;
+    margin-top: 15px;
 }
 .details____title {
     font-size: 28px;
@@ -163,7 +163,7 @@
 
 .menu__link {
     position: relative;
-    width: 186px;
+    width: 200px;
     height: 64px;
     display: flex;
     align-items: center;

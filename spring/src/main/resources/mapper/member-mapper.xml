@@ -12,8 +12,7 @@
 
     <!-- 로그인 -->
     <select id="loginMember" parameterType="HashMap" resultType="com.kopo.SelfFDS.member.model.dto.Member">
-        SELECT
-            *
+        SELECT *
         FROM member
         where EMAIL = #{email}
           and PASSWORD = #{password}
@@ -27,23 +26,26 @@
 
 
     <insert id="insertMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
-        INSERT INTO MEMBER (EMAIL, NAME, PASSWORD, PHONE,gender,ADDRESS,IDENTITYNUM)
-        VALUES (#{email}, #{name},#{password}, #{phone},#{gender},#{address},#{identityNum})
+        INSERT INTO MEMBER (EMAIL, NAME, PASSWORD, PHONE, gender, ADDRESS, IDENTITYNUM)
+        VALUES (#{email}, #{name}, #{password}, #{phone}, #{gender}, #{address}, #{identityNum})
     </insert>
 
     <update id="updateMember" parameterType="com.kopo.SelfFDS.member.model.dto.Member">
         UPDATE member
-        SET password = #{password}, name = #{name}, phone = #{phone}
+        SET password = #{password},
+            name     = #{name},
+            phone    = #{phone}
         WHERE EMAIL = #{email}
     </update>
 
     <delete id="deleteMember" parameterType="String">
-        DELETE FROM member WHERE EMAIL = #{email}
+        DELETE
+        FROM member
+        WHERE EMAIL = #{email}
     </delete>
 
 
-
-<!--    card-->
+    <!--    card-->
     <!-- 카드 전체 조회 -->
     <select id="getAllCard" parameterType="com.kopo.SelfFDS.member.model.dto.Card"
             resultType="com.kopo.SelfFDS.member.model.dto.Card">
@@ -53,8 +55,7 @@
 
     <!-- 결제카드 & 비밀번호 -->
     <select id="selectPaymentCard" parameterType="HashMap" resultType="com.kopo.SelfFDS.member.model.dto.Card">
-        SELECT
-            *
+        SELECT *
         FROM card
         where cardId = #{cardId}
           and cardPassword = #{cardPassword}
@@ -72,18 +73,19 @@
         where cardId = #{cardId}
     </select>
 
+    <!--    safetycard 서비스 신청 udpate-->
     <update id="updateSelfFdsStatus" parameterType="com.kopo.SelfFDS.member.model.dto.Card">
         UPDATE card
         SET SELFfdsSerStatus = #{selffdsSerStatus}
         WHERE cardId = #{cardId}
     </update>
 
+    <!--    fds서비스 신청 update-->
     <update id="updateFdsStatus" parameterType="com.kopo.SelfFDS.member.model.dto.Card">
         UPDATE card
         SET fdsSerStatus = #{fdsSerStatus}
         WHERE cardId = #{cardId}
     </update>
-
 
 
     <!--safetycard    -->
@@ -96,7 +98,8 @@
 
     <!--    업종이름 가져오기-->
     <select id="selectAllBigCategory" resultType="String">
-        SELECT CATEGORYBIG FROM CATEGORY
+        SELECT CATEGORYBIG
+        FROM CATEGORY
         GROUP BY CATEGORYBIG
     </select>
 
@@ -108,12 +111,11 @@
     </select>
 
 
-
-<!--    cardhistory-->
+    <!--    cardhistory-->
     <select id="selectAllCardHistoryOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
         SELECT *
         FROM CARDHISTORY
-        WHERE cardId=#{cardId}
+        WHERE cardId = #{cardId}
         ORDER BY CARDHISDATE DESC
     </select>
 
@@ -127,7 +129,8 @@
     </select>
 
     <!-- 카드별 대분류 업종통계 -->
-    <select id="selectCountCategoryOfCardId" parameterType="String" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+    <select id="selectCountCategoryOfCardId" parameterType="String"
+            resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
         SELECT CATEGORYBIG, COUNT(*) AS categoryCnt, SUM(AMOUNT) AS amountSum
         FROM CARDHISTORY
         WHERE CARDID = #{cardId}
@@ -140,33 +143,35 @@
         FROM CARDHISTORY
         WHERE CARDID = #{cardId}
         GROUP BY CATEGORYBIG, CATEGORYSMALL
-        HAVING CATEGORYBIG=#{categoryBig}
+        HAVING CATEGORYBIG = #{categoryBig}
     </select>
 
     <!-- 카드별 거래시간통계 -->
     <select id="selectCountTimeOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        SELECT SUBSTR(CARDHISTIME,1,2) AS TIME, COUNT(*) AS timeCnt, SUM(AMOUNT) AS amountSum
+        SELECT SUBSTR(CARDHISTIME, 1, 2) AS TIME, COUNT(*) AS timeCnt, SUM(AMOUNT) AS amountSum
         FROM CARDHISTORY
         WHERE CARDID = #{cardId}
-        GROUP BY SUBSTR(CARDHISTIME,1,2)
+        GROUP BY SUBSTR(CARDHISTIME, 1, 2)
         ORDER BY TIME
     </select>
 
 
     <select id="selectAllSafetyCardOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        select * from safetycard
+        select *
+        from safetycard
         WHERE CARDID = #{cardId}
     </select>
 
 
+    <!--    safetyCard setting 정보 insert-->
     <insert id="insertSafetySetting" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE,ENROLLSEQ
+        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE,ENROLLSEQ,safetyStringInfo
         <if test="regionName != null">,REGIONNAME</if>
         <if test="time != null">,TIME</if>
         <if test="categorySmall != null">,CATEGORYSMALL</if>
         )
         VALUES(
-        #{cardId},sysdate, TO_DATE('2023/05/27', 'YYYY/MM/DD'),#{enrollSeq}
+        #{cardId},sysdate, TO_DATE('2023/05/27', 'YYYY/MM/DD'),#{enrollSeq},#{safetyStringInfo}
         <!-- Conditionally add values -->
         <if test="regionName != null">,#{regionName}</if>
         <if test="time != null">,#{time}</if>
@@ -175,24 +180,101 @@
     </insert>
 
     <select id="selectSafetySettingByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        select * from safetycard
-        where cardId=#{cardId} and ENROLLSEQ=#{enrollSeq}
+        select *
+        from safetycard
+        where cardId = #{cardId}
+          and ENROLLSEQ = #{enrollSeq}
     </select>
+
+
+    <!--    safetyCARD이용 정보-->
+    <select id="selectSafetySettingByEmail" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        SELECT DISTINCT sc.cardId, sc.safetyStartDate, sc.safetyEndDate, sc.safetyStringInfo
+        FROM safetyCard sc
+        WHERE sc.cardId IN (SELECT cardId FROM card WHERE email = #{email})
+    </select>
+
 
     <select id="selectSafetySettingEnrollSeqByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
         SELECT COALESCE(MAX(ENROLLSEQ), 0) AS ENROLLSEQ
         FROM safetycard
-        WHERE cardId=#{cardId}
+        WHERE cardId = #{cardId}
     </select>
 
 
-
-<!--    lostcard-->
+    <!--    분실카드 insert-->
     <insert id="insertLostCardInfo" parameterType="com.kopo.SelfFDS.member.model.dto.LostCard">
-        INSERT INTO LostCard (lostcardidseq, regLostDate,cardId, lostDate,lostPlace,lostReason,reissued)
-        VALUES (lostcard_id_seq.nextval,sysdate, #{cardId},#{lostDate},#{lostPlace},#{lostReason},#{reissued})
+        INSERT INTO LostCard (lostcardidseq, regLostDate, cardId, lostDate, lostPlace, lostReason, reissued)
+        VALUES (lostcard_id_seq.nextval, sysdate, #{cardId}, #{lostDate}, #{lostPlace}, #{lostReason}, #{reissued})
     </insert>
 
+    <!--    일시정지 일자 update-->
+    <update id="updateStopDate">
+        UPDATE safetyCard
+        SET stopStartDate = #{stopStartDate},
+            stopEndDate   = #{stopEndDate}
+        WHERE safetyIdSeq = #{safetyIdSeq}
+    </update>
+
+
+    <!--    mypage-->
+    <select id="selectDifferenceMonthByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT (SELECT SUM(amount)
+                FROM cardhistory
+                WHERE CARDID = #{cardId}
+                  AND cardhisdate BETWEEN (SELECT MAX(cardhisdate) - 30
+                                           FROM cardhistory
+                                           where CARDID = #{cardId})
+                    AND (SELECT MAX(cardhisdate) FROM cardhistory where CARDID = #{cardId}))
+                   -
+               (SELECT SUM(amount)
+                FROM cardhistory
+                WHERE CARDID = #{cardId}
+                  AND cardhisdate BETWEEN (SELECT MAX(cardhisdate) - 60
+                                           FROM cardhistory
+                                           where CARDID = #{cardId})
+                    AND (SELECT MAX(cardhisdate) - 30
+                         FROM cardhistory
+                         where CARDID = #{cardId})) AS difference
+        FROM DUAL
+    </select>
+
+
+<!--    지날달대비 이번달 지출액이 큰 소비카테고리-->
+    <select id="selectDiffCategoryOfMonthByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT A.CATEGORYSMALL as  categorySmall,
+               B.latestamount - A.lastamount as diffAmount,
+               B.latestcnt - A.lastcnt as diffCnt
+        FROM (SELECT CATEGORYSMALL,
+                     SUM(amount)          AS lastamount,
+                     COUNT(CATEGORYSMALL) AS lastcnt
+              FROM cardhistory
+              WHERE CARDID = #{cardId}
+                AND cardhisdate BETWEEN
+                  (SELECT MAX(cardhisdate) - 60 FROM cardhistory WHERE CARDID = #{cardId})
+                  AND
+                  (SELECT MAX(cardhisdate) - 30 FROM cardhistory WHERE CARDID = #{cardId})
+              GROUP BY CATEGORYSMALL) A
+                 LEFT JOIN
+             (SELECT CATEGORYSMALL,
+                     SUM(amount)          AS latestamount,
+                     COUNT(CATEGORYSMALL) AS latestcnt
+              FROM cardhistory
+              WHERE CARDID = #{cardId}
+                AND cardhisdate BETWEEN
+                  (SELECT MAX(cardhisdate) - 30 FROM cardhistory WHERE CARDID = #{cardId})
+                  AND
+                  (SELECT MAX(cardhisdate) FROM cardhistory WHERE CARDID = #{cardId})
+              GROUP BY CATEGORYSMALL) B
+             ON A.CATEGORYSMALL = B.CATEGORYSMALL
+    </select>
+
+    <select id="selectAmountOfMonthByCardIdCategory" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT SUBSTR(CARDHISDATE, 4, 2) AS MONTH, SUM(AMOUNT) AS amountSum FROM CARDHISTORY
+        WHERE CARDID=#{cardId} AND CATEGORYSMALL=#{categorySmall}
+        GROUP BY SUBSTR(CARDHISDATE, 4, 2)
+        ORDER BY MONTH
+    </select>
 
 
 </mapper>

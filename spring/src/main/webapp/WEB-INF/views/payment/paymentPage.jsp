@@ -36,6 +36,9 @@
         <a class="nameLogo" href="/">SafetyOne</a>
     </div>
     <div class="time-container">
+        <img src="../../../resources/img/calendar.png">
+        <h1 id="current-date"></h1>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <img src="../../../resources/img/clock1.png">
         <h1 id="current-time"></h1>
     </div>
@@ -101,6 +104,18 @@
 
 <script>
 
+
+    function getToday(){
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = ("0" + (1 + date.getMonth())).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+
+        return year + "-" + month + "-" + day;
+    }
+
+    document.getElementById("current-date").innerText = getToday();
+
     const currentTime = document.getElementById('current-time'); // id가 'current-time'인 요소
 
     // 1초마다 현재 시각 업데이트
@@ -141,7 +156,9 @@
         console.log("address",address);
 
 
+        var dateTextContent = document.getElementById("current-date").textContent;
         var timeTextContent = currentTime.textContent;
+
 
 
         var timeParts = timeTextContent.split(' ');
@@ -171,6 +188,7 @@
             cardId : cardId,
             store: store,
             address: address,
+            paymentDate:dateTextContent,
             time : formattedTime,
             categorySmall: category,
             storePhoneNumber: storePhoneNumber,

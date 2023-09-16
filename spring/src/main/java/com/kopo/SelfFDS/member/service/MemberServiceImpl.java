@@ -5,8 +5,7 @@ import com.kopo.SelfFDS.member.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.logging.log4j.ThreadContext.removeAll;
 
@@ -119,8 +118,9 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.selectAllSafetyCardOfCardId(cardId);
     }
 
+
     @Override
-    public void insertSafetySetting(String cardId, int enrollSeq, List<List<String>> safetyCard) {
+    public void insertSafetySetting(String cardId, int enrollSeq, List<List<String>> safetyCard, String safetyStringInfo) {
 
         List<String> regionList = safetyCard.get(0);
         List<String> timeList = safetyCard.get(1);
@@ -128,6 +128,7 @@ public class MemberServiceImpl implements MemberService {
         SafetyCard safety = new SafetyCard();
         safety.setCardId(cardId);
         safety.setEnrollSeq(enrollSeq + 1);
+        safety.setSafetyStringInfo(safetyStringInfo);
 
         System.out.println("timeList" + timeList);
 
@@ -137,7 +138,7 @@ public class MemberServiceImpl implements MemberService {
         //전체 regionList에서 허용 지역 빼기
         regionAllList.removeAll(regionList);
 
-        for (String blockRegion:regionAllList){
+        for (String blockRegion : regionAllList) {
             safety.setRegionName(blockRegion);
             memberMapper.insertSafetySetting(safety);
         }
@@ -208,5 +209,43 @@ public class MemberServiceImpl implements MemberService {
     public void insertLostCardInfo(LostCard lostCard) {
         memberMapper.insertLostCardInfo(lostCard);
     }
+
+    @Override
+    public List<SafetyCard> selectSafetySettingByEmail(String email) {
+        return memberMapper.selectSafetySettingByEmail(email);
+    }
+
+    @Override
+    public void updateStopDate(SafetyCard safetyCard) {
+        memberMapper.updateStopDate(safetyCard);
+    }
+
+    @Override
+    public int selectDifferenceMonthByCardId(String cardId) {
+        return memberMapper.selectDifferenceMonthByCardId(cardId);
+    }
+
+    @Override
+    public List<CardHistory> selectDiffCategoryOfMonthByCardId(String cardId) {
+        List<CardHistory> list = memberMapper.selectDiffCategoryOfMonthByCardId(cardId);
+        Collections.sort(list, Comparator.comparingInt(CardHistory::getDiffAmount));
+
+//        지날달대비 이번달 지출이 가장 많은 업종과 가장 작은 없종
+        CardHistory smallest = list.get(0);
+        CardHistory largest = list.get(list.size() - 1);
+
+        List<CardHistory> result = new ArrayList<>();
+        result.add(smallest);
+        result.add(largest);
+        return result;
+    }
+
+    @Override
+    public List<CardHistory> selectAmountOfMonthByCardIdCategory(String cardId, String categorySmall) {
+        List<CardHistory> aa=memberMapper.selectAmountOfMonthByCardIdCategory(cardId,categorySmall);
+        System.out.println("aa"+aa);
+        return memberMapper.selectAmountOfMonthByCardIdCategory(cardId,categorySmall);
+    }
+
 
 }

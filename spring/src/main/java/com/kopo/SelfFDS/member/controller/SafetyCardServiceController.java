@@ -35,12 +35,6 @@ public class SafetyCardServiceController {
         return "service/safetyCard";
     }
 
-
-    @GetMapping("/safetySettingCopy")
-    public String safetySettginCopyPage() {
-        return "service/safetySettingCopy";
-    }
-
     @GetMapping("/safetySettingNew")
     public String safetySettingNewPage() {
         return "service/safetySettingNew";
@@ -136,7 +130,8 @@ public class SafetyCardServiceController {
 
 
     @GetMapping("/safetySettingOk")
-    public String safetySettingOkPage() {
+    public String safetySettingOkPage(HttpSession session) {
+        session.removeAttribute("cardId");
         return "service/safetySettingOk";
     }
 
@@ -165,6 +160,29 @@ public class SafetyCardServiceController {
         return mav;
     }
 
+    @RequestMapping("/safetyCardStop")
+    public ModelAndView safetyCardStopPage(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        List<SafetyCard> safetyInfoList = memberService.selectSafetySettingByEmail(email);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("safetyInfoList", safetyInfoList);
+        mav.setViewName("service/safetyCardStop");
+        return mav;
+    }
+
+    @PostMapping("/updateStopDate")
+    @ResponseBody
+    public String registerCard(@RequestBody SafetyCard safetyCard) {
+
+        safetyCard.setStatus("N");
+        System.out.println("safetyCard"+safetyCard);
+        memberService.updateStopDate(safetyCard);
+        return "일시정지업데이트";
+    }
+
+
 
     //    @PostMapping("/registerCard")
 //    @ResponseBody
@@ -189,7 +207,7 @@ public class SafetyCardServiceController {
 
     @PostMapping("/cancleCard")
     @ResponseBody
-    public String cancleCard(@RequestBody String cardId) {
+    public String cancleCard(@RequestBody String cardId,HttpSession session) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
         if (updateCard.getSelffdsSerStatus().equals("Y")) {
             updateCard.setSelffdsSerStatus("N");
@@ -276,29 +294,75 @@ public class SafetyCardServiceController {
     }
 
 
+//    @PostMapping("/insertSetting")
+//    @ResponseBody
+//    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard, HttpSession session) {
+//        String cardId = (String) session.getAttribute("cardId");
+//        int enrollSeq = memberService.selectSafetySettingEnrollSeqByCardId(cardId);
+//        System.out.println(enrollSeq + cardId);
+//        memberService.insertSafetySetting(cardId, enrollSeq, safetyCard);
+//        System.out.println("gogo");
+//        return "insert성공";
+//    }
+
+    //    @PostMapping("/insertSetting")
+//    @ResponseBody
+//    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard, HttpSession session) {
+//        String cardId = (String) session.getAttribute("cardId");
+//        int enrollSeq = memberService.selectSafetySettingEnrollSeqByCardId(cardId);
+//        System.out.println(enrollSeq + cardId);
+//        memberService.insertSafetySetting(cardId, enrollSeq, safetyCard);
+//        System.out.println("gogo");
+//        return "insert성공";
+//    }
+
     @PostMapping("/insertSetting")
     @ResponseBody
-    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard, HttpSession session) {
+    public String insertSafetyInfo(@RequestBody Map<String, Object> requestData, HttpSession session) {
         String cardId = (String) session.getAttribute("cardId");
         int enrollSeq = memberService.selectSafetySettingEnrollSeqByCardId(cardId);
-        System.out.println(enrollSeq + cardId);
-        memberService.insertSafetySetting(cardId, enrollSeq, safetyCard);
+
+        List<List<String>> settingsList = (List<List<String>>) requestData.get("settingsList");
+        String safetyStringInfo = (String) requestData.get("safetyStringInfo");
+
+        System.out.println("controller"+safetyStringInfo);
+
+
+//        String sessionKey = "settingInfo" + cardId; // Create the session key using cardId.
+//        session.removeAttribute(sessionKey);
+
+
+        memberService.insertSafetySetting(cardId, enrollSeq, settingsList,safetyStringInfo);
+
         System.out.println("gogo");
         return "insert성공";
     }
 
 
+
+
+
     @PostMapping("/selectSafetyInfo")
     @ResponseBody
-    public ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard) {
+    public ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard,HttpSession session) {
         String cardId = safetyCard.getCardId();
         List<SafetyCard> safetyCardList = memberService.selectAllSafetyCardOfCardId(cardId);
-        System.out.println("safetyCardList" + safetyCardList);
+        System.out.println("safetyCardList"+safetyCardList);
         if (!safetyCardList.isEmpty()) {
             return ResponseEntity.ok(safetyCardList);
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @RequestMapping("/stopCardPage")
+    public String handleRequest(@RequestParam("cardId") String cardId,Model model) {
+        // Now you have the cardId. You can process it as needed.
+        List<SafetyCard> safetyInfo=memberService.selectAllSafetyCardOfCardId(cardId);
+        model.addAttribute("safetyInfo",safetyInfo);
+        System.out.println("safetyInfo"+safetyInfo);
+        // Redirect or forward to another view if needed
+        return "service/stopCardPage";
     }
 
 

@@ -1,6 +1,7 @@
 package com.kopo.SelfFDS.member.service;
 
 import com.kopo.SelfFDS.member.model.dto.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,11 +45,22 @@ public interface MemberService {
 
     List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
 
-    void insertSafetySetting(String cardId,int enrollSeq,List<List<String>> safetyCard);
+    void insertSafetySetting(String cardId,int enrollSeq,List<List<String>> safetyCard,String safetyStringInfo);
 
     List<SafetyCard> selectSafetySettingByCardId(String cardId, int enrollSeq);
     int selectSafetySettingEnrollSeqByCardId(String cardId);
 
     void insertLostCardInfo(LostCard lostCard);
+
+    List<SafetyCard> selectSafetySettingByEmail(String email);
+
+    void updateStopDate(SafetyCard safetyCard);
+
+    int selectDifferenceMonthByCardId(String cardId);
+
+    List<CardHistory> selectDiffCategoryOfMonthByCardId(String cardId);
+
+    List<CardHistory> selectAmountOfMonthByCardIdCategory(String cardId,String categorySmall);
+
 
 }

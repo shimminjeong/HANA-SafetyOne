@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 public class SafetyCard {
 
+    private int safetyIdSeq;
     private String cardId;
     private String safetyStartDate;
     private String safetyEndDate;
@@ -20,7 +21,28 @@ public class SafetyCard {
     private String endTime;
     private String status;
     private String time;
+    private String stopStartDate;
+    private String stopEndDate;
     private int enrollSeq;
+    private String safetyStringInfo;
 
-
+    @Override
+    public String toString() {
+        return "SafetyCard{" +
+                "safetyIdSeq='" + safetyIdSeq + '\'' +
+                ", cardId='" + cardId + '\'' +
+                ", safetyStartDate='" + safetyStartDate + '\'' +
+                ", safetyEndDate='" + safetyEndDate + '\'' +
+                ", regionName='" + regionName + '\'' +
+                ", categorySmall='" + categorySmall + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", status='" + status + '\'' +
+                ", time='" + time + '\'' +
+                ", StopStartDate='" + stopStartDate + '\'' +
+                ", StopEndDate='" + stopEndDate + '\'' +
+                ", enrollSeq=" + enrollSeq +
+                ", safetyStringInfo='" + safetyStringInfo + '\'' +
+                '}';
+    }
 }

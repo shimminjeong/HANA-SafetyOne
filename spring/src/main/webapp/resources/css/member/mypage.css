@@ -1,0 +1,179 @@
+
+.decreased {
+    color: blue;
+}
+
+.increased {
+    color: red;
+}
+
+
+* {
+    box-sizing: border-box
+}
+
+/* Slideshow container */
+.slideshow-container {
+    display: flex;
+    align-items: center;
+    max-width: 300px;
+    position: relative;
+    margin: auto;
+    margin-top: 30px;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -59px;
+    padding: 16px;
+    safetyCardSelect: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background safetyCardSelect with a little bit see-through */
+.prev:hover, .next:hover {
+    background-safetyCardSelect: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.cardIdtext {
+    font-size: 15px;
+    padding: 20px 12px;
+    text-align: center;
+}
+
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-safetyCardSelect: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-safetyCardSelect 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-safetyCardSelect: #717171;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+.fade img{
+    width:100%
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+.sub-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+.month-info-1, .month-info-2 {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    /* 부모 요소에 추가적인 스타일링이 필요한 경우 여기에 추가 */
+}
+
+.month-info-1 > div, .month-info-2 > div {
+    flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
+    margin: 0 5px; /* 요소 사이 간격 조절 */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.info {
+    text-align: center;
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.month-info, .history {
+    width: 80%;
+    margin: 0 auto;
+
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.85);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover, .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}

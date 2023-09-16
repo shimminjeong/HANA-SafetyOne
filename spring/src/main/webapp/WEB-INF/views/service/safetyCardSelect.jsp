@@ -45,8 +45,8 @@
         </c:forEach>
         <div class="ajax-content"></div>
         <div class="reg-cancle-btn">
-            <button class="cancle-Btn" onclick="cancleCard()">안심</button>
-            <button class="reg-Btn" onclick="registerCard()">등심</button>
+            <button class="cancle-Btn" onclick="cancleCard()">해제</button>
+            <button class="reg-Btn" onclick="registerCard()">등록</button>
         </div>
     </div>
 </div>
@@ -55,15 +55,16 @@
 
 
     let selectedCardId = '';
+
     function changeImage(imgElement, cardId) {
         // 이미지 경로가 circle.png인 경우 circle2.png로 변경
         if (imgElement.src.endsWith('circle.png')) {
             imgElement.src = "../../../resources/img/check-mark.png";
             // cardId를 selectedCardIds에 추가
-            selectedCardId=cardId;
+            selectedCardId = cardId;
         } else { // 이미지 경로가 circle2.png인 경우 circle.png로 변경
             imgElement.src = "../../../resources/img/circle.png";
-            selectedCardId=''
+            selectedCardId = ''
         }
         console.log("selectedCardId", selectedCardId);
     }
@@ -123,10 +124,54 @@
         });
     }
 
+    // var acc = document.getElementsByClassName("card-list-info");
+    // var i;
+    // for (i = 0; i < acc.length; i++) {
+    //     acc[i].addEventListener("click", function () {
+    //             this.classList.toggle("active");
+    //             var panel = this.nextElementSibling;
+    //             if (panel.style.display === "block") {
+    //                 panel.style.display = "none";
+    //             } else {
+    //                 panel.style.display = "block";
+    //                 var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
+    //                 console.log("cardid", cardId);
+    //                 // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
+    //                 $.ajax({
+    //                     url: "/safetyCard/selectSafetyInfo",
+    //                     type: 'POST',
+    //                     data: JSON.stringify({cardId: cardId}),
+    //                     contentType: 'application/json',
+    //                     success: function (data) {
+    //                         console.log("Data",data);
+    //                         var cardInfoList = $("#cardInfo-" + cardId);
+    //                         cardInfoList.empty();
+    //                         cardInfoList.append("<h2>안심카드 맞춤설정 이용중입니다.</h2>");
+    //                         data.forEach(function (item) {
+    //                             cardInfoList.append("<hr><div class='info-list'><div class='info-header'>선택카드</div><span class='info-content'>" + item.cardId + "</span></div>" +
+    //                                 "<div class='info-list'><div class='info-header'>사용가능기간 </div><span class='info-content'>" + item.safetyStartDate + " ~ " +item.safetyEndDate+"</span></div>");
+    //                             if (item.regionName!== null) {
+    //                                 cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단지역 </div><span class='info-content'>" + item.regionName + "</span></div>");
+    //                             }
+    //
+    //                             if (item.startTime !== null) {
+    //                                 cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단시간 </div><span class='info-content'>" + item.startTime + " ~ " +item.endTime+"</span></div>");
+    //                             }
+    //
+    //                             if (item.categorySmall!== null) {
+    //                                 cardInfoList.append("<div class='info-list'><div class='info-header'>결제차단업종 </div><span class='info-content'>" + item.categorySmall + "</span></div>");
+    //                             }
+    //
+    //                         });
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     )
+    // }
 
     var acc = document.getElementsByClassName("card-list-info");
-    var i;
-    for (i = 0; i < acc.length; i++) {
+    for (var i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function () {
             this.classList.toggle("active");
             var panel = this.nextElementSibling;
@@ -135,6 +180,7 @@
             } else {
                 panel.style.display = "block";
                 var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
+                var cardInfoList = $("#cardInfo-" + cardId); // 이 부분이 추가되었습니다.
                 console.log("cardid", cardId);
                 // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
                 $.ajax({
@@ -143,90 +189,135 @@
                     data: JSON.stringify({cardId: cardId}),
                     contentType: 'application/json',
                     success: function (data) {
-                        console.log("data : " + data);
-                        var cardInfoList = $("#cardInfo-" + cardId);
+                        console.log("data"+data);
+                        console.log("data[0].safetyStringInfo"+data[0].safetyStringInfo);
+                        splitInfo=data[0].safetyStringInfo.split('.')
+                        console.log(splitInfo[0])
+                        console.log(splitInfo[1])
+                        console.log(splitInfo[2])
+
                         cardInfoList.empty();
-                        cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
+                        cardInfoList.append("<h3>안심카드 맞춤설정 이용중입니다.</h3>");
+                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>사용가능기간 </div><div class='info-content'>" + data[0].safetyStartDate + " ~ 카드유효기간(" + data[0].safetyEndDate + ")</div></div>" +
+                            "<div class='info-list'><div class='info-header'>차단된 조합 </div><div class='info-content'>" + splitInfo[0] + "</div></div>";
 
-                        // Create a mapping of enrollSeq to regions, times, and categories
-                        let enrollMap = {};
-
-                        data.forEach(function (item) {
-                            if (!enrollMap[item.enrollSeq]) {
-                                enrollMap[item.enrollSeq] = {
-                                    cardId: item.cardId,
-                                    safetyStartDate: item.safetyStartDate,
-                                    safetyEndDate: item.safetyEndDate,
-                                    regions: [],
-                                    times: [],
-                                    categories: []
-                                };
-                            }
-
-                            if (item.regionName && !enrollMap[item.enrollSeq].regions.includes(item.regionName)) {
-                                enrollMap[item.enrollSeq].regions.push(item.regionName);
-                            }
-
-                            let timeStr = item.startTime + " ~ " + item.endTime;
-                            if (item.startTime && !enrollMap[item.enrollSeq].times.includes(timeStr)) {
-                                enrollMap[item.enrollSeq].times.push(timeStr);
-                            }
-
-                            if (item.categorySmall && !enrollMap[item.enrollSeq].categories.includes(item.categorySmall)) {
-                                enrollMap[item.enrollSeq].categories.push(item.categorySmall);
-                            }
-                        });
-
-                        let seenRegions = new Set(); // To keep track of already appended regionStr
-                        let seenTimes = new Set(); // To keep track of already appended regionStr
-                        let seenCategorys = new Set(); // To keep track of already appended regionStr
-
-                        // Now, for each enrollSeq group, add the information to cardInfoList
-                        for (let enroll of Object.values(enrollMap)) {
-                            let regionStr = enroll.regions.join(', ');
-                            let timeStr = enroll.times.join(', ');
-                            let categoryStr = enroll.categories.join(', ');
-
-                            let startDatePart = enroll.safetyStartDate.split(' ')[0];
-                            let endDatePart = enroll.safetyEndDate.split(' ')[0];
-
-
-                            cardInfoList.append(
-                                "<hr><div class='info-list'><div class='info-header'>사용가능기간 </div>" +
-                                "<span class='info-content'>" + startDatePart + " ~ " + endDatePart + "</span></div>"
-                            );
-
-                            if (regionStr && !seenRegions.has(regionStr)) {
-                                seenRegions.add(regionStr);
-                                cardInfoList.append(
-                                    "<div class='info-list'><div class='info-header'>결제차단지역 </div>" +
-                                    "<span class='info-content'>" + regionStr + "</span></div>"
-                                );
-                            }
-
-                            if (timeStr && !seenTimes.has(timeStr)) {
-                                seenTimes.add(timeStr);
-                                cardInfoList.append(
-                                    "<div class='info-list'><div class='info-header'>결제차단시간 </div>" +
-                                    "<span class='info-content'>" + timeStr + "</span></div>"
-                                );
-                            }
-
-                            if (categoryStr && !seenCategorys.has(categoryStr)) {
-                                seenCategorys.add(categoryStr);
-                                cardInfoList.append(
-                                    "<div class='info-list'><div class='info-header'>결제차단업종 </div>" +
-                                    "<span class='info-content'>" + categoryStr + "</span></div>"
-                                );
-                            }
-
+                        if (splitInfo[1]) { // splitInfo[1]이 null이 아닌 경우에만 추가
+                            cardInfoListContent += "<div class='info-list'><div class='info-header'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class='info-content'>" + splitInfo[1] + "</div></div>";
                         }
-                    }
 
+                        cardInfoList.append(cardInfoListContent);
+
+
+                    }
                 });
             }
-        });
+        })
     }
+
+
+    // var acc = document.getElementsByClassName("card-list-info");
+    // var i;
+    // for (i = 0; i < acc.length; i++) {
+    //     acc[i].addEventListener("click", function () {
+    //         this.classList.toggle("active");
+    //         var panel = this.nextElementSibling;
+    //         if (panel.style.display === "block") {
+    //             panel.style.display = "none";
+    //         } else {
+    //             panel.style.display = "block";
+    //             var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
+    //             console.log("cardid", cardId);
+    //             // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
+    //             $.ajax({
+    //                 url: "/safetyCard/selectSafetyInfo",
+    //                 type: 'POST',
+    //                 data: JSON.stringify({cardId: cardId}),
+    //                 contentType: 'application/json',
+    //                 success: function (data) {
+    //                     console.log("data : " + data);
+    //                     var cardInfoList = $("#cardInfo-" + cardId);
+    //                     cardInfoList.empty();
+    //                     cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
+    //
+    //                     // Create a mapping of enrollSeq to regions, times, and categories
+    //                     let enrollMap = {};
+    //
+    //                     data.forEach(function (item) {
+    //                         if (!enrollMap[item.enrollSeq]) {
+    //                             enrollMap[item.enrollSeq] = {
+    //                                 cardId: item.cardId,
+    //                                 safetyStartDate: item.safetyStartDate,
+    //                                 safetyEndDate: item.safetyEndDate,
+    //                                 regions: [],
+    //                                 times: [],
+    //                                 categories: []
+    //                             };
+    //                         }
+    //
+    //                         if (item.regionName && !enrollMap[item.enrollSeq].regions.includes(item.regionName)) {
+    //                             enrollMap[item.enrollSeq].regions.push(item.regionName);
+    //                         }
+    //
+    //                         let timeStr = item.startTime + " ~ " + item.endTime;
+    //                         if (item.startTime && !enrollMap[item.enrollSeq].times.includes(timeStr)) {
+    //                             enrollMap[item.enrollSeq].times.push(timeStr);
+    //                         }
+    //
+    //                         if (item.categorySmall && !enrollMap[item.enrollSeq].categories.includes(item.categorySmall)) {
+    //                             enrollMap[item.enrollSeq].categories.push(item.categorySmall);
+    //                         }
+    //                     });
+    //
+    //                     let seenRegions = new Set(); // To keep track of already appended regionStr
+    //                     let seenTimes = new Set(); // To keep track of already appended regionStr
+    //                     let seenCategorys = new Set(); // To keep track of already appended regionStr
+    //
+    //                     // Now, for each enrollSeq group, add the information to cardInfoList
+    //                     for (let enroll of Object.values(enrollMap)) {
+    //                         let regionStr = enroll.regions.join(', ');
+    //                         let timeStr = enroll.times.join(', ');
+    //                         let categoryStr = enroll.categories.join(', ');
+    //
+    //                         let startDatePart = enroll.safetyStartDate.split(' ')[0];
+    //                         let endDatePart = enroll.safetyEndDate.split(' ')[0];
+    //
+    //
+    //                         cardInfoList.append(
+    //                             "<hr><div class='info-list'><div class='info-header'>사용가능기간 </div>" +
+    //                             "<span class='info-content'>" + startDatePart + " ~ 카드유효기간(" + endDatePart + ")</span></div>"
+    //                         );
+    //
+    //                         if (regionStr && !seenRegions.has(regionStr)) {
+    //                             seenRegions.add(regionStr);
+    //                             cardInfoList.append(
+    //                                 "<div class='info-list'><div class='info-header'>결제차단지역 </div>" +
+    //                                 "<span class='info-content'>" + regionStr + "</span></div>"
+    //                             );
+    //                         }
+    //
+    //                         if (timeStr && !seenTimes.has(timeStr)) {
+    //                             seenTimes.add(timeStr);
+    //                             cardInfoList.append(
+    //                                 "<div class='info-list'><div class='info-header'>결제차단시간 </div>" +
+    //                                 "<span class='info-content'>" + timeStr + "</span></div>"
+    //                             );
+    //                         }
+    //
+    //                         if (categoryStr && !seenCategorys.has(categoryStr)) {
+    //                             seenCategorys.add(categoryStr);
+    //                             cardInfoList.append(
+    //                                 "<div class='info-list'><div class='info-header'>결제차단업종 </div>" +
+    //                                 "<span class='info-content'>" + categoryStr + "</span></div>"
+    //                             );
+    //                         }
+    //
+    //                     }
+    //                 }
+    //
+    //             });
+    //         }
+    //     });
+    // }
 
 
 </script>

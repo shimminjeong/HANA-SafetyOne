@@ -77,8 +77,7 @@
     <div class="ok-content">고객님께서 선택하신 카드는 안심카드사용 Self Rule이 등록되어,</div>
     <div class="ok-content">설정하신 내용의 거래는 안전하게 차단됩니다.</div>
     <div class="ok-content">(오프라인 거래)</div>
-
-    <button class="info-btn" onclick="window.location.href='/safetyCard/safetyCardStatus'"> 이용현황</button>
+    <button class="info-btn" onclick="window.location.href='/safetyCard/safetyCardSelect'"> 이용현황</button>
 </div>
 </body>
 </html>

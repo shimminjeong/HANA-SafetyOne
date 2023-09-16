@@ -12,7 +12,9 @@ import java.util.List;
 public interface MemberMapper {
 
     List<Member> getAllMember();
+
     Member selectNameOfMember(String email);
+
     Member loginMember(HashMap<String, String> loginData);
 
     void insertMember(Member member);
@@ -22,18 +24,21 @@ public interface MemberMapper {
     void deleteMember(String email);
 
 
-//    card
+    //    card
     List<Card> getAllCard();
+
     List<Card> selectCardOfEmail(String email);
+
     Card paymentCard(HashMap<String, String> paymentCardData);
 
     Card selectCardOfCardId(String cardId);
 
     void updateSelfFdsStatus(Card card);
+
     void updateFdsStatus(Card card);
 
 
-//    safetycard
+    //    safetycard
     List<String> selectAllRegionName();
 
     List<String> selectAllBigCategory();
@@ -41,14 +46,12 @@ public interface MemberMapper {
     List<SafetyRegister> selectSmallCategoryOfBigCategory(String categoryBig);
 
 
-
-//    cardhistory
+    //    cardhistory
     List<CardHistory> selectCountRegionOfCardId(String cardId);
 
-    List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(@Param("cardId") String cardId, @Param("categoryBig")String categoryBig);
+    List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(@Param("cardId") String cardId, @Param("categoryBig") String categoryBig);
 
     List<CardHistory> selectCountTimeOfCardId(String cardId);
-
 
 
 //    List<CardHistory> selectManyCategoryLatestMonthOfCardID(String cardId);
@@ -59,11 +62,22 @@ public interface MemberMapper {
 
 
     void insertSafetySetting(SafetyCard safetyCard);
+
     void insertLostCardInfo(LostCard lostCard);
 
-    List<SafetyCard> selectSafetySettingByCardId(@Param("cardId") String cardId,@Param("enrollSeq") int enrollSeq);
+    List<SafetyCard> selectSafetySettingByCardId(@Param("cardId") String cardId, @Param("enrollSeq") int enrollSeq);
+
+    List<SafetyCard> selectSafetySettingByEmail(String email);
+
     int selectSafetySettingEnrollSeqByCardId(String cardId);
 
+    void updateStopDate(SafetyCard safetyCard);
+
+    int selectDifferenceMonthByCardId(String cardId);
+
+    List<CardHistory> selectDiffCategoryOfMonthByCardId(String cardId);
+
+    List<CardHistory> selectAmountOfMonthByCardIdCategory(@Param("cardId") String cardId, @Param("categorySmall") String categorySmall);
 
 
 }

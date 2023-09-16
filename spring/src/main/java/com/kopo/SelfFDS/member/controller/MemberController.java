@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MemberController {
@@ -148,6 +149,7 @@ public class MemberController {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         List<Card> cardInfo = memberService.selectCardOfEmail(email);
+
         System.out.println(cardInfo.get(0).getCardId());
         System.out.println(cardInfo.get(1).getCardId());
         System.out.println(cardInfo.get(2).getCardId());
@@ -161,15 +163,33 @@ public class MemberController {
 
     @PostMapping("/cardinfo")
     @ResponseBody
-    public ResponseEntity<List<CardHistory>> postCardInfo(@RequestBody CardHistory cardHistory) {
+    public ResponseEntity<Map<String, Object>> postCardInfo(@RequestBody CardHistory cardHistory) {
         System.out.println("Received cardId: " + cardHistory.getCardId());
+        String cardId=cardHistory.getCardId();
 
-        List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardHistory.getCardId());
-        System.out.println(cardHistoryServiceList.get(0).getCardId());
-        System.out.println(cardHistoryServiceList.get(0).getAmount());
-        System.out.println(cardHistoryServiceList.get(0).getCategoryBig());
+        int difference=memberService.selectDifferenceMonthByCardId(cardId);
+
+        List<CardHistory> list=memberService.selectDiffCategoryOfMonthByCardId(cardId);
+        System.out.println("list"+list.get(0));
+        System.out.println("cardId"+cardId);
+        System.out.println("list.get(0).getCategorySmall(),cardId)"+list.get(0).getCategorySmall()+cardId);
+
+        List<CardHistory> decreaseData=memberService.selectAmountOfMonthByCardIdCategory(list.get(0).getCategorySmall(),cardId);
+        List<CardHistory> increaseData=memberService.selectAmountOfMonthByCardIdCategory(list.get(1).getCategorySmall(),cardId);
+
+        System.out.println("decreaseData"+decreaseData);
+        System.out.println("increaseData"+increaseData);
+        List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("difference", difference);
+        response.put("decreaseList", list.get(0));
+        response.put("increaseList", list.get(1));
+        response.put("decreaseData", decreaseData);
+        response.put("increaseData", increaseData);
+
+        response.put("cardHistoryList", cardHistoryServiceList);
         if (!cardHistoryServiceList.isEmpty()) {
-            return ResponseEntity.ok(cardHistoryServiceList);
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.notFound().build();
         }

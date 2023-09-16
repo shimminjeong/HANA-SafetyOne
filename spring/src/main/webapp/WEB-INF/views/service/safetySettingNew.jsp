@@ -173,7 +173,8 @@
         <span class="close">&times;</span>
         <p>대상카드 : <%=session.getAttribute("cardId")%>
         </p>
-        <div class="setting-result-modal"></div>
+        <div class="setting-result-modal">
+        </div>
         <button class="modal-btn" onclick="safetySettingOk()"> 확인</button>
     </div>
 </div>
@@ -276,18 +277,46 @@
 
     function collectSettings() {
         let settingsList = [];
-
         settingsList.push(regions);
         settingsList.push(times);
         settingsList.push(categorySmalls);
 
-        return settingsList;
+        var safetyInfo = document.querySelector('.setting-result-modal').textContent;
+
+        let patterns = [
+            "document.getElementById\\('select-region'\\).style.background = ",
+            "document.getElementById\\('select-time'\\).style.background = ",
+            "document.getElementById\\('select-category'\\).style.background = ",
+            "document.getElementById\\('region-no'\\).style.background = ",
+            "document.getElementById\\('time-no'\\).style.background = ",
+            "document.getElementById\\('category-no'\\).style.background = ",
+            "\"#dddd\""
+        ];
+
+        patterns.forEach(pattern => {
+            let regex = new RegExp(pattern, "g");
+            safetyInfo = safetyInfo.replace(regex, "");
+        });
+
+        safetyInfo = safetyInfo.replace(/;/g, '');
+        safetyInfo = safetyInfo.replace(/\s*,/g, ',').trim();
+        safetyInfo = safetyInfo
+            .replace(/\s+/g, ' ') // 연속된 여러 공백을 하나로 줄입니다.
+            .replace(/\n\s+/g, '\n') // 줄바꿈 뒤의 공백을 제거합니다.
+            .replace(/\s+\n/g, '\n') // 줄바꿈 전의 공백을 제거합니다.
+            .replace(/\n+/g, '\n') // 연속된 여러 줄바꿈을 하나로 줄입니다.
+            .trim(); // 문자열의 시작과 끝의 공백 또는 줄바꿈을 제거합니다.
+        return {
+            settingsList: settingsList,
+            safetyStringInfo: safetyInfo
+        };
     }
+
 
     function safetySettingOk() {
         console.log("satetySetting");
         const settings = collectSettings();
-        console.log("settingList", settings);
+        console.log("safetyStringInfo", settings.safetyStringInfo);
         $.ajax({
             url: '/safetyCard/insertSetting',
             type: 'POST',

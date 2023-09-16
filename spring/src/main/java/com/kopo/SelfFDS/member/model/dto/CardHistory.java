@@ -29,8 +29,12 @@ public class CardHistory {
     private int categoryCnt;
     private int timeCnt;
     private int amountSum;
+    private String month;
     private int amountMean;
     private int history_cnt;
+    private int difference;
+    private int diffAmount;
+    private int diffCnt;
 
 
 }
