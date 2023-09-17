@@ -55,6 +55,11 @@ public class FdsServiceController {
         }
     }
 
+    @GetMapping("/fdsRegisterOk")
+    public String fdsRegisterOkPage() {
+        return "service/fdsRegisterOk";
+    }
+
     @PostMapping("/cancleCard")
     @ResponseBody
     public String cancleCard(@RequestBody String cardId) {

@@ -16,6 +16,7 @@ public class Card {
     private String cardCvc;
     private String cardPassword;
     private Date cardRegDate;
+    private Date validDate;
     private String amountLimit;
     private String fdsSerStatus;
     private String selffdsSerStatus;

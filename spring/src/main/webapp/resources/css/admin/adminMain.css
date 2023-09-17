@@ -13,13 +13,45 @@
     transition: transform 0.2s ease;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .info-box:hover {
     transform: translate(5px, -5px); /* Move the box slightly on hover */
 }
 
-.info-content{
-    margin: 10%;
+.info-header{
+    margin-top: 10%;
+}
+.info-content1{
+    margin-top: 3%;
 
+}
+.info-content2{
+    margin-top: 3%;
+    margin-left: 24px;
+    margin-right: 18px;
+
+}
+
+.chart-container1{
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+
+}
+
+.chart-container1 canvas {
+    width: 100%;
+    max-height: 200px;
+    max-width: 350px;
+    height: auto;
+}
+
+.chart-container2 canvas {
+    width: 100%;
+    max-width: 500px;
+    max-height: 250px;
+    height: auto;
 }

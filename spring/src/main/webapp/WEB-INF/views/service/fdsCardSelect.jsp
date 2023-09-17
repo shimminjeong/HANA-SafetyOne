@@ -76,7 +76,7 @@
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
                 if (response === "이상 소비 알림 서비스 신청 성공") {
-                    openSelectModal();
+                    window.location.href = "/fds/fdsRegisterOk";
                 } else
                     ajaxContent.textContent = "이미 신청이 완료된 카드입니다.";
                 ajaxContent.style.color = "red";

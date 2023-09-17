@@ -78,6 +78,12 @@ public interface MemberMapper {
     List<CardHistory> selectDiffCategoryOfMonthByCardId(String cardId);
 
     List<CardHistory> selectAmountOfMonthByCardIdCategory(@Param("cardId") String cardId, @Param("categorySmall") String categorySmall);
+    List<CardHistory> selectAmountOfMonthByCardId(String cardId);
+    List<CardHistory> selectAmountOfWeekByCardId(String cardId);
+    List<CardHistory> selectDayByCardIdDate(@Param("cardId") String cardId,@Param("cardHisDate") String cardHisDate);
+
+
+    void insertFds(@Param("cardId") String cardId,@Param("serviceStatus") String serviceStatus);
 
 
 }

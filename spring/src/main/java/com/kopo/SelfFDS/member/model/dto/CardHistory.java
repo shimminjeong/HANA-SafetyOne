@@ -25,6 +25,7 @@ public class CardHistory {
 //    private List<CardHistory> cardHistoryList;
 //    statistic
 
+
     private int regionCnt;
     private int categoryCnt;
     private int timeCnt;

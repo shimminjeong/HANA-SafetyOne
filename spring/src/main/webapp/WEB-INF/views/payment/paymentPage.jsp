@@ -75,14 +75,14 @@
             <div class="road_address_name">도로명주소 :
                 <span class="place-road_address_name"></span>
             </div>
-            <div class="product">상품명 :
-                <span class="place-product">망고스무디</span>
-            </div>
+<%--            <div class="product">상품명 :--%>
+<%--                <span class="place-product">망고스무디</span>--%>
+<%--            </div>--%>
             <div class="price"><p>금액 :&nbsp&nbsp</p>
                 <p><input type="text" id="price" name="price"></p>
             </div>
             <div class="cardId">카드아이디
-                <span class="place-cardId">6703-3441-8063-2751</span>
+                <span class="place-cardId">9440-9469-2724-7629</span>
             </div>
         </div>
         <div class="menu">
@@ -133,7 +133,7 @@
         var category = $('.place-category').text();
         var storePhoneNumber = $('.place-phone').text();
         var road_address_name = $('.place-road_address_name').text();
-        var product = $('.place-product').text();
+        // var product = $('.place-product').text();
         var amount = $('#price').val();
         address = address.replace("경기", "제주도");
         address = address.replace("서울", "서울특별시");
@@ -193,7 +193,7 @@
             categorySmall: category,
             storePhoneNumber: storePhoneNumber,
             road_address_name: road_address_name,
-            product: product,
+            // product: product,
             amount: amount
         };
 

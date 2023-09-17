@@ -4,6 +4,7 @@ import com.kopo.SelfFDS.member.model.dao.MemberMapper;
 import com.kopo.SelfFDS.member.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -70,10 +71,17 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
+    //    CARDFDS서비스 상태 UPDATE와 동시에 fds서비스 테이블에 insert
+    @Transactional
     @Override
     public void updateFdsStatus(Card card) {
         memberMapper.updateFdsStatus(card);
+        String serviceStatus="학습대기";
+        System.out.println("card.getCardId()"+card.getCardId());
+        memberMapper.insertFds(card.getCardId(), serviceStatus);
     }
+
+
 
 
     @Override
@@ -242,10 +250,28 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<CardHistory> selectAmountOfMonthByCardIdCategory(String cardId, String categorySmall) {
+        System.out.println("ddd"+cardId+"sss"+categorySmall);
         List<CardHistory> aa=memberMapper.selectAmountOfMonthByCardIdCategory(cardId,categorySmall);
         System.out.println("aa"+aa);
         return memberMapper.selectAmountOfMonthByCardIdCategory(cardId,categorySmall);
     }
+
+    @Override
+    public List<CardHistory> selectAmountOfMonthByCardId(String cardId) {
+        return memberMapper.selectAmountOfMonthByCardId(cardId);
+    }
+
+    @Override
+    public List<CardHistory> selectAmountOfWeekByCardId(String cardId) {
+        return memberMapper.selectAmountOfWeekByCardId(cardId);
+    }
+
+    @Override
+    public List<CardHistory> selectDayByCardIdDate(String cardId, String cardHisDate) {
+        return memberMapper.selectDayByCardIdDate(cardId,cardHisDate);
+    }
+
+
 
 
 }

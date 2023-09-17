@@ -61,6 +61,9 @@ public interface MemberService {
     List<CardHistory> selectDiffCategoryOfMonthByCardId(String cardId);
 
     List<CardHistory> selectAmountOfMonthByCardIdCategory(String cardId,String categorySmall);
+    List<CardHistory> selectAmountOfMonthByCardId(String cardId);
+    List<CardHistory> selectAmountOfWeekByCardId(String cardId);
+    List<CardHistory> selectDayByCardIdDate(String cardId, String cardHisDate);
 
 
 }

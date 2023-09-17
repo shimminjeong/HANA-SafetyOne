@@ -270,11 +270,40 @@
     </select>
 
     <select id="selectAmountOfMonthByCardIdCategory" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        SELECT SUBSTR(CARDHISDATE, 4, 2) AS MONTH, SUM(AMOUNT) AS amountSum FROM CARDHISTORY
+        SELECT SUBSTR(CARDHISDATE, 4, 2) AS month, SUM(AMOUNT) AS amountSum FROM CARDHISTORY
         WHERE CARDID=#{cardId} AND CATEGORYSMALL=#{categorySmall}
         GROUP BY SUBSTR(CARDHISDATE, 4, 2)
         ORDER BY MONTH
     </select>
+
+    <select id="selectAmountOfMonthByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT SUBSTR(CARDHISDATE, 4, 2) AS month, SUM(AMOUNT) AS amountSum FROM CARDHISTORY
+        WHERE CARDID=#{cardId}
+        GROUP BY SUBSTR(CARDHISDATE, 4, 2)
+        ORDER BY MONTH
+    </select>
+
+    <select id="selectAmountOfWeekByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT cardhisdate,SUM(amount) AS amountSum
+        FROM cardhistory
+        WHERE CARDID = #{cardId}
+          AND cardhisdate BETWEEN
+                (SELECT MAX(cardhisdate) - 7 FROM cardhistory WHERE CARDID = #{cardId})
+            AND
+                (SELECT MAX(cardhisdate) FROM cardhistory WHERE CARDID = #{cardId})
+        GROUP BY cardhisdate
+        ORDER BY cardhisdate
+    </select>
+
+    <select id="selectDayByCardIdDate" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT *
+        FROM cardhistory
+        WHERE CARDID=#{cardId} and cardhisdate=#{cardHisDate}
+    </select>
+
+    <insert id="insertFds">
+        INSERT INTO FDS (CARDID, SERVICESTATUS) VALUES (#{cardId},#{serviceStatus})
+    </insert>
 
 
 </mapper>

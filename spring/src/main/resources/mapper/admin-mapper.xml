@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kopo.SelfFDS.admin.model.dao.AdminMapper">
+    <!-- 결제로그 전체조회-->
+
+    <!--    금일 총 거래액-->
+    <select id="getAllAmountSumOfDay"
+            resultType="int">
+        SELECT sum(amount) as amountSum
+        FROM cardhistory
+        WHERE cardhisdate = to_char('23/07/23')
+    </select>
+
+
+    <!--    연도별 가입회원수-->
+    <select id="getMemberCntByYear" resultType="com.kopo.SelfFDS.admin.model.dto.MemberStats">
+        SELECT substr(regdate, 1, 2) AS year, COUNT(*) as memberCnt
+        FROM member
+        GROUP BY
+            substr(regdate, 1, 2)
+        order by year desc
+    </select>
+
+    <!--    연도별 가입카드수-->
+    <select id="getCardCntByYear" resultType="com.kopo.SelfFDS.admin.model.dto.CardStats">
+        SELECT substr(cardregdate, 1, 2) AS year, COUNT(*) as cardCnt
+        FROM card
+        GROUP BY
+            substr(cardregdate, 1, 2)
+        order by year desc
+    </select>
+
+
+    <!--    일주일 매출금액-->
+    <select id="getAmountSumByDate" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
+    <![CDATA[
+        SELECT CARDHISDATE, amountSum
+        FROM (SELECT CARDHISDATE, sum(amount) as amountSum
+              FROM cardhistory
+              GROUP BY CARDHISDATE
+              order by CARDHISDATE desc)
+        WHERE ROWNUM <= 7
+        ]]>
+    </select>
+
+
+
+
+    <!-- 이상치데이터로그확인-->
+<!--    <select id="getCardCntByYear" resultType="com.kopo.SelfFDS.admin.model.dto.CardStats">-->
+<!--        SELECT substr(cardregdate, 1, 2) AS year, COUNT(*) as cardCnt-->
+<!--        FROM PAYMENTLOG-->
+<!--        WHERE-->
+<!--    </select>-->
+
+
+</mapper>
+

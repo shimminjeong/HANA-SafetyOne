@@ -164,24 +164,22 @@ public class MemberController {
     @PostMapping("/cardinfo")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> postCardInfo(@RequestBody CardHistory cardHistory) {
-        System.out.println("Received cardId: " + cardHistory.getCardId());
         String cardId=cardHistory.getCardId();
 
         int difference=memberService.selectDifferenceMonthByCardId(cardId);
 
         List<CardHistory> list=memberService.selectDiffCategoryOfMonthByCardId(cardId);
-        System.out.println("list"+list.get(0));
-        System.out.println("cardId"+cardId);
-        System.out.println("list.get(0).getCategorySmall(),cardId)"+list.get(0).getCategorySmall()+cardId);
 
-        List<CardHistory> decreaseData=memberService.selectAmountOfMonthByCardIdCategory(list.get(0).getCategorySmall(),cardId);
-        List<CardHistory> increaseData=memberService.selectAmountOfMonthByCardIdCategory(list.get(1).getCategorySmall(),cardId);
+        List<CardHistory> monthData=memberService.selectAmountOfMonthByCardId(cardId);
+        List<CardHistory> weekData=memberService.selectAmountOfWeekByCardId(cardId);
+        List<CardHistory> decreaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(0).getCategorySmall());
+        List<CardHistory> increaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(1).getCategorySmall());
 
-        System.out.println("decreaseData"+decreaseData);
-        System.out.println("increaseData"+increaseData);
         List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardId);
         Map<String, Object> response = new HashMap<>();
         response.put("difference", difference);
+        response.put("monthData", monthData);
+        response.put("weekData", weekData);
         response.put("decreaseList", list.get(0));
         response.put("increaseList", list.get(1));
         response.put("decreaseData", decreaseData);
@@ -194,6 +192,52 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+    @PostMapping("/cardDetail")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> CardDetailInfo(@RequestBody CardHistory cardHistory) {
+        String cardId=cardHistory.getCardId();
+        System.out.println("coin");
+
+
+        List<CardHistory> monthData=memberService.selectAmountOfMonthByCardId(cardId);
+        List<CardHistory> weekData=memberService.selectAmountOfWeekByCardId(cardId);
+
+        List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("monthData", monthData);
+        response.put("weekData", weekData);
+        System.out.println("weekData"+weekData);
+
+        response.put("cardHistoryList", cardHistoryServiceList);
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/updateChart")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> updateChartInfo(@RequestBody CardHistory cardHistory) {
+        String cardId=cardHistory.getCardId();
+        System.out.println("coin");
+
+
+        List<CardHistory> dayData=memberService.selectDayByCardIdDate(cardHistory.getCardId(),cardHistory.getCardHisDate());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("dayData", dayData);
+
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
 
     @GetMapping("/selectAll")

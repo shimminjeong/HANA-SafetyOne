@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
     <link rel="stylesheet" href="../../../resources/css/admin/adminCommon.css"/>
-    <link rel="stylesheet" href="../../../resources/css/admin/adminMain.css"/>
+    <link rel="stylesheet" href="../../../resources/css/admin/adminFds.css"/>
 
 </head>
 <body>
@@ -19,20 +19,19 @@
         <h2 class="details____title">이상소비서비스관리</h2>
         <div class="box-container">
             <div class="info-box">
-                <div class="info-content">현재 하나카드 이용자수</div>
+                <div class="info-content">서비스사용자관리</div>
             </div>
             <div class="info-box">
-                <div class="info-content">신청</div>
-            </div>
-            <div class="info-box">
-                <div class="info-content">차단된결제건수</div>
+                <div class="info-content">이상소비데이터관리</div>
             </div>
 
         </div>
+
         <div class="table-container">
             <h3>신규 신청</h3>
             <br>
             <!-- 테이블로 데이터베이스 데이터 표시 -->
+            <
             <table class="data-table">
                 <thead>
                 <tr>

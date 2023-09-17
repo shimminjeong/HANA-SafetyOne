@@ -56,8 +56,8 @@
 
 <!--    safetycard하고 PAYMENTLOG 테이블에 데이터 삽입-->
     <insert id="insertPaymentLog">
-        INSERT INTO PAYMENTLOG (PAYMENTLOGID, CARDID, ADDRESS, STORE, PAYMENTDATE, categorySmall, PRODUCT, AMOUNT, paymentApprovalStatus)
-        VALUES (PAYMENTLOGIDSEQ.nextval, #{cardId}, #{address}, #{store}, current_date, #{categorySmall}, #{product},#{amount}, #{paymentApprovalStatus})
+        INSERT INTO PAYMENTLOG (PAYMENTLOGID, CARDID, ADDRESS, STORE, PAYMENTDATE, categorySmall, AMOUNT, paymentApprovalStatus)
+        VALUES (PAYMENTLOGIDSEQ.nextval, #{cardId}, #{address}, #{store}, current_date, #{categorySmall}, #{amount}, #{paymentApprovalStatus})
     </insert>
 
 
