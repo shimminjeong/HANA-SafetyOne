@@ -22,4 +22,7 @@ public interface PaymentMapper {
 
     void insertPaymentLog(PaymentLog paymentLog);
 
+    double selectPreprocessingCategory(String categorySmall);
+    int selectPreprocessingRegion(String regionName);
+
 }

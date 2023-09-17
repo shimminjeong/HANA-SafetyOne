@@ -4,6 +4,7 @@ import com.kopo.SelfFDS.payment.model.dao.PaymentMapper;
 import com.kopo.SelfFDS.member.model.dto.*;
 import com.kopo.SelfFDS.payment.model.dao.PaymentMapper;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
+import com.kopo.SelfFDS.payment.model.dto.WordToVec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,6 +79,30 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void insertNotApprovalTransaction(PaymentLog paymentLog) {
         paymentMapper.insertPaymentLog(paymentLog);
+    }
+
+    @Override
+    public WordToVec wordEmbedding(String regionName, String categorySmall, String time, int amount) {
+        System.out.println("servicecategorySmall"+categorySmall);
+        System.out.println("serviceregionName"+regionName);
+        System.out.println("servicetime"+time);
+        regionName=regionName.split(" ")[0];
+        System.out.println("serviceregionName"+regionName);
+        int timeNumeric=Integer.parseInt(time.split(":")[0]);
+        System.out.println("timeNumeric"+timeNumeric);
+
+        int regionNameNumeric=paymentMapper.selectPreprocessingRegion(regionName);
+        System.out.println("regionNameNumeric"+regionNameNumeric);
+
+        double categorySmallNumeric=paymentMapper.selectPreprocessingCategory(categorySmall);
+        System.out.println("categorySmallNumeric"+categorySmallNumeric);
+
+        WordToVec wordToVec=new WordToVec();
+        wordToVec.setRegionNameNumeric(regionNameNumeric);
+        wordToVec.setCategorySmallNumeric(categorySmallNumeric);
+        wordToVec.setTimeNumeric(timeNumeric);
+        wordToVec.setAmountNumeric(amount);
+        return wordToVec;
     }
 
 

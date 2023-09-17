@@ -2,6 +2,7 @@ package com.kopo.SelfFDS.admin.model.dao;
 
 import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
 import com.kopo.SelfFDS.admin.model.dto.CardStats;
+import com.kopo.SelfFDS.admin.model.dto.Fds;
 import com.kopo.SelfFDS.admin.model.dto.MemberStats;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,6 +18,8 @@ public interface AdminMapper {
     List<MemberStats> getMemberCntByYear();
     List<CardStats> getCardCntByYear();
     List<CardHistoryStats> getAmountSumByDate();
+
+    List<Fds> selectFdsAndMember();
 
 
 

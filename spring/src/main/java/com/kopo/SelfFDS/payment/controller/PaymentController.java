@@ -3,6 +3,7 @@ package com.kopo.SelfFDS.payment.controller;
 import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.member.service.MemberService;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
+import com.kopo.SelfFDS.payment.model.dto.WordToVec;
 import com.kopo.SelfFDS.payment.service.PaymentService;
 import com.kopo.SelfFDS.payment.service.PaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class PaymentController {
 
     private final PaymentService paymentService;
+
     @Autowired
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
@@ -32,13 +34,12 @@ public class PaymentController {
     }
 
 
-
-//    safety rule과 비교
+    //    safety rule과 비교
     @PostMapping("/requestPayment")
-    public ResponseEntity<String> responsePayment(@RequestBody PaymentLog paymentLog){
-        System.out.println("paymentLog"+paymentLog);
-        SafetyCard responseSafetyCard=paymentService.requestPayment(paymentLog,paymentLog.getCardId());
-        System.out.println("responseSafetyCard"+responseSafetyCard);
+    public ResponseEntity<String> responsePayment(@RequestBody PaymentLog paymentLog) {
+        System.out.println("paymentLog" + paymentLog);
+        SafetyCard responseSafetyCard = paymentService.requestPayment(paymentLog, paymentLog.getCardId());
+        System.out.println("responseSafetyCard" + responseSafetyCard);
         if (responseSafetyCard == null) {
             System.out.println("거래승인");
             paymentLog.setPaymentApprovalStatus("Y");
@@ -53,9 +54,55 @@ public class PaymentController {
     }
 
     @GetMapping("/paymentApproval")
-    public String paymentApprovalPage() {
-        return "payment/receipt";
+    public ModelAndView paymentApproval(
+            @RequestParam String cardId,
+            @RequestParam String store,
+            @RequestParam String address,
+            @RequestParam String paymentDate,
+            @RequestParam String time,
+            @RequestParam String categorySmall,
+            @RequestParam String storePhoneNumber,
+            @RequestParam String road_address_name,
+            @RequestParam int amount) {
+
+        System.out.println(cardId);
+        System.out.println(address);
+        System.out.println(time);
+        System.out.println(categorySmall);
+        System.out.println(amount);
+        // 데이터 처리 로직
+        // 예를 들어, 데이터를 데이터베이스에 저장하거나, 다른 서비스로 전송 등
+
+        ModelAndView mav = new ModelAndView();
+        // 필요한 뷰 이름 설정. 예를 들면:
+        mav.setViewName("payment/receipt");  // 뷰 이름을 적절하게 변경해야 합니다.
+
+        // 뷰에 데이터를 전달하려면 아래와 같이 추가:
+        mav.addObject("cardId", cardId);
+        mav.addObject("address", address);
+        mav.addObject("time", time);
+        mav.addObject("categorySmall", categorySmall);
+        mav.addObject("amount", amount);
+        // 다른 데이터도 동일한 방식으로 추가
+
+        return mav;
     }
+
+
+    @PostMapping("/detectFds")
+    public ResponseEntity<String> detectFds(@RequestBody PaymentLog paymentLog) {
+        System.out.println("paymentLog" + paymentLog);
+        String time = paymentLog.getTime();
+        String regionName = paymentLog.getAddress();
+        String categorySmall = paymentLog.getCategorySmall();
+        int amount = paymentLog.getAmount();
+        WordToVec wordToVec = paymentService.wordEmbedding(regionName, categorySmall, time, amount);
+        System.out.println("wordToVec" + wordToVec);
+        return ResponseEntity.ok("임베딩성공");
+    }
+
+
+
 
     @GetMapping("/paymentNotApproval")
     public String paymentNotApprovalPage() {
@@ -68,8 +115,6 @@ public class PaymentController {
 //    public ResponseEntity<String> insertPaymentLog(){
 //        return null;
 //    }
-
-
 
 
 }

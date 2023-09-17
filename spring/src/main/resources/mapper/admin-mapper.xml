@@ -3,6 +3,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kopo.SelfFDS.admin.model.dao.AdminMapper">
+
+    <resultMap id="FdsMemberMap" type="com.kopo.SelfFDS.admin.model.dto.Fds">
+        <!-- Fds 테이블 필드 매핑 -->
+        <result property="cardId" column="cardId" /> <!-- 이 부분은 예상 값입니다. 실제 column 값을 확인해야 합니다. -->
+        <result property="serviceStatus" column="serviceStatus" />
+        <result property="serRegDate" column="serRegDate" />
+        <result property="learningDate" column="learningDate" />
+
+        <!-- member 테이블과의 association -->
+        <association property="member" javaType="com.kopo.SelfFDS.member.model.dto.Member">
+            <result property="email" column="email" />
+            <result property="name" column="name" />
+            <result property="phone" column="phone" />
+            <result property="address" column="address" />
+            <result property="age" column="age" />
+            <result property="gender" column="gender" />
+        </association>
+    </resultMap>
+
     <!-- 결제로그 전체조회-->
 
     <!--    금일 총 거래액-->
@@ -44,6 +63,19 @@
         WHERE ROWNUM <= 7
         ]]>
     </select>
+
+
+<!--    이상소비서비스사용자관리-->
+    <select id="selectFdsAndMember" resultMap="FdsMemberMap">
+        SELECT m.email as email, m.name as name, m.phone as phone,
+               m.address as address, m.age as age, m.gender as gender,
+               f.SERVICESTATUS as serviceStatus,f.cardId as cardId,
+               f.serregdate as serRegDate,f.learningdate as learningDate
+        FROM member m
+                 JOIN card c ON m.email = c.email
+                 JOIN fds f ON c.CARdid = f.CARDID
+    </select>
+
 
 
 

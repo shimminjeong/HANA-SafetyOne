@@ -61,5 +61,20 @@
     </insert>
 
 
+
+    <select id="selectPreprocessingCategory" resultType="double">
+        SELECT bartoembedding as categorySmallNumeric
+        FROM CATEGORY
+        WHERE CATEGORYSMALL=#{categorySmall}
+    </select>
+
+    <select id="selectPreprocessingRegion" resultType="int">
+        SELECT SEOULTTOREGIONDISTANCE as regionNameNumeric
+        FROM region
+        WHERE regionName=#{regionName}
+    </select>
+
+
+
 </mapper>
 

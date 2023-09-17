@@ -302,7 +302,7 @@
     </select>
 
     <insert id="insertFds">
-        INSERT INTO FDS (CARDID, SERVICESTATUS) VALUES (#{cardId},#{serviceStatus})
+        INSERT INTO FDS (CARDID, serRegDate,SERVICESTATUS) VALUES (#{cardId},sysdate,#{serviceStatus})
     </insert>
 
 

@@ -3,6 +3,7 @@ package com.kopo.SelfFDS.admin.service;
 import com.kopo.SelfFDS.admin.model.dao.AdminMapper;
 import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
 import com.kopo.SelfFDS.admin.model.dto.CardStats;
+import com.kopo.SelfFDS.admin.model.dto.Fds;
 import com.kopo.SelfFDS.admin.model.dto.MemberStats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,12 @@ public class AdminServiceImpl implements AdminService {
         System.out.println("list.get(0).getAmountSum()"+list.get(0).getAmountSum());
 
         return ((list.get(1).getAmountSum()-list.get(0).getAmountSum())/list.get(1).getAmountSum())*100;
+    }
+
+    @Override
+    public List<Fds> selectFdsAndMember() {
+        System.out.println("adminMapper.selectFdsAndMember()"+adminMapper.selectFdsAndMember());
+        return adminMapper.selectFdsAndMember();
     }
 
 

@@ -172,10 +172,6 @@
             hours += 12;
         }
 
-        if (timeParts[0] === "오전") {
-            hours -= 12;
-        }
-
         if (hours === 24) {
             hours = 0;
         }
@@ -197,6 +193,8 @@
             amount: amount
         };
 
+        var queryParams = $.param(data);
+
         $.ajax({
             type: 'POST',
             url: '/payment/requestPayment',
@@ -211,8 +209,7 @@
 
                 // 응답 메시지가 "거래승인"일 경우 리다이렉트
                 if (response === "거래승인") {
-
-                    window.location.href = "/payment/paymentApproval";
+                    window.location.href = "/payment/paymentApproval?"+queryParams;
                 }
                 else if (response === "거래미승인") {
                     alert("거래미승인!");

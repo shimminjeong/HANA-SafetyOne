@@ -42,13 +42,15 @@ public class AdminController {
         return "admin/safetyCard";
     }
 
-//    @GetMapping("/fds")
-//    public ModelAndView adminFdsPage() {
-//        ModelAndView mav=new ModelAndView();
-////        mav.addObject();
-//        mav.setViewName("admin/adminFds");
-//        return mav;
-//    }
+    @GetMapping("/fds")
+    public ModelAndView adminFdsPage() {
+        ModelAndView mav=new ModelAndView();
+        System.out.println(adminService.selectFdsAndMember());
+
+        mav.addObject("FdsMemberList",adminService.selectFdsAndMember());
+        mav.setViewName("admin/adminFds");
+        return mav;
+    }
 
     @GetMapping("/cluster")
     public String adminClusterPage() {
