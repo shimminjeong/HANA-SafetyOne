@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
 
-def check_outlier_using_gmm(model_path, threshold_data, data_to_check):
+def anomalyDetection_gmm(card_id, data_to_check):
     """
     주어진 GMM 모델과 임계치 데이터를 사용하여 data_to_check가 이상치인지 판별합니다.
     
@@ -14,22 +14,24 @@ def check_outlier_using_gmm(model_path, threshold_data, data_to_check):
     - True or False: 이상치인지 아닌지의 여부
     """
     
+    model_path = f'gmm_{card_id}.pkl'
+    data_to_check=np.array(data_to_check)
+    
     # 모델 불러오기
     with open(model_path, 'rb') as model_file:
         loaded_gmm = pickle.load(model_file)
-
+        
+    threshold_data = np.array([0.8, 350, 23, 500000])
     # Threshold likelihood 계산
     threshold_likeli = loaded_gmm.score_samples(threshold_data.reshape(1,-1))
     
     # data_to_check의 likelihood 계산 후 임계치와 비교
     data_likeli = loaded_gmm.score_samples(data_to_check.reshape(1,-1))
     
-    return data_likeli < threshold_likeli
+    
+    is_anomaly="N";
+    if (data_likeli < threshold_likeli):
+        is_anomaly="Y"
 
-# 사용 예시
-model_path = 'gmm_model.pkl'
-threshold_data = np.array([0.7, 300, 23, 500000])
-data_to_check = np.array([0.6, 400, 20, 1000000])
+    return is_anomaly
 
-is_anomaly = check_outlier_using_gmm(model_path, threshold_data, data_to_check)
-print("Is the data an outlier?", is_anomaly)

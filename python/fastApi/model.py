@@ -16,7 +16,18 @@ class regionEmbedding(BaseModel):
     seoultToRegionDistance: int
 
 
-class fes(BaseModel):
+class fds(BaseModel):
+    CARDID: str
+    SERREGDATE: date
+    LEARNINGDATE: date
+    SERVICESTATUS: str
+    WEIGHTSAVEPATH: str
+    CATEGORYSMALLSTATS: str
+    REGIONSTATS: str
+    TIMESTATS: str
+    AMOUNTSTATS: str
+    
+class paymentLog(BaseModel):
     CARDID: str
     SERREGDATE: date
     LEARNINGDATE: date

@@ -19,6 +19,7 @@ def train_gmm_model(card_id):
     columns = ['cardHisId','cardId', 'categoryBig', 'categorySmall','regionName', 'store', 'cardHisDate', 'cardHisTime', 'amount']
     data = pd.DataFrame(rows, columns=columns)
     
+    data['regionName'] = data['regionName'].apply(lambda x: x.split()[0])
 
     sql="select regionName, SEOULTTOREGIONDISTANCE from REGIONembedding"
     cursor.execute(sql)
