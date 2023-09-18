@@ -64,13 +64,13 @@
 
     <select id="selectPreprocessingCategory" resultType="double">
         SELECT bartoembedding as categorySmallNumeric
-        FROM CATEGORY
+        FROM CATEGORYembedding
         WHERE CATEGORYSMALL=#{categorySmall}
     </select>
 
     <select id="selectPreprocessingRegion" resultType="int">
         SELECT SEOULTTOREGIONDISTANCE as regionNameNumeric
-        FROM region
+        FROM REGIONembedding
         WHERE regionName=#{regionName}
     </select>
 

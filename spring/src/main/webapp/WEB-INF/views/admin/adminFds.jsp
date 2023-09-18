@@ -10,6 +10,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../../resources/css/admin/adminCommon.css"/>
     <link rel="stylesheet" href="../../../resources/css/admin/adminFds.css"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 </head>
 <body>
@@ -72,5 +73,25 @@
 
     </div>
 </div>
+<script>
+    function learningData(cardId) {
+        console.log("cardId"+cardId)
+
+        // AJAX로 데이터 전송
+        $.ajax({
+            type: "POST", // 또는 POST, PUT, DELETE 등 다른 HTTP 메서드
+            url: "/admin/learning",
+            data: {cardId: cardId},
+            success: function(response) {
+                alert(response);
+                window.location.href = "/admin/fds";
+            },
+            error: function(error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

@@ -10,6 +10,4 @@ import lombok.Setter;
 public class Region {
     private String regionCode;
     private String regionName;
-    private int seoulToRegionTime;
-    private int seoulToRegionDistance;
 }

@@ -12,7 +12,5 @@ public class Category {
     private String categoryBig;
     private String categoryMiddle;
     private String categorySmall;
-    private double barToEmbedding;
-    private double diamondToEmbedding;
 
 }
