@@ -1,20 +1,16 @@
 package com.kopo.SelfFDS.payment.controller;
 
 import com.kopo.SelfFDS.member.model.dto.SafetyCard;
-import com.kopo.SelfFDS.member.service.MemberService;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import com.kopo.SelfFDS.payment.model.dto.WordToVec;
+import com.kopo.SelfFDS.payment.model.dto.RequestFds;
 import com.kopo.SelfFDS.payment.service.PaymentService;
-import com.kopo.SelfFDS.payment.service.PaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 @Controller
 @RequestMapping("/payment")
@@ -96,9 +92,23 @@ public class PaymentController {
         String regionName = paymentLog.getAddress();
         String categorySmall = paymentLog.getCategorySmall();
         int amount = paymentLog.getAmount();
+        String cardId=paymentLog.getCardId();
         WordToVec wordToVec = paymentService.wordEmbedding(regionName, categorySmall, time, amount);
         System.out.println("wordToVec" + wordToVec);
-        return ResponseEntity.ok("임베딩성공");
+        // FastAPI로 데이터 전송
+        RestTemplate restTemplate = new RestTemplate();
+        String fastApiUrl = "http://localhost:8000/anomalyDetection";
+
+        RequestFds fastApiRequest = new RequestFds();
+        fastApiRequest.setCardId(cardId);
+        fastApiRequest.setWordToVec(wordToVec);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(fastApiUrl, fastApiRequest, String.class);
+
+        String fastApiResponse = response.getBody().replaceAll("\"", "");
+        System.out.println("Sending response to client: " + fastApiResponse);
+        return ResponseEntity.ok(fastApiResponse);
+
     }
 
 

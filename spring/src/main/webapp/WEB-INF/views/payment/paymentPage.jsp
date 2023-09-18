@@ -226,12 +226,6 @@
     }
 
 
-
-
-
-
-
-
     //kakao map api
     // 마커를 담을 배열입니다
     var markers = [];

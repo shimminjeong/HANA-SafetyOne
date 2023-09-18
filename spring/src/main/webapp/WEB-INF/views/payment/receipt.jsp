@@ -33,8 +33,13 @@
       contentType: 'application/json',
       dataType:'text',
       success: function(response) {
-        if (response === "임베딩성공") {
-          alert("성공!!!!")
+        console.log("'" + response + "'");
+
+        if (response == "Y") {
+          alert("이상함")
+        }
+        if (response== "N") {
+          alert("정상입니다.")
         }
         console.log(response);
       },
@@ -45,7 +50,5 @@
   });
 
 </script>
-
 </body>
-
 </html>
