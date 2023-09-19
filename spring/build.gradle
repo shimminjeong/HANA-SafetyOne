@@ -55,9 +55,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.slf4j:slf4j-api:1.7.32'
 
+//	문자
 	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+
+
+//	pdf그리기
+	implementation 'org.apache.commons:commons-math3:3.6.1'
 
 }
 

@@ -25,4 +25,6 @@ public interface PaymentMapper {
     double selectPreprocessingCategory(String categorySmall);
     int selectPreprocessingRegion(String regionName);
 
+    void updateAnomalyDetection();
+
 }

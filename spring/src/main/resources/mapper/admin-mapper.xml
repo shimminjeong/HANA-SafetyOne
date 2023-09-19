@@ -77,16 +77,34 @@
     </select>
 
 
-
-
-
     <!-- 이상치데이터로그확인-->
-<!--    <select id="getCardCntByYear" resultType="com.kopo.SelfFDS.admin.model.dto.CardStats">-->
-<!--        SELECT substr(cardregdate, 1, 2) AS year, COUNT(*) as cardCnt-->
-<!--        FROM PAYMENTLOG-->
-<!--        WHERE-->
-<!--    </select>-->
+    <select id="getAllAnomalyData" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select * from paymentlog where fdsdetectionstatus='Y'
+        order by paymentdate desc
+    </select>
 
+
+    <!-- 하나의 결제로그출력 -->
+    <select id="getAnomalyDataById" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select * from paymentlog where paymentLogId=#{paymentLogId}
+    </select>
+
+    <select id="getFdsStatsByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.Fds">
+        select * from fds where cardId=#{cardId}
+    </select>
+
+<!--    버블차트그리기 위한 where 카드아이디 groupby count-->
+    <select id="getRegionGroupCntByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
+        SELECT regionName,count(*) as cnt
+        FROM cardhistory where cardid=#{cardId}
+        group by regionName
+    </select>
+
+    <select id="getCategoryGroupCntByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
+        SELECT categorySmall,count(*) as cnt
+        FROM cardhistory where cardid=#{cardId}
+        group by categorySmall
+    </select>
 
 </mapper>
 

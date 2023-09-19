@@ -25,5 +25,11 @@
         이메일전송
       </a>
     </li>
+    <li class="menu__item">
+      <a href="/admin/paymentLog" class="menu__link">
+        <div class="menu__icon"><img src="../../../resources/img/bell%20(1).png"></div>
+        결제로그
+      </a>
+    </li>
   </ul>
 </div>

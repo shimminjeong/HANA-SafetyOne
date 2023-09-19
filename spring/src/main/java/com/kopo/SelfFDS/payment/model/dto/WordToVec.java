@@ -11,4 +11,14 @@ public class WordToVec {
     int timeNumeric;
     int regionNameNumeric;
     int amountNumeric;
+
+    @Override
+    public String toString() {
+        return "WordToVec{" +
+                "categorySmallNumeric=" + categorySmallNumeric +
+                ", timeNumeric=" + timeNumeric +
+                ", regionNameNumeric=" + regionNameNumeric +
+                ", amountNumeric=" + amountNumeric +
+                '}';
+    }
 }

@@ -107,11 +107,11 @@ public class PaymentController {
 
         String fastApiResponse = response.getBody().replaceAll("\"", "");
         System.out.println("Sending response to client: " + fastApiResponse);
+        if (fastApiResponse.equals("Y")){
+            paymentService.updateAnomalyDetection();
+        }
         return ResponseEntity.ok(fastApiResponse);
-
     }
-
-
 
 
     @GetMapping("/paymentNotApproval")

@@ -5,19 +5,29 @@ import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
 import com.kopo.SelfFDS.admin.model.dto.CardStats;
 import com.kopo.SelfFDS.admin.model.dto.Fds;
 import com.kopo.SelfFDS.admin.model.dto.MemberStats;
+import com.kopo.SelfFDS.member.model.dao.MemberMapper;
+import com.kopo.SelfFDS.member.model.dto.CardHistory;
+import com.kopo.SelfFDS.payment.model.dao.PaymentMapper;
+import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.commons.math3.distribution.NormalDistribution;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
     private AdminMapper adminMapper;
+    private MemberMapper memberMapper;
+    private PaymentMapper paymentMapper;
 
     @Autowired
-    public AdminServiceImpl(AdminMapper adminMapper){
+    public AdminServiceImpl(AdminMapper adminMapper, MemberMapper memberMapper, PaymentMapper paymentMapper){
         this.adminMapper=adminMapper;
+        this.memberMapper = memberMapper;
+        this.paymentMapper = paymentMapper;
     }
 
 
@@ -91,6 +101,143 @@ public class AdminServiceImpl implements AdminService {
     public List<Fds> selectFdsAndMember() {
         System.out.println("adminMapper.selectFdsAndMember()"+adminMapper.selectFdsAndMember());
         return adminMapper.selectFdsAndMember();
+    }
+
+    @Override
+    public List<PaymentLog> getAllAnomalyData() {
+        return adminMapper.getAllAnomalyData();
+    }
+
+    @Override
+    public PaymentLog getAnomalyDataById(int paymentLogId) {
+        return adminMapper.getAnomalyDataById(paymentLogId);
+    }
+
+    @Override
+    public Map<String, Object> calStats(String cardId) {
+        Fds fds=adminMapper.getFdsStatsByCardId(cardId);
+        double regionMean=Double.parseDouble(fds.getRegionStats().split(",")[0]);
+        double regionVar=Double.parseDouble(fds.getRegionStats().split(",")[1]);
+        statsToPdf(regionMean,regionVar);
+        double timeMean=Double.parseDouble(fds.getTimeStats().split(",")[0]);
+        double timeVar=Double.parseDouble(fds.getTimeStats().split(",")[1]);
+        statsToPdf(timeMean,timeVar);
+        double categorySmallMean=Double.parseDouble(fds.getCategorySmallStats().split(",")[0]);
+        double categorySmallVar=Double.parseDouble(fds.getCategorySmallStats().split(",")[1]);
+        statsToPdf(categorySmallMean,categorySmallVar);
+        double amountMean=Double.parseDouble(fds.getAmountStats().split(",")[0]);
+        double amountVar=Double.parseDouble(fds.getAmountStats().split(",")[1]);
+        statsToPdf(amountMean,amountVar);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("categorySmallPdf", statsToPdf(categorySmallMean,categorySmallVar));
+        result.put("regionPdf", statsToPdf(regionMean, regionVar));
+        result.put("timePdf", statsToPdf(timeMean, timeVar));
+        result.put("amountPdf", statsToPdf(amountMean,amountVar));
+
+//
+////        X_features
+        List<Integer> regionFeature=new ArrayList<>();
+        List<Double> categoryFeature=new ArrayList<>();
+        List<Integer> timeFeature=new ArrayList<>();
+        List<Integer> amountFeature=new ArrayList<>();
+
+        List<CardHistory> cardHistoryList=memberMapper.selectAllCardHistoryOfCardId(cardId);
+        for (CardHistory cardHistory : cardHistoryList) {
+            String regionName=null;
+            if (cardHistory.getRegionName().split(" ").length > 1) {
+                regionName = cardHistory.getRegionName().split(" ")[0];
+            } else{
+                regionName=cardHistory.getRegionName();
+            }
+//            System.out.println("cardHistory.getRegionName()"+cardHistory.getRegionName());
+            int RegionNumeric = paymentMapper.selectPreprocessingRegion(regionName);
+            Double categoryDouble = paymentMapper.selectPreprocessingCategory(cardHistory.getCategorySmall());
+            int timeNumeric=Integer.parseInt(cardHistory.getCardHisTime().split(":")[0]);
+
+            // 반환된 결과를 regionFeature 리스트에 추가
+
+            regionFeature.add(RegionNumeric);
+            categoryFeature.add(categoryDouble);
+            timeFeature.add(timeNumeric);
+            amountFeature.add(cardHistory.getAmount());
+        }
+
+        result.put("regionFeature", regionFeature);
+        result.put("categoryFeature", categoryFeature);
+        result.put("timeFeature", timeFeature);
+        result.put("amountFeature", amountFeature);
+
+        return result;
+    }
+
+    @Override
+//    public List<List<Double>> statsToPdf(double mean, double variance) {
+//        double lowerBound = mean - 3 * Math.sqrt(variance);
+//        double upperBound = mean + 3 * Math.sqrt(variance);
+//        int steps = 1000;
+//        double stepSize = (upperBound - lowerBound) / steps;
+//
+//        List<Double> x_pdfValues = new ArrayList<>();
+//        List<Double> pdfValues = new ArrayList<>();
+//
+//        NormalDistribution normalDistribution = new NormalDistribution(mean, Math.sqrt(variance));
+//
+//        for (int j = 0; j < steps; j++) {
+//            double xValue = lowerBound + j * stepSize;
+//            double pdfValue = normalDistribution.density(xValue);
+//
+//            x_pdfValues.add(xValue);
+//            pdfValues.add(pdfValue);
+//        }
+//
+//        List<List<Double>> result = new ArrayList<>();
+//        result.add(x_pdfValues);
+//        result.add(pdfValues);
+//        return result;
+//    }
+
+    public List<List<Double>> statsToPdf(double mean, double variance) {
+        double[] pdf_x = linspace(mean - 3 * Math.sqrt(variance), mean + 3 * Math.sqrt(variance), 1000);
+        double[] pdf = new double[pdf_x.length];
+
+        NormalDistribution distribution = new NormalDistribution(mean, Math.sqrt(variance));
+
+        for (int i = 0; i < pdf_x.length; i++) {
+            pdf[i] = distribution.density(pdf_x[i]);
+        }
+
+        // Convert double[] to List<Double>
+        List<Double> x_pdfValues = Arrays.stream(pdf_x).boxed().collect(Collectors.toList());
+        List<Double> pdfValues = Arrays.stream(pdf).boxed().collect(Collectors.toList());
+
+        List<List<Double>> result = new ArrayList<>();
+        result.add(x_pdfValues);
+        result.add(pdfValues);
+
+        return result;
+    }
+
+
+    public double[] linspace(double start, double end, int points){
+        double[] linspace = new double[points];
+        double step = (end - start) / (points - 1);
+
+        for (int i = 0; i < points; i++) {
+            linspace[i] = start + i * step;
+        }
+
+        return linspace;
+    }
+
+    @Override
+    public List<CardHistoryStats> getRegionGroupCntByCardId(String cardId) {
+        return adminMapper.getRegionGroupCntByCardId(cardId);
+    }
+
+    @Override
+    public List<CardHistoryStats> getCategoryGroupCntByCardId(String cardId) {
+        return adminMapper.getCategoryGroupCntByCardId(cardId);
     }
 
 

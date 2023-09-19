@@ -42,32 +42,32 @@
                     </colgroup>
                     <tbody>
                     <tr>
-                        <th scope="row" class="left">분신사바</th>
+                        <th scope="row" class="left">분실일자</th>
                         <td class="left">
                             <input type="text" id="datepicker" name="lostDate">
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row" class="left">분신사바</th>
+                        <th scope="row" class="left">분실장소</th>
                         <td class="left">
                             <input type="text" placeholder="예) 삼성동에서 지갑 분실" name="lostPlace">
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row" class="left">분신사바</th>
+                        <th scope="row" class="left">분실사유</th>
                         <td class="left">
                             <select id="lostReason" name="lostReason" onchange="changeReason(this.value);"
                                     title="경위 선택">
-                                <option value="지갑채분실">지갑채분신사바</option>
-                                <option value="카드만분실">카드만분신사바</option>
-                                <option value="도난/소매치기">도난/두루치기</option>
-                                <option value="타인양도후 분실">타인양도후 분신사바</option>
+                                <option value="지갑채분실">지갑채분실</option>
+                                <option value="카드만분실">카드만분실</option>
+                                <option value="도난/소매치기">도난/소매치기</option>
+                                <option value="타인양도후 분실">타인양도후 분실</option>
                                 <option value="기타">기타</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row" class="left">연락줘</th>
+                        <th scope="row" class="left">연락처</th>
                         <td class="left">
                             <input type="text" placeholder="‘-’ 없이 입력하세요.">
                         </td>
@@ -75,7 +75,7 @@
                     </tbody>
                 </table>
             </div>
-            <h4 class="t_tit">재발급 신청 정보석</h4>
+            <h4 class="t_tit">재발급 신청 정보</h4>
             <div class="lost-info">
                 <table>
                     <colgroup>
@@ -87,9 +87,9 @@
                         <th scope="row" class="left">카드수령지</th>
                         <td class="left">
                             <div class="tab_ty02" style="width: 60%;">
-                                <li class="on"><a href="#" title="현재 선택 탭">서영집</a></li>
-                                <li><a href="#">유림집</a></li>
-                                <li><a href="#">민영집</a></li>
+                                <li class="on"><a href="#" title="현재 선택 탭">자택</a></li>
+                                <li><a href="#">회사</a></li>
+                                <li><a href="#">은행</a></li>
                             </div>
                         </td>
                     </tr>

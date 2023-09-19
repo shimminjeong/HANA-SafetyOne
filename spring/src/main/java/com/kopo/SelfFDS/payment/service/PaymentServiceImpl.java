@@ -83,9 +83,6 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public WordToVec wordEmbedding(String regionName, String categorySmall, String time, int amount) {
-        System.out.println("servicecategorySmall"+categorySmall);
-        System.out.println("serviceregionName"+regionName);
-        System.out.println("servicetime"+time);
         regionName=regionName.split(" ")[0];
         System.out.println("serviceregionName"+regionName);
         int timeNumeric=Integer.parseInt(time.split(":")[0]);
@@ -104,6 +101,12 @@ public class PaymentServiceImpl implements PaymentService {
         wordToVec.setAmountNumeric(amount);
         return wordToVec;
     }
+
+    @Override
+    public void updateAnomalyDetection() {
+        paymentMapper.updateAnomalyDetection();
+    }
+
 
 
 }

@@ -27,6 +27,7 @@ public class FdsServiceController {
     public String fdsPage() {
         return "service/fds";
     }
+
     @RequestMapping("/fdsCardSelect")
     public ModelAndView fdsCardSelectPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -43,16 +44,12 @@ public class FdsServiceController {
     @ResponseBody
     public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
-        HttpSession session = request.getSession();
+        memberService.regFdsService(updateCard);
+        return "이상 소비 알림 서비스 신청 성공";
+//        return "이미 신청이 완료된 카드입니다.";
+//
+//        return "카드등록 후 6개월 이상의 카드만 서비스 신청이 가능합니다.";
 
-        if (updateCard.getFdsSerStatus().equals("N")) {
-            updateCard.setFdsSerStatus("Y");
-            session.setAttribute("cardId", cardId);
-            memberService.updateFdsStatus(updateCard);
-            return "이상 소비 알림 서비스 신청 성공";
-        } else {
-            return "이상 소비 알림 서비스 신청 실패";
-        }
     }
 
     @GetMapping("/fdsRegisterOk")
@@ -64,12 +61,8 @@ public class FdsServiceController {
     @ResponseBody
     public String cancleCard(@RequestBody String cardId) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
-        if (updateCard.getFdsSerStatus().equals("Y")) {
-            updateCard.setFdsSerStatus("N");
-            memberService.updateFdsStatus(updateCard);
-            return "이상 소비 알림 서비lo스 해제 성공";
-        } else {
-            return "이상 소비 알림 서비스 해제 실패";
-        }
+        memberService.unregFdsService(updateCard);
+        return "이상 소비 알림 서비스 해제 성공";
+
     }
 }

@@ -16,9 +16,9 @@
 <div class="container">
     <div class="content-div">
         <div class="content-div-header">
-            <h2>안심카츠설정</h2>
-            <h3>안심카츠웨이팅 이용현황</h3>
-            <h4>설정할 카츠를 선택 후 [안심] 또는 [등심]를 선택해주세요</h4>
+            <h2>안심카드설정</h2>
+            <h3>안심카드서비스 이용현황</h3>
+            <h4>설정카드를 선택 후 [등록] 또는 [해제]를 선택해주세요</h4>
         </div>
         <c:forEach items="${cards}" var="card" varStatus="loop">
             <div class="lostcard-list">
@@ -213,111 +213,6 @@
             }
         })
     }
-
-
-    // var acc = document.getElementsByClassName("card-list-info");
-    // var i;
-    // for (i = 0; i < acc.length; i++) {
-    //     acc[i].addEventListener("click", function () {
-    //         this.classList.toggle("active");
-    //         var panel = this.nextElementSibling;
-    //         if (panel.style.display === "block") {
-    //             panel.style.display = "none";
-    //         } else {
-    //             panel.style.display = "block";
-    //             var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
-    //             console.log("cardid", cardId);
-    //             // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
-    //             $.ajax({
-    //                 url: "/safetyCard/selectSafetyInfo",
-    //                 type: 'POST',
-    //                 data: JSON.stringify({cardId: cardId}),
-    //                 contentType: 'application/json',
-    //                 success: function (data) {
-    //                     console.log("data : " + data);
-    //                     var cardInfoList = $("#cardInfo-" + cardId);
-    //                     cardInfoList.empty();
-    //                     cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
-    //
-    //                     // Create a mapping of enrollSeq to regions, times, and categories
-    //                     let enrollMap = {};
-    //
-    //                     data.forEach(function (item) {
-    //                         if (!enrollMap[item.enrollSeq]) {
-    //                             enrollMap[item.enrollSeq] = {
-    //                                 cardId: item.cardId,
-    //                                 safetyStartDate: item.safetyStartDate,
-    //                                 safetyEndDate: item.safetyEndDate,
-    //                                 regions: [],
-    //                                 times: [],
-    //                                 categories: []
-    //                             };
-    //                         }
-    //
-    //                         if (item.regionName && !enrollMap[item.enrollSeq].regions.includes(item.regionName)) {
-    //                             enrollMap[item.enrollSeq].regions.push(item.regionName);
-    //                         }
-    //
-    //                         let timeStr = item.startTime + " ~ " + item.endTime;
-    //                         if (item.startTime && !enrollMap[item.enrollSeq].times.includes(timeStr)) {
-    //                             enrollMap[item.enrollSeq].times.push(timeStr);
-    //                         }
-    //
-    //                         if (item.categorySmall && !enrollMap[item.enrollSeq].categories.includes(item.categorySmall)) {
-    //                             enrollMap[item.enrollSeq].categories.push(item.categorySmall);
-    //                         }
-    //                     });
-    //
-    //                     let seenRegions = new Set(); // To keep track of already appended regionStr
-    //                     let seenTimes = new Set(); // To keep track of already appended regionStr
-    //                     let seenCategorys = new Set(); // To keep track of already appended regionStr
-    //
-    //                     // Now, for each enrollSeq group, add the information to cardInfoList
-    //                     for (let enroll of Object.values(enrollMap)) {
-    //                         let regionStr = enroll.regions.join(', ');
-    //                         let timeStr = enroll.times.join(', ');
-    //                         let categoryStr = enroll.categories.join(', ');
-    //
-    //                         let startDatePart = enroll.safetyStartDate.split(' ')[0];
-    //                         let endDatePart = enroll.safetyEndDate.split(' ')[0];
-    //
-    //
-    //                         cardInfoList.append(
-    //                             "<hr><div class='info-list'><div class='info-header'>사용가능기간 </div>" +
-    //                             "<span class='info-content'>" + startDatePart + " ~ 카드유효기간(" + endDatePart + ")</span></div>"
-    //                         );
-    //
-    //                         if (regionStr && !seenRegions.has(regionStr)) {
-    //                             seenRegions.add(regionStr);
-    //                             cardInfoList.append(
-    //                                 "<div class='info-list'><div class='info-header'>결제차단지역 </div>" +
-    //                                 "<span class='info-content'>" + regionStr + "</span></div>"
-    //                             );
-    //                         }
-    //
-    //                         if (timeStr && !seenTimes.has(timeStr)) {
-    //                             seenTimes.add(timeStr);
-    //                             cardInfoList.append(
-    //                                 "<div class='info-list'><div class='info-header'>결제차단시간 </div>" +
-    //                                 "<span class='info-content'>" + timeStr + "</span></div>"
-    //                             );
-    //                         }
-    //
-    //                         if (categoryStr && !seenCategorys.has(categoryStr)) {
-    //                             seenCategorys.add(categoryStr);
-    //                             cardInfoList.append(
-    //                                 "<div class='info-list'><div class='info-header'>결제차단업종 </div>" +
-    //                                 "<span class='info-content'>" + categoryStr + "</span></div>"
-    //                             );
-    //                         }
-    //
-    //                     }
-    //                 }
-    //
-    //             });
-    //         }
-    //     });
-    // }
 
 
 </script>

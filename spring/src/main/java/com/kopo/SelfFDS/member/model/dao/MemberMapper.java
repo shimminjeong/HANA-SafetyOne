@@ -65,11 +65,9 @@ public interface MemberMapper {
 
     void insertLostCardInfo(LostCard lostCard);
 
-    List<SafetyCard> selectSafetySettingByCardId(@Param("cardId") String cardId, @Param("enrollSeq") int enrollSeq);
 
     List<SafetyCard> selectSafetySettingByEmail(String email);
 
-    int selectSafetySettingEnrollSeqByCardId(String cardId);
 
     void updateStopDate(SafetyCard safetyCard);
 
@@ -84,6 +82,10 @@ public interface MemberMapper {
 
 
     void insertFds(@Param("cardId") String cardId,@Param("serviceStatus") String serviceStatus);
+
+    void deleteFds(String cardId);
+
+    void deleteSafetyCard(String cardId);
 
 
 }

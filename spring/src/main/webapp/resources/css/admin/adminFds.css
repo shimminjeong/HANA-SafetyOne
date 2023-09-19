@@ -58,3 +58,65 @@
 .data-table th {
     font-weight: bold;
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 화면에 고정 */
+    z-index: 1; /* 모든 다른 콘텐츠 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    overflow: auto; /* 스크롤 가능 */
+    background-color: rgb(0,0,0); /* 블랙 w/ opacity */
+    background-color: rgba(0,0,0,0.4); /* 블랙 w/ opacity */
+}
+
+/* 모달 내용 */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% 위에서부터 & 가운데 정렬 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* 너비 설정 */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19); /* 그림자 효과 */
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+/* 모달 닫기 버튼 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#memberDetailsTable {
+    width: 70%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+#memberDetailsTable th, #memberDetailsTable td {
+    border: 1px solid #d1d1d1;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+#memberDetailsTable thead {
+    background-color: #f5f5f5;
+}
+
+#memberDetailsTable th {
+    font-weight: bold;
+}
+

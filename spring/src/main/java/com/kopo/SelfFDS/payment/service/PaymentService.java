@@ -24,4 +24,7 @@ public interface PaymentService {
 
     WordToVec wordEmbedding(String regionName, String categorySmall, String time, int amount);
 
+    void updateAnomalyDetection();
+
+
 }

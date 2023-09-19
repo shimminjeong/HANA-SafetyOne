@@ -44,9 +44,9 @@ public class SafetyCardServiceController {
     //setting값들 다시 settingPage로 넘겨줌
     @GetMapping("/safetySettingValue")
     public String safetySettingValue(@RequestParam(value = "region", required = false) List<String> regions,
-                                      @RequestParam(value = "time", required = false) List<String> times,
-                                      @RequestParam(value = "categorySmall", required = false) List<String> categorySmalls,
-                                      Model model) {
+                                     @RequestParam(value = "time", required = false) List<String> times,
+                                     @RequestParam(value = "categorySmall", required = false) List<String> categorySmalls,
+                                     Model model) {
         if (regions != null && !regions.isEmpty()) {
             model.addAttribute("regions", regions);
             System.out.println(regions);
@@ -65,7 +65,7 @@ public class SafetyCardServiceController {
 
     @GetMapping("/region")
     public ModelAndView regionPage(HttpServletRequest request) {
-        String regionExist="regionExist";
+        String regionExist = "regionExist";
         ModelAndView mav = new ModelAndView();
         List<String> regionList = memberService.selectAllRegionName();
         mav.addObject("regionList", regionList);
@@ -85,8 +85,8 @@ public class SafetyCardServiceController {
 
     @GetMapping("/time")
     public String timePage(@RequestParam(value = "region", required = false) List<String> regions, Model model) {
-        String regionExist="regionExist";
-        String timeExist="timeExist";
+        String regionExist = "regionExist";
+        String timeExist = "timeExist";
         if (regions != null && !regions.isEmpty()) {
             model.addAttribute("regions", regions);
             model.addAttribute("regionExist", regionExist);
@@ -98,10 +98,10 @@ public class SafetyCardServiceController {
 
     @GetMapping("/category")
     public ModelAndView CategoryPage(@RequestParam(value = "region", required = false) List<String> regions,
-                                     @RequestParam(value = "time", required = false) List<String> times){
-        String regionExist="regionExist";
-        String timeExist="timeExist";
-        String categoryExist="categoryExist";
+                                     @RequestParam(value = "time", required = false) List<String> times) {
+        String regionExist = "regionExist";
+        String timeExist = "timeExist";
+        String categoryExist = "categoryExist";
 
         Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
         List<String> bigCategory = memberService.selectAllBigCategory();
@@ -177,45 +177,29 @@ public class SafetyCardServiceController {
     public String registerCard(@RequestBody SafetyCard safetyCard) {
 
         safetyCard.setStatus("N");
-        System.out.println("safetyCard"+safetyCard);
+        System.out.println("safetyCard" + safetyCard);
         memberService.updateStopDate(safetyCard);
         return "일시정지업데이트";
     }
-
-
-
-    //    @PostMapping("/registerCard")
-//    @ResponseBody
-//    public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
-//        Card updateCard = memberService.selectCardOfCardId(cardId);
-//        HttpSession session = request.getSession();
-//        session.setAttribute("cardId", cardId);
-//        return "안심카드 서비스 신청 성공";
-//    }
 
 
     @PostMapping("/registerCard")
     @ResponseBody
     public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
+        memberService.regSafetyService(updateCard);
         HttpSession session = request.getSession();
-        updateCard.setSelffdsSerStatus("Y");
         session.setAttribute("cardId", cardId);
-        memberService.updateSelfFdsStatus(updateCard);
         return "안심카드 서비스 신청 성공";
     }
 
     @PostMapping("/cancleCard")
     @ResponseBody
-    public String cancleCard(@RequestBody String cardId,HttpSession session) {
+    public String cancleCard(@RequestBody String cardId, HttpSession session) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
-        if (updateCard.getSelffdsSerStatus().equals("Y")) {
-            updateCard.setSelffdsSerStatus("N");
-            memberService.updateSelfFdsStatus(updateCard);
-            return "안심카드 서비스 해제 성공";
-        } else {
-            return "안심카드 서비스 해제 실패";
-        }
+        memberService.unregSafetyService(updateCard);
+        return "안심카드 서비스 해제 성공";
+
     }
 
 
@@ -293,61 +277,27 @@ public class SafetyCardServiceController {
         return mav;
     }
 
-
-//    @PostMapping("/insertSetting")
-//    @ResponseBody
-//    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard, HttpSession session) {
-//        String cardId = (String) session.getAttribute("cardId");
-//        int enrollSeq = memberService.selectSafetySettingEnrollSeqByCardId(cardId);
-//        System.out.println(enrollSeq + cardId);
-//        memberService.insertSafetySetting(cardId, enrollSeq, safetyCard);
-//        System.out.println("gogo");
-//        return "insert성공";
-//    }
-
-    //    @PostMapping("/insertSetting")
-//    @ResponseBody
-//    public String insertSafetyInfo(@RequestBody List<List<String>> safetyCard, HttpSession session) {
-//        String cardId = (String) session.getAttribute("cardId");
-//        int enrollSeq = memberService.selectSafetySettingEnrollSeqByCardId(cardId);
-//        System.out.println(enrollSeq + cardId);
-//        memberService.insertSafetySetting(cardId, enrollSeq, safetyCard);
-//        System.out.println("gogo");
-//        return "insert성공";
-//    }
-
     @PostMapping("/insertSetting")
     @ResponseBody
     public String insertSafetyInfo(@RequestBody Map<String, Object> requestData, HttpSession session) {
         String cardId = (String) session.getAttribute("cardId");
-        int enrollSeq = memberService.selectSafetySettingEnrollSeqByCardId(cardId);
 
         List<List<String>> settingsList = (List<List<String>>) requestData.get("settingsList");
         String safetyStringInfo = (String) requestData.get("safetyStringInfo");
 
-        System.out.println("controller"+safetyStringInfo);
-
-
-//        String sessionKey = "settingInfo" + cardId; // Create the session key using cardId.
-//        session.removeAttribute(sessionKey);
-
-
-        memberService.insertSafetySetting(cardId, enrollSeq, settingsList,safetyStringInfo);
+        memberService.insertSafetySetting(cardId, settingsList, safetyStringInfo);
 
         System.out.println("gogo");
         return "insert성공";
     }
 
 
-
-
-
     @PostMapping("/selectSafetyInfo")
     @ResponseBody
-    public ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard,HttpSession session) {
+    public ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard, HttpSession session) {
         String cardId = safetyCard.getCardId();
         List<SafetyCard> safetyCardList = memberService.selectAllSafetyCardOfCardId(cardId);
-        System.out.println("safetyCardList"+safetyCardList);
+        System.out.println("safetyCardList" + safetyCardList);
         if (!safetyCardList.isEmpty()) {
             return ResponseEntity.ok(safetyCardList);
         } else {
@@ -356,11 +306,11 @@ public class SafetyCardServiceController {
     }
 
     @RequestMapping("/stopCardPage")
-    public String handleRequest(@RequestParam("cardId") String cardId,Model model) {
+    public String handleRequest(@RequestParam("cardId") String cardId, Model model) {
         // Now you have the cardId. You can process it as needed.
-        List<SafetyCard> safetyInfo=memberService.selectAllSafetyCardOfCardId(cardId);
-        model.addAttribute("safetyInfo",safetyInfo);
-        System.out.println("safetyInfo"+safetyInfo);
+        List<SafetyCard> safetyInfo = memberService.selectAllSafetyCardOfCardId(cardId);
+        model.addAttribute("safetyInfo", safetyInfo);
+        System.out.println("safetyInfo" + safetyInfo);
         // Redirect or forward to another view if needed
         return "service/stopCardPage";
     }

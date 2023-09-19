@@ -4,6 +4,7 @@ import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
 import com.kopo.SelfFDS.admin.model.dto.CardStats;
 import com.kopo.SelfFDS.admin.model.dto.Fds;
 import com.kopo.SelfFDS.admin.model.dto.MemberStats;
+import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +21,15 @@ public interface AdminMapper {
     List<CardHistoryStats> getAmountSumByDate();
 
     List<Fds> selectFdsAndMember();
+
+    List<PaymentLog> getAllAnomalyData();
+
+    PaymentLog getAnomalyDataById(int paymentLogId);
+
+    Fds getFdsStatsByCardId(String cardId);
+
+    List<CardHistoryStats> getRegionGroupCntByCardId(String cardId);
+    List<CardHistoryStats> getCategoryGroupCntByCardId(String cardId);
 
 
 

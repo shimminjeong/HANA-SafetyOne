@@ -23,7 +23,6 @@ public class SafetyCard {
     private String time;
     private String stopStartDate;
     private String stopEndDate;
-    private int enrollSeq;
     private String safetyStringInfo;
 
     @Override
@@ -41,7 +40,6 @@ public class SafetyCard {
                 ", time='" + time + '\'' +
                 ", StopStartDate='" + stopStartDate + '\'' +
                 ", StopEndDate='" + stopEndDate + '\'' +
-                ", enrollSeq=" + enrollSeq +
                 ", safetyStringInfo='" + safetyStringInfo + '\'' +
                 '}';
     }

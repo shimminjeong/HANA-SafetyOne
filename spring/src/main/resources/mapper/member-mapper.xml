@@ -165,13 +165,13 @@
 
     <!--    safetyCard setting 정보 insert-->
     <insert id="insertSafetySetting" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE,ENROLLSEQ,safetyStringInfo
+        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE,safetyStringInfo
         <if test="regionName != null">,REGIONNAME</if>
         <if test="time != null">,TIME</if>
         <if test="categorySmall != null">,CATEGORYSMALL</if>
         )
         VALUES(
-        #{cardId},sysdate, TO_DATE('2023/05/27', 'YYYY/MM/DD'),#{enrollSeq},#{safetyStringInfo}
+        #{cardId},sysdate, TO_DATE('2023/05/27', 'YYYY/MM/DD'),#{safetyStringInfo}
         <!-- Conditionally add values -->
         <if test="regionName != null">,#{regionName}</if>
         <if test="time != null">,#{time}</if>
@@ -183,7 +183,6 @@
         select *
         from safetycard
         where cardId = #{cardId}
-          and ENROLLSEQ = #{enrollSeq}
     </select>
 
 
@@ -194,12 +193,6 @@
         WHERE sc.cardId IN (SELECT cardId FROM card WHERE email = #{email})
     </select>
 
-
-    <select id="selectSafetySettingEnrollSeqByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        SELECT COALESCE(MAX(ENROLLSEQ), 0) AS ENROLLSEQ
-        FROM safetycard
-        WHERE cardId = #{cardId}
-    </select>
 
 
     <!--    분실카드 insert-->
@@ -304,6 +297,17 @@
     <insert id="insertFds">
         INSERT INTO FDS (CARDID, serRegDate,SERVICESTATUS) VALUES (#{cardId},sysdate,#{serviceStatus})
     </insert>
+
+    <delete id="deleteFds">
+        delete from FDS where CARDID=#{cardId}
+    </delete>
+
+    <delete id="deleteSafetyCard">
+        delete from SAFETYCARD where CARDID=#{cardId}
+    </delete>
+
+    <!--    fds 서비스 해제하면 FDS 테이블에 STATUS 상태 변경-->
+    <!--selffds서비스 해제하면 safetycard의 status N-->
 
 
 </mapper>

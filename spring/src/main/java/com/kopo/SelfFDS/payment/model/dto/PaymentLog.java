@@ -6,11 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public class PaymentLog {
 
-    private int p_id;
+    private int paymentLogId;
     private String cardId;
     private String address;
     private String road_address_name;
@@ -27,7 +25,7 @@ public class PaymentLog {
     @Override
     public String toString() {
         return "PaymentLog{" +
-                "p_id=" + p_id +
+                "paymentLogId=" + paymentLogId +
                 ", cardId='" + cardId + '\'' +
                 ", address='" + address + '\'' +
                 ", road_address_name='" + road_address_name + '\'' +

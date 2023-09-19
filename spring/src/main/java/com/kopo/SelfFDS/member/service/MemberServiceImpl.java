@@ -65,20 +65,45 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.selectCardOfCardId(cardId);
     }
 
-    @Override
-    public void updateSelfFdsStatus(Card card) {
-        memberMapper.updateSelfFdsStatus(card);
 
+
+    @Override
+    public void regSafetyService(Card card) {
+        card.setSelffdsSerStatus("Y");
+        memberMapper.updateSelfFdsStatus(card);
+    }
+
+
+//    Transactional처리 delete safetycard 테이블에서 delete도 하기
+    @Transactional
+    @Override
+    public void unregSafetyService(Card card) {
+        card.setSelffdsSerStatus("N");
+        memberMapper.updateSelfFdsStatus(card);
+        memberMapper.deleteSafetyCard(card.getCardId());
     }
 
     //    CARDFDS서비스 상태 UPDATE와 동시에 fds서비스 테이블에 insert
     @Transactional
-    @Override
-    public void updateFdsStatus(Card card) {
+    public void regFdsService(Card card) {
+        card.setFdsSerStatus("Y");
         memberMapper.updateFdsStatus(card);
         String serviceStatus="학습대기";
         System.out.println("card.getCardId()"+card.getCardId());
         memberMapper.insertFds(card.getCardId(), serviceStatus);
+    }
+
+//    fds 서비스 신청 해제
+    @Transactional
+    @Override
+    public void unregFdsService(Card card) {
+        card.setFdsSerStatus("N");
+        memberMapper.updateFdsStatus(card);
+        memberMapper.deleteFds(card.getCardId());
+    }
+    @Override
+    public void deleteFds(String cardId) {
+        memberMapper.deleteFds(cardId);
     }
 
 
@@ -128,14 +153,13 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public void insertSafetySetting(String cardId, int enrollSeq, List<List<String>> safetyCard, String safetyStringInfo) {
+    public void insertSafetySetting(String cardId, List<List<String>> safetyCard, String safetyStringInfo) {
 
         List<String> regionList = safetyCard.get(0);
         List<String> timeList = safetyCard.get(1);
         List<String> categoryList = safetyCard.get(2);
         SafetyCard safety = new SafetyCard();
         safety.setCardId(cardId);
-        safety.setEnrollSeq(enrollSeq + 1);
         safety.setSafetyStringInfo(safetyStringInfo);
 
         System.out.println("timeList" + timeList);
@@ -201,16 +225,6 @@ public class MemberServiceImpl implements MemberService {
                 memberMapper.insertSafetySetting(safety);
             }
         }
-    }
-
-    @Override
-    public List<SafetyCard> selectSafetySettingByCardId(String cardId, int enrollSeq) {
-        return memberMapper.selectSafetySettingByCardId(cardId, enrollSeq);
-    }
-
-    @Override
-    public int selectSafetySettingEnrollSeqByCardId(String cardId) {
-        return memberMapper.selectSafetySettingEnrollSeqByCardId(cardId);
     }
 
     @Override

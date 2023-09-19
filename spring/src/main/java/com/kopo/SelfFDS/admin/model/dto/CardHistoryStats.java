@@ -11,4 +11,8 @@ public class CardHistoryStats {
 
     private String cardHisDate;
     private int amountSum;
+    private String regionName;
+    private String categorySmall;
+    private int cnt;
+
 }

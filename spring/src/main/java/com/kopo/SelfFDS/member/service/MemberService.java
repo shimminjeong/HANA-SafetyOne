@@ -24,8 +24,12 @@ public interface MemberService {
 
     Card selectCardOfCardId(String cardId);
 
-    void updateSelfFdsStatus(Card card);
-    void updateFdsStatus(Card card);
+    void regSafetyService(Card card);
+
+    void unregSafetyService(Card card);
+    void regFdsService(Card card);
+
+    void unregFdsService(Card card);
 
     List<String> selectAllRegionName();
 
@@ -45,10 +49,8 @@ public interface MemberService {
 
     List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
 
-    void insertSafetySetting(String cardId,int enrollSeq,List<List<String>> safetyCard,String safetyStringInfo);
+    void insertSafetySetting(String cardId,List<List<String>> safetyCard,String safetyStringInfo);
 
-    List<SafetyCard> selectSafetySettingByCardId(String cardId, int enrollSeq);
-    int selectSafetySettingEnrollSeqByCardId(String cardId);
 
     void insertLostCardInfo(LostCard lostCard);
 
@@ -64,6 +66,8 @@ public interface MemberService {
     List<CardHistory> selectAmountOfMonthByCardId(String cardId);
     List<CardHistory> selectAmountOfWeekByCardId(String cardId);
     List<CardHistory> selectDayByCardIdDate(String cardId, String cardHisDate);
+
+    void deleteFds(String cardId);
 
 
 }

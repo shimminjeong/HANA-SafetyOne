@@ -75,6 +75,16 @@
     </select>
 
 
+    <update id="updateAnomalyDetection">
+        UPDATE PAYMENTLOG
+        SET FDSDETECTIONSTATUS = 'Y'
+        WHERE PAYMENTlOGID IN (SELECT PAYMENTlOGID
+                               FROM (SELECT PAYMENTlOGID FROM PAYMENTLOG ORDER BY PAYMENTDATE DESC)
+                               WHERE ROWNUM = 1)
+    </update>
+
+
+
 
 </mapper>
 
