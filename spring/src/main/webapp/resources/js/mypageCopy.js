@@ -46,9 +46,6 @@ var deChart;  // 함수 외부에 선언
 var monChart;  // 함수 외부에 선언
 var weeChart;  // 함수 외부에 선언
 
-function formatNumberWithCommas(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 
 function sendCardIdToServer(cardId) {
     console.log(cardId);
@@ -58,52 +55,35 @@ function sendCardIdToServer(cardId) {
         data: JSON.stringify({cardId: cardId}),
         contentType: 'application/json',
         success: function (data) {
-            var amountSum = data.amountSum;
-            var amountCnt = data.amountCnt;
-            var safetyStatus = data.safetyStatus;
-            var fdsStatus = data.fdsStatus;
-            var safetyStatus = data.safetyStatus;
-            var cardName = data.cardName;
+            var differenceValue = data.difference;
+            var monthChart = data.monthData;
+            var weekChart = data.weekData;
+            var increase = data.increaseList;
+            var decrease = data.decreaseList;
+            var increaseChart = data.increaseData;
+            var decreaseChart = data.decreaseData;
 
-            // if (safetyStatus === 'Y') {
-            //     document.querySelector('.safety-yes').style.display = 'block';
-            //     document.querySelector('.safety-no').style.display = 'none';
-            // } else if (safetyStatus === 'N') {
-            //     document.querySelector('.safety-yes').style.display = 'none';
-            //     document.querySelector('.safety-no').style.display = 'block';
-            // }
-            //
-            // if (fdsStatus === 'Y') {
-            //     document.querySelector('.fds-yes').style.display = 'block';
-            //     document.querySelector('.fds-no').style.display = 'none';
-            // } else if (fdsStatus === 'N') {
-            //     document.querySelector('.fds-yes').style.display = 'none';
-            //     document.querySelector('.fds-no').style.display = 'block';
-            // }
+            var increasedOrDecreased = "<span class='increased'>증가</span>";
 
-            var cardName = data.cardName;
-            document.querySelector('.cardId-info-name').innerHTML = cardName;
-
-
-            if (safetyStatus === 'Y') {
-                document.getElementById('safety-yes').style.display = 'block';
-                document.getElementById('safety-no').style.display = 'none';
-            } else if (safetyStatus === 'N') {
-                document.getElementById('safety-yes').style.display = 'none';
-                document.getElementById('safety-no').style.display = 'block';
+            if (differenceValue < 0) {
+                increasedOrDecreased = "<span class='decreased'>감소</span>";
+                differenceValue = Math.abs(differenceValue); // 음수 기호를 제거
             }
 
-            if (fdsStatus === 'Y') {
-                document.getElementById('fds-yes').style.display = 'block';
-                document.getElementById('fds-no').style.display = 'none';
-            } else if (fdsStatus === 'N') {
-                document.getElementById('fds-yes').style.display = 'none';
-                document.getElementById('fds-no').style.display = 'block';
-            }
-            var formattedAmountSum = formatNumberWithCommas(amountSum);
-            $("#totalAmount").html("<strong>" + formattedAmountSum + "</strong>원 ");
-            $("#totalCnt").html("<strong>" + amountCnt + "</strong>" + "건 ");
+            $("#totalAmount").html("<strong>" + differenceValue + "</strong>" + "원 " + increasedOrDecreased);
 
+            $("#increase").html("<strong>" + increase.categorySmall + "</strong>" + " 지출이 지날달 보다 <strong>" + increase.diffAmount + "</strong>원 늘었어요!");
+            $("#decrease").html("<strong>" + decrease.categorySmall + "</strong>" + " 지출이 지날달 보다 <strong>" + Math.abs(decrease.diffAmount) + "</strong>원 줄었어요!");
+
+
+            // 서버에서 받은 카드 히스토리 정보를 테이블에 추가
+            var tableBody = $("#cardHistoryTable tbody");
+            tableBody.empty(); // 기존 내용 삭제
+
+            data.cardHistoryList.forEach(function (history) {
+                var row = "<tr><td>" + history.cardId + "<td>" + history.categorySmall + "</td><td>" + history.store + "</td><td>" + history.cardHisDate + "</td><td>" + history.amount + "</td></tr>";
+                tableBody.append(row);
+            });
         },
         error: function (error) {
             console.log(error);

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kopo.SelfFDS.member.model.dao.MyPageMapper">
+    <!--    mypage-->
+    <select id="selectSumAmountByCardId" resultType="int">
+        select sum(amount) as amountSum
+        from cardhistory
+        where cardid = #{cardId}
+    </select>
+
+    <select id="selectCountByCardId" resultType="int">
+        select count(*) as amountCnt
+        from cardhistory
+        where cardid = #{cardId}
+    </select>
+
+    <select id="selectSafetyStatusByCardId">
+        select selfFDSSERSTATUS
+        from card
+        where cardid = #{cardId}
+
+    </select>
+    <select id="selectFdsStatusByCardId">
+        select FDSSERSTATUS
+        from card
+        where cardid = #{cardId}
+    </select>
+
+    <select id="selectCardNameByCardId">
+        select cardName
+        from card
+        where cardid = #{cardId}
+    </select>
+
+    <select id="selectCardHistoryByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        select * from cardhistory
+        where cardid in (select cardid from card where email=#{email})
+        order by cardhisdate desc
+    </select>
+
+    <select id="selectTopCategoryByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        select categorySmall, sum(amount) as amountSum
+        from cardhistory
+        where cardid in (select cardid from card where email = #{email})
+          AND TO_CHAR(cardhisdate, 'MM') = '08'
+        group by categorySmall
+        order by amountSum desc
+    </select>
+</mapper>
+

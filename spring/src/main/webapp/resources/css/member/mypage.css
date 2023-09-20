@@ -15,11 +15,9 @@
 /* Slideshow container */
 .slideshow-container {
     display: flex;
-    align-items: center;
     max-width: 250px;
     position: relative;
-    margin: auto;
-    margin-top: 30px;
+    margin-right: 5%;
 }
 
 /* Hide the images by default */
@@ -30,17 +28,6 @@
 /* Next & previous buttons */
 .prev, .next {
     cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -59px;
-    padding: 16px;
-    safetyCardSelect: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
 }
 
 /* Position the "next button" to the right */
@@ -84,8 +71,8 @@
     animation-duration: 1.5s;
 }
 
-.fade img{
-    width:100%
+.fade img {
+    width: 100%
 }
 
 @keyframes fade {
@@ -98,100 +85,243 @@
 }
 
 .sub-container {
+
     display: flex;
-    align-items: center;
     flex-direction: column;
     width: 100%;
     margin: 0 auto;
 
 }
 
-.month-info-1, .month-info-2 {
+
+.hello {
+    margin-right: 5%;
+}
+
+.user-info {
     display: flex;
+    flex-direction: row;
+    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+    padding: 10px; /* 내부 패딩 */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    border-radius: 10px; /* 테두리 둥글게 */
+    align-items: center;
+}
+
+.cardId-info{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #00857F;
+    padding: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    align-items: center;
+
+}
+
+.allow-img-prev{
+    width: 30px;
+    margin-right: 5%;
+}
+
+.allow-img-prev img{
     width: 100%;
-    text-align: center;
-    /* 부모 요소에 추가적인 스타일링이 필요한 경우 여기에 추가 */
 }
 
-.month-info-1 > div, .month-info-2 > div {
-    flex: 1; /* 같은 크기로 나누기 위해 flex 설정 */
-    margin: 0 5px; /* 요소 사이 간격 조절 */
-    padding: 10px;
-    border: 1px solid #ccc;
+.allow-img-next{
+    width: 30px;
+    margin-left: 4%;
 }
 
-.info {
-    text-align: center;
-    font-size: 18px;
-    margin: 10px auto;
-}
-
-.month-info, .history {
-    width: 80%;
-    margin: 0 auto;
-
-}
-
-table {
-    border-collapse: collapse;
+.allow-img-next img{
     width: 100%;
 }
 
-th, td {
-    border: 1px solid black;
-    padding: 8px;
+.cardId-info-sub{
+    display: flex;
+    flex-direction: column;
+    margin-right: 2%;
+}
+
+.cardId-info-sub-stats{
+    display: flex;
+    flex-direction: row;
+}
+
+.total-amount, .total-cnt{
+    padding: 15px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+    background-color: #00857F;
+    color: white;
+}
+
+
+
+.safety{
+    padding: 15px;
+    margin: 10px;
+    align-items: center;
+    background-color: #eafaf3;
+    border-radius: 10px; /* 테두리 둥글게 */
+    width:170px;
+    cursor: pointer;
+
+}
+
+.fds{
+    padding: 15px;
+    margin: 10px;
+    align-items: center;
+    background-color: #faefea;
+    border-radius: 10px; /* 테두리 둥글게 */
+    width:170px;
+    cursor: pointer;
+}
+
+.no{
+    padding: 15px;
+    margin: 10px;
+    align-items: center;
+    background-color: #dddddd;
+    border-radius: 10px; /* 테두리 둥글게 */
+    width:170px;
+    cursor: pointer;
+}
+
+.no:hover, .fds:hover, .safety:hover {
+    background-color: #00857F; /* 원하는 색깔로 변경하세요 */
+    color: white; /* 원하는 색깔로 변경하세요 */
+}
+
+
+.myinfo-button{
+    color: white;
+    border: none;
+    padding: 7px 20px 7px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    /* background-color: #00857F; */
+    background-color: #0e9d97;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block;
+}
+
+
+.cardTotal-info{
+    display: flex;
+    /*justify-content: space-between;*/
+}
+
+.cardTotal-info-div3{
+    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+    padding: 10px; /* 내부 패딩 */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    border-radius: 10px; /* 테두리 둥글게 */
+    height: 30%;
+    /*flex: 1;*/
+}
+
+.cardTotal-info-div1{
+    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+    padding: 25px 25px 0px 25px ; /* 내부 패딩 */
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    border-radius: 10px; /* 테두리 둥글게 */
+    height: 100%;
+    width: 35%;
+    margin-right: 2.5%;
+}
+
+.cardTotal-info-div2{
+    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+    padding: 25px 25px 0px 25px ; /* 내부 패딩 */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    border-radius: 10px; /* 테두리 둥글게 */
+    height: 100%;
+    width: 320px;
+    position: relative;
+    margin-right: 2.5%;
+}
+
+.cardTotal-info-div3{
+    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+    padding: 25px 25px 0px 25px ; /* 내부 패딩 */
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    border-radius: 10px; /* 테두리 둥글게 */
+    width: 28%;
+    height: 100%;
+}
+
+#myPieChart {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.item {
+    padding: 5px 0;
+}
+
+.left {
+    float: left;
+    width: 60%;
     text-align: left;
 }
 
+.right {
+    margin-top: 5px;
+    float: right;
+    width: 40%;
+    text-align: right;
+}
 
+.clear {
+    clear: both;
+}
 
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Set it to 0 to stick at the top */
-    left: 0;
+.date {
+    color: #999;
+}
+
+.cardTotal-info-div-header{
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 1.2;
+}
+
+.cardTotal-info-div-chart {
+    width: 100%;     /* 혹은 원하는 특정 크기, 예: 500px */
+    height: 100%;    /* 혹은 원하는 특정 크기, 예: 500px */
+    position: relative;  /* canvas를 꽉 차게 만들기 위해 relative positioning 사용 */
+}
+
+#myPieChart {
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    position: absolute;  /* canvas를 꽉 차게 만들기 위해 absolute positioning 사용 */
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    left: 0;
 }
 
-#myCardChartModal {
-    display: none;
-    position: relative; /* Ensure the close button position is relative to this container */
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 70%;
-    /*max-width: 1000px; !* You can set a max width if necessary *!*/
-}
 
-.close {
-    color: #aaaaaa;
-    position: absolute; /* Absolute position to the modal container */
-    right: 10px; /* Stay on the right */
-    top: 5px; /* Stay on the top */
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer; /* Make it look clickable */
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-}
-
-.chart-row1 {
-    display: flex;
-    justify-content: space-between; /* Spread the chart containers apart */
-    margin-bottom: 20px; /* Provide some margin below this row */
-}
-
-.chart-row2 {
-    display: flex;
-    justify-content: space-between;
+.left {
+    line-height: 1.5; /* or you can use px, em, etc. depending on your need */
 }

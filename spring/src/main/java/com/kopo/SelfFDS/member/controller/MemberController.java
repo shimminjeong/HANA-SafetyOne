@@ -4,6 +4,7 @@ import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.Member;
 import com.kopo.SelfFDS.member.model.dto.Card;
 import com.kopo.SelfFDS.member.service.MemberService;
+import com.kopo.SelfFDS.member.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,12 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MyPageService myPageService;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, MyPageService myPageService) {
         this.memberService = memberService;
+        this.myPageService = myPageService;
     }
 
 
@@ -149,13 +152,12 @@ public class MemberController {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         List<Card> cardInfo = memberService.selectCardOfEmail(email);
-
-        System.out.println(cardInfo.get(0).getCardId());
-        System.out.println(cardInfo.get(1).getCardId());
-        System.out.println(cardInfo.get(2).getCardId());
-
+        List<CardHistory> cardHistoryList=myPageService.selectCardHistoryByEmail(email);
+        List<CardHistory> categoryTopList=myPageService.selectTopCategoryByEmail(email);
         ModelAndView mav = new ModelAndView();
         mav.addObject("cards", cardInfo);
+        mav.addObject("cardHistoryList", cardHistoryList);
+        mav.addObject("categoryTopList", categoryTopList);
 
         mav.setViewName("member/mypage");
         return mav;
@@ -166,32 +168,78 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> postCardInfo(@RequestBody CardHistory cardHistory) {
         String cardId=cardHistory.getCardId();
 
-        int difference=memberService.selectDifferenceMonthByCardId(cardId);
+        int amountSum=myPageService.selectSumAmountByCardId(cardId);
+        int amountCnt=myPageService.selectCountByCardId(cardId);
+        String safetyStatus=myPageService.selectSafetyStatusByCardId(cardId);
+        String fdsStatus=myPageService.selectFdsStatusByCardId(cardId);
+        String cardName=myPageService.selectCardNameByCardId(cardId);
 
-        List<CardHistory> list=memberService.selectDiffCategoryOfMonthByCardId(cardId);
 
-        List<CardHistory> monthData=memberService.selectAmountOfMonthByCardId(cardId);
-        List<CardHistory> weekData=memberService.selectAmountOfWeekByCardId(cardId);
-        List<CardHistory> decreaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(0).getCategorySmall());
-        List<CardHistory> increaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(1).getCategorySmall());
-
-        List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardId);
         Map<String, Object> response = new HashMap<>();
-        response.put("difference", difference);
-        response.put("monthData", monthData);
-        response.put("weekData", weekData);
-        response.put("decreaseList", list.get(0));
-        response.put("increaseList", list.get(1));
-        response.put("decreaseData", decreaseData);
-        response.put("increaseData", increaseData);
 
-        response.put("cardHistoryList", cardHistoryServiceList);
-        if (!cardHistoryServiceList.isEmpty()) {
+        response.put("amountSum", amountSum);
+        response.put("amountCnt", amountCnt);
+        response.put("safetyStatus", safetyStatus);
+        response.put("fdsStatus", fdsStatus);
+        response.put("cardName", cardName);
+        if (!response.isEmpty()) {
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/mypageCardHistory")
+    public ModelAndView mypageCardHistory(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        List<Card> cardInfo = memberService.selectCardOfEmail(email);
+        List<CardHistory> cardHistoryList=myPageService.selectCardHistoryByEmail(email);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("cards", cardInfo);
+        mav.addObject("cardHistoryList", cardHistoryList);
+
+        mav.setViewName("member/mypageCardHistory");
+        return mav;
+    }
+
+
+//    mypage copy
+//    @PostMapping("/cardinfo")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> postCardInfo(@RequestBody CardHistory cardHistory) {
+//        String cardId=cardHistory.getCardId();
+//
+//        int difference=memberService.selectDifferenceMonthByCardId(cardId);
+//
+//        List<CardHistory> list=memberService.selectDiffCategoryOfMonthByCardId(cardId);
+//
+//        List<CardHistory> monthData=memberService.selectAmountOfMonthByCardId(cardId);
+//        List<CardHistory> weekData=memberService.selectAmountOfWeekByCardId(cardId);
+//        List<CardHistory> decreaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(0).getCategorySmall());
+//        List<CardHistory> increaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(1).getCategorySmall());
+//
+//        List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardId);
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("difference", difference);
+//        response.put("monthData", monthData);
+//        response.put("weekData", weekData);
+//        response.put("decreaseList", list.get(0));
+//        response.put("increaseList", list.get(1));
+//        response.put("decreaseData", decreaseData);
+//        response.put("increaseData", increaseData);
+//
+//        response.put("cardHistoryList", cardHistoryServiceList);
+//        if (!cardHistoryServiceList.isEmpty()) {
+//            return ResponseEntity.ok(response);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
+
+
+
 
 
     @PostMapping("/cardDetail")

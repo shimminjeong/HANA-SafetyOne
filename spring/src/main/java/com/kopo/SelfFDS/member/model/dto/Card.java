@@ -20,6 +20,8 @@ public class Card {
     private String amountLimit;
     private String fdsSerStatus;
     private String selffdsSerStatus;
+    private String cardName;
+
     public Card() {
     }
 
