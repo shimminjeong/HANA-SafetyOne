@@ -28,8 +28,8 @@
         where cardid = #{cardId}
     </select>
 
-    <select id="selectCardNameByCardId">
-        select cardName
+    <select id="selectCardInfoByCardId" resultType="com.kopo.SelfFDS.member.model.dto.Card">
+        select *
         from card
         where cardid = #{cardId}
     </select>
@@ -47,6 +47,21 @@
           AND TO_CHAR(cardhisdate, 'MM') = '08'
         group by categorySmall
         order by amountSum desc
+    </select>
+
+    <select id="selectCardHistoryByCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        select *
+        from cardhistory
+        where cardid =#{cardId}
+        order by cardHisdate desc
+    </select>
+
+
+    <select id="selectPaymentLogByCardId" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select *
+        from paymentLog
+        where cardid =#{cardId}
+        order by paymentdate desc
     </select>
 </mapper>
 

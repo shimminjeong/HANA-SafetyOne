@@ -63,27 +63,9 @@ function sendCardIdToServer(cardId) {
             var safetyStatus = data.safetyStatus;
             var fdsStatus = data.fdsStatus;
             var safetyStatus = data.safetyStatus;
-            var cardName = data.cardName;
+            var cardName = data.cardInfo.cardName;
 
-            // if (safetyStatus === 'Y') {
-            //     document.querySelector('.safety-yes').style.display = 'block';
-            //     document.querySelector('.safety-no').style.display = 'none';
-            // } else if (safetyStatus === 'N') {
-            //     document.querySelector('.safety-yes').style.display = 'none';
-            //     document.querySelector('.safety-no').style.display = 'block';
-            // }
-            //
-            // if (fdsStatus === 'Y') {
-            //     document.querySelector('.fds-yes').style.display = 'block';
-            //     document.querySelector('.fds-no').style.display = 'none';
-            // } else if (fdsStatus === 'N') {
-            //     document.querySelector('.fds-yes').style.display = 'none';
-            //     document.querySelector('.fds-no').style.display = 'block';
-            // }
-
-            var cardName = data.cardName;
             document.querySelector('.cardId-info-name').innerHTML = cardName;
-
 
             if (safetyStatus === 'Y') {
                 document.getElementById('safety-yes').style.display = 'block';

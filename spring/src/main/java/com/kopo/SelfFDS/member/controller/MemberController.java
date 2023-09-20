@@ -5,6 +5,7 @@ import com.kopo.SelfFDS.member.model.dto.Member;
 import com.kopo.SelfFDS.member.model.dto.Card;
 import com.kopo.SelfFDS.member.service.MemberService;
 import com.kopo.SelfFDS.member.service.MyPageService;
+import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,6 @@ public class MemberController {
     public String createForm() {
         return "join";
     }
-
 
 
     @RequestMapping("/update")
@@ -152,8 +152,8 @@ public class MemberController {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         List<Card> cardInfo = memberService.selectCardOfEmail(email);
-        List<CardHistory> cardHistoryList=myPageService.selectCardHistoryByEmail(email);
-        List<CardHistory> categoryTopList=myPageService.selectTopCategoryByEmail(email);
+        List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
+        List<CardHistory> categoryTopList = myPageService.selectTopCategoryByEmail(email);
         ModelAndView mav = new ModelAndView();
         mav.addObject("cards", cardInfo);
         mav.addObject("cardHistoryList", cardHistoryList);
@@ -166,13 +166,13 @@ public class MemberController {
     @PostMapping("/cardinfo")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> postCardInfo(@RequestBody CardHistory cardHistory) {
-        String cardId=cardHistory.getCardId();
+        String cardId = cardHistory.getCardId();
 
-        int amountSum=myPageService.selectSumAmountByCardId(cardId);
-        int amountCnt=myPageService.selectCountByCardId(cardId);
-        String safetyStatus=myPageService.selectSafetyStatusByCardId(cardId);
-        String fdsStatus=myPageService.selectFdsStatusByCardId(cardId);
-        String cardName=myPageService.selectCardNameByCardId(cardId);
+        int amountSum = myPageService.selectSumAmountByCardId(cardId);
+        int amountCnt = myPageService.selectCountByCardId(cardId);
+        String safetyStatus = myPageService.selectSafetyStatusByCardId(cardId);
+        String fdsStatus = myPageService.selectFdsStatusByCardId(cardId);
+        Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
 
 
         Map<String, Object> response = new HashMap<>();
@@ -181,7 +181,7 @@ public class MemberController {
         response.put("amountCnt", amountCnt);
         response.put("safetyStatus", safetyStatus);
         response.put("fdsStatus", fdsStatus);
-        response.put("cardName", cardName);
+        response.put("cardInfo", cardInfo);
         if (!response.isEmpty()) {
             return ResponseEntity.ok(response);
         } else {
@@ -194,13 +194,33 @@ public class MemberController {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         List<Card> cardInfo = memberService.selectCardOfEmail(email);
-        List<CardHistory> cardHistoryList=myPageService.selectCardHistoryByEmail(email);
+        List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
         ModelAndView mav = new ModelAndView();
         mav.addObject("cards", cardInfo);
         mav.addObject("cardHistoryList", cardHistoryList);
 
         mav.setViewName("member/mypageCardHistory");
         return mav;
+    }
+
+    @PostMapping("/cardHistoryDetail")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> cardHistoryDetail(@RequestBody CardHistory cardHistory) {
+        String cardId = cardHistory.getCardId();
+
+        List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByCardId(cardId);
+        List<PaymentLog> paymentLogList = myPageService.selectPaymentLogByCardId(cardId);
+        Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("cardHistoryList", cardHistoryList);
+        response.put("paymentLogList", paymentLogList);
+        response.put("cardInfo", cardInfo);
+
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -238,25 +258,21 @@ public class MemberController {
 //    }
 
 
-
-
-
-
     @PostMapping("/cardDetail")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> CardDetailInfo(@RequestBody CardHistory cardHistory) {
-        String cardId=cardHistory.getCardId();
+        String cardId = cardHistory.getCardId();
         System.out.println("coin");
 
 
-        List<CardHistory> monthData=memberService.selectAmountOfMonthByCardId(cardId);
-        List<CardHistory> weekData=memberService.selectAmountOfWeekByCardId(cardId);
+        List<CardHistory> monthData = memberService.selectAmountOfMonthByCardId(cardId);
+        List<CardHistory> weekData = memberService.selectAmountOfWeekByCardId(cardId);
 
         List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardId);
         Map<String, Object> response = new HashMap<>();
         response.put("monthData", monthData);
         response.put("weekData", weekData);
-        System.out.println("weekData"+weekData);
+        System.out.println("weekData" + weekData);
 
         response.put("cardHistoryList", cardHistoryServiceList);
         if (!response.isEmpty()) {
@@ -269,11 +285,11 @@ public class MemberController {
     @PostMapping("/updateChart")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> updateChartInfo(@RequestBody CardHistory cardHistory) {
-        String cardId=cardHistory.getCardId();
+        String cardId = cardHistory.getCardId();
         System.out.println("coin");
 
 
-        List<CardHistory> dayData=memberService.selectDayByCardIdDate(cardHistory.getCardId(),cardHistory.getCardHisDate());
+        List<CardHistory> dayData = memberService.selectDayByCardIdDate(cardHistory.getCardId(), cardHistory.getCardHisDate());
 
         Map<String, Object> response = new HashMap<>();
         response.put("dayData", dayData);
@@ -284,8 +300,6 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 
 
     @GetMapping("/selectAll")

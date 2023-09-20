@@ -40,13 +40,14 @@
             <div class="card-select-div">
                 <div class="card-select-text">카드선택</div>
                 <select id="cardSelect">
+                    <option value="전체이용내역" selected>전체이용내역</option>
                     <c:forEach items="${cards}" var="card" varStatus="loop">
                         <option value="${card.cardId}">${card.cardName}</option>
                     </c:forEach>
                 </select>
             </div>
-            <div class="lostcard-list">
-                <div class="card-list-info" id="<%=request.getAttribute("cardId")%>">
+            <div class="lostcard-list hidden">
+                <div class="card-list-info">
                     <div class="card-list-info-cardid"><%=request.getAttribute("cardId")%>
                     </div>
                     <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;<%= name %>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -76,28 +77,76 @@
                     </c:forEach>
                     </tbody>
                 </table>
-
                 <div class="pagination">
-                    <button id="prev">Prev</button>
+                    <button id="prev">이전</button>
                     <div id="pageNumbers"></div>
-                    <button id="next">Next</button>
+                    <button id="next">이후</button>
                 </div>
-
-
             </div>
         </div>
     </div>
 </div>
 <script>
 
-    document.getElementById("prev").addEventListener("click", function() {
+    $(document).ready(function () {
+
+        $('#cardSelect').on('change', function() {
+            if ($(this).val() !== "전체이용내역") {
+                $('.lostcard-list').removeClass('hidden'); // hidden 클래스 제거
+            } else {
+                $('.lostcard-list').addClass('hidden'); // hidden 클래스 추가
+            }
+        });
+
+        // 함수 정의
+        function sendCardIdToServer(cardId) {
+            $.ajax({
+                type: "POST",
+                url: "/cardHistoryDetail",
+                contentType: "application/json",
+                data: JSON.stringify({cardId: cardId}),
+                success: function (response) {
+                    $('.card-list-info-cardid').text(response.cardInfo.cardId);
+
+                    // cardName 업데이트
+                    $('.card-list-info-cardname').text(response.cardInfo.cardName);
+                    var rows = $('tbody tr');
+
+                    $.each(response.cardHistoryList, function (index, history) {
+                        // 각 행의 td 요소들을 가져온다.
+                        var tds = $(rows[index]).find('td');
+
+                        // 각 td의 텍스트를 바꿔준다.
+                        $(tds[0]).text(history.cardId);
+                        $(tds[1]).text(history.cardHisDate.substring(0, 16));
+                        $(tds[2]).text(history.store);
+                        $(tds[3]).text(Number(history.amount).toLocaleString() + "원");
+                    });
+                },
+                error: function (error) {
+                    // 실패 시 수행할 작업 (예: 오류 메시지 표시)
+                    console.error("Error sending data:", error);
+                }
+            });
+        }
+
+        // select 요소 값 변경 감지
+        $("#cardSelect").change(function () {
+            var selectedCardId = $(this).val();
+            sendCardIdToServer(selectedCardId);
+        });
+
+    });
+
+
+    document.getElementById("prev").addEventListener("click", function () {
         if (currentPage > 1) {
             currentPage--;
             updatePage();
         }
     });
 
-    document.getElementById("next").addEventListener("click", function() {
+    document.getElementById("next").addEventListener("click", function () {
         const tbody = document.querySelector(".card-history-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
@@ -107,7 +156,6 @@
             updatePage();
         }
     });
-
 
 
     let currentPage = 1; // 현재 페이지
@@ -139,7 +187,7 @@
             if (i === currentPage) {
                 btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
             }
-            btn.addEventListener("click", function() {
+            btn.addEventListener("click", function () {
                 currentPage = i;
                 updatePage();
             });

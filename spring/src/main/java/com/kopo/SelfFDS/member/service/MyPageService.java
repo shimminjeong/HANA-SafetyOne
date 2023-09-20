@@ -1,6 +1,7 @@
 package com.kopo.SelfFDS.member.service;
 
 import com.kopo.SelfFDS.member.model.dto.*;
+import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +13,13 @@ public interface MyPageService {
 
     String  selectSafetyStatusByCardId(String carId);
     String selectFdsStatusByCardId(String carId);
-    String selectCardNameByCardId(String carId);
 
     List<CardHistory> selectCardHistoryByEmail(String email);
 
     List<CardHistory> selectTopCategoryByEmail(String email);
+
+    List<CardHistory> selectCardHistoryByCardId(String cardId);
+    List<PaymentLog> selectPaymentLogByCardId(String cardId);
+
+    Card selectCardInfoByCardId(String carId);
 }

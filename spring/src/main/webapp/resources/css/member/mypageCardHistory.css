@@ -27,6 +27,10 @@
     font-size: 16px;  /* 글자 크기 조절 */
 }
 
+.hidden {
+    display: none !important; /* !important를 사용하여 다른 스타일과 충돌을 피합니다 */
+}
+
 .lostcard-list {
     margin-bottom: 2%;
     display: flex;
@@ -44,7 +48,7 @@
     padding-left: 2%;
     font-size: 18px;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .card-list-info-cardid{
@@ -88,21 +92,51 @@
 
 .pagination {
     margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .page-btn {
     margin-right: 5px;
     padding: 5px 10px;
-    border: 1px solid #ccc;
+    border: 0.2px solid;
     cursor: pointer;
-    background-color: #f9f9f9;
     transition: background-color 0.3s;
 }
 
 .page-btn:hover {
-    background-color: #e9e9e9;
+    background-color: #00857F; /* 원하는 배경색으로 변경하세요 */
+    color: white;
 }
 
 .current-page {
-    background-color: #f0f0f0; /* 원하는 배경색으로 변경하세요 */
+    background-color: #00857F; /* 원하는 배경색으로 변경하세요 */
+    color: white; /* 원하는 배경색으로 변경하세요 */
+}
+
+#pageNumbers{
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 37%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#pageNumbers button{
+    margin: 0.7%;
+    width: 30px;
+    height: 27px;
+    font-size: 14px;
+}
+
+#prev, #next{
+    width: 42px;
+    height: 27px;
+    font-size: 14px;
+}
+
+.pagination{
+    height: 5%;
 }

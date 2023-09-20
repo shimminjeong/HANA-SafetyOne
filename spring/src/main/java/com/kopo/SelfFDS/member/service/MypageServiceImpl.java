@@ -2,7 +2,9 @@ package com.kopo.SelfFDS.member.service;
 
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
 import com.kopo.SelfFDS.member.model.dao.MyPageMapper;
+import com.kopo.SelfFDS.member.model.dto.Card;
 import com.kopo.SelfFDS.member.model.dto.CardHistory;
+import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +41,9 @@ public class MypageServiceImpl implements MyPageService {
     }
 
     @Override
-    public String selectCardNameByCardId(String carId) {
-        return mypageMapper.selectCardNameByCardId(carId);
+    public Card selectCardInfoByCardId(String carId) {
+        return mypageMapper.selectCardInfoByCardId(carId);
     }
-
     @Override
     public List<CardHistory> selectCardHistoryByEmail(String email) {
         return mypageMapper.selectCardHistoryByEmail(email);
@@ -52,6 +53,18 @@ public class MypageServiceImpl implements MyPageService {
     public List<CardHistory> selectTopCategoryByEmail(String email) {
         return mypageMapper.selectTopCategoryByEmail(email);
     }
+
+    @Override
+    public List<CardHistory> selectCardHistoryByCardId(String cardId) {
+        return mypageMapper.selectCardHistoryByCardId(cardId);
+    }
+
+    @Override
+    public List<PaymentLog> selectPaymentLogByCardId(String cardId) {
+        return mypageMapper.selectPaymentLogByCardId(cardId);
+    }
+
+
 
 
 }
