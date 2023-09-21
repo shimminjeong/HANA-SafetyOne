@@ -1,0 +1,64 @@
+.sub-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-container-hearder{
+    font-size: 30px;
+    margin-bottom: 4%;
+}
+
+.card-select-text{
+    font-size: 20px;
+    margin-right: 10%;
+}
+
+.card-select-div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 3%;
+
+}
+
+.card-select-div select {
+    width: 400px;  /* 원하는 너비로 설정 */
+    height: 40px;  /* 원하는 높이로 설정 */
+    padding: 5px;  /* 패딩 추가로 좀 더 편안한 느낌을 주기 위함 */
+    font-size: 16px;  /* 글자 크기 조절 */
+}
+
+.hidden {
+    display: none !important; /* !important를 사용하여 다른 스타일과 충돌을 피합니다 */
+}
+
+.lostcard-list {
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc; /* 회색 테두리 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    border-radius: 5px; /* 둥근 테두리 */
+}
+
+.card-list-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80px;
+    padding-left: 2%;
+    font-size: 18px;
+    width: 100%;
+    justify-content: center;
+}
+
+.card-list-info-cardid{
+    margin-right: 3%;
+}
+
+.card-list-info-cardname{
+    margin-right: 8%;
+}
+
+.card-list-info .card-img {
+    height: 70%;
+}

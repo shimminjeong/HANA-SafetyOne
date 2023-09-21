@@ -195,9 +195,11 @@ public class MemberController {
         String email = (String) session.getAttribute("email");
         List<Card> cardInfo = memberService.selectCardOfEmail(email);
         List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
+        List<PaymentLog> paymentLogList = myPageService.selectPaymentLogByEmail(email);
         ModelAndView mav = new ModelAndView();
         mav.addObject("cards", cardInfo);
         mav.addObject("cardHistoryList", cardHistoryList);
+        mav.addObject("paymentLogList", paymentLogList);
 
         mav.setViewName("member/mypageCardHistory");
         return mav;
@@ -207,9 +209,11 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> cardHistoryDetail(@RequestBody CardHistory cardHistory) {
         String cardId = cardHistory.getCardId();
+        System.out.println("cardId"+cardId);
 
         List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByCardId(cardId);
         List<PaymentLog> paymentLogList = myPageService.selectPaymentLogByCardId(cardId);
+        System.out.println("paymentLogList"+paymentLogList);
         Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
         Map<String, Object> response = new HashMap<>();
         response.put("cardHistoryList", cardHistoryList);
@@ -222,6 +226,23 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/mypageReport")
+    public ModelAndView mypageReport(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        List<Card> cardInfo = memberService.selectCardOfEmail(email);
+        List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
+        List<PaymentLog> paymentLogList = myPageService.selectPaymentLogByEmail(email);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("cards", cardInfo);
+        mav.addObject("cardHistoryList", cardHistoryList);
+        mav.addObject("paymentLogList", paymentLogList);
+
+        mav.setViewName("member/mypageReport");
+        return mav;
+    }
+
 
 
 //    mypage copy

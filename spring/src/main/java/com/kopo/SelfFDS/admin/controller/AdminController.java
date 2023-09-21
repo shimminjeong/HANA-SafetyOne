@@ -2,6 +2,7 @@ package com.kopo.SelfFDS.admin.controller;
 
 import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
 import com.kopo.SelfFDS.admin.service.AdminService;
+import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import com.kopo.SelfFDS.payment.model.dto.WordToVec;
 import com.kopo.SelfFDS.payment.service.PaymentService;
@@ -29,6 +30,24 @@ public class AdminController {
         this.paymentService = paymentService;
     }
 
+//    @GetMapping("/")
+//    public ModelAndView adminMainPage() {
+//
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("memberCnt", adminService.getAllMemberCnt());
+//        mav.addObject("cardCnt", adminService.getAllCardCnt());
+//        mav.addObject("amountSum", adminService.getAllAmountSumOfDay());
+//        mav.addObject("memberCntByYearRate", adminService.getMemberCntByYearRate());
+//        mav.addObject("cardCntByYearRate", adminService.getCardCntByYearRate());
+//        mav.addObject("amountSumByDateRate", adminService.getAmountSumByDateRate());
+//        mav.addObject("memberCntByYear", adminService.getMemberCntByYear());
+//        mav.addObject("cardCntByYear", adminService.getCardCntByYear());
+//        mav.addObject("amountSumByYear", adminService.getAmountSumByDate());
+//        mav.setViewName("admin/adminMain");
+//
+//        return mav;
+//    }
+
     @GetMapping("/")
     public ModelAndView adminMainPage() {
 
@@ -42,7 +61,7 @@ public class AdminController {
         mav.addObject("memberCntByYear", adminService.getMemberCntByYear());
         mav.addObject("cardCntByYear", adminService.getCardCntByYear());
         mav.addObject("amountSumByYear", adminService.getAmountSumByDate());
-        mav.setViewName("admin/adminMain");
+        mav.setViewName("admin/admin");
 
         return mav;
     }
@@ -97,6 +116,7 @@ public class AdminController {
     }
 
 
+//    cardid의 거래내역을 가지고 gmm 알고리즘 학습
     @PostMapping("/learning")
     public ResponseEntity<String> learningPage(@RequestParam("cardId") String cardId) {
         // RestTemplate 인스턴스 생성
@@ -127,6 +147,30 @@ public class AdminController {
     @GetMapping("/email")
     public String adminEmailPage() {
         return "admin/email";
+    }
+
+    @GetMapping("/lostCard")
+    public ModelAndView adminLostCardPage() {
+        List<LostCard> lostCardList=adminService.selectAllLostCard();
+        List<String> reasonList=adminService.selectLostReason();
+        System.out.println("lostCardList"+lostCardList);
+        ModelAndView mav=new ModelAndView();
+        mav.addObject("lostCardList",lostCardList);
+        mav.addObject("reasonList",reasonList);
+        mav.setViewName("admin/adminLostCard");
+        return mav;
+    }
+
+    @PostMapping("/lostReason")
+    public ModelAndView adminLostReason() {
+        List<LostCard> lostCardList=adminService.selectAllLostCard();
+        List<String> reasonList=adminService.selectLostReason();
+        System.out.println("lostCardList"+lostCardList);
+        ModelAndView mav=new ModelAndView();
+        mav.addObject("lostCardList",lostCardList);
+        mav.addObject("reasonList",reasonList);
+        mav.setViewName("admin/adminLostCard");
+        return mav;
     }
 
 

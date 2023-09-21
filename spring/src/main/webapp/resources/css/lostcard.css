@@ -4,7 +4,7 @@
     display: flex;
     gap: 10px;
     width: 100%;
-    height: 40px;
+    height: 36px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     background-color: #F4F4F4;
     align-items: center;
@@ -13,12 +13,16 @@
 
 }
 
+hr{
+    margin: 0;
+}
+
 .tab_ty02 li {
     list-style-type: none;
     margin: 0;
     padding: 0;
     flex: 1;
-    height: 40px;
+    height: 36px;
     text-align: center;
 }
 
@@ -27,10 +31,10 @@
     margin: 10px;
     color: #333;
     text-decoration: none;
+    font-size: 16px;
 }
 
 .tab_ty02 li.on {
-
     background-color: #00857F;
 }
 
@@ -41,9 +45,8 @@
 .reissued {
     margin-top: 0.8%;
     margin-bottom: 0.8%;
-
     padding-left: 2%;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .reissued span {
@@ -53,13 +56,29 @@
     margin-right: 2%;
 }
 
-.reissued button{
-    padding-top: 0.9%;
-    padding-bottom: 0.9%;
+
+.reissued button {
+    background-color: white;  /* 기본 배경색을 흰색으로 */
+    color: #000;              /* 기본 텍스트 색상을 검정색으로 */
+    border: 1px solid black; /* 테두리를 초록색으로 */
+    transition: background-color 0.3s;  /* 부드러운 배경색 전환 효과 */
+    padding-top: 0.8%;
+    padding-bottom: 0.8%;
     width: 13%;
     margin-right: 0.5%;
-    font-size: 17px;
+    font-size: 15px;
 }
+
+.reissued button:hover {
+    background-color: #00857F;  /* hover할 때의 배경색 */
+    color: white;               /* hover할 때의 텍스트 색상 */
+}
+
+.reissued button.active {
+    background-color: #00857F;  /* 선택(활성화)됐을 때의 배경색 */
+    color: white;               /* 선택(활성화)됐을 때의 텍스트 색상 */
+}
+
 
 
 
@@ -98,9 +117,10 @@ colgroup col {
 }
 
 th, td {
-    padding: 15px;
+    padding: 12px;
     border: 1px solid #ddd;
     text-align: left;
+    font-size: 16px;
 }
 
 th {
@@ -112,9 +132,9 @@ td {
     background-color: #fff;
 }
 
-td.left {
-    padding-left: 20px;
-}
+/*td.left {*/
+/*    padding-left: 15px;*/
+/*}*/
 
 .btn_key_box {
     display: flex;
@@ -138,10 +158,74 @@ select {
     -moz-appearance: none; /* 파이어폭스 */
 }
 
+.address-div{
+    padding-top :10px;
+    padding-bottom :10px;
+    font-size: 16px;
+}
+
+.address-div  a{
+    margin-left: 50%;
+}
+
+.registerLostInput{
+    color: white;
+    border: none;
+    padding: 12px 40px 12px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00857F;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
+    margin: 10px auto;
+    height: 40px;
+}
+
+
+
+.history-panel {
+    padding: 0 18px;
+    background-color: #dddddd;
+    display: none;
+    overflow: hidden;
+
+}
+
+.cardhistory-date, .cardhistory-regionName, .cardhistory-store, .cardhistory-amount{
+    margin-right: 5%;
+}
+
+
+
+
+
+
+
+
+
+
 /* IE에서 select 스타일링을 위한 트릭 */
 /*select::-ms-expand {*/
 /*    display: none;*/
 /*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
@@ -154,7 +238,7 @@ select {
 
 #datepicker,
 input, select {
-    height: 40px;  /* 원하는 높이 값으로 조절하세요. */
+    height: 35px;  /* 원하는 높이 값으로 조절하세요. */
     padding: 0 10px; /* 입력 텍스트의 내부 패딩을 추가하여 텍스트가 바로 입력 필드의 가장자리에 닿지 않게 합니다. */
     font-size: 15px;
     border: 1px solid #ddd;

@@ -35,31 +35,36 @@
             <tr>
                 <th scope="row" class="left">분실카드</th>
                 <td class="left">
-                    <div class="value">${lostCard.cardId}</div>
+                    <div class="value">${lostCard.cardId} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${cardInfo.cardName}</div>
                 </td>
             </tr>
             <tr>
                 <th scope="row" class="left">접수일</th>
                 <td class="left">
-                    <div class="value">접수일이요</div>
+                    <div class="value">${todayDate}</div>
                 </td>
             </tr>
             <tr>
-                <th scope="row" class="left">최종사용내역</th>
+                <th scope="row" class="left">분실일자</th>
                 <td class="left">
-                    <div class="value">접수일이요</div>
+                    <div class="value">${lostCard.lostDate}</div>
                 </td>
             </tr>
             <tr>
                 <th scope="row" class="left">재발급 신청</th>
                 <td class="left">
-                    <div class="value">${lostCard.reissued}</div>
+                    <div class="value">
+                        <c:choose>
+                            <c:when test="${lostCard.reissued == 'Y'}">신청</c:when>
+                            <c:when test="${lostCard.reissued == 'N'}">미신청</c:when>
+                            <c:otherwise>${lostCard.reissued}</c:otherwise>
+                        </c:choose>
+                    </div>
+
                 </td>
             </tr>
             </tbody>
         </table>
-
-
         <hr>
     </div>
     <button class="registerLostBtn" onclick="registerLostCard()">다음</button>

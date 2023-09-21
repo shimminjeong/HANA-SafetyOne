@@ -82,7 +82,7 @@
                 <p><input type="text" id="price" name="price"></p>
             </div>
             <div class="cardId">카드아이디
-                <span class="place-cardId">9440-9469-2724-7629</span>
+                <span class="place-cardId">6155-7952-7748-1647</span>
             </div>
         </div>
         <div class="menu">

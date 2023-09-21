@@ -7,6 +7,7 @@ import com.kopo.SelfFDS.admin.model.dto.Fds;
 import com.kopo.SelfFDS.admin.model.dto.MemberStats;
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
 import com.kopo.SelfFDS.member.model.dto.CardHistory;
+import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.payment.model.dao.PaymentMapper;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -238,6 +239,16 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<CardHistoryStats> getCategoryGroupCntByCardId(String cardId) {
         return adminMapper.getCategoryGroupCntByCardId(cardId);
+    }
+
+    @Override
+    public List<LostCard> selectAllLostCard() {
+        return adminMapper.selectAllLostCard();
+    }
+
+    @Override
+    public List<String> selectLostReason() {
+        return adminMapper.selectLostReason();
     }
 
 

@@ -23,9 +23,9 @@
         <h2 class="details____title">관리자 대시보드</h2>
         <div class="box-container">
             <div class="info-box">
-                <div class="info-header">현재 하나카드 이용자수</div>
-                <div class="info-content1"><strong>${memberCnt}</strong> 명 입니다.</div>
-                <div class="info-content2">
+                <div class="hana-info-content-header">현재 하나카드 이용자수</div>
+                <div class="hana-info-content-div1"><strong>${memberCnt}</strong> 명 입니다.</div>
+                <div class="hana-info-content-div2">
                     <c:if test="${memberCntByYearRate < 0}">
                         올해 가입자 수는 작년보다 약 <strong><span
                             style="color: blue;">${-memberCntByYearRate}</span></strong>% 감소했습니다.
@@ -38,9 +38,9 @@
                 </div>
             </div>
             <div class="info-box">
-                <div class="info-header">현재 거래중인 카드수</div>
-                <div class="info-content1"><strong>${cardCnt}</strong> 개 입니다.</div>
-                <div class="info-content2">
+                <div class="hana-info-content-header">현재 거래중인 카드수</div>
+                <div class="hana-info-content-div1"><strong>${cardCnt}</strong> 개 입니다.</div>
+                <div class="hana-info-content-div2">
                     <c:if test="${cardCntByYearRate < 0}">
                         올해 가입카드수는 작년보다 약 <strong><span
                             style="color: blue;">${-cardCntByYearRate}</span></strong>% 감소했습니다.
@@ -52,9 +52,9 @@
                 </div>
             </div>
             <div class="info-box">
-                <div class="info-header">금일 총 거래액</div>
-                <div class="info-content1"><strong>${amountSum}</strong>원 입니다.</div>
-                <div class="info-content2">
+                <div class="hana-info-content-header">금일 총 거래액</div>
+                <div class="hana-info-content-div1"><strong>${amountSum}</strong>원 입니다.</div>
+                <div class="hana-info-content-div2">
                     <c:if test="${amountSumByDateRate < 0}">
                         금일 총 소비액은 어제에 비해 약<strong><span style="color: blue;">${-amountSumByDateRate}</span></strong>% 감소했습니다.
                     </c:if>

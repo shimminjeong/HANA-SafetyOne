@@ -21,5 +21,6 @@ public interface MyPageMapper {
 
     List<CardHistory> selectCardHistoryByCardId(String cardId);
     List<PaymentLog> selectPaymentLogByCardId(String cardId);
+    List<PaymentLog> selectPaymentLogByEmail(String email);
 
 }

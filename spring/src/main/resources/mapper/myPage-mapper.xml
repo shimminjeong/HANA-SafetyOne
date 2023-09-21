@@ -56,11 +56,18 @@
         order by cardHisdate desc
     </select>
 
+    <select id="selectPaymentLogByEmail" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select *
+        from paymentLog
+        where cardid in (select cardid from card where email = #{email})
+        order by paymentdate desc
+    </select>
+
 
     <select id="selectPaymentLogByCardId" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
         select *
         from paymentLog
-        where cardid =#{cardId}
+        where cardid = #{cardId}
         order by paymentdate desc
     </select>
 </mapper>

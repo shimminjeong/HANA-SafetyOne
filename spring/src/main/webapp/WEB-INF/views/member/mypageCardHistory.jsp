@@ -8,6 +8,7 @@
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">
+    <link href="../../../resources/css/member/mypage.css" rel="stylesheet">
     <link href="../../../resources/css/member/mypageCardHistory.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.js"></script>
@@ -17,22 +18,7 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="details">
-    <div class="details__left">
-        <ul class="menu">
-            <li class="menu__item">
-                <a href="/mypage" class="menu__link">
-                    <div class="menu__icon"><img src="../../../resources/img/bell%20(1).png"></div>
-                    대시보드
-                </a>
-            </li>
-            <li class="menu__item">
-                <a href="/mypageCardHistory" class="menu__link">
-                    <div class="menu__icon"><img src="../../../resources/img/bell%20(1).png"></div>
-                    이용내역
-                </a>
-            </li>
-        </ul>
-    </div>
+    <%@ include file="../include/mypageSideBar.jsp" %>
     <hr style="border:1px solid #00857F">
     <div class="detail__right">
         <div class="sub-container">
@@ -56,23 +42,46 @@
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
                 </div>
             </div>
-            <div class="if 조건">
+            <div class="table-div">
+                <%--                <div class="menu-tab">--%>
+                <%--                    <button class="tab-button" onclick="showApprovedTransactions()">거래승인내역</button>--%>
+                <%--                    <button class="tab-button" onclick="showUnapprovedTransactions()">거래 미승인내역</button>--%>
+                <%--                </div>--%>
                 <table class="card-history-table">
                     <thead>
                     <tr>
                         <th>카드번호</th>
                         <th>거래일시</th>
-                        <th>거래처명</th>
+                        <th>카테고리</th>
+                        <th>가맹점주소</th>
                         <th>금액</th>
+                        <th>승인여부</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${cardHistoryList}" var="history">
+                    <c:forEach items="${paymentLogList}" var="paymentLog">
                         <tr>
-                            <td>${history.cardId}</td>
-                            <td>${fn:substring(history.cardHisDate, 0, 16)}</td>
-                            <td>${history.store}</td>
-                            <td><fmt:formatNumber value="${history.amount}" type="number" pattern="#,###"/>원</td>
+                            <td>${paymentLog.cardId}</td>
+                            <td>${fn:substring(paymentLog.paymentDate, 0, 16)}</td>
+                            <td>${paymentLog.categorySmall}</td>
+                            <c:set var="addressParts" value="${fn:split(paymentLog.address, ' ')}"/>
+                            <c:choose>
+                                <c:when test="${fn:length(addressParts) >= 2}">
+                                    <td>${addressParts[0]} ${addressParts[1]}</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>${paymentLog.address}</td>
+                                </c:otherwise>
+                            </c:choose>
+                            <td><fmt:formatNumber value="${paymentLog.amount}" type="number" pattern="#,###"/>원</td>
+                            <c:choose>
+                                <c:when test="${paymentLog.paymentApprovalStatus == 'Y'}">
+                                    <td>정상승인</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>미승인</td>
+                                </c:otherwise>
+                            </c:choose>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -90,7 +99,7 @@
 
     $(document).ready(function () {
 
-        $('#cardSelect').on('change', function() {
+        $('#cardSelect').on('change', function () {
             if ($(this).val() !== "전체이용내역") {
                 $('.lostcard-list').removeClass('hidden'); // hidden 클래스 제거
             } else {
@@ -100,27 +109,46 @@
 
         // 함수 정의
         function sendCardIdToServer(cardId) {
+            console.log("cardId" + cardId)
             $.ajax({
                 type: "POST",
                 url: "/cardHistoryDetail",
                 contentType: "application/json",
                 data: JSON.stringify({cardId: cardId}),
                 success: function (response) {
+                    console.log("Response" + response.paymentLogList)
                     $('.card-list-info-cardid').text(response.cardInfo.cardId);
 
                     // cardName 업데이트
                     $('.card-list-info-cardname').text(response.cardInfo.cardName);
                     var rows = $('tbody tr');
 
-                    $.each(response.cardHistoryList, function (index, history) {
+                    $.each(response.paymentLogList, function (index, history) {
                         // 각 행의 td 요소들을 가져온다.
                         var tds = $(rows[index]).find('td');
+                        console.log("history.cardId+" + history.cardId);
+                        console.log("history.cardHisDate+" + history.paymentDate);
+                        console.log("history.store+" + history.store);
+
+                        var addressParts = history.address.split(' ');
 
                         // 각 td의 텍스트를 바꿔준다.
                         $(tds[0]).text(history.cardId);
-                        $(tds[1]).text(history.cardHisDate.substring(0, 16));
+                        $(tds[1]).text(history.paymentDate.substring(0, 16));
                         $(tds[2]).text(history.store);
-                        $(tds[3]).text(Number(history.amount).toLocaleString() + "원");
+                        if (addressParts.length >= 2) {
+                            var shortenedAddress = addressParts[0] + ' ' + addressParts[1];
+                            $(tds[3]).text(shortenedAddress);
+                        } else {
+                            $(tds[3]).text(history.address); // Fallback to the full address if splitting didn't work as expected
+                        }
+                        $(tds[4]).text(Number(history.amount).toLocaleString() + "원");
+                        if (history.paymentApprovalStatus === 'Y') {
+                            $(tds[5]).text('정상승인');
+                        } else {
+                            $(tds[5]).text('미승인');
+                        }
+
                     });
                 },
                 error: function (error) {
@@ -159,7 +187,7 @@
 
 
     let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 10; // 페이지당 항목 수
+    const itemsPerPage = 7; // 페이지당 항목 수
     const pagesToShow = 10; // 한 번에 보여줄 페이지 수
 
     // 페이지를 업데이트하는 함수

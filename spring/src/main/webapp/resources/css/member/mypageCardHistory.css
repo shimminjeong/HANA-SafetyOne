@@ -63,10 +63,36 @@
     height: 70%;
 }
 
+
+.menu-tab {
+    text-align: right;
+}
+
+.tab-button {
+    width: 13%;
+    height: 10%;
+    font-size: 15px;
+    border: none;
+    background-color: #f7f7f7;   /* 기본 배경색 */
+    color: #333;                 /* 기본 글자색 */
+    transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+    cursor: pointer;
+    border-top-left-radius: 10px;  /* 값은 원하는 크기로 조절 가능 */
+    border-top-right-radius: 10px; /* 값은 원하는 크기로 조절 가능 */
+}
+
+.tab-button:hover {
+    background-color: #00857F;   /* 호버 시의 배경색 */
+    color: white;                 /* 호버 시의 글자색 */
+}
+
+
+
+
 .card-history-table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+    border-collapse: separate; /* 이 부분을 변경하여 th와 th 사이에 선을 그릴 수 있게 합니다. */
+    /*margin: 20px 0;*/
     font-size: 18px;
     text-align: left;
     border: 1px solid #e0e0e0;
@@ -76,6 +102,13 @@
 .card-history-table td {
     padding: 10px;
     border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0; /* th와 th 사이의 선을 추가합니다. */
+    font-size: 17px;
+}
+
+.card-history-table th:last-child,
+.card-history-table td:last-child {
+    border-right: none; /* 마지막 요소의 오른쪽 선을 제거합니다. */
 }
 
 .card-history-table tbody tr:hover {
@@ -85,8 +118,8 @@
 .card-history-table th {
     background-color: #f0f0f0;
     color: #333;
+    text-align: center; /* th를 가운데 정렬합니다. */
 }
-
 
 
 

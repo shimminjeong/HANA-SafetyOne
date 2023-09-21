@@ -106,6 +106,18 @@
         group by categorySmall
     </select>
 
+<!--    분실카드-->
+    <select id="selectAllLostCard" resultType="com.kopo.SelfFDS.member.model.dto.LostCard">
+        SELECT *
+        FROM lostcard
+    </select>
+
+    <select id="selectLostReason" resultType="com.kopo.SelfFDS.member.model.dto.LostCard">
+        SELECT unique(lostreason) as lostreason
+        FROM lostcard
+    </select>
+
+
 
 </mapper>
 

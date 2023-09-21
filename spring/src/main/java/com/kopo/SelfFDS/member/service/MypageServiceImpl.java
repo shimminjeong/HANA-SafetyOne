@@ -44,6 +44,12 @@ public class MypageServiceImpl implements MyPageService {
     public Card selectCardInfoByCardId(String carId) {
         return mypageMapper.selectCardInfoByCardId(carId);
     }
+
+    @Override
+    public List<PaymentLog> selectPaymentLogByEmail(String email) {
+        return mypageMapper.selectPaymentLogByEmail(email);
+    }
+
     @Override
     public List<CardHistory> selectCardHistoryByEmail(String email) {
         return mypageMapper.selectCardHistoryByEmail(email);

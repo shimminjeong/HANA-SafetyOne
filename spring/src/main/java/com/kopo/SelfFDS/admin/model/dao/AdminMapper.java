@@ -4,6 +4,7 @@ import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
 import com.kopo.SelfFDS.admin.model.dto.CardStats;
 import com.kopo.SelfFDS.admin.model.dto.Fds;
 import com.kopo.SelfFDS.admin.model.dto.MemberStats;
+import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -31,8 +32,9 @@ public interface AdminMapper {
     List<CardHistoryStats> getRegionGroupCntByCardId(String cardId);
     List<CardHistoryStats> getCategoryGroupCntByCardId(String cardId);
 
+    List<LostCard> selectAllLostCard();
 
-
+    List<String> selectLostReason();
 
 
 }

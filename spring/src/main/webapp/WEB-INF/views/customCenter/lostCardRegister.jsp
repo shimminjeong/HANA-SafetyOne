@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
-          name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="../../../resources/css/common.css" rel="stylesheet">
     <link href="../../../resources/css/lostcard.css" rel="stylesheet">
@@ -29,11 +28,11 @@
                     </div>
                     <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;<%= name %>&nbsp;&nbsp;|&nbsp;&nbsp;
                     </div>
-                    <div class="card-list-info-cardname">yolo</div>
+                    <div class="card-list-info-cardname">${cardInfo.cardName}</div>
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
                 </div>
             </div>
-            <h4 class="t_tit">분실신고 접수내용</h4>
+            <h3>분실신고 접수내용</h3>
             <div class="lost-info">
                 <table>
                     <colgroup>
@@ -75,7 +74,7 @@
                     </tbody>
                 </table>
             </div>
-            <h4 class="t_tit">재발급 신청 정보</h4>
+            <h3>재발급 신청 정보</h3>
             <div class="lost-info">
                 <table>
                     <colgroup>
@@ -96,17 +95,16 @@
                     <tr>
                         <th scope="row" class="left">자택주소</th>
                         <td class="left">
-                            <input type="text" placeholder="${address}>" style="width: 50%; margin-right: 10px">
-                            <a href="#">회원정보수정 > </a>
+                            <%--                            <input type="text" placeholder="${address}" style="width: 50%; margin-right: 10px">--%>
+                            <div class="address-div">${address}<a href="#">회원정보수정 ></a></div>
                         </td>
-
                     </tr>
                     </tbody>
                 </table>
             </div>
 
         </div>
-        <input type="submit" value="접수" class="registerLostBtn" onclick="registerLostCard()">
+        <input type="submit" value="접수" class="registerLostInput" onclick="registerLostCard()">
     </form>
 </div>
 </body>

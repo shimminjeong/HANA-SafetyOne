@@ -110,6 +110,8 @@
     /*gap: 10px;*/
     /*margin-top: 20px;*/
 }
+
+
 .details____title {
     font-size: 28px;
     margin-bottom: 30px;
@@ -137,7 +139,6 @@
 
 
 .menu {
-
     list-style: none; /* Remove bullet points */
     padding: 0; /* Remove default padding */
 }
@@ -164,7 +165,7 @@
 
 .menu__link {
     position: relative;
-    width: 180px;
+    width: 204px;
     height: 64px;
     display: flex;
     align-items: center;
@@ -175,185 +176,10 @@
     padding-left: 24px; /* Add left padding to adjust for the icon */
 }
 
-.detail__left{
-    margin-right: 2%;
-}
-
-
 
 .detail__right{
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-right: 5%;
     padding: 2%;
-}
-
-
-.consumer {
-    background: #eee;
-    margin: 32px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    height: 400px;
-    width : 200px;
-}
-.consumer__button {
-    background: none;
-    border: none;
-    display: block;
-    margin-left: auto;
-    margin-bottom: 4px;
-}
-.consumer__text, .consumer__cheering, .consumer__notice {
-    text-align: center;
-}
-.consumer__text {
-    font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 4px;
-}
-.consumer__cheering, .consumer__notice {
-    font-size: 15px;
-    color: #555;
-}
-.consumer__image {
-    margin: 24px auto;
-    width: calc(100% - 16px);
-    height: 190px;
-    border: 1px solid #000;
-}
-.consumer__notice {
-    margin-bottom: 0px;
-}
-
-.table {
-    border: 1px solid #ddd;
-    border-collapse: collapse;
-}
-.table td {
-    border: 1px solid #ddd;
-    height: 40px;
-}
-.table--info {
-    margin-bottom: 64px;
-}
-.table--info td {
-    text-align: center;
-}
-.table--info td:nth-child(odd) {
-    background: #eee;
-    width: 150px;
-    font-weight: bold;
-}
-.table--info td:nth-child(even) {
-    width: 250px;
-}
-.table--recent {
-    width: 100%;
-}
-.table--recent td {
-    padding: 8px;
-    width: 25%;
-}
-.table--financial {
-    width: 100%;
-}
-.table--financial th:first-child {
-    height: 40px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-.table--financial td {
-    text-align: right;
-    padding-right: 8px;
-}
-
-.text--center {
-    text-align: center;
-}
-.text--bold {
-    font-weight: bold;
-}
-.text--item {
-    padding-left: 16px !important;
-}
-
-.td--bg {
-    background: #eee;
-}
-
-.tabs {
-    margin-top: 50px;
-    padding-bottom: 40px;
-    width: 800px;
-    margin: 0 auto;
-}
-
-/* 탭 스타일 */
-.tab_item {
-    background-color: #444;
-    line-height: 32px;
-    font-size: 16px;
-    color: #fff;
-    float: right;
-    padding: 4px 8px;
-    transition: all 0.2s ease;
-    margin-right: 4px;
-    transform: translateX(4px);
-    border-radius: 4px 4px 0 0;
-}
-
-.tab_item:hover {
-    opacity: 0.75;
-}
-
-/* 라디오 버튼 UI삭제*/
-input[name=tab_item] {
-    display: none;
-}
-
-/* 탭 컨텐츠 스타일 */
-.tab_content {
-    display: none;
-    clear: both;
-    overflow: hidden;
-    width: 100%;
-    border-top: 2px solid #ddd;
-}
-
-/* 선택 된 탭 콘텐츠를 표시 */
-#recent:checked ~ #recent_content,
-#financial:checked ~ #financial_content,
-#evaluation:checked ~ #evaluation_content {
-    display: block;
-}
-
-.tab__title, .tab__period {
-    text-align: center;
-}
-.tab__title {
-    font-size: 32px;
-    margin-top: 32px;
-    margin-bottom: 16px;
-}
-.tab__period {
-    margin-bottom: 64px;
-}
-.tab__unit {
-    text-align: right;
-    margin-bottom: 16px;
-}
-
-
-#container {
-    height: 400%;
-}
-
-.highcharts-figure,
-.highcharts-data-table table {
-    min-width: 310px;
-    max-width: 800px;
-    margin: 1em auto;
 }

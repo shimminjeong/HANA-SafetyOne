@@ -1,9 +1,11 @@
 package com.kopo.SelfFDS.member.controller;
 
 import com.kopo.SelfFDS.member.model.dto.Card;
+import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.member.model.dto.Member;
 import com.kopo.SelfFDS.member.service.MemberService;
+import com.kopo.SelfFDS.member.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,10 +27,12 @@ import java.util.List;
 public class CustomCenterController {
 
     private final MemberService memberService;
+    private final MyPageService myPageService;
 
     @Autowired
-    public CustomCenterController(MemberService memberService) {
+    public CustomCenterController(MemberService memberService, MyPageService myPageService) {
         this.memberService = memberService;
+        this.myPageService = myPageService;
     }
 
 
@@ -49,12 +55,26 @@ public class CustomCenterController {
         return mav;
     }
 
+    @PostMapping("/confirmCardHistory")
+    public ResponseEntity<List<CardHistory>> confirmCardHistory(@RequestBody CardHistory cardHistory) {
+
+        List<CardHistory> cardHistories = myPageService.selectCardHistoryByCardId(cardHistory.getCardId());
+        System.out.println("cardHistories"+cardHistories);
+        return ResponseEntity.ok(cardHistories);
+
+    }
+
+
+
 
     @RequestMapping("/lostCardRegister")
     public String lostCardRegisterPage(@RequestParam("cardId") String cardId,@RequestParam("reissued") String reissued, Model model) {
         System.out.println("cardId"+cardId+"reissued"+reissued);
+        System.out.println("cardId"+cardId+"reissued"+reissued);
+        Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
         model.addAttribute("cardId", cardId);
         model.addAttribute("reissued", reissued);
+        model.addAttribute("cardInfo", cardInfo);
         return "customCenter/lostCardRegister";
     }
 
@@ -70,9 +90,13 @@ public class CustomCenterController {
         lostCard.setReissued(reissued);
         System.out.println("lostCard"+lostCard);
         memberService.insertLostCardInfo(lostCard);
+        Card cardInfo=myPageService.selectCardInfoByCardId(cardId);
+
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("lostCard", lostCard);
+        mav.addObject("cardInfo", cardInfo);
+        mav.addObject("todayDate", LocalDate.now(ZoneId.of("Asia/Seoul")));
         mav.setViewName("customCenter/lostCardInfo");
         return mav;
 

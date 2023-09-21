@@ -22,4 +22,6 @@ public interface MyPageService {
     List<PaymentLog> selectPaymentLogByCardId(String cardId);
 
     Card selectCardInfoByCardId(String carId);
+
+    List<PaymentLog> selectPaymentLogByEmail(String email);
 }

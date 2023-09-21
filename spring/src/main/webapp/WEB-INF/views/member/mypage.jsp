@@ -6,7 +6,6 @@
 <head>
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/common.css" rel="stylesheet">
     <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">
     <link href="../../../resources/css/member/mypage.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -18,22 +17,7 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="details">
-    <div class="details__left">
-        <ul class="menu">
-            <li class="menu__item">
-                <a href="/admin/safetyCard" class="menu__link">
-                    <div class="menu__icon"><img src="../../../resources/img/bell%20(1).png"></div>
-                    대시보드
-                </a>
-            </li>
-            <li class="menu__item">
-                <a href="/mypageCardHistory" class="menu__link">
-                    <div class="menu__icon"><img src="../../../resources/img/bell%20(1).png"></div>
-                    이용내역
-                </a>
-            </li>
-        </ul>
-    </div>
+    <%@ include file="../include/mypageSideBar.jsp" %>
     <hr style="border:1px solid #00857F">
     <div class="detail__right">
         <div class="sub-container">
@@ -109,43 +93,43 @@
         </div>
 
     </div>
-    <script>
-        let slideIndex = 1;
-        showSlides(slideIndex);
-
-        let labels = [];
-        let data = [];
-
-        <c:forEach var="item" items="${categoryTopList}" varStatus="loop">
-        <c:if test="${loop.index < 5}">
-        labels.push("${item.categorySmall}");
-        data.push(${item.amountSum});
-        </c:if>
-        </c:forEach>
-
-
-        var ctx = document.getElementById('myPieChart').getContext('2d');
-        var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: data,
-                    backgroundColor: [
-                        '#FF6B6B', '#4ECDC4', '#F7FFF7', '#FFE66D', '#1A535C'
-                    ]
-                }]
-            },
-            options: {
-                legend: {
-                    position: 'right'
-                }
-            }
-        });
-
-
-
-    </script>
 </div>
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    let labels = [];
+    let data = [];
+
+    <c:forEach var="item" items="${categoryTopList}" varStatus="loop">
+    <c:if test="${loop.index < 5}">
+    labels.push("${item.categorySmall}");
+    data.push(${item.amountSum});
+    </c:if>
+    </c:forEach>
+
+
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    '#FF6B6B', '#4ECDC4', '#F7FFF7', '#FFE66D', '#1A535C'
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                position: 'right'
+            }
+        }
+    });
+
+
+
+</script>
 </body>
 </html>
