@@ -188,9 +188,18 @@
 
     <!--    safetyCARD이용 정보-->
     <select id="selectSafetySettingByEmail" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        SELECT DISTINCT sc.cardId, sc.safetyStartDate, sc.safetyEndDate, sc.safetyStringInfo
-        FROM safetyCard sc
-        WHERE sc.cardId IN (SELECT cardId FROM card WHERE email = #{email})
+        SELECT DISTINCT
+            sc.cardId,
+            c.cardName as cardName,
+            sc.safetyStartDate,
+            sc.safetyEndDate,
+            sc.safetyStringInfo
+        FROM
+            safetyCard sc
+                JOIN
+            card c ON sc.cardId = c.cardId
+        WHERE
+            c.email =#{email}
     </select>
 
 

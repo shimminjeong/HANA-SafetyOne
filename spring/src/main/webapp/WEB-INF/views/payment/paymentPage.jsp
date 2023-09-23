@@ -14,27 +14,7 @@
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0759a386285f84663503ff0dd087258b&libraries=services"></script>
 <script src="../../../resources/js/payment.js" type="text/javascript"></script>
 
-<style>
-    #logo{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    a {
-        font-size: 25px;
-        text-align: center;
-        padding: 12px 12px;
-        text-decoration: none;
-        color: black;
-    }
-</style>
-
 <div class="payment-container">
-    <div id="logo">
-        <img class="imgLogo" src="../../resources/img/logo.png" height="60">
-        <a class="nameLogo" href="/">SafetyOne</a>
-    </div>
     <div class="time-container">
         <img src="../../../resources/img/calendar.png">
         <h1 id="current-date"></h1>
@@ -42,70 +22,129 @@
         <img src="../../../resources/img/clock1.png">
         <h1 id="current-time"></h1>
     </div>
-    <div class="map_wrap">
-        <div id="map" style="width:100%;height:100%;overflow:hidden;"></div>
-        <div id="menu_wrap" class="bg_white">
-            <div class="option">
-                <div>
-                    <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
-                        <button type="submit">검색</button>
-                    </form>
+    <div class="subcontainer">
+        <div class="map_wrap">
+            <div id="map" style="width:100%;height:100%;overflow:hidden;"></div>
+            <div id="menu_wrap" class="bg_white">
+                <div class="option">
+                    <div>
+                        <form onsubmit="searchPlaces(); return false;">
+                            키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
+                            <button type="submit">검색</button>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <ul id="placesList"></ul>
+                <div id="pagination"></div>
+            </div>
+        </div>
+        <div class="payment-subcontainer">
+            <div class="payment-info-box">
+                <div class="store-div">
+                    <div class="store">상호명</div>
+                    <div class="place-store"></div>
+                </div>
+                <div class="address-div">
+                    <div class="address">주소</div>
+                    <div class="place-address"></div>
+                </div>
+                <div class="category-div">
+                    <div class="category">업종</div>
+                    <div class="place-category"></div>
+                </div>
+                <div class="price-div">
+                    <div class="price">금액</div>
+                    <div class="place-price"><input type="text" id="price" name="price"
+                                                    oninput="formatCurrency(this)"><span>원</span></div>
+                </div>
+                <div class="phone">전화번호
+                    <span class="place-phone"></span>
+                </div>
+                <div class="road_address_name">도로명주소
+                    <span class="place-road_address_name"></span>
+                </div>
+<%--                <div class="product">상품명 :--%>
+<%--                    <span class="place-product">망고스무디</span>--%>
+<%--                </div>--%>
+                <div class="cardNum-div">
+                    <div class="cardNum">카드선택</div>
+                    <div class="cardId-info">
+                        <div class="allow-img-prev"><a class="prev" onclick="plusSlides(-1)">
+                            <img src="../../../resources/img/previous.png" alt="Previous Slide">
+                        </a>
+                        </div>
+                        <div class="slideshow-container">
+                            <c:forEach items="${cards}" var="card" varStatus="loop">
+                                <div class="mySlides" onclick="selectCardId('${card.cardId}')">
+                                    <img src="../../resources/img/cardImg${loop.index + 1}.png"
+                                         data-card-id="${card.cardId}">
+                                    <div class="cardIdtext">${card.cardId}</div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <div class="allow-img-next"><a class="next" onclick="plusSlides(1)">
+                            <img src="../../../resources/img/next.png" alt="Next Slide">
+                        </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-        </div>
-    </div>
-    <div class="payment-subcontainer">
-        <div class="payment-info-box">
-            <div class="store">상호명 :
-                <span class="place-store"></span>
-            </div>
-            <div class="address">주소 :
-                <span class="place-address"></span>
-            </div>
-            <div class="category">업종 :
-                <span class="place-category"></span>
-            </div>
-            <div class="phone">전화번호 :
-                <span class="place-phone"></span>
-            </div>
-            <div class="road_address_name">도로명주소 :
-                <span class="place-road_address_name"></span>
-            </div>
-<%--            <div class="product">상품명 :--%>
-<%--                <span class="place-product">망고스무디</span>--%>
-<%--            </div>--%>
-            <div class="price"><p>금액 :&nbsp&nbsp</p>
-                <p><input type="text" id="price" name="price"></p>
-            </div>
-            <div class="cardId">카드아이디
-                <span class="place-cardId">6155-7952-7748-1647</span>
-            </div>
-        </div>
-        <div class="menu">
-            <button class="selectmenu" onclick="selectmenu()">상품선택</button>
-        </div>
-    </div>
-    <button class="paymentRequest" onclick="paymentRequest()">결제</button>
-</div>
-
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>상품을 선택하세요</p>
-        <div class="menu">
-<%--            메뉴사진과 가격 넣기--%>
+            <button class="paymentRequest" onclick="paymentRequest()">결제</button>
         </div>
     </div>
 </div>
 
 <script>
+    let currentCardId = '';
 
+    let slideIndex = 1;
+    showSlides(slideIndex);
 
-    function getToday(){
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+
+        let slide = slides[slideIndex - 1];
+        currentCardId = slide.querySelector(".cardIdtext").textContent;
+
+        console.log(currentCardId);  // 확인용 로그
+
+    }
+
+    function formatCurrency(inputElem) {
+        // Remove all non-digit characters but keep the caret position
+        let caretPosition = inputElem.selectionStart - (inputElem.value.length - inputElem.value.replace(/\D/g, '').length);
+        inputElem.value = inputElem.value.replace(/\D/g, '');
+
+        // Convert the value to a string with comma separators
+        inputElem.value = parseFloat(inputElem.value).toLocaleString('en-US');
+
+        // Restore the caret position
+        inputElem.setSelectionRange(caretPosition, caretPosition);
+    }
+
+    function getToday() {
         var date = new Date();
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
@@ -124,17 +163,16 @@
         currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 
-
     function paymentRequest() {
 
-        var cardId = $('.place-cardId').text();
         var store = $('.place-store').text();
         var address = $('.place-address').text();
         var category = $('.place-category').text();
         var storePhoneNumber = $('.place-phone').text();
         var road_address_name = $('.place-road_address_name').text();
         // var product = $('.place-product').text();
-        var amount = $('#price').val();
+        var amountStr = $('#price').val().replace(/,/g, '');  // 쉼표 제거
+        var amount = parseInt(amountStr);  // 정수로 변환
         address = address.replace("경기", "제주도");
         address = address.replace("서울", "서울특별시");
         address = address.replace("인천", "인천광역시");
@@ -152,13 +190,12 @@
         address = address.replace("전북", "전라북도");
         address = address.replace("제주특별자치도", "제주도");
 
-        console.log("currentTime",currentTime.textContent);
-        console.log("address",address);
+        console.log("currentTime", currentTime.textContent);
+        console.log("address", address);
 
 
         var dateTextContent = document.getElementById("current-date").textContent;
         var timeTextContent = currentTime.textContent;
-
 
 
         var timeParts = timeTextContent.split(' ');
@@ -181,17 +218,27 @@
         console.log(formattedTime); // 결과 출력
 
         var data = {
-            cardId : cardId,
+            cardId: currentCardId,
             store: store,
             address: address,
-            paymentDate:dateTextContent,
-            time : formattedTime,
+            paymentDate: dateTextContent,
+            time: formattedTime,
             categorySmall: category,
             storePhoneNumber: storePhoneNumber,
             road_address_name: road_address_name,
             // product: product,
             amount: amount
         };
+
+        console.log("cardId보내는거"+currentCardId);
+        console.log("store"+store);
+        console.log("address"+address);
+        console.log("paymentDate"+dateTextContent);
+        console.log("time"+formattedTime);
+        console.log("categorySmall"+category);
+        console.log("storePhoneNumber"+storePhoneNumber);
+        console.log("road_address_name"+road_address_name);
+        console.log("amount"+amount);
 
         var queryParams = $.param(data);
 
@@ -201,24 +248,23 @@
             data: JSON.stringify(data),
             contentType: 'application/json',
             dataType: 'text',
-            success: function(response) {
+            success: function (response) {
                 // 서버 응답 처리
                 // alert(response.message);
 
-                console.log("response",response);
+                console.log("response", response);
 
                 // 응답 메시지가 "거래승인"일 경우 리다이렉트
                 if (response === "거래승인") {
-                    window.location.href = "/payment/paymentApproval?"+queryParams;
-                }
-                else if (response === "거래미승인") {
+                    window.location.href = "/payment/paymentApproval?" + queryParams;
+                } else if (response === "거래미승인") {
                     alert("거래미승인!");
-                    window.location.href = "/payment/paymentNotApproval";
+                    window.location.href = "/payment/paymentNotApproval?"+ queryParams;
                 } else {
                     alert(response);
                 }
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('Error:', error);
             }
         });

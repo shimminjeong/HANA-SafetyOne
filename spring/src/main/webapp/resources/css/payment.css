@@ -1,10 +1,16 @@
 .payment-container{
     display: flex;
     flex-direction: column;
-    /*justify-content: center;*/
     align-items: center;
-    margin-left: 200px;
-    margin-right: 200px;
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.subcontainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .time-container {
@@ -14,6 +20,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-bottom: 1%;
 }
 .time-container img {
     width: 4%;
@@ -28,15 +35,14 @@
     margin-top: 3%;
     width: 70%;
     height: 70%;
-    margin: auto 0;
 }
 
 
 /*지도검색*/
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:400px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap {position:relative;width:80%;height:450px; margin-right: 5%;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:220px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -71,16 +77,16 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 .payment-info-box {
-    width: 300px;
+    width: 400px;
+    height: 100%;
     border: 1px solid #ddd;
-    padding: 20px;
-    margin: 20px 0;
+    padding: 17px 14px 7px 17px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .payment-info-box div {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 
@@ -91,19 +97,11 @@
 .payment-info-box .road_address_name,
 .payment-info-box .product,
 .payment-info-box .price,
+.payment-info-box .cardNum,
 .payment-info-box input{
     font-weight: bold;
-}
-
-.payment-info-box span {
-    color: #555;
-}
-
-.payment-subcontainer input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: 16px;
+    width: 85px;
 }
 
 .button {
@@ -126,55 +124,96 @@
 
 .payment-subcontainer{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
+    flex-direction: column;
+    width: 40%;
     height: 50%;
-}
+    align-items: center;
 
-.payment-info-box{
-    width: 100%;
-    height: 100%;
 }
 
 .price{
     display: flex;
 }
 
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+.phone, .road_address_name {
+    display: none;
 }
 
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+.place-store, .place-address, .place-category ,.place-price{
+    border: 1px solid #ccc;    /* Adds a lighter border */
+    padding: 5px 10px ;              /* Gives some space inside the inner box */
+    height: 26px;              /* Sets a fixed height */
+    width: 80%;
+    display: flex;
+    align-items: center;
 }
 
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.store-div, .address-div, .category-div, .price-div,.cardNum-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
+.place-price input {
+    border: none;
+    outline: none; /* This is to ensure the blue outline (which browsers often show when the input is focused) is not displayed */
+}
+
+a {
+    font-size: 25px;
+    text-align: center;
+    padding: 17px;
     text-decoration: none;
+    color: black;
+}
+.cardId-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;    /* Adds a lighter border */
+    padding-top: 15px;              /* Gives some space inside the inner box */
+    width: 85%;
+}
+
+.allow-img-prev, .allow-img-next {
+    display: flex;
+    align-items: center;
+}
+
+.allow-img-prev img, .allow-img-next img {
+    width: 25px;
     cursor: pointer;
+}
+
+.slideshow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mySlides {
+    display: none; /* 기본적으로 슬라이드를 숨김 */
+    /*margin: 0 10px; !* 슬라이드 사이의 간격을 조절 *!*/
+
+}
+
+.mySlides img {
+    width: 180px;
+    display: block; /* 이미지가 inline 요소이므로 block로 변경하여 margin, padding 등을 제대로 적용 */
+}
+
+.cardIdtext{
+    margin-top : 5%;
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.paymentRequest{
+    margin-top: 3%;
+    font-size: 16px;
+    width: 30%;
+    height: 36px;
+
 }

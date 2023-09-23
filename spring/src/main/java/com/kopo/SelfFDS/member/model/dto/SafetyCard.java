@@ -24,6 +24,7 @@ public class SafetyCard {
     private String stopStartDate;
     private String stopEndDate;
     private String safetyStringInfo;
+    private String cardName;
 
     @Override
     public String toString() {

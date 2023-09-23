@@ -36,11 +36,11 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Card ID</th>
-                            <th>Lost Date</th>
-                            <th>Lost Place</th>
-                            <th>Lost Reason</th>
-                            <th>Reissued</th>
+                            <th>카드번호</th>
+                            <th>분실일자</th>
+                            <th>분실장소</th>
+                            <th>분실사유</th>
+                            <th>재발급여부</th>
                         </tr>
                         </thead>
                         <tbody>

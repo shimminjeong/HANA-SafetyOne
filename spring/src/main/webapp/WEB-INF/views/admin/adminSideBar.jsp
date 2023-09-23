@@ -2,7 +2,7 @@
 <div class="details__left">
   <ul class="menu">
     <li class="menu__item">
-      <a href="/admin/lostCard" class="menu__link">
+      <a href="/admin/" class="menu__link">
         <div class="menu__icon"><img src="../../../resources/img/dashboard.png"></div>
         대시보드
       </a>

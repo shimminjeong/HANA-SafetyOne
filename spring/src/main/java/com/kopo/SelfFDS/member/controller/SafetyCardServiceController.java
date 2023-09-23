@@ -3,6 +3,7 @@ package com.kopo.SelfFDS.member.controller;
 
 import com.kopo.SelfFDS.member.model.dto.*;
 import com.kopo.SelfFDS.member.service.MemberService;
+import com.kopo.SelfFDS.member.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.IconUIResource;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +22,12 @@ import java.util.Map;
 public class SafetyCardServiceController {
 
     private final MemberService memberService;
+    private final MyPageService myPageService;
 
     @Autowired
-    public SafetyCardServiceController(MemberService memberService) {
+    public SafetyCardServiceController(MemberService memberService, MyPageService myPageService) {
         this.memberService = memberService;
+        this.myPageService = myPageService;
     }
 
     @GetMapping("/")
@@ -309,7 +309,9 @@ public class SafetyCardServiceController {
     public String handleRequest(@RequestParam("cardId") String cardId, Model model) {
         // Now you have the cardId. You can process it as needed.
         List<SafetyCard> safetyInfo = memberService.selectAllSafetyCardOfCardId(cardId);
+        Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
         model.addAttribute("safetyInfo", safetyInfo);
+        model.addAttribute("cardInfo", cardInfo);
         System.out.println("safetyInfo" + safetyInfo);
         // Redirect or forward to another view if needed
         return "service/stopCardPage";

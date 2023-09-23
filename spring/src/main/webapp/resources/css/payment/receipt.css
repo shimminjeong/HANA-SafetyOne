@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.receipt-container {
+    background-color: white;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2), 0px 3px 6px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    width: 30%;
+    margin: 70px auto;
+    display: flex;
+    /*align-items: center;*/
+    flex-direction: column;
+}
+
+.store-name{
+    margin: auto;
+}
+
+.approval-info{
+    text-align: center;
+}
+
+.receipt-content {
+    text-align: left;
+}
+
+.receipt-content-div{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.storeInfo, .card-category{
+    display: flex;
+    justify-content: space-between;
+}
+
+hr {
+    border: none;          /* Remove default border */
+    border-top: 2px dashed  #000;  /* Set top border to a dotted line */
+    height: 1px;           /* Define the height */
+    width: 100%;           /* Make it span the full width of its container */
+    margin: 2px 0;        /* Add some margin to top and bottom for spacing */
+    background: none;      /* Ensure there's no background */
+}
+
+.receipt-content-div2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.content-name2 {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    white-space: nowrap;
+    width: 180px; /* 이 값을 조절하여 전체 너비를 변경하세요 */
+}
+
+.content-name2 .word, .content-name2 .last-char {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.content-name2 span:first-child {
+    justify-content: flex-start;
+}
+
+.content-name2 span.last-char {
+    justify-content: flex-end;
+}
+
+.content-name2 span:not(:last-child) {
+    margin-right: 10px; /* 각 단어 사이의 간격을 조절하려면 이 값을 변경하세요 */
+}
+
+.content-value2 {
+    font-size: 1em;
+    text-align: right;
+    white-space: nowrap;
+    flex: 1;
+}
+
+

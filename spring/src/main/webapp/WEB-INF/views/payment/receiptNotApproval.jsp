@@ -58,54 +58,16 @@
             </div>
             <hr>
             <hr>
-            <div class="approval-info"><h3>*** 신용카드 매출전표 [고객용] ***</h3></div>
-            <hr>
-            <div class="card-category">
-                <div class="receipt-content-div">
-                    <div class="content-name">[카드종류]&nbsp;</div>
-                    <div class="content-value">하나카드</div>
-                </div>
-                <div class="receipt-content-div">
-                    <div class="content-name">[할부개월]&nbsp;</div>
-                    <div class="content-value">일시불</div>
-                </div>
-            </div>
-            <div class="receipt-content-div">
-                <div class="content-name">[카드번호]&nbsp;</div>
-                <div class="content-value">${cardId}</div>
-            </div>
-            <div class="receipt-content-div">
-                <div class="content-name">[유효기간]&nbsp;</div>
-                <div class="content-value4">${cardInfo.validDate}</div>
-            </div>
-            <div class="receipt-content-div">
-                <div class="content-name">[승인금액]&nbsp;</div>
-                <div class="content-value3" data-amount="${amount}">${amount}원</div>
-            </div>
-            <div class="receipt-content-div">
-                <div class="content-name">[승인번호]&nbsp;</div>
-                <div class="content-value">12345678</div>
-            </div>
-            <div class="receipt-content-div">
-                <div class="content-name">[승인일시]&nbsp;</div>
-                <div class="content-value">${paymentDate}&nbsp;${time}</div>
-            </div>
-            <%--            <div id="cardId">${cardId}</div>--%>
-            <%--            <div id="address">${address}</div>--%>
-            <%--            <div id="time">${time}</div>--%>
-            <%--            <div id="categorySmall">${categorySmall}</div>--%>
-            <%--            <div id="amount">${amount}</div>--%>
-            <%--            <div id="store">${store}</div>--%>
-            <%--            <div id="paymentDate">${paymentDate}</div>--%>
-            <%--            <div id="storePhoneNumber">${storePhoneNumber}</div>--%>
+            <div class="approval-info"><h3>*** 신용카드 미승인 ***</h3></div>
+            <div class="approval-info"><h3>*** 반드시 확인요망 ***</h3></div>
+
         </div>
     </div>
 </div>
 
-
 <script>
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         formatDate();
     });
 

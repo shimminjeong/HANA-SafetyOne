@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
+
 <html>
 <head>
     <title>Title</title>
@@ -68,12 +69,13 @@
                     <hr>
                     <div class='info-list'>
                         <div class='info-header'>카드번호</div>
-                        <div class='info-content'>${safetyInfo.cardId} | yolo
+                        <div class='info-content'>${safetyInfo.cardId} | ${safetyInfo.cardName}
                         </div>
                     </div>
                     <div class='info-list'>
                         <div class='info-header'>사용가능기간</div>
-                        <div class='info-content'>${safetyInfo.safetyStartDate} ~ 카드유효기간(${safetyInfo.safetyEndDate})
+                        <div class='info-content'>${safetyInfo.safetyStartDate.split(" ")[0]}
+                            ~ 카드유효기간(${safetyInfo.safetyEndDate.split(" ")[0]})
                         </div>
                     </div>
                     <c:set var="splitInfo" value="${fn:split(safetyInfo.safetyStringInfo, '.')}"/>

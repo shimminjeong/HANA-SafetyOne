@@ -29,11 +29,11 @@
                 <span>${safetyInfo[0].cardId}</span>
             </div>
             <div class="card-type">
-                <span>알뜰교통 S20(체크)</span>
+                <span>${cardInfo.cardName}</span>
             </div>
         </div>
         <div class="car">
-            <span>서비스 이용 기간</span><span>${safetyInfo[0].safetyStartDate} ~ 카드유효기간(${safetyInfo[0].safetyEndDate})</span>
+            <span>서비스 이용 기간</span><span>${safetyInfo[0].safetyStartDate.split(" ")[0]} ~ 카드유효기간(${safetyInfo[0].safetyEndDate.split(" ")[0]})</span>
         </div>
         <div class="car">
             <div>특정 기간동안 안심카드서비스를 일시정지할 조합을 선택하세요</div>
@@ -43,12 +43,10 @@
             <table border="1">
                 <thead>
                 <tr>
-
                     <th>차단한 지역</th>
-                    <th>차다한 시간</th>
+                    <th>차단한 시간</th>
                     <th>차단한 업종</th>
                     <th>일시정지</th>
-
                     <!-- 추가로 다른 칼럼도 포함시킬 수 있습니다. -->
                 </tr>
                 </thead>
@@ -69,8 +67,6 @@
                                 일시정지
                             </button>
                         </td>
-
-                        <!-- 추가로 다른 속성들도 포함시킬 수 있습니다. -->
                     </tr>
                 </c:forEach>
                 </tbody>
