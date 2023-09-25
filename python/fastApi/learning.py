@@ -72,6 +72,11 @@ def train_gmm_model(card_id):
     cursor.execute(sql,(amount,card_id));
     
     model_file_path = f'gmm_{card_id}.pkl'
+    
+    # 모델을 파일에 저장합니다.
+    with open(model_file_path, 'wb') as model_file:
+        pickle.dump(gmm, model_file)
+        
     sql="update fds set WEIGHTSAVEPATH=:1 where cardid=:2";
     cursor.execute(sql,(model_file_path,card_id));
     

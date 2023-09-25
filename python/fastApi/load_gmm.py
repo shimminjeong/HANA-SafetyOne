@@ -28,7 +28,6 @@ def anomalyDetection_gmm(card_id, data_to_check):
     # data_to_check의 likelihood 계산 후 임계치와 비교
     data_likeli = loaded_gmm.score_samples(data_to_check.reshape(1,-1))
     
-    
     is_anomaly="N";
     if (data_likeli < threshold_likeli):
         is_anomaly="Y"
