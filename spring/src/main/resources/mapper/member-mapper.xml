@@ -171,7 +171,7 @@
         <if test="categorySmall != null">,CATEGORYSMALL</if>
         )
         VALUES(
-        #{cardId},sysdate, TO_DATE('2023/05/27', 'YYYY/MM/DD'),#{safetyStringInfo}
+        #{cardId},sysdate, TO_DATE(#{safetyEndDate}, 'YYYY-MM-DD HH24:MI:SS'),#{safetyStringInfo}
         <!-- Conditionally add values -->
         <if test="regionName != null">,#{regionName}</if>
         <if test="time != null">,#{time}</if>
@@ -317,6 +317,25 @@
 
     <!--    fds 서비스 해제하면 FDS 테이블에 STATUS 상태 변경-->
     <!--selffds서비스 해제하면 safetycard의 status N-->
+
+
+    <select id="selectSafetyCardYByEmail" parameterType="com.kopo.SelfFDS.member.model.dto.Card">
+        SELECT *
+        FROM card
+        WHERE email=#{email} and selffdsserstatus='Y'
+    </select>
+
+    <select id="selectSafetyCardNotRegionByCarId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        select *
+        from safetycard
+        WHERE CARDID = #{cardId} and categorysmall is not null and time is not null
+    </select>
+
+    <select id="selectSafetyCardRegionByCarId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        select *
+        from safetycard
+        WHERE CARDID = #{cardId} and categorysmall is null and time is null
+    </select>
 
 
 

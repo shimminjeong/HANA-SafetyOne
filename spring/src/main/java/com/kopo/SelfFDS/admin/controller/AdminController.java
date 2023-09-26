@@ -1,6 +1,7 @@
 package com.kopo.SelfFDS.admin.controller;
 
 import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
+import com.kopo.SelfFDS.admin.model.dto.Cluster;
 import com.kopo.SelfFDS.admin.service.AdminService;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
@@ -94,20 +95,22 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> anomalyChart(@RequestBody PaymentLog paymentLog) {
         PaymentLog paymentPayLoad = adminService.getAnomalyDataById(paymentLog.getPaymentLogId());
+        System.out.println("paymentPayLoad" + paymentPayLoad);
         Map<String, Object> calStatsData = adminService.calStats(paymentLog.getCardId());
+        System.out.println("calStatsData" + calStatsData);
         PaymentLog paymentLogs = adminService.getAnomalyDataById(paymentLog.getPaymentLogId());
         String hour = paymentLogs.getPaymentDate().split(" ")[1];
-        System.out.println(" "+paymentLogs.getAddress() + paymentLogs.getCategorySmall() + hour + paymentLogs.getAmount());
+        System.out.println(" " + paymentLogs.getAddress() + paymentLogs.getCategorySmall() + hour + paymentLogs.getAmount());
 
-        WordToVec embeddingData = paymentService.wordEmbedding(paymentLogs.getAddress(),paymentLogs.getCategorySmall(),hour,paymentLogs.getAmount());
-        System.out.println("embeddingData"+embeddingData);
+        WordToVec embeddingData = paymentService.wordEmbedding(paymentLogs.getAddress(), paymentLogs.getCategorySmall(), hour, paymentLogs.getAmount());
+        System.out.println("embeddingData" + embeddingData);
         calStatsData.put("address", paymentLogs.getAddress());
         calStatsData.put("category", paymentLogs.getCategorySmall());
 
         calStatsData.put("embeddingData", embeddingData);
 
-        List<CardHistoryStats> regionCntList=adminService.getRegionGroupCntByCardId(paymentLog.getCardId());
-        List<CardHistoryStats> categoryCntList=adminService.getCategoryGroupCntByCardId(paymentLog.getCardId());
+        List<CardHistoryStats> regionCntList = adminService.getRegionGroupCntByCardId(paymentLog.getCardId());
+        List<CardHistoryStats> categoryCntList = adminService.getCategoryGroupCntByCardId(paymentLog.getCardId());
 
         calStatsData.put("regionCntList", regionCntList);
         calStatsData.put("categoryCntList", categoryCntList);
@@ -116,7 +119,7 @@ public class AdminController {
     }
 
 
-//    cardid의 거래내역을 가지고 gmm 알고리즘 학습
+    //    cardid의 거래내역을 가지고 gmm 알고리즘 학습
     @PostMapping("/learning")
     public ResponseEntity<String> learningPage(@RequestParam("cardId") String cardId) {
         // RestTemplate 인스턴스 생성
@@ -140,9 +143,38 @@ public class AdminController {
 
 
     @GetMapping("/cluster")
-    public String adminClusterPage() {
-        return "admin/cluster";
+    public ModelAndView adminClusterPage() {
+        ModelAndView mav = new ModelAndView();
+        List<Cluster> clusterInfo = adminService.selectClusterStatic();
+        List<Cluster> clusterInfo2 = adminService.selectClusterStatic2();
+        mav.addObject("clusterInfo", clusterInfo);
+        mav.addObject("clusterInfo2", clusterInfo2);
+        mav.setViewName("admin/cluster");
+        return mav;
     }
+
+    @PostMapping("/clusterDetail")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> clusterDetailChart(@RequestBody Cluster cluster) {
+        Map<String, Object> response = new HashMap<>();
+        System.out.println("cluster"+cluster.getClusterNum());
+        List<Cluster> clusterPeopleInfo=adminService.selectClusterPeopleInfo(cluster.getClusterNum());
+        List<Cluster> clusterDetail=adminService.selectClusterDetail(cluster.getClusterNum());
+        Cluster cluster1=adminService.selectClusterStatic2ByCluster(cluster.getClusterNum());
+        System.out.println("clusterPeopleInfo"+clusterPeopleInfo);
+        System.out.println("clusterDetail"+clusterDetail);
+
+        response.put("clusterPeopleInfo",clusterPeopleInfo);
+        response.put("clusterDetail",clusterDetail);
+        response.put("cluster1",cluster1);
+
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping("/email")
     public String adminEmailPage() {
@@ -151,24 +183,24 @@ public class AdminController {
 
     @GetMapping("/lostCard")
     public ModelAndView adminLostCardPage() {
-        List<LostCard> lostCardList=adminService.selectAllLostCard();
-        List<String> reasonList=adminService.selectLostReason();
-        System.out.println("lostCardList"+lostCardList);
-        ModelAndView mav=new ModelAndView();
-        mav.addObject("lostCardList",lostCardList);
-        mav.addObject("reasonList",reasonList);
+        List<LostCard> lostCardList = adminService.selectAllLostCard();
+        List<String> reasonList = adminService.selectLostReason();
+        System.out.println("lostCardList" + lostCardList);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("lostCardList", lostCardList);
+        mav.addObject("reasonList", reasonList);
         mav.setViewName("admin/adminLostCard");
         return mav;
     }
 
     @PostMapping("/lostReason")
     public ModelAndView adminLostReason() {
-        List<LostCard> lostCardList=adminService.selectAllLostCard();
-        List<String> reasonList=adminService.selectLostReason();
-        System.out.println("lostCardList"+lostCardList);
-        ModelAndView mav=new ModelAndView();
-        mav.addObject("lostCardList",lostCardList);
-        mav.addObject("reasonList",reasonList);
+        List<LostCard> lostCardList = adminService.selectAllLostCard();
+        List<String> reasonList = adminService.selectLostReason();
+        System.out.println("lostCardList" + lostCardList);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("lostCardList", lostCardList);
+        mav.addObject("reasonList", reasonList);
         mav.setViewName("admin/adminLostCard");
         return mav;
     }

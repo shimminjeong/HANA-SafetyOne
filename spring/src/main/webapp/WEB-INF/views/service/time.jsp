@@ -12,90 +12,99 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="../../../resources/js/time.js" type="text/javascript"></script>
     <link href="../../../resources/css/safetyCardCommon.css" rel="stylesheet">
-    <link href="../../../resources/css/time.css" rel="stylesheet">
+    <link href="../../../resources/css/region.css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
-<div class="container">
-    <div class="main">
-        <h2>안심카드설정</h2>
-        <h3>대상카드</h3>
-        <hr>
-        <div class="card-info">
-            <div class="card-details">
-                <span>본인 | </span>
-                <span><%=session.getAttribute("cardId")%></span>
+<div class="details">
+    <h2>안심카드설정</h2>
+    <h3>대상카드</h3>
+    <div class="lostcard-list hidden">
+        <div class="card-list-info">
+            <div class="card-list-info-cardid"><%=session.getAttribute("cardId")%>
             </div>
-            <div class="card-type">
-                <span>알뜰교통 S20(체크)</span>
+            <div class="card-list-info-name">본인 | &nbsp;
             </div>
+            <div class="card-list-info-cardname"><%=session.getAttribute("cardName")%>
+            </div>
+            <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
         </div>
-        <div class="sub-container">
-            <div class="sub-info">
-                결제를 차단할 시간을 선택하세요
+    </div>
+    <div class="subcontainer">
+        <div class="details__left">
+            <ul class="menu">
+                <li class="menu__item">
+                    <a href="/mypage" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/pin.png"></div>
+                        위치
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/mypageCardHistory" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/clock1.png"></div>
+                        시간
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/mypageReport" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/categories.png"></div>
+                        업종
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="detail__right">
+            <div class="right-info"><h2>시간안심</h2></div>
+            <div class="right-info2"><h3>차단시간 선택</h3>
+                <div class="chart-name" onclick="openChartTimeModal()">시간별 나의 소비 확인 ></div>
             </div>
-            <div class="sub-main">
-                <div class="sub-main-content1">
-                    <div class="time-select">
-                        <button class="time-range" onclick="handleTimeRangeClick(this)">00시 ~ 04시</button>
-                        <button class="time-range" onclick="handleTimeRangeClick(this)">05시 ~ 09시</button>
-                        <button class="time-range" onclick="handleTimeRangeClick(this)">10시 ~ 14시</button>
-                        <button class="time-range" onclick="handleTimeRangeClick(this)">15시 ~ 19시</button>
-                        <button class="time-range" onclick="handleTimeRangeClick(this)">19시 ~ 23시</button>
-                        <div style="font-size: 20px; margin-top: 20px">직접선택</div>
-                        <div class="time-choose">
-                            <select id="startHour"></select>
-                            <p><strong> 시 </strong></p>
-                            <p><strong> ~ </strong></p>
-                            <select id="endHour" onchange="updateTime()"></select>
-                            <p><strong> 시 </strong></p>
-                        </div>
+            <div class="right-info3" style="color: red">※ 거래하지 않는 시간을 지정하여 금융사고를 예방하는 서비스입니다.</div>
+
+            <div class="time-subcontainer">
+                <div class="clock-div">
+                    <img src="../../../resources/img/safetyTime.jpg">
+                </div>
+
+                <div class="time-select">
+                    <div class="time-choose">
+                        <select id="startHour" style="margin-right: 2%"></select>
+                        <p style="margin-right: 5%"> 시 </p>
+                        <p style="margin-right: 5%"> ~ </p>
+                        <select id="endHour" style="margin-right: 2%" onchange="updateTime()"></select>
+                        <p> 시 </p>
                     </div>
                 </div>
-                <div class="sub-main-content2">
-                    <div class="chart" onclick="openChartTimeModal()">
-                        <img src="../../../resources/img/clock1.png">
-                        <div class="chart-name">시간별 나의 소비 확인</div>
-                    </div>
-                    <%
-                        String[] regions = request.getParameterValues("regions");
-                        System.out.println("regions" + regions);
-                    %>
-                    <c:if test="${empty regions}">
-                        <div class="myselect">
-                            <div class="myselect-head">선택한 결제 차단시간</div>
-                            <div>
-                                <span class="myselect-time-no-content"></span><span class="select-alarm"></span>
-                            </div>
-                        </div>
-                    </c:if>
-                </div>
+
             </div>
-            <c:if test="${not empty regions}">
-                <div class="thissetting-info">
-                    <div class="thissetting-head">현재까지 조합된 나만의 rule</div>
-                    <div class="thissetting-content">
-                        <c:forEach var="region" items="${regions}" varStatus="loop">
-                            <span><strong>${region}</strong></span>
-                            <c:if test="${loop.index +1 < fn:length(regions)}">
-                                <span><strong>,</strong></span>
-                            </c:if>
-                        </c:forEach>에서 <span class="myselect-time-no-content"></span><span class="select-alarm"></span>
-                    </div>
+            <%
+                String[] regions = request.getParameterValues("regions");
+                System.out.println("regions" + regions);
+            %>
+            <c:if test="${empty regions}">
+                <div class="myselect-option">
+                    <span class="myselect-time-no-content"></span><span class="select-alarm"></span>
                 </div>
             </c:if>
+            <c:if test="${not empty regions}">
+                <div class="myselect-option">
+                    <c:forEach var="region" items="${regions}" varStatus="loop">
+                        <span><strong>${region}</strong></span><c:if
+                            test="${loop.index +1 < fn:length(regions)}"><strong>,</strong></c:if>
+                    </c:forEach>에서 <span class="myselect-time-no-content"></span><span class="select-alarm"></span>
+                </div>
+            </c:if>
+
             <div class="reg-btn-div">
-                <button class="reg-Btn" onclick="registerTime()">등록</button>
+                <button class="next-Btn" onclick="registerTime()">다음</button>
             </div>
         </div>
     </div>
-
-    <div class="modal">
-        <div id="myTimemodal">
-            <div class="chart-head">최근 3개월간 나의 소비</div>
-            <canvas id="myTimeCntChart"></canvas>
-            <span class="close" onclick="closeChartTimeModal()">&times;</span>
-        </div>
+</div>
+<div class="modal">
+    <div id="myTimemodal">
+        <div class="chart-head">최근 3개월간 나의 소비</div>
+        <canvas id="myTimeCntChart"></canvas>
+        <span class="close" onclick="closeChartTimeModal()">&times;</span>
     </div>
 </div>
 

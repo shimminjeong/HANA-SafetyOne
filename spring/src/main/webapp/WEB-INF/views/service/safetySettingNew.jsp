@@ -16,26 +16,72 @@
 
 </head>
 <body>
+<style>
+    .lostcard-list {
+        margin-bottom: 2%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc; /* 회색 테두리 */
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+        border-radius: 5px; /* 둥근 테두리 */
+    }
+
+    .card-list-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 80px;
+        padding-left: 2%;
+        font-size: 17px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card-list-info-cardid {
+        margin-right: 3%;
+    }
+
+    .card-list-info-cardname {
+        margin-right: 8%;
+    }
+
+    .card-list-info .card-img {
+        height: 70%;
+    }
+
+</style>
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h2>안심카드설정</h2>
-        <h3>대상카드</h3>
-        <hr>
-        <div class="card-info">
-            <div class="card-details">
-                <span>본인 | </span>
-                <span><%=session.getAttribute("cardId")%></span>
-            </div>
-            <div class="card-type">
-                <span>알뜰교통 S20(체크)</span>
+        <div class="info-header">결제를 차단할 지역, 시간, 업종 등 나만의 rule을 설정해보세요</div>
+        <h4>대상카드</h4>
+        <%--        <hr>--%>
+        <%--        <div class="card-info">--%>
+        <%--            <div class="card-details">--%>
+        <%--                <span>본인 | </span>--%>
+        <%--                <span><%=session.getAttribute("cardId")%></span>--%>
+        <%--            </div>--%>
+        <%--            <div class="card-type">--%>
+        <%--                <span>알뜰교통 S20(체크)</span>--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
+        <div class="lostcard-list hidden">
+            <div class="card-list-info">
+                <div class="card-list-info-cardid"><%=session.getAttribute("cardId")%>
+                </div>
+                <div class="card-list-info-name">본인 | &nbsp;
+                </div>
+                <div class="card-list-info-cardname"><%=session.getAttribute("cardName")%>
+                </div>
+                <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
             </div>
         </div>
         <div class="setting-options">
-            <div class="info-header">결제를 차단할 지역, 시간, 업종 등 나만의 rule을 설정해보세요</div>
+
             <div class="setting-buttons">
-                <span>STEP1</span>
-                <span>허용지역선택</span>
+                <%--                <span class="img-div"><img src="../../../resources/img/steps_2192581%201.png"></span>--%>
+                <span class="img-div">STEP1</span>
+                <span class="content-header">지역</span>
                 <button class="select-no" id="region-no" onclick="noSelect(this)">선택안함</button>
                 <button class="select-thing" id="select-region" onclick="window.location.href='/safetyCard/region'">
                     지역선택
@@ -56,12 +102,12 @@
                 <div class="setting-result-info">결제 허용 지역내에서 차단하고 싶은 나만의 rule이 있다면 추가하세요</div>
             </c:if>
             <div class="setting-buttons">
-                <span>STEP2</span>
-                <span>차단시간선택</span>
+                <%--                <span class="img-div"><img src="../../../resources/img/steps_2192581%202.png"></span>--%>
+                <span class="img-div">STEP2</span>
+                <span class="content-header">시간</span>
                 <button class="select-no" id="time-no" onclick="noSelect(this)">선택안함</button>
                 <button class="select-thing" id="select-time" onclick="redirectToTimePage()">시간선택</button>
             </div>
-
             <c:if test="${not empty times && empty categorySmalls}">
                 <script>
                     document.getElementById('select-time').style.background = "#dddd";
@@ -93,8 +139,9 @@
                 </div>
             </c:if>
             <div class="setting-buttons">
-                <span>STEP3</span>
-                <span>차단업종선택</span>
+<%--                <span class="img-div"><img src="../../../resources/img/steps_2192581%203.png"></span>--%>
+                <span class="img-div">STEP3</span>
+                <span class="content-header">업종</span>
                 <button class="select-no" id="category-no" onclick="noSelect(this)">선택안함</button>
                 <button class="select-thing" id="select-category" onclick="redirectToCategoryPage()">
                     업종선택

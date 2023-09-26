@@ -20,16 +20,21 @@ function registerRegion() {
         });
 
 }
-
+function changeMapImage(buttonElement) {
+    var newImagePath = buttonElement.getAttribute('data-img'); // 버튼의 data-img 속성 값을 가져옵니다.
+    document.getElementById('mapImage').src = newImagePath; // 이미지의 src 속성을 새 경로로 변경합니다.
+}
 
 function selectRegion(button) {
     const value = button.value;
-    button.style.color = 'green';
+    button.style.color = 'white';
+    button.style.background = '#4c9df8';
     const selectedBtnDiv = document.querySelector('.myselect-region-ok-content');
 
     // 새로운 버튼 생성
     const newButton = document.createElement('button');
     newButton.textContent = value;
+    newButton.style.background = '#4c9df8';  // 배경색 설정
     newButton.classList.add('selected-region-ok', 'custom-button-style');
 
     // 새로운 버튼을 선택된 버튼 영역에 추가
@@ -55,12 +60,16 @@ function updateAlarmText() {
     var existingButtons = selectedBtnDiv.querySelectorAll('.selected-region-ok');
     var alarmSpan = document.querySelector('.select-alarm');
 
+    var regions = Array.from(existingButtons).map(btn => btn.textContent).join(' '); // 모든 선택된 버튼의 텍스트를 연결
+
     if (existingButtons.length > 0) {
-        alarmSpan.textContent = "외 모든 지역을 차단합니다.";
+        alarmSpan.textContent = "외 모든 지역을 차단합니다."; // 띄어쓰기 없이 연결
     } else {
         alarmSpan.textContent = ""; // 텍스트 삭제
     }
 }
+
+
 
 function openChartRegionModal() {
     document.getElementById("myRegionmodal").style.display = "block";

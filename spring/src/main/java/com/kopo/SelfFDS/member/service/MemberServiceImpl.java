@@ -1,6 +1,7 @@
 package com.kopo.SelfFDS.member.service;
 
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
+import com.kopo.SelfFDS.member.model.dao.MyPageMapper;
 import com.kopo.SelfFDS.member.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,15 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static org.apache.logging.log4j.ThreadContext.removeAll;
-
 @Service
 public class MemberServiceImpl implements MemberService {
     private MemberMapper memberMapper;
+    private MyPageMapper myPageMapper;
 
     @Autowired
-    public MemberServiceImpl(MemberMapper memberMapper) {
+    public MemberServiceImpl(MemberMapper memberMapper, MyPageMapper myPageMapper) {
         this.memberMapper = memberMapper;
+        this.myPageMapper = myPageMapper;
     }
 
     @Override
@@ -106,7 +107,20 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.deleteFds(cardId);
     }
 
+    @Override
+    public List<Card> selectSafetyCardYByEmail(String email) {
+        return memberMapper.selectSafetyCardYByEmail(email);
+    }
 
+    @Override
+    public List<SafetyCard> selectSafetyCardNotRegionByCarId(String cardId) {
+        return memberMapper.selectSafetyCardNotRegionByCarId(cardId);
+    }
+
+    @Override
+    public List<SafetyCard> selectSafetyCardRegionByCarId(String cardId) {
+        return memberMapper.selectSafetyCardRegionByCarId(cardId);
+    }
 
 
     @Override
@@ -162,19 +176,24 @@ public class MemberServiceImpl implements MemberService {
         safety.setCardId(cardId);
         safety.setSafetyStringInfo(safetyStringInfo);
 
+        Card cardInfo=myPageMapper.selectCardInfoByCardId(cardId);
+        safety.setSafetyEndDate(cardInfo.getValidDate());
+        System.out.println("---------"+cardInfo.getValidDate());
         System.out.println("timeList" + timeList);
 
-        //전체 regionlist가져오기
-        List<String> regionAllList = memberMapper.selectAllRegionName();
 
-        //전체 regionList에서 허용 지역 빼기
-        regionAllList.removeAll(regionList);
+        if (!regionList.isEmpty()) {
+            //전체 regionlist가져오기
+            List<String> regionAllList = memberMapper.selectAllRegionName();
 
-        for (String blockRegion : regionAllList) {
-            safety.setRegionName(blockRegion);
-            memberMapper.insertSafetySetting(safety);
+            //전체 regionList에서 허용 지역 빼기
+            regionAllList.removeAll(regionList);
+
+            for (String blockRegion : regionAllList) {
+                safety.setRegionName(blockRegion);
+                memberMapper.insertSafetySetting(safety);
+            }
         }
-
 
         if (!regionList.isEmpty()) {
             for (String regionName : regionList) {

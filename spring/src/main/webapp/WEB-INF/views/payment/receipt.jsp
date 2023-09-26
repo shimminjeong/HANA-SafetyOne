@@ -102,6 +102,12 @@
     </div>
 </div>
 
+<div id="cardId">${cardId}</div>
+<div id="address">${address}</div>
+<div id="time">${time}</div>
+<div id="categorySmall">${categorySmall}</div>
+<div id="amount">${amount}</div>
+
 
 <script>
 
@@ -153,6 +159,13 @@
             categorySmall: $('#categorySmall').text(),
             amount: $('#amount').text()
         };
+
+        console.log("data"+cardId);
+        console.log("data"+cardId);
+        console.log("data"+cardId);
+        console.log("data"+cardId);
+        console.log("data"+cardId);
+
 
         $.ajax({
             type: 'POST',

@@ -1,10 +1,7 @@
 package com.kopo.SelfFDS.admin.service;
 
 import com.kopo.SelfFDS.admin.model.dao.AdminMapper;
-import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
-import com.kopo.SelfFDS.admin.model.dto.CardStats;
-import com.kopo.SelfFDS.admin.model.dto.Fds;
-import com.kopo.SelfFDS.admin.model.dto.MemberStats;
+import com.kopo.SelfFDS.admin.model.dto.*;
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
 import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
@@ -249,6 +246,32 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<String> selectLostReason() {
         return adminMapper.selectLostReason();
+    }
+
+    @Override
+    public List<Cluster> selectClusterStatic() {
+        return adminMapper.selectClusterStatic();
+    }
+
+    @Override
+    public List<Cluster> selectClusterPeopleInfo(String clusterNum) {
+        return adminMapper.selectClusterPeopleInfo(clusterNum);
+    }
+
+    @Override
+    public List<Cluster> selectClusterDetail(String clusterNum) {
+        return adminMapper.selectClusterDetail(clusterNum);
+    }
+
+    @Override
+    public Cluster selectClusterStatic2ByCluster(String clusterNum) {
+        return adminMapper.selectClusterStatic2ByCluster(clusterNum);
+    }
+
+
+    @Override
+    public List<Cluster> selectClusterStatic2() {
+        return adminMapper.selectClusterStatic2();
     }
 
 

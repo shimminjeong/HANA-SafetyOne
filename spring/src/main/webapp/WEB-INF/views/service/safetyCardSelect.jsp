@@ -27,10 +27,10 @@
                         <img src="../../../resources/img/circle.png" onclick="changeImage(this, '${card.cardId}')">
                     </div>
                     <div class="card-list-info-cardid">본인 | ${card.cardId}</div>
-                    <div class="card-list-info-cardname">yolo</div>
+                    <div class="card-list-info-cardname">${card.cardName}</div>
                     <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
                     <c:if test="${card.selffdsSerStatus eq 'Y'}">
-                        <img class="lock-img" src="../../../resources/img/padlock.png">
+                        <img class="lock-img" src="../../../resources/img/shield.png">
                     </c:if>
                     <c:if test="${card.selffdsSerStatus eq 'N'}">
                         <img class="lock-img" src="../../../resources/img/unlock.png">

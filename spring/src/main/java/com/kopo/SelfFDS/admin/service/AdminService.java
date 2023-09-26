@@ -1,9 +1,6 @@
 package com.kopo.SelfFDS.admin.service;
 
-import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
-import com.kopo.SelfFDS.admin.model.dto.CardStats;
-import com.kopo.SelfFDS.admin.model.dto.Fds;
-import com.kopo.SelfFDS.admin.model.dto.MemberStats;
+import com.kopo.SelfFDS.admin.model.dto.*;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 
@@ -44,5 +41,13 @@ public interface AdminService {
     List<LostCard> selectAllLostCard();
 
     List<String> selectLostReason();
+
+    List<Cluster> selectClusterStatic();
+
+    List<Cluster> selectClusterPeopleInfo(String clusterNum);
+    List<Cluster> selectClusterDetail(String clusterNum);
+
+    Cluster selectClusterStatic2ByCluster(String clusterNum);
+    List<Cluster> selectClusterStatic2();
 
 }

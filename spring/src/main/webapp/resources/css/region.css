@@ -3,7 +3,7 @@
 }
 
 .spot > img {
-    width: 400px;
+    width: 300px;
     /*width: 100%;*/
     /*height: 100%;*/
 }
@@ -97,7 +97,370 @@
 
 
 
+.details {
+    margin-left: 200px;
+    margin-right: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu {
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+.menu__item {
+    text-align: left; /* Align list items to the left */
+}
+
+.menu__item:hover .menu__link {
+    color: #00857F;
+    background: #eee;
+}
+
+.menu__icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 24px;
+}
+
+.menu__icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.menu__link {
+    position: relative;
+    width: 150px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align text to the left */
+    color: #666;
+    font-size: 18px;
+    text-decoration: none;
+    padding-left: 24px; /* Add left padding to adjust for the icon */
+}
+
+
+.detail__right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /*padding-left: 3%;*/
+    /*padding-right: 3%;*/
+    /*border: 1px solid #ccc; !* 회색 테두리 *!*/
+    /*box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); !* 그림자 효과 *!*/
+    /*border-radius: 5px; !* 둥근 테두리 *!*/
+    /*border-radius: 10px; !* 모서리 둥글게 설정 *!*/
+}
+
+.detail-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+    border: 1px solid #ccc; /* 회색 테두리 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    border-radius: 5px; /* 둥근 테두리 */
+    border-radius: 10px; /* 모서리 둥글게 설정 */
+}
+.lostcard-list {
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc; /* 회색 테두리 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    border-radius: 5px; /* 둥근 테두리 */
+}
+
+.card-list-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80px;
+    padding-left: 2%;
+    font-size: 17px;
+    width: 100%;
+    justify-content: center;
+}
+
+.card-list-info-cardid {
+    margin-right: 3%;
+}
+
+.card-list-info-cardname {
+    margin-right: 8%;
+}
+
+.card-list-info .card-img {
+    height: 70%;
+}
+
+.subcontainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.right-info{
+    margin: 0 auto;
+}
+.right-subcontainer{
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*flex-direction: column;*/
+}
+
+.select-region-div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 47%;
+    height : 50%;
+    border: 1.5px solid #bbbbbb;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding-bottom: 5px;
+    padding-top: 7px;
+    margin-bottom: 2%;
+}
+
+.select-region-div::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* 화살표의 수직 위치를 중앙으로 조정 */
+    right: -22px; /* 화살표의 수평 위치 조정 */
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+    border-left: 22px solid #bbbbbb; /* 외부 화살표 색상 */
+}
+
+.select-region-div::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid white; /* 화살표 안의 색상 (백그라운드와 동일) */
+}
+
+.select-region-div-header{
+    margin-top: 4%;
+    margin-bottom: 4%;
+    font-size: 16px;
+}
+
+.select-region-div-button{
+    margin-left: 5%;
+    margin-bottom: 3%;
+}
+
+.select-region-div-button button {
+    background-color: white;  /* 배경색을 흰색으로 설정 */
+    border: 1.5px solid #bbbbbb;  /* 테두리 색상을 #bbbbbb로 설정 */
+    border-radius: 15px;  /* 버튼의 모서리를 약간 둥글게 */
+    padding: 6px 10px;  /* 버튼 내부 패딩 추가 */
+    margin: 2px;  /* 버튼 간격 조절 */
+    cursor: pointer;  /* 마우스 오버 시 포인터로 변경 */
+    transition: background-color 0.3s;  /* 배경색이 부드럽게 변경되도록 */
+}
+
+.select-region-div-button button:hover {
+    background-color: #f5f5f5;  /* 마우스 오버 시 배경색 변경 */
+}
+
+.map-div{
+    width: 40%;
+}
+
+.map-div img{
+    width: 100%;
+}
+
+.right-info2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.myselect-option{
+    margin : 20px auto;
+    font-size: 18px;
+}
+
+.next-Btn{
+    color: white;
+    border: none;
+    padding: 12px 40px 12px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00857F;
+    font-size: 17px;
+    transition: background-color 0.3s;
+    margin: 30px auto;
+    display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
+}
+
+.time-subcontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.clock-div{
+    width: 35%;
+}
+
+.clock-div img{
+    margin-top:20px;
+    width: 100%;
+}
+
+
+.time-choose {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.time-block {
+    display: flex;
+    align-items: center;
+    border: 1px solid #bbbbbb;
+    padding: 5px 10px;
+    border-radius: 5px;
+
+}
+
+.time-separator {
+    margin: 0 10px;
+    font-size: 18px;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 100px;
+    border: none;  /* 테두리 제거 */
+    background-color: transparent;  /* 배경 제거 */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="gray" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');  /* 새로운 화살표 아이콘 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 35px;
+}
+
+select:focus {
+    outline: none;
+}
 
 
 
+.grid-container {
+    margin: auto;
+    margin-top: 10%;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(6, 85px); /* 2열로 반복 */
+    /*grid-gap: 10px; !* 박스 사이의 간격 설정 *!*/
+    align-items: center; /* 내용 수직 가운데 정렬 */
+    text-align: center; /* 내용 가로 가운데 정렬 */
+    margin-left: 4%;
+}
 
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 10px 5px;
+    height: 95px; /* 그리드 컨테이너의 높이 설정 */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    font-size: 15px;
+
+}
+
+.dropdown-item {
+    display: none;
+    cursor: pointer;
+    margin: auto;
+    font-size: 12px;
+    line-height: 25px;
+    height: 25px;
+    background-color: transparent; /* 초기 배경 설정 */
+    transition: background-color 0.3s ease; /* 배경 변경 시 부드러운 효과를 위한 트랜지션 추가 */
+    padding: 0px 3px;
+}
+
+.dropdown-item:hover {
+    background-color: #00857F; /* 마우스 호버 시 배경 변경 */
+    transform: scale(1.1); /* hover 시 약간 확대되는 효과 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* hover 시 그림자 약간 강화 */
+    color: white;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%; /* Position the dropdown below the grid item */
+    left: 0;
+    width: 100%; /* Make the dropdown width match the grid item width */
+    z-index: 1; /* Ensure the dropdown appears above other content */
+    background-color: #ffffff; /* Add a background color */
+    /*border: 1px solid  !* Add a border for visual separation *!*/
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.grid-item:hover .dropdown-item {
+    display: block;
+    color: black;
+}
+
+.grid-image {
+    width: 50px; /* 이미지 너비 설정 */
+    height: 50px; /* 이미지 높이 설정 */
+    padding-bottom: 14px;
+    margin: 0 auto; /* 이미지 가운데 정렬 */
+    /*display: block; !* 이미지를 블록 요소로 변경 *!*/
+}
+
+.grid-item:hover {
+    background-color: #00857F;
+    border: 1px solid #ffffff;
+    color: black;
+}
+
+/*.limited-options {*/
+/*    max-height: 130px; !* 이 값을 조절하여 5개의 항목에 대한 대략적인 높이를 설정하세요. *!*/
+/*    overflow-y: auto; !* 수직 스크롤을 활성화합니다. *!*/
+/*}*/
+
+#selectCategoryBig {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 50%;
+    border-radius: 2px;
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}

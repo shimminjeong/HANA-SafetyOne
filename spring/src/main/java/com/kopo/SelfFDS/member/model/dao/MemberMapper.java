@@ -87,5 +87,10 @@ public interface MemberMapper {
 
     void deleteSafetyCard(String cardId);
 
+    List<Card> selectSafetyCardYByEmail(String email);
+
+    List<SafetyCard> selectSafetyCardNotRegionByCarId(String cardId);
+    List<SafetyCard> selectSafetyCardRegionByCarId(String cardId);
+
 
 }

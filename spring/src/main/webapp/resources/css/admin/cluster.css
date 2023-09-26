@@ -1,0 +1,151 @@
+.sub-container {
+    display: flex;
+    /*border: 1px solid black;*/
+    flex-direction: column;
+}
+
+.cluster-header {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f6f8fa;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cluster-header h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.table-div {
+    overflow-x: auto; /* 테이블이 div 너비를 초과할 경우 스크롤바 추가 */
+}
+
+.table-div table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-div th, .table-div td {
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.table-div th {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+.table-div tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.table-div button {
+    padding: 5px 15px;
+    border: none;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.table-div button:hover {
+    background-color: #2980b9;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 부모 div 요소들에 flex를 적용하여 내부의 div 요소들을 가로로 나열합니다. */
+.row1-div, .row2-div {
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between; /* 자식 요소들 사이에 동일한 간격을 만듭니다. */
+    height: 300px;
+}
+
+/* 각각의 자식 div 요소들의 크기와 스타일을 설정합니다. */
+.report-div, .many-chart-div, .gender-chart-div, .small-chart-div {
+    flex: 1; /* 부모 요소의 너비를 균등하게 나눕니다. */
+    margin: 10px; /* 주변과의 간격을 만듭니다. */
+    padding: 15px; /* 내부의 내용과 테두리 사이의 간격을 만듭니다. */
+    border: 1px solid white; /* 테두리 색상을 흰색으로 설정합니다. */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과를 적용합니다. */
+    background-color: #f9f9f9; /* 배경색을 약간 회색톤으로 설정합니다. */
+    height: 100%;
+}
+
+.cluster-chart-div {
+    display: flex;       /* flex 레이아웃을 사용합니다 */
+    justify-content: space-between;  /* div 요소들 사이에 동일한 간격을 부여합니다 */
+    height: 300px;
+}
+
+/* 각 div 요소의 width를 동일하게 설정합니다. */
+.cluster-chart-div > div {
+    flex: 1;            /* 이를 통해 모든 div 요소가 동일한 공간을 차지하게 됩니다 */
+    /* 좌우 마진을 추가하여 요소간 간격을 만듭니다 (선택 사항) */
+    background-color: #f6f8fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-top3{
+    display: flex;
+    flex-direction: row;
+}
+
+.report-div{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.big, .small{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.category-header{
+    margin : 0 auto;
+    font-size: 17px;
+    margin-bottom: 7px;
+}

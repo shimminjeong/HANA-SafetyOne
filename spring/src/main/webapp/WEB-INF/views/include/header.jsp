@@ -30,9 +30,8 @@
     </div>
     <nav>
         <div class="navbar">
-
             <div class="dropdown">
-                <button class="dropbtn"><a href="/safetyCard/">안심카드서비스</a>
+                <button class="dropbtn">안심카드서비스
                 </button>
                 <div class="dropdown-content">
                     <a href="/safetyCard/">등록 및 해제</a>
@@ -50,7 +49,7 @@
                 </div>
             </div>
             <a href="/mypage">마이페이지</a>
-                        <a href="/payment/paymentPage">결제</a>
+            <a href="/payment/paymentPage">결제</a>
         </div>
         <hr style="border:1px solid #00857F"/>
     </nav>

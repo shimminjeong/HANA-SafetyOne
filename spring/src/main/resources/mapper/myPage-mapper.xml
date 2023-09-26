@@ -7,13 +7,13 @@
     <select id="selectSumAmountByCardId" resultType="int">
         select sum(amount) as amountSum
         from cardhistory
-        where cardid = #{cardId}
+        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10'
     </select>
 
     <select id="selectCountByCardId" resultType="int">
         select count(*) as amountCnt
         from cardhistory
-        where cardid = #{cardId}
+        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10'
     </select>
 
     <select id="selectSafetyStatusByCardId">
@@ -44,7 +44,7 @@
         select categorySmall, sum(amount) as amountSum
         from cardhistory
         where cardid in (select cardid from card where email = #{email})
-          AND TO_CHAR(cardhisdate, 'MM') = '08'
+          AND TO_CHAR(cardhisdate, 'MM') = '10'
         group by categorySmall
         order by amountSum desc
     </select>

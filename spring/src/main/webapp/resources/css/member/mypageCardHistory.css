@@ -4,12 +4,12 @@
 }
 
 .sub-container-hearder{
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 4%;
 }
 
 .card-select-text{
-    font-size: 20px;
+    font-size: 17px;
     margin-right: 10%;
 }
 
@@ -46,7 +46,7 @@
     align-items: center;
     height: 80px;
     padding-left: 2%;
-    font-size: 18px;
+    font-size: 17px;
     width: 100%;
     justify-content: center;
 }

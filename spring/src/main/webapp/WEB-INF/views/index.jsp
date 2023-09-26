@@ -8,8 +8,13 @@
     <link href="../../resources/css/common.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="../../../resources/css/index.css" rel="stylesheet">
+<%--    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">--%>
 </head>
-
+<%--<style>--%>
+<%--    body {--%>
+<%--        font-family: 'Noto Sans KR', sans-serif;--%>
+<%--    }--%>
+<%--</style>--%>
 <body>
 <%@ include file="include/header.jsp" %>
 <div class="main-section">

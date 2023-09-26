@@ -20,8 +20,8 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h2>안심카드일시정지</h2>
-        <h3>대상카드</h3>
+        <h3>안심카드일시정지</h3>
+        <h4>대상카드</h4>
         <hr>
         <div class="card-info">
             <div class="card-details">

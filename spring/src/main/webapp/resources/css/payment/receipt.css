@@ -87,3 +87,10 @@ hr {
 }
 
 
+#cardId,
+#address,
+#time,
+#categorySmall,
+#amount {
+    display: none;
+}

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5%;
+    font-size: 17px;
 }
 
 
@@ -12,7 +12,7 @@
     align-content: center;
     justify-content: center;
     margin-bottom: 20px;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 #startHour, #endHour{
@@ -46,14 +46,10 @@
 .time-choose select {
     height: calc(1.5em * 5);  /* 옵션 하나의 높이(예를 들어 1.5em)을 5개만큼 계산 */
     overflow-y: auto;  /* 스크롤 가능 */
+    width: 30%;
 }
 
 
-
-.time-choose select {
-    height: calc(1.5em * 5);  /* 옵션 하나의 높이(예를 들어 1.5em)을 5개만큼 계산 */
-    overflow-y: auto;  /* 스크롤 가능 */
-}
 
 .time-choose option {
     background-color: #f7f7f7;

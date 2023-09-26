@@ -6,19 +6,19 @@
 
     <resultMap id="FdsMemberMap" type="com.kopo.SelfFDS.admin.model.dto.Fds">
         <!-- Fds 테이블 필드 매핑 -->
-        <result property="cardId" column="cardId" /> <!-- 이 부분은 예상 값입니다. 실제 column 값을 확인해야 합니다. -->
-        <result property="serviceStatus" column="serviceStatus" />
-        <result property="serRegDate" column="serRegDate" />
-        <result property="learningDate" column="learningDate" />
+        <result property="cardId" column="cardId"/> <!-- 이 부분은 예상 값입니다. 실제 column 값을 확인해야 합니다. -->
+        <result property="serviceStatus" column="serviceStatus"/>
+        <result property="serRegDate" column="serRegDate"/>
+        <result property="learningDate" column="learningDate"/>
 
         <!-- member 테이블과의 association -->
         <association property="member" javaType="com.kopo.SelfFDS.member.model.dto.Member">
-            <result property="email" column="email" />
-            <result property="name" column="name" />
-            <result property="phone" column="phone" />
-            <result property="address" column="address" />
-            <result property="age" column="age" />
-            <result property="gender" column="gender" />
+            <result property="email" column="email"/>
+            <result property="name" column="name"/>
+            <result property="phone" column="phone"/>
+            <result property="address" column="address"/>
+            <result property="age" column="age"/>
+            <result property="gender" column="gender"/>
         </association>
     </resultMap>
 
@@ -65,12 +65,18 @@
     </select>
 
 
-<!--    이상소비서비스사용자관리-->
+    <!--    이상소비서비스사용자관리-->
     <select id="selectFdsAndMember" resultMap="FdsMemberMap">
-        SELECT m.email as email, m.name as name, m.phone as phone,
-               m.address as address, m.age as age, m.gender as gender,
-               f.SERVICESTATUS as serviceStatus,f.cardId as cardId,
-               f.serregdate as serRegDate,f.learningdate as learningDate
+        SELECT m.email         as email,
+               m.name          as name,
+               m.phone         as phone,
+               m.address       as address,
+               m.age           as age,
+               m.gender        as gender,
+               f.SERVICESTATUS as serviceStatus,
+               f.cardId        as cardId,
+               f.serregdate    as serRegDate,
+               f.learningdate  as learningDate
         FROM member m
                  JOIN card c ON m.email = c.email
                  JOIN fds f ON c.CARdid = f.CARDID
@@ -79,34 +85,42 @@
 
     <!-- 이상치데이터로그확인-->
     <select id="getAllAnomalyData" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
-        select * from paymentlog where fdsdetectionstatus='Y'
+        select *
+        from paymentlog
+        where fdsdetectionstatus = 'Y'
         order by paymentdate desc
     </select>
 
 
     <!-- 하나의 결제로그출력 -->
     <select id="getAnomalyDataById" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
-        select * from paymentlog where paymentLogId=#{paymentLogId}
+        select *
+        from paymentlog
+        where paymentLogId = #{paymentLogId}
     </select>
 
     <select id="getFdsStatsByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.Fds">
-        select * from fds where cardId=#{cardId}
+        select *
+        from fds
+        where cardId = #{cardId}
     </select>
 
-<!--    버블차트그리기 위한 where 카드아이디 groupby count-->
+    <!--    버블차트그리기 위한 where 카드아이디 groupby count-->
     <select id="getRegionGroupCntByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
-        SELECT regionName,count(*) as cnt
-        FROM cardhistory where cardid=#{cardId}
+        SELECT regionName, count(*) as cnt
+        FROM cardhistory
+        where cardid = #{cardId}
         group by regionName
     </select>
 
     <select id="getCategoryGroupCntByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
-        SELECT categorySmall,count(*) as cnt
-        FROM cardhistory where cardid=#{cardId}
+        SELECT categorySmall, count(*) as cnt
+        FROM cardhistory
+        where cardid = #{cardId}
         group by categorySmall
     </select>
 
-<!--    분실카드-->
+    <!--    분실카드-->
     <select id="selectAllLostCard" resultType="com.kopo.SelfFDS.member.model.dto.LostCard">
         SELECT *
         FROM lostcard
@@ -117,7 +131,101 @@
         FROM lostcard
     </select>
 
+    <select id="selectClusterStatic" resultType="com.kopo.SelfFDS.admin.model.dto.Cluster">
+        SELECT t1.clusternum        as clusternum,
+               t1.categorySmall_min as categoryMinName,
+               t1.categorySmall_max as categoryMaxName,
+               t2.clusterCount      as clusterPeopleCount,
+               round(t2.ratio,2)    as clusterPeopleRatio
+        FROM (SELECT clusternum,
+                     MAX(CASE WHEN count = min_record THEN categorySmall END) AS categorySmall_min,
+                     min_record                                               AS count_min,
+                     MAX(CASE WHEN count = max_record THEN categorySmall END) AS categorySmall_max,
+                     max_record                                               AS count_max
+              FROM (SELECT clusternum,
+                           categorySmall,
+                           count,
+                           MIN(count) OVER (PARTITION BY clusternum) AS min_record, MAX(count) OVER (PARTITION BY clusternum) AS max_record
+                    FROM clusterstatic) sub1
+              GROUP BY clusternum, min_record, max_record) t1
+                 JOIN
+             (SELECT clusternum,
+                     COUNT(*)                                         as clusterCount,
+                     (COUNT(*) / (SELECT COUNT(*) FROM clustertable)) as ratio
+              FROM clustertable
+              GROUP BY clusternum) t2
+             ON t1.clusternum = t2.clusternum
+        ORDER BY t1.clusternum
+    </select>
 
+    <select id="selectClusterPeopleInfo" resultType="com.kopo.SelfFDS.admin.model.dto.Cluster">
+        SELECT clt.CLUSTERNum as clusterNum,
+               m.gender       as gender,
+        <![CDATA[
+               CASE
+                   WHEN m.age >= 20 AND m.age < 30 THEN '20대'
+                   WHEN m.age >= 30 AND m.age < 40 THEN '30대'
+                   WHEN m.age >= 40 AND m.age < 50 THEN '40대'
+                   WHEN m.age >= 50 AND m.age < 60 THEN '50대'
+                   WHEN m.age >= 60 AND m.age < 70 THEN '60대'
+                   ELSE '70대 이상'
+                   END        AS ageRange,
+        ]]>
+        COUNT(*) as count
+        FROM member m
+            JOIN clusterTable clt
+        ON m.email = clt.EMAIL
+        WHERE clt.CLUSTERNum = #{clusterNum}
+        GROUP BY clt.CLUSTERNum, m.gender,
+        <![CDATA[
+            CASE
+            WHEN m.age >= 20 AND m.age < 30 THEN '20대'
+            WHEN m.age >= 30 AND m.age < 40 THEN '30대'
+            WHEN m.age >= 40 AND m.age < 50 THEN '40대'
+            WHEN m.age >= 50 AND m.age < 60 THEN '50대'
+            WHEN m.age >= 60 AND m.age < 70 THEN '60대'
+            ELSE '70대 이상'
+        END
+        ]]>
+    ORDER BY clt.CLUSTERNum
+    </select>
 
+    <select id="selectClusterDetail" resultType="com.kopo.SelfFDS.admin.model.dto.Cluster">
+        select clusterNum, categorySmall, amount as totalAmount, count
+        from clusterstatic
+        where clusternum = #{clusterNum}
+        order by count desc
+    </select>
+
+    <select id="selectClusterStatic2" resultType="com.kopo.SelfFDS.admin.model.dto.Cluster">
+        SELECT
+            cl.clusternum AS clusterNum,
+            trunc(COUNT(ch.categorySmall)/COUNT(DISTINCT c.email)/12) AS count,
+    trunc(SUM(ch.amount)/COUNT(DISTINCT c.email)/12) AS totalAmount
+        FROM
+            cardhistory ch
+            JOIN
+            card c ON ch.cardid = c.cardid
+            JOIN
+            clusterTable cl ON c.email = cl.email
+        GROUP BY
+            cl.clusternum
+    </select>
+
+    <select id="selectClusterStatic2ByCluster" resultType="com.kopo.SelfFDS.admin.model.dto.Cluster">
+        SELECT
+            cl.clusternum AS clusterNum,
+            trunc(COUNT(ch.categorySmall)/COUNT(DISTINCT c.email)/12) AS count,
+    trunc(SUM(ch.amount)/COUNT(DISTINCT c.email)/12) AS totalAmount
+        FROM
+            cardhistory ch
+            JOIN
+            card c ON ch.cardid = c.cardid
+            JOIN
+            clusterTable cl ON c.email = cl.email
+            AND cl.clusternum = #{clusterNum}
+        GROUP BY
+            cl.clusternum
+    </select>
 </mapper>
 

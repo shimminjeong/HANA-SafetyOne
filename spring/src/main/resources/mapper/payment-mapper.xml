@@ -47,7 +47,6 @@
 
     </select>
 
-
     <!--    cardhistory 테이블에 데이터 삽입-->
     <insert id="insertCardHistory">
         INSERT INTO CARDHISTORY(CARDHISID,CARDID,CATEGORYBIG,CATEGORYSMALL,REGIONNAME,STORE,CARDHISDATE,CARDHISTIME,AMOUNT)
@@ -59,8 +58,6 @@
         INSERT INTO PAYMENTLOG (PAYMENTLOGID, CARDID, ADDRESS, STORE, PAYMENTDATE, categorySmall, AMOUNT, paymentApprovalStatus)
         VALUES (PAYMENTLOGIDSEQ.nextval, #{cardId}, #{address}, #{store}, current_date, #{categorySmall}, #{amount}, #{paymentApprovalStatus})
     </insert>
-
-
 
     <select id="selectPreprocessingCategory" resultType="double">
         SELECT bartoembedding as categorySmallNumeric
@@ -74,7 +71,6 @@
         WHERE regionName=#{regionName}
     </select>
 
-
     <update id="updateAnomalyDetection">
         UPDATE PAYMENTLOG
         SET FDSDETECTIONSTATUS = 'Y'
@@ -82,8 +78,6 @@
                                FROM (SELECT PAYMENTlOGID FROM PAYMENTLOG ORDER BY PAYMENTDATE DESC)
                                WHERE ROWNUM = 1)
     </update>
-
-
 
 
 </mapper>

@@ -160,17 +160,18 @@ public class SafetyCardServiceController {
         return mav;
     }
 
-    @RequestMapping("/safetyCardStop")
-    public ModelAndView safetyCardStopPage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("email");
-        List<SafetyCard> safetyInfoList = memberService.selectSafetySettingByEmail(email);
+//    @RequestMapping("/safetyCardStop")
+//    public ModelAndView safetyCardStopPage(HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        String email = (String) session.getAttribute("email");
+//        List<SafetyCard> safetyInfoList = memberService.selectSafetySettingByEmail(email);
+//
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("safetyInfoList", safetyInfoList);
+//        mav.setViewName("service/safetyCardStopCopy");
+//        return mav;
+//    }
 
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("safetyInfoList", safetyInfoList);
-        mav.setViewName("service/safetyCardStop");
-        return mav;
-    }
 
     @PostMapping("/updateStopDate")
     @ResponseBody
@@ -188,8 +189,10 @@ public class SafetyCardServiceController {
     public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
         Card updateCard = memberService.selectCardOfCardId(cardId);
         memberService.regSafetyService(updateCard);
+        Card cardInfo=myPageService.selectCardInfoByCardId(cardId);
         HttpSession session = request.getSession();
         session.setAttribute("cardId", cardId);
+        session.setAttribute("cardName", cardInfo.getCardName());
         return "안심카드 서비스 신청 성공";
     }
 
@@ -286,7 +289,8 @@ public class SafetyCardServiceController {
         String safetyStringInfo = (String) requestData.get("safetyStringInfo");
 
         memberService.insertSafetySetting(cardId, settingsList, safetyStringInfo);
-
+        session.removeAttribute("cardId");
+        session.removeAttribute("cardName");
         System.out.println("gogo");
         return "insert성공";
     }
@@ -305,17 +309,36 @@ public class SafetyCardServiceController {
         }
     }
 
-    @RequestMapping("/stopCardPage")
-    public String handleRequest(@RequestParam("cardId") String cardId, Model model) {
-        // Now you have the cardId. You can process it as needed.
-        List<SafetyCard> safetyInfo = memberService.selectAllSafetyCardOfCardId(cardId);
-        Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
-        model.addAttribute("safetyInfo", safetyInfo);
-        model.addAttribute("cardInfo", cardInfo);
-        System.out.println("safetyInfo" + safetyInfo);
-        // Redirect or forward to another view if needed
-        return "service/stopCardPage";
+    @RequestMapping("/safetyCardStop")
+    public ModelAndView safetyCardStopPage(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        List<Card> safetyCardList = memberService.selectSafetyCardYByEmail(email);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("safetyCardList", safetyCardList);
+        mav.setViewName("service/safetyCardStop");
+        return mav;
     }
 
+    @PostMapping("/stopCardDetail")
+    @ResponseBody
+    public Map<String, Object> stopCardDetail(@RequestBody SafetyCard safetyCard) {
+        // Now you have the cardId. You can process it as needed.
+        List<SafetyCard> safetyInfo = memberService.selectAllSafetyCardOfCardId(safetyCard.getCardId());
+        Card cardInfo = myPageService.selectCardInfoByCardId(safetyCard.getCardId());
+        List<SafetyCard> safetyRuleList=memberService.selectSafetyCardNotRegionByCarId(safetyCard.getCardId());
+        List<SafetyCard> safetyRegionList=memberService.selectSafetyCardRegionByCarId(safetyCard.getCardId());
+        System.out.println("safetyInfo" + safetyInfo);
 
+        // Create a Map to hold the results
+        Map<String, Object> response = new HashMap<>();
+        response.put("safetyInfo", safetyInfo);
+        response.put("cardInfo", cardInfo);
+        response.put("safetyRuleList", safetyRuleList);
+        response.put("safetyRegionList", safetyRegionList);
+
+        return response; // Return the map as the respons
+
+    }
 }

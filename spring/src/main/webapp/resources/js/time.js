@@ -58,7 +58,7 @@ function handleTimeRangeClick(button) {
 function updateTime() {
     const startHour = document.getElementById('startHour').value;
     const endHour = document.getElementById('endHour').value;
-    const timeText = startHour + ' 시 ~ ' + endHour + ' 시 ';
+    const timeText = startHour + '시 ~ ' + endHour + '시 ';
 
     const allSelectedBtnDivs = document.querySelectorAll('.myselect-time-no-content');
 
