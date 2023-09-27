@@ -2,6 +2,7 @@ package com.kopo.SelfFDS.admin.model.dao;
 
 import com.kopo.SelfFDS.admin.model.dto.*;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
+import com.kopo.SelfFDS.member.model.dto.Member;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -40,4 +41,11 @@ public interface AdminMapper {
     List<Cluster> selectClusterStatic2();
 
     List<Cluster> selectClusterDetail(String clusterNum);
+
+    List<Member> selectMemberInfoByClusterNum(String clusterNum);
+
+    List<Member> selectClusterMemberInfo();
+    List<String> selectClusterNum();
+    List<String> selectEmailByCluster(String clusterNum);
+
 }

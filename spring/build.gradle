@@ -64,6 +64,9 @@ dependencies {
 //	pdf그리기
 	implementation 'org.apache.commons:commons-math3:3.6.1'
 
+	// 이메일전송
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 tasks.named('test') {

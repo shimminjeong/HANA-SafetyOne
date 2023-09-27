@@ -4,6 +4,7 @@ import com.kopo.SelfFDS.admin.model.dto.CardHistoryStats;
 import com.kopo.SelfFDS.admin.model.dto.Cluster;
 import com.kopo.SelfFDS.admin.service.AdminService;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
+import com.kopo.SelfFDS.member.model.dto.Member;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import com.kopo.SelfFDS.payment.model.dto.WordToVec;
 import com.kopo.SelfFDS.payment.service.PaymentService;
@@ -176,9 +177,33 @@ public class AdminController {
     }
 
 
+
+
+
+
     @GetMapping("/email")
-    public String adminEmailPage() {
-        return "admin/email";
+    public ModelAndView adminEmailPage() {
+        ModelAndView mav=new ModelAndView();
+        List<String> clusterList=adminService.selectClusterNum();
+        List<Member> memberList=adminService.selectClusterMemberInfo();
+        mav.addObject("clusterList",clusterList);
+        mav.addObject("memberList",memberList);
+        mav.setViewName("admin/email");
+        return mav;
+    }
+
+    @PostMapping("/clusterMemberList")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> clusterMemberList(@RequestBody Member member) {
+        List<Member> memberInfoList=adminService.selectMemberInfoByClusterNum(member.getClusterNum());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("memberInfoList",memberInfoList);
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/lostCard")

@@ -2,6 +2,7 @@ package com.kopo.SelfFDS.admin.service;
 
 import com.kopo.SelfFDS.admin.model.dto.*;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
+import com.kopo.SelfFDS.member.model.dto.Member;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 
 import java.util.List;
@@ -49,5 +50,14 @@ public interface AdminService {
 
     Cluster selectClusterStatic2ByCluster(String clusterNum);
     List<Cluster> selectClusterStatic2();
+
+    List<Member> selectMemberInfoByClusterNum(String clusterNum);
+
+    List<String> selectClusterNum();
+
+    List<String> selectEmailByCluster(String clusterNum);
+
+    List<Member> selectClusterMemberInfo();
+
 
 }

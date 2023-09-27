@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../../../resources/css/admin/adminCommon.css"/>
     <link rel="stylesheet" href="../../../resources/css/admin/cluster.css"/>
     <script src="../../../resources/js/cluster.js" type="text/javascript"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
@@ -21,7 +20,6 @@
 <hr style="border:1px solid #00857F">
 <div class="details">
     <jsp:include page="adminSideBar.jsp"/>
-    <hr style="border:1px solid #00857F">
     <div class="detail__right">
         <div class="sub-container">
             <div class="cluster-header">
@@ -36,7 +34,7 @@
                             <th>비주요거래업종</th>
                             <th>군집비율(%)</th>
                             <th>군집특성</th>
-                            <th>전체메일보내기</th>
+<%--                            <th>전체메일보내기</th>--%>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,11 +46,13 @@
                                 <td>${cluster.categoryMinName}</td>
                                 <td>${cluster.clusterPeopleRatio}</td>
                                 <td>
-                                    <button class="open-modal" data-clusterNum="${cluster.clusterNum}" data-clusterPeopleCount="${cluster.clusterPeopleCount}">군집특성확인</button>
+                                    <button class="open-modal" data-clusterNum="${cluster.clusterNum}"
+                                            data-clusterPeopleCount="${cluster.clusterPeopleCount}">군집특성확인
+                                    </button>
                                 </td>
-                                <td>
-                                    <button>메일 보내기</button>
-                                </td>
+<%--                                <td>--%>
+<%--                                    <button>메일 보내기</button>--%>
+<%--                                </td>--%>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -75,13 +75,13 @@
 <div class="modal" id="myModal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <div class="report"><h2>군집 대시보드</h2></div>
+        <div class="report">군집 대시보드</div>
         <div class="row1-div">
             <div class="report-div">
-                <h4>군집 report</h4>
+                <div class="chartname-header"><strong>군집 report</strong></div>
                 <hr>
                 <div class="report-content">
-                    <div class="people-info">군집에 포함된 회원 수 : 45명</div>
+                    <div class="people-info"></div>
                 </div>
                 <div class="category-top3">
                     <div class="big">
@@ -98,7 +98,7 @@
             </div>
             <div class="many-chart-div">
                 <div class="chartname-header">
-                    <h3>주요소비처 거래금액 비율</h3>
+                    <strong>주요소비처 거래금액</strong>
                 </div>
                 <canvas id="manyChart"></canvas>
             </div>
@@ -106,13 +106,13 @@
         <div class="row2-div">
             <div class="gender-chart-div">
                 <div class="chartname-header">
-                    <h3>군집 내 인구분포</h3>
+                    <strong>군집 내 인구분포</strong>
                 </div>
                 <canvas id="genderAgeChart"></canvas>
             </div>
             <div class="small-chart-div">
                 <div class="chartname-header">
-                    <h3>비주요소비처 거래금액 비율</h3>
+                    <strong>비주요소비처 거래금액</strong>
                 </div>
                 <canvas id="smallChart"></canvas>
             </div>
@@ -156,6 +156,7 @@
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,  // 추가
             legend: {
                 position: 'right'
             }
@@ -195,13 +196,13 @@
             labels: labels,
             datasets: [
                 {
-                    label: 'Count',
+                    label: '거래건수',
                     data: dataCount,
                     backgroundColor: 'rgba(255, 99, 132, 0.5)', // 붉은색
                     yAxisID: 'y-axis-count'
                 },
                 {
-                    label: 'Total Amount',
+                    label: '평균 거래금액',
                     data: dataSum,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
                     yAxisID: 'y-axis-sum'
@@ -222,14 +223,20 @@
                         id: 'y-axis-count',
                         position: 'left',
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return value + '건';
+                            }
                         }
                     },
                     {
                         id: 'y-axis-sum',
                         position: 'right',
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return value.toLocaleString('ko-KR') + '원';
+                            }
                         },
                         gridLines: {
                             display: false

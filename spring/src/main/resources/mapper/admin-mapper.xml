@@ -210,6 +210,7 @@
             clusterTable cl ON c.email = cl.email
         GROUP BY
             cl.clusternum
+        order by cl.clusternum
     </select>
 
     <select id="selectClusterStatic2ByCluster" resultType="com.kopo.SelfFDS.admin.model.dto.Cluster">
@@ -227,5 +228,60 @@
         GROUP BY
             cl.clusternum
     </select>
+
+
+    <select id="selectClusterMemberInfo" resultType="com.kopo.SelfFDS.member.model.dto.Member">
+        SELECT
+            clt.CLUSTERNum as clusterNum,
+            m.email as email,
+            m.name as name,
+            m.gender as gender,
+            m.age as age,
+            m.phone as phone,
+            m.address as address
+        FROM
+            member m
+                JOIN
+            clusterTable clt ON m.email = clt.EMAIL
+
+    </select>
+
+
+    <select id="selectMemberInfoByClusterNum" resultType="com.kopo.SelfFDS.member.model.dto.Member">
+        SELECT
+            clt.CLUSTERNum as clusterNum,
+            m.email as email,
+            m.name as name,
+            m.gender as gender,
+            m.age as age,
+            m.phone as phone,
+            m.address as address
+        FROM
+            member m
+                JOIN
+            clusterTable clt ON m.email = clt.EMAIL
+        WHERE
+            clt.CLUSTERNum = #{clusterNum}
+
+    </select>
+
+    <select id="selectClusterNum" resultType="String">
+        select distinct(clusterNum) as clusterNum from clustertable order by clusterNum
+    </select>
+
+    <select id="selectEmailByCluster" resultType="String">
+        SELECT
+            clt.CLUSTERNum as clusterNum, m.email as email
+        FROM
+            member m
+                JOIN
+            clusterTable clt ON m.email = clt.EMAIL
+        WHERE
+            clt.CLUSTERNum = #{clusterNum}
+        ORDER BY
+            clt.clusterNum
+    </select>
+
+
 </mapper>
 

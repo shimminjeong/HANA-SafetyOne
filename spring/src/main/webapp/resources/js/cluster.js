@@ -15,6 +15,10 @@ function drawChart(chartData) {
 // 해당 <div> 요소의 내용을 수정합니다.
     meanDiv.innerText = "한달 평균 사용금액 : 약 " + totalAmount.toLocaleString() + "원";
 
+    // chartData.cluster1.clusterNum
+    var reportDiv = document.querySelector('.report');
+    reportDiv.innerText = chartData.cluster1.clusterNum+ " 번 군집 대시보드";
+
 
     var ctx= document.getElementById('manyChart').getContext('2d');
 

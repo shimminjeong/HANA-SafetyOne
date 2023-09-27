@@ -5,6 +5,7 @@ import com.kopo.SelfFDS.admin.model.dto.*;
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
 import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
+import com.kopo.SelfFDS.member.model.dto.Member;
 import com.kopo.SelfFDS.payment.model.dao.PaymentMapper;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -272,6 +273,26 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Cluster> selectClusterStatic2() {
         return adminMapper.selectClusterStatic2();
+    }
+
+    @Override
+    public List<Member> selectMemberInfoByClusterNum(String clusterNum) {
+        return adminMapper.selectMemberInfoByClusterNum(clusterNum);
+    }
+
+    @Override
+    public List<String> selectClusterNum() {
+        return adminMapper.selectClusterNum();
+    }
+
+    @Override
+    public List<String> selectEmailByCluster(String clusterNum) {
+        return adminMapper.selectEmailByCluster(clusterNum);
+    }
+
+    @Override
+    public List<Member> selectClusterMemberInfo() {
+        return adminMapper.selectClusterMemberInfo();
     }
 
 

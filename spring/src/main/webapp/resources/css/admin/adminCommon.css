@@ -107,6 +107,8 @@
 
 .details {
     display: flex;
+    margin-left: 10px;
+    margin-right: 30px;
     /*gap: 10px;*/
     /*margin-top: 20px;*/
 }

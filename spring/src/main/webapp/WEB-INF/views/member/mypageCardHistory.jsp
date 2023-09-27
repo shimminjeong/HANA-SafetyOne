@@ -38,8 +38,8 @@
                     </div>
                     <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;<%= name %>&nbsp;&nbsp;|&nbsp;&nbsp;
                     </div>
-                    <div class="card-list-info-cardname">yolo</div>
-                    <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
+                    <div class="card-list-info-cardname"></div>
+                    <img class="card-img">
                 </div>
             </div>
             <div class="table-div">
@@ -105,6 +105,26 @@
             } else {
                 $('.lostcard-list').addClass('hidden'); // hidden 클래스 추가
             }
+
+            var selectedCardName = $(this).find('option:selected').text();
+
+            // cardName을 해당 div에 적용
+            $('.card-list-info-cardname').text(selectedCardName);
+
+            // 선택된 cardName을 기반으로 이미지 URL 변경
+            $('.card-img').attr('src', '../../../resources/img/cardImg/' + selectedCardName + '.png');
+            console.log("selectedCardName",selectedCardName)
+        });
+
+        $('#cardSelect').change(function() {
+            var selectedCardName = $(this).find('option:selected').text();
+
+            // cardName을 해당 div에 적용
+            $('.card-list-info-cardname').text(selectedCardName);
+
+            // 선택된 index를 기반으로 이미지 URL 변경 (선택되면 변경하려면 이 코드를 사용하세요.)
+            var selectedCardIndex = $(this).find('option:selected').index();
+            $('.card-img').attr('src', '../../../resources/img/'+selectedCardName+ '.png');
         });
 
         // 함수 정의
@@ -116,7 +136,7 @@
                 contentType: "application/json",
                 data: JSON.stringify({cardId: cardId}),
                 success: function (response) {
-                    console.log("Response" + response.paymentLogList)
+                    // console.log("Response" + response.paymentLogList)
                     $('.card-list-info-cardid').text(response.cardInfo.cardId);
 
                     // cardName 업데이트
@@ -126,16 +146,13 @@
                     $.each(response.paymentLogList, function (index, history) {
                         // 각 행의 td 요소들을 가져온다.
                         var tds = $(rows[index]).find('td');
-                        console.log("history.cardId+" + history.cardId);
-                        console.log("history.cardHisDate+" + history.paymentDate);
-                        console.log("history.store+" + history.store);
 
                         var addressParts = history.address.split(' ');
 
                         // 각 td의 텍스트를 바꿔준다.
                         $(tds[0]).text(history.cardId);
                         $(tds[1]).text(history.paymentDate.substring(0, 16));
-                        $(tds[2]).text(history.store);
+                        $(tds[2]).text(history.categorySmall);
                         if (addressParts.length >= 2) {
                             var shortenedAddress = addressParts[0] + ' ' + addressParts[1];
                             $(tds[3]).text(shortenedAddress);

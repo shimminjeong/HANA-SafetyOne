@@ -11,6 +11,7 @@ import java.util.Date;
 @Setter
 public class Member {
     private int m_id;
+
     private String email;
     private String name;
     private String password;
@@ -21,6 +22,7 @@ public class Member {
     private int age;
     private Date regDate;
     private String authority;
+    private String clusterNum;
     public Member() {
     }
 

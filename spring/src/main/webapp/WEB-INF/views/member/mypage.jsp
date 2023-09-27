@@ -33,7 +33,7 @@
                 <div class="slideshow-container">
                     <c:forEach items="${cards}" var="card" varStatus="loop">
                         <div class="mySlides fade">
-                            <img src="../../resources/img/cardImg${loop.index + 1}.png"
+                            <img src="../../resources/img/${card.cardName}.png"
                                  onclick="openChartCardDetailModal(this.getAttribute('data-card-id'))"
                                  data-card-id="${card.cardId}">
                             <div style="display: none" class="cardIdtext">${card.cardId}</div>

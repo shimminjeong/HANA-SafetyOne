@@ -7,13 +7,13 @@
     <select id="selectSumAmountByCardId" resultType="int">
         select sum(amount) as amountSum
         from cardhistory
-        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10'
+        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10' and TO_CHAR(cardhisdate, 'YYYY') = '2023'
     </select>
 
     <select id="selectCountByCardId" resultType="int">
         select count(*) as amountCnt
         from cardhistory
-        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10'
+        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10' and TO_CHAR(cardhisdate, 'YYYY') = '2023'
     </select>
 
     <select id="selectSafetyStatusByCardId">
