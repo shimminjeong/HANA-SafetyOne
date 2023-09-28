@@ -23,6 +23,10 @@
         <div class="sub-container">
             <div class="email-header"><h2>안심카드서비스 추천 이메일 보내기</h2></div>
             <div class="email-content">
+                <span class="search-cluster">
+                    <img src="../../../resources/img/magnifier.png"><a href="/admin/cluster" class="btn-link">군집별 특성
+                    확인하기</a>
+                </span>
                 <div class="select-div">
                     <div class="select-header">군집 선택</div>
                     <select id="clusterSelect">
@@ -188,26 +192,28 @@
             contentType: "application/json",
             data: JSON.stringify({clusterNum: clusterNum}),
             success: function (response) {
-                console.log("response",response);
-                console.log("memberInfoList",response.memberInfoList);
 
-                var rows = $('tbody tr');
+                var tbody = $('tbody');
+                tbody.empty();
 
                 $.each(response.memberInfoList, function (index, history) {
-                    // 각 행의 td 요소들을 가져온다.
-                    var tds = $(rows[index]).find('td');
+                    // 새로운 tr 및 td 요소들을 생성한다.
+                    var tr = $("<tr></tr>");
+                    tr.append("<td>" + history.clusterNum + "</td>");
+                    tr.append("<td>" + history.name + "</td>");
+                    tr.append("<td>" + history.email + "</td>");
+                    tr.append("<td>" + history.gender + "</td>");
+                    tr.append("<td>" + history.age + "</td>");
+                    tr.append("<td>" + history.phone + "</td>");
+                    var addressPart = history.address.split(' ')[0];
+                    tr.append("<td>" + addressPart + "</td>");
 
-                    // 각 td의 텍스트를 바꿔준다.
-                    $(tds[0]).text(history.clusterNum);
-                    $(tds[1]).text(history.name);
-                    $(tds[2]).text(history.email);
-                    $(tds[3]).text(history.gender);
-                    $(tds[4]).text(history.age);
-                    $(tds[5]).text(history.phone);
-                    $(tds[6]).text(history.address);
 
-
+                    // tr 요소를 tbody에 추가한다.
+                    tbody.append(tr);
                 });
+                updatePage();
+
             },
             error: function (error) {
                 // 실패 시 수행할 작업 (예: 오류 메시지 표시)

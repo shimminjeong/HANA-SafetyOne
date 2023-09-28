@@ -162,3 +162,51 @@ table tbody tr:hover {
     transition: background-color 0.3s;
     display: block;
 }
+
+.user-search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+.search-header{
+    margin-right: 2%;
+}
+
+.user-search input{
+    margin-right: 2%;
+    width: 15%;
+    padding: 5px;
+}
+
+.user-search button{
+    width: 5%;
+    padding: 5px;
+}
+
+.search-cluster{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5%;
+}
+
+.btn-link {
+    padding: 10px 20px;
+    color: black;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-link:hover {
+    background-color: #00857F;
+    color: white;
+}
+
+.search-cluster img{
+    width: 20px;
+}
