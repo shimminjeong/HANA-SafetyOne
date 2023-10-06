@@ -92,7 +92,12 @@
         </div>
     </div>
 </div>
-
+<%
+    String username = (String) session.getAttribute("name");
+    String phone = (String) session.getAttribute("phone");
+%>
+<span class="user-name" style="display: none;"><%= username %></span>
+<span class="user-phone" style="display: none;"><%= phone %></span>
 <script>
     let currentCardId = '';
 
@@ -164,7 +169,8 @@
 
 
     function paymentRequest() {
-
+        var username = $('.user-name').text();
+        var userPhone = $('.user-phone').text();
         var store = $('.place-store').text();
         var address = $('.place-address').text();
         var category = $('.place-category').text();
@@ -256,7 +262,7 @@
                 if (response === "거래승인") {
                     window.location.href = "/payment/paymentApproval?" + queryParams;
                 } else if (response === "거래미승인") {
-                    // sendNotApproval(currentCardId,store)
+                    // sendNotApproval(currentCardId,store,amount,dateTextContent,formattedTime,username,userPhone)
                     window.location.href = "/payment/paymentNotApproval?"+ queryParams;
                 } else {
                     alert(response);

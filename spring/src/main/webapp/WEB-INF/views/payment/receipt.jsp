@@ -34,7 +34,7 @@
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[거래일시]&nbsp;</div>
-                <div class="content-value">${paymentDate}&nbsp;${time}</div>
+                <div class="content-value">${paymentDate} ${time}</div>
             </div>
             <hr>
             <hr>
@@ -73,7 +73,7 @@
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[카드번호]&nbsp;</div>
-                <div class="content-value">${cardId}</div>
+                <div class="content-value-cardId">${cardId}</div>
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[유효기간]&nbsp;</div>
@@ -89,7 +89,7 @@
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[승인일시]&nbsp;</div>
-                <div class="content-value">${paymentDate}&nbsp;${time}</div>
+                <div class="content-value-time">${paymentDate} ${time}</div>
             </div>
             <%--            <div id="cardId">${cardId}</div>--%>
             <%--            <div id="address">${address}</div>--%>
@@ -108,7 +108,12 @@
 <div id="time">${time}</div>
 <div id="categorySmall">${categorySmall}</div>
 <div id="amount">${amount}</div>
-
+<%
+    String username = (String) session.getAttribute("name");
+    String phone = (String) session.getAttribute("phone");
+%>
+<span class="user-name" style="display: none"><%= username %></span>
+<span class="user-phone" style="display: none"><%= phone %></span>
 
 <script>
 
@@ -151,6 +156,14 @@
         return Math.floor(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
+    var cardId = $('.content-value-cardId').text();
+    var username = $('.user-name').text();
+    var userPhone = $('.user-phone').text();
+    var store = $('.place-store').text();
+    var dateTime = $('.content-value-time').text();
+    var amount = $('.content-value3').text();
+
+
 
     $(document).ready(function () {
         var data = {
@@ -174,8 +187,7 @@
 
                 if (response == "Y") {
                     alert("이상함")
-
-                    // sendFdsAlarm(store)
+                    // sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount)
                 }
                 if (response == "N") {
                     alert("정상입니다.")

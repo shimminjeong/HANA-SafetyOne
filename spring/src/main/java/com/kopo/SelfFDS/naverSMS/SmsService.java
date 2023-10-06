@@ -45,7 +45,7 @@ public class SmsService {
         List<MessageDto> messages = new ArrayList<>();
         messages.add(new MessageDto(recipientPhoneNumber, content));
 
-        SmsRequestDto smsRequest = new SmsRequestDto("SMS", "COMM", "82", senderNumber, "내용", messages);
+        SmsRequestDto smsRequest = new SmsRequestDto("SMS", "COMM","<SafetyOne 본인인증>", "82", senderNumber, "내용", messages);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(smsRequest);
 
@@ -66,12 +66,12 @@ public class SmsService {
 
     }
 
-    public SmsResponseDto sendMessage(String to, String content) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
+    public SmsResponseDto sendNotApproval(String to, String content) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
         Long time = System.currentTimeMillis();
         List<MessageDto> messages = new ArrayList<>();
         messages.add(new MessageDto(to, content));
 
-        SmsRequestDto smsRequest = new SmsRequestDto("SMS", "COMM", "82", senderNumber, "내용", messages);
+        SmsRequestDto smsRequest = new SmsRequestDto("LMS", "COMM", "<SafetyOne 거래미승인>","82", senderNumber, "내용", messages);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(smsRequest);
 
@@ -91,6 +91,35 @@ public class SmsService {
         return smsResponse;
 
     }
+
+
+    public SmsResponseDto sendFdsMessage(String to, String content) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
+        Long time = System.currentTimeMillis();
+        List<MessageDto> messages = new ArrayList<>();
+        messages.add(new MessageDto(to, content));
+
+        SmsRequestDto smsRequest = new SmsRequestDto("LMS", "COMM", "<SafetyOne 이상거래감지>","82", senderNumber, "내용", messages);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonBody = objectMapper.writeValueAsString(smsRequest);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-ncp-apigw-timestamp", time.toString());
+        headers.set("x-ncp-iam-access-key", this.accessKey);
+        String sig = makeSignature(time); //암호화
+        headers.set("x-ncp-apigw-signature-v2", sig);
+
+        HttpEntity<String> body = new HttpEntity<>(jsonBody, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        SmsResponseDto smsResponse = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/" + this.serviceId + "/messages"), body, SmsResponseDto.class);
+
+        return smsResponse;
+
+    }
+
+
 
     public String makeSignature(Long time) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
 

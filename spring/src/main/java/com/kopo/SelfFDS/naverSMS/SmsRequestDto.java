@@ -14,6 +14,7 @@ import java.util.List;
 public class SmsRequestDto {
     private String type;
     private String contentType;
+    private String subject;
     private String countryCode;
     private String from;
     private String content;

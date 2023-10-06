@@ -49,7 +49,7 @@ public class SmsController {
     @PostMapping("/sms/notApproval")
     public ResponseEntity<SmsResponseDto> notApprovalMessage(@RequestBody MessageDto MessageDto,HttpServletRequest sessionRequest) throws NoSuchAlgorithmException, URISyntaxException, UnsupportedEncodingException, InvalidKeyException, JsonProcessingException {
         System.out.println("차단문자발송");
-        SmsResponseDto data = smsService.sendMessage(MessageDto.getTo(), MessageDto.getContent());
+        SmsResponseDto data = smsService.sendNotApproval(MessageDto.getTo(), MessageDto.getContent());
         HttpSession session = sessionRequest.getSession();
         return ResponseEntity.ok().body(data);
     }
@@ -58,7 +58,7 @@ public class SmsController {
     public ResponseEntity<SmsResponseDto> fdsAlarmMessage(@RequestBody MessageDto MessageDto,HttpServletRequest sessionRequest) throws NoSuchAlgorithmException, URISyntaxException, UnsupportedEncodingException, InvalidKeyException, JsonProcessingException {
 
         System.out.println("이상거래문자발송");
-        SmsResponseDto data = smsService.sendMessage(MessageDto.getTo(), MessageDto.getContent());
+        SmsResponseDto data = smsService.sendFdsMessage(MessageDto.getTo(), MessageDto.getContent());
         HttpSession session = sessionRequest.getSession();
         return ResponseEntity.ok().body(data);
     }

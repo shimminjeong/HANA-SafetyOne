@@ -1,6 +1,6 @@
 // 사용자 정보 입력하면 무작위로 본인인증번호 보냄
 function sendSmsRequest() {
-    const phoneNumber = "010"+document.getElementById('phoneNumber').value;
+    const phoneNumber = "010" + document.getElementById('phoneNumber').value;
 
     const ouathNum = String(Math.floor(10000 + Math.random() * 90000));
     console.log("ouathNum", ouathNum);
@@ -58,13 +58,31 @@ function verifySmsCode() {
 
 
 // 사용자에게 차단되었단 메세지 제공
-function sendNotApproval(cardId,store) {
-    const phoneNumber="01050437629"
+function sendNotApproval(currentCardId, store, amount, dateTextContent, formattedTime,username,userPhone) {
+
+    var parts = currentCardId.split("-");
+    var lastFourDigits = parts[parts.length - 1];
+
+    let partdate = dateTextContent.split('-');
+    let formattedDate = partdate[1] + '/' + partdate[2];
+
+    let timeParts = formattedTime.split(":");
+    let resultTime = `${timeParts[0]}:${timeParts[1]}`;
+
+    let resultNumber = amount.toLocaleString();
 
 
+    let maskedName = username[0] + '*' + username[2];
+    let phoneNumber = userPhone.replace(/-/g, "");
+    console.log("phoneNumber",phoneNumber)
     const requestData = {
         to: phoneNumber,
-        content: '[SafetyOne] 안심카드서비스로 인해 '+store+'에서의 결제가 차단되었습니다.',
+        content: '하나카드(' + lastFourDigits + ')신용미승인\n'
+            + maskedName+'\n'
+            + resultNumber + '원\n'
+            + formattedDate + ' '+resultTime+'\n'
+            + store+'\n'
+            + '거래가 차단되었습니다.',
     };
 
     $.ajax({
@@ -84,12 +102,32 @@ function sendNotApproval(cardId,store) {
 
 }
 
-function sendFdsAlarm(store) {
-    const phoneNumber="01050437629"
+function sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount) {
+
+    let phoneNumber = userPhone.replace(/-/g, "");
+    var parts = cardId.split("-");
+    var lastFourDigits = parts[parts.length - 1];
+    let formattedAmount = parseInt(amount).toLocaleString()+"원";
+    let maskedName = username[0] + '*' + username[2];
+    console.log(typeof dateTime);
+    console.log(dateTime);
+    let datePart = dateTime.split(" ")[0];
+    console.log(datePart)
+    let timePart = dateTime.split(" ")[1].split(":").slice(0, 2).join(":");
+    console.log(timePart)
+    let formattedDate = datePart.split("-").slice(1).join("/");
+
+    // let formattedDate = datePart.split("-").slice(1).join("/");
+    let formattedDateTime = formattedDate+' '+timePart;
 
     const requestData = {
         to: phoneNumber,
-        content: '[SafetyOne] 이상거래알림서비스에서 '+store+'의 거래가 이상거래로 감지되었습니다.',
+        content: '하나카드(' + lastFourDigits + ')신용승인\n'
+            + maskedName+'\n'
+            + formattedAmount+'\n'
+            + formattedDateTime+'\n'
+            + store+'\n'
+            + '거래가 이상거래로 감지되었습니다.',
     };
 
     $.ajax({
