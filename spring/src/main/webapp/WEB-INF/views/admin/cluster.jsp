@@ -8,65 +8,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="../../../resources/css/admin/adminCommon.css"/>
     <link rel="stylesheet" href="../../../resources/css/admin/cluster.css"/>
     <script src="../../../resources/js/cluster.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
 </head>
 <body>
 <jsp:include page="adminHeader.jsp"/>
-<hr style="border:1px solid #00857F">
-<div class="details">
-    <jsp:include page="adminSideBar.jsp"/>
-    <div class="detail__right">
-        <div class="sub-container">
-            <div class="cluster-header">
-                <h3>회원 소비특성별 군집</h3>
-                <div class="table-div">
-                    <table border="1">
-                        <thead>
-                        <tr>
-                            <th>군집</th>
-                            <th>소속회원 수</th>
-                            <th>주요거래업종</th>
-                            <th>비주요거래업종</th>
-                            <th>군집비율(%)</th>
-                            <th>군집특성</th>
-<%--                            <th>전체메일보내기</th>--%>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="cluster" items="${clusterInfo}">
+<div class="back-container">
+    <div class="details">
+        <div class="details__left">
+            <ul class="menu">
+                <li class="menu__item">
+                    <a href="/admin/" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/dashboard.png"></div>
+                        대시보드
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/safety" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
+                        안심카드서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/fds" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
+                        이상거래서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/cluster" class="menu__link  active">
+                        <div class="menu__icon"><img src="../../../resources/img/networking.png"></div>
+                        군집분석
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/email" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/gmail.png"></div>
+                        이메일전송
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/lostCard" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/lostcard.png"></div>
+                        분실카드관리
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/paymentLogData" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/log.png"></div>
+                        결제로그
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="detail__right">
+            <h2 class="details____title">회원 군집 분석</h2>
+            <div class="sub-container">
+                <div class="cluster-header">
+                    <h3>회원 소비특성별 군집</h3>
+                    <div class="table-div">
+                        <table>
+                            <thead>
                             <tr>
-                                <td>${cluster.clusterNum}번 군집</td>
-                                <td>${cluster.clusterPeopleCount}명</td>
-                                <td>${cluster.categoryMaxName}</td>
-                                <td>${cluster.categoryMinName}</td>
-                                <td>${cluster.clusterPeopleRatio}</td>
-                                <td>
-                                    <button class="open-modal" data-clusterNum="${cluster.clusterNum}"
-                                            data-clusterPeopleCount="${cluster.clusterPeopleCount}">군집특성확인
-                                    </button>
-                                </td>
-<%--                                <td>--%>
-<%--                                    <button>메일 보내기</button>--%>
-<%--                                </td>--%>
+                                <th>군집</th>
+                                <th>소속회원 수</th>
+                                <th>주요거래업종</th>
+                                <th>비주요거래업종</th>
+                                <th>군집비율(%)</th>
+                                <th>군집특성</th>
+                                <%--                            <th>전체메일보내기</th>--%>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="cluster" items="${clusterInfo}">
+                                <tr>
+                                    <td>${cluster.clusterNum}번 군집</td>
+                                    <td>${cluster.clusterPeopleCount}명</td>
+                                    <td>${cluster.categoryMaxName}</td>
+                                    <td>${cluster.categoryMinName}</td>
+                                    <td>${cluster.clusterPeopleRatio*100}</td>
+
+                                    <td>
+                                        <button class="open-modal" data-clusterNum="${cluster.clusterNum}"
+                                                data-clusterPeopleCount="${cluster.clusterPeopleCount}">군집특성확인
+                                        </button>
+                                    </td>
+                                        <%--                                <td>--%>
+                                        <%--                                    <button>메일 보내기</button>--%>
+                                        <%--                                </td>--%>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div class="cluster-chart-div">
-                <div class="pie-div">
-                    <h3>군집별 인구 분포</h3>
-                    <canvas id="pieChart"></canvas>
-                </div>
-                <div class="bar1-div">
-                    <h3>군집별 거래횟수 및 거래금액</h3>
-                    <canvas id="combinedBarChart"></canvas>
+                <div class="cluster-chart-div">
+                    <div class="pie-div">
+                        <h3>군집별 인구 분포</h3>
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                    <div class="bar1-div">
+                        <h3>군집별 거래횟수 및 거래금액</h3>
+                        <canvas id="combinedBarChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,7 +127,7 @@
         <div class="row1-div">
             <div class="report-div">
                 <div class="chartname-header"><strong>군집 report</strong></div>
-                <hr>
+                <hr style="height: 1px; background-color: black;">
                 <div class="report-content">
                     <div class="people-info"></div>
                 </div>
@@ -98,9 +146,11 @@
             </div>
             <div class="many-chart-div">
                 <div class="chartname-header">
-                    <strong>주요소비처 거래금액</strong>
+                    <strong>주요소비처 거래횟수 및 거래금액</strong>
                 </div>
-                <canvas id="manyChart"></canvas>
+                <div class="canvas-div">
+                    <canvas id="manyChart"></canvas>
+                </div>
             </div>
         </div>
         <div class="row2-div">
@@ -112,9 +162,11 @@
             </div>
             <div class="small-chart-div">
                 <div class="chartname-header">
-                    <strong>비주요소비처 거래금액</strong>
+                    <strong>비주요소비처 거래횟수 및 거래금액</strong>
                 </div>
-                <canvas id="smallChart"></canvas>
+                <div class="canvas-div">
+                    <canvas id="smallChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -235,12 +287,13 @@
                         ticks: {
                             beginAtZero: true,
                             callback: function (value, index, values) {
-                                return value.toLocaleString('ko-KR') + '원';
+                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';
                             }
                         },
                         gridLines: {
                             display: false
                         }
+
                     }
                 ]
             }
@@ -274,11 +327,13 @@
         });
 
         // 모달 외부를 클릭했을 때 모달을 닫습니다.
-        $(window).click(function (event) {
-            if ($(event.target).is("#myModal")) {
+        $(document).ready(function () {
+            // .close 클래스 버튼을 클릭했을 때의 이벤트 리스너
+            $(".close").click(function () {
                 $("#myModal").hide();
-            }
+            });
         });
+
     });
 
 

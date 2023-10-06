@@ -82,7 +82,7 @@ function updateAlarmText() {
     var alarmSpan = document.querySelector('.select-alarm');
 
     if (existingButtons.length > 0) {
-        alarmSpan.textContent = "업종을 차단합니다.";
+        alarmSpan.innerHTML = "업종을 <span class='highlighted-text-no'>차단</span>합니다.";
     } else {
         alarmSpan.textContent = ""; // 텍스트 삭제
     }
@@ -120,17 +120,16 @@ function updateCategoryChart(selectedCategory) {
 
             // 색상 배열 - 데이터 포인트마다 다른 색상을 제공합니다.
             let colors = [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(99, 255, 132, 0.2)',
-                'rgba(255, 99, 255, 0.2)',
-                'rgba(255, 255, 0, 0.2)',
-                'rgba(132, 99, 255, 0.2)'
-                // 필요한 만큼 더 많은 색상을 추가할 수 있습니다.
+                'rgb(255, 99, 132)',   // 진한 붉은색
+                'rgb(54, 162, 235)',   // 진한 파란색
+                'rgb(255, 206, 86)',   // 진한 노란색
+                'rgb(75, 192, 192)',   // 진한 청록색
+                'rgb(153, 102, 255)',  // 진한 보라색
+                'rgb(255, 159, 64)',   // 진한 주황색
+                'rgb(99, 255, 132)',   // 진한 녹색
+                'rgb(255, 99, 255)',   // 진한 핑크색
+                'rgb(255, 255, 0)',    // 진한 노란색
+                'rgb(132, 99, 255)'    // 진한 파란색
             ];
 
             myChart = new Chart(ctx1, {
@@ -140,12 +139,17 @@ function updateCategoryChart(selectedCategory) {
                     datasets: [{
                         label: 'Amount Count',
                         data: categoryCntList,
-                        backgroundColor: colors,  // 각 데이터 항목에 대한 색상 배열
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: colors,
                         borderWidth: 1
                     }]
+                },
+                options: {
+                    legend: {
+                        position: 'right'  // legend를 오른쪽에 위치시킵니다.
+                    }
                 }
             });
+
         },
         error: function () {
             console.log('Error fetching categorySmall data.');

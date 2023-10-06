@@ -121,11 +121,16 @@
 
 
     <!-- 카드별 지역통계 -->
-    <select id="selectCountRegionOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        SELECT regionName, COUNT(*) AS regionCnt, SUM(AMOUNT) AS amountSum
-        FROM CARDHISTORY
-        WHERE cardId = #{cardId}
-        GROUP BY regionName
+    <select id="selectCountRegionOfEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT SUBSTR(regionName, 1,
+                      DECODE(INSTR(regionName, ' '), 0, LENGTH(regionName), INSTR(regionName, ' ') - 1)) AS regionName,
+               SUM(amount) AS amountSum, count(*) as regionCnt
+        FROM cardhistory
+        WHERE cardhisdate >= TO_DATE('2023-7-10', 'YYYY-MM-DD')
+          AND cardid IN (SELECT cardid FROM card WHERE email=#{email})
+        GROUP BY SUBSTR(regionName, 1,
+                        DECODE(INSTR(regionName, ' '), 0, LENGTH(regionName), INSTR(regionName, ' ') - 1))
+        ORDER BY regionCnt desc
     </select>
 
     <!-- 카드별 대분류 업종통계 -->
@@ -138,19 +143,31 @@
     </select>
 
     <!-- 카드별 소분류 업종통계 -->
-    <select id="selectCountSmallCategoryOfCardIdCategoryBig" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+    <select id="selectCountSmallCategoryOfEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
         SELECT CATEGORYBIG, CATEGORYSMALL as categorySmall, COUNT(*) AS categoryCnt, SUM(AMOUNT) AS amountSum
         FROM CARDHISTORY
-        WHERE CARDID = #{cardId}
+        WHERE cardhisdate >= TO_DATE('2023-7-10', 'YYYY-MM-DD')
+          AND cardid IN (SELECT cardid FROM card WHERE email=#{email})
         GROUP BY CATEGORYBIG, CATEGORYSMALL
         HAVING CATEGORYBIG = #{categoryBig}
     </select>
 
+    <!-- 카드별 소분류 top3 bottom3 -->
+    <select id="selectSmallCategroyTopOfEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT CATEGORYSMALL as categorySmall, COUNT(*) AS categoryCnt, SUM(AMOUNT) AS amountSum
+        FROM CARDHISTORY
+        WHERE cardhisdate >= TO_DATE('2023-7-10', 'YYYY-MM-DD')
+          AND cardid IN (SELECT cardid FROM card WHERE email=#{email})
+        GROUP BY CATEGORYSMALL
+        order by categoryCnt desc
+    </select>
+
     <!-- 카드별 거래시간통계 -->
-    <select id="selectCountTimeOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+    <select id="selectCountTimeOfEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
         SELECT SUBSTR(CARDHISTIME, 1, 2) AS TIME, COUNT(*) AS timeCnt, SUM(AMOUNT) AS amountSum
         FROM CARDHISTORY
-        WHERE CARDID = #{cardId}
+        WHERE cardhisdate >= TO_DATE('2023-7-10', 'YYYY-MM-DD')
+          AND cardid IN (SELECT cardid FROM card WHERE email=#{email})
         GROUP BY SUBSTR(CARDHISTIME, 1, 2)
         ORDER BY TIME
     </select>
@@ -165,13 +182,13 @@
 
     <!--    safetyCard setting 정보 insert-->
     <insert id="insertSafetySetting" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
-        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE,safetyStringInfo
+        INSERT INTO SAFETYCARD(CARDID, SAFETYSTARTDATE, SAFETYENDDATE
         <if test="regionName != null">,REGIONNAME</if>
         <if test="time != null">,TIME</if>
         <if test="categorySmall != null">,CATEGORYSMALL</if>
         )
         VALUES(
-        #{cardId},sysdate, TO_DATE(#{safetyEndDate}, 'YYYY-MM-DD HH24:MI:SS'),#{safetyStringInfo}
+        #{cardId},sysdate, TO_DATE(#{safetyEndDate}, 'YYYY-MM-DD HH24:MI:SS')
         <!-- Conditionally add values -->
         <if test="regionName != null">,#{regionName}</if>
         <if test="time != null">,#{time}</if>
@@ -192,8 +209,7 @@
             sc.cardId,
             c.cardName as cardName,
             sc.safetyStartDate,
-            sc.safetyEndDate,
-            sc.safetyStringInfo
+            sc.safetyEndDate
         FROM
             safetyCard sc
                 JOIN
@@ -335,6 +351,19 @@
         select *
         from safetycard
         WHERE CARDID = #{cardId} and categorysmall is null and time is null
+    </select>
+
+
+
+    <select id="selectAllSafetyCard" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        select *
+        from safetycard
+    </select>
+
+    <select id="updateSafetyStatus" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        update safetycard
+        set status=#{status}
+        where safetyIdSeq=#{safetyIdSeq}
     </select>
 
 

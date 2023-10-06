@@ -43,7 +43,6 @@ function openChartRegionModal() {
                 data: {
                     labels: regionNameList,
                     datasets: [{
-                        label: 'Amount Count',
                         data: region_cntList,
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgb(75, 192, 192)',
@@ -51,6 +50,11 @@ function openChartRegionModal() {
                     }]
                 },
                 options: {
+                    plugins: {
+                        legend: {
+                            display: false, // Set to false to hide the legend
+                        }
+                    },
                     scales: {
                         y: {
                             beginAtZero: true
@@ -58,6 +62,7 @@ function openChartRegionModal() {
                     }
                 }
             });
+
         },
         error: function () {
             console.error("Error while fetching data");

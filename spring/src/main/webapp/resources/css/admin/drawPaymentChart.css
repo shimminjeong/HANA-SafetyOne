@@ -1,0 +1,126 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 85%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 둘러싸는 컨테이너에 대한 스타일 */
+/* 외부 레이아웃을 감싸는 컨테이너 (추가해야 할 수도 있습니다.) */
+.outer-container {
+    display: grid;
+    grid-template-columns:5fr 1fr 5fr; /*1열의 넓이는 2열의 넓이의 1.2배 */
+    grid-template-rows: repeat(2, auto); /* 2행 설정 */
+    grid-row-gap: 7px;
+    grid-column-gap: 0px;
+}
+
+.region-div {
+    grid-row: 1; /* 1행 */
+    grid-column: 1; /* 1열 */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: #f9f9f9; /* 연한 배경색 */
+    padding: 15px;
+}
+
+.region-div:hover, .time-div:hover, .category-div:hover, .price-div:hover {
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.time-div {
+    grid-row: 1; /* 1행 */
+    grid-column: 3; /* 2열 */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: #f9f9f9; /* 연한 배경색 */
+    padding: 15px;
+}
+
+
+.category-div {
+    grid-row: 2; /* 2행 */
+    grid-column: 1; /* 1열 */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: #f9f9f9; /* 연한 배경색 */
+    padding: 15px;
+}
+
+.price-div {
+    grid-row: 2; /* 2행 */
+    grid-column: 3; /* 2열 */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: #f9f9f9; /* 연한 배경색 */
+    padding: 15px;
+}
+
+.chart-content {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    box-sizing: border-box;
+}
+
+.chart-head {
+    text-align: center;
+    margin-bottom: 10px; /* 차트 헤더와 차트 사이의 간격 설정 */
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+
+.region-top {
+    width: 112px;
+    /* grid-row: 2; */
+    /* grid-column: 2; */
+    font-size: 13px;
+}
+
+.category-top {
+    width: 112px;
+    /* grid-row: 2; */
+    /* grid-column: 2; */
+    font-size: 13px;
+}

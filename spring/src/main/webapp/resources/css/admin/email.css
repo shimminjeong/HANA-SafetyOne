@@ -1,46 +1,61 @@
-.sub-container{
+@font-face {
+    font-family: 'Hana-light';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.ttf') format("truetype");
+    font-display: swap;
+}
+
+
+.sub-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
 }
 
-.email-header{
+.email-header {
     margin: 0 auto;
 }
 
-.select-div select{
+.select-div select {
     width: 50%;
 
 }
 
 /* 전체 테이블 스타일 */
 table {
-    width: 100%;                /* 테이블 너비 */
-    border-collapse: collapse;  /* 테이블 내 경계선 제거 */
-    margin: 20px 0;             /* 상하 마진 추가 */
-    font-size: 14px;            /* 글꼴 크기 */
+    width: 100%; /* 테이블 너비 */
+    border-collapse: collapse; /* 테이블 내 경계선 제거 */
+    margin: 20px 0; /* 상하 마진 추가 */
+    font-size: 14px; /* 글꼴 크기 */
 }
 
 /* 테이블 헤더 스타일 */
 table thead {
-    background-color: #f2f2f2;  /* 배경색 */
+    background-color: #f2f2f2; /* 배경색 */
 }
 
 table thead th {
-    padding: 10px 15px;         /* 패딩 */
-    border: 1px solid #ddd;     /* 경계선 */
+    padding: 10px 15px; /* 패딩 */
+    border: 1px solid #ddd; /* 경계선 */
+    background-color: #dae6eb;;
 }
 
 /* 테이블 본문 스타일 */
 table tbody td {
-    padding: 10px 15px;         /* 패딩 */
-    border: 1px solid #ddd;     /* 경계선 */
+    padding: 10px 15px; /* 패딩 */
+    border: 1px solid #ddd; /* 경계선 */
+    background-color: white;
 }
 
 /* 테이블 행 호버 스타일 */
 table tbody tr:hover {
-    background-color: #f5f5f5;  /* 배경색 */
+    background-color: #f5f5f5; /* 배경색 */
 }
 
 
@@ -51,7 +66,7 @@ table tbody tr:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
@@ -59,17 +74,21 @@ table tbody tr:hover {
     position: relative;
     background-color: #fff;
     margin: 10% auto;
+    border-radius: 5px;
     padding: 20px;
     width: 50%;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn {
     position: absolute;
-    right: 10px;
-    top: 5px;
-    font-size: 24px;
+    top: 10px;
+    right: 20px; /* Considering the padding of auth-container */
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
+    color: black;
+    z-index: 10;
 }
 
 
@@ -99,7 +118,7 @@ table tbody tr:hover {
     color: white; /* 원하는 배경색으로 변경하세요 */
 }
 
-#pageNumbers{
+#pageNumbers {
     margin-left: 3%;
     margin-right: 3%;
     width: 37%;
@@ -107,36 +126,36 @@ table tbody tr:hover {
     justify-content: space-between;
 }
 
-#pageNumbers button{
+#pageNumbers button {
     margin: 0.7%;
     width: 30px;
     height: 27px;
     font-size: 14px;
 }
 
-#prev, #next{
+#prev, #next {
     width: 42px;
     height: 27px;
     font-size: 14px;
 }
 
-.pagination{
+.pagination {
     height: 5%;
 }
 
-#clusterSelect{
+#clusterSelect {
     margin-left: 2%;
     width: 15%;
     font-size: 16px;
-    padding:5px;
+    padding: 5px;
 }
 
-.email-content{
+.email-content {
     display: flex;
     flex-direction: column;
 }
 
-.select-div{
+.select-div {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -145,11 +164,11 @@ table tbody tr:hover {
     align-items: center;
 }
 
-.sender-div{
+.sender-div {
     margin: 0 auto;
 }
 
-.sender-div button{
+.sender-div button {
     margin: 20px auto;
     color: white;
     border: none;
@@ -163,29 +182,29 @@ table tbody tr:hover {
     display: block;
 }
 
-.user-search{
+.user-search {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: right;
 }
 
-.search-header{
+.search-header {
     margin-right: 2%;
 }
 
-.user-search input{
+.user-search input {
     margin-right: 2%;
     width: 15%;
     padding: 5px;
 }
 
-.user-search button{
+.user-search button {
     width: 5%;
     padding: 5px;
 }
 
-.search-cluster{
+.search-cluster {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -207,6 +226,90 @@ table tbody tr:hover {
     color: white;
 }
 
-.search-cluster img{
+.search-cluster img {
     width: 20px;
+}
+
+.cluster-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
+#emailContent {
+    vertical-align: top;
+    width: 85%;
+    height: 150px;
+}
+
+.modal-header {
+    margin-left: auto;
+    margin-right: auto;
+    width: 21%;
+    font-size: 20px;
+    margin-bottom: 5%;
+}
+
+
+#mail-clusterSelect {
+    margin-right: 2%;
+    padding: 5px;
+    height: 35px;
+}
+
+.input-group {
+    margin-bottom: 3%;
+}
+
+.emailTo {
+    width: 78px;
+    height: 20px;
+}
+
+.input-group label {
+    margin-right: 7%;
+}
+
+.input-group input {
+    width: 250px;
+    height: 20px;
+}
+
+.input-group input, .input-group textarea {
+    padding: 5px;
+    font-family: 'Hana-light', serif;
+    text-decoration-line: none;
+}
+
+.sendEmailBtn {
+    margin-left: auto;
+    margin-right: auto;
+    width: 17%;
+    padding: 10px;
+    background-color: #00857F;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+    border-radius: 5px;
+    display: block;
+}
+
+/*.sendEmailBtn{*/
+/*    margin: auto 0;*/
+/*    width: 15%;*/
+/*    padding: 10px;*/
+/*    background-color: #00857F;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease;*/
+/*}*/
+
+.sendEmailBtn:hover {
+    background-color: #00857F;
+    color: white;
 }

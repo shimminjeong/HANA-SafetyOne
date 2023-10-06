@@ -16,96 +16,152 @@
 </head>
 <body>
 <jsp:include page="adminHeader.jsp"/>
-<hr style="border:1px solid #00857F">
-<div class="details">
-    <jsp:include page="adminSideBar.jsp"/>
-    <div class="detail__right">
-        <div class="sub-container">
-            <div class="email-header"><h2>안심카드서비스 추천 이메일 보내기</h2></div>
-            <div class="email-content">
+<div class="back-container">
+    <div class="details">
+        <div class="details__left">
+            <ul class="menu">
+                <li class="menu__item">
+                    <a href="/admin/" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/dashboard.png"></div>
+                        대시보드
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/safety" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
+                        안심카드서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/fds" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
+                        이상거래알림서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/cluster" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/networking.png"></div>
+                        군집분석
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/email" class="menu__link active">
+                        <div class="menu__icon"><img src="../../../resources/img/gmail.png"></div>
+                        이메일전송
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/lostCard" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/lostcard.png"></div>
+                        분실카드
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/paymentLogData" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/log.png"></div>
+                        결제로그
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="detail__right">
+            <h2 class="details____title">안심카드서비스 추천 이메일 전송</h2>
+            <div class="sub-container">
+                <div class="email-content">
                 <span class="search-cluster">
                     <img src="../../../resources/img/magnifier.png"><a href="/admin/cluster" class="btn-link">군집별 특성
                     확인하기</a>
                 </span>
-                <div class="select-div">
-                    <div class="select-header">군집 선택</div>
-                    <select id="clusterSelect">
-                        <option value="all">전체회원</option>
-                        <c:forEach items="${clusterList}" var="clusterNum" varStatus="loop">
-                            <option value="${clusterNum}">${clusterNum}번 군집</option>
-                        </c:forEach>
-                    </select>
+                    <div class="select-div">
+                        <div class="select-header">군집 선택</div>
+                        <select id="clusterSelect">
+                            <option value="all">전체회원</option>
+                            <c:forEach items="${clusterList}" var="clusterNum" varStatus="loop">
+                                <option value="${clusterNum}">${clusterNum}번 군집</option>
+                            </c:forEach>
+                        </select>
 
-                </div>
-                <div class="sender-div">
-                    <button id="openModalBtn">이메일 전송</button>
-                </div>
-                <div class="user-search">
-                    <div class="search-header">회원 검색</div>
-                    <input type="text" id="memberSearchInput" placeholder="회원 이름을 입력하세요">
-                    <button onclick="filterMembers()">검색</button>
-                </div>
-                <div class="cluster-member-info">
-                    <table class="member-info-table">
-                        <thead>
-                        <tr>
-                            <th>군집번호</th>
-                            <th>이름</th>          <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
-                            <th>이메일</th>        <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
-                            <th>성별</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
-                            <th>나이</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
-                            <th>전화번호</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
-                            <th>주소</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
-                            <!-- 다른 필요한 컬럼들 -->
-                        </tr>
-                        </thead>
-                        <tbody id="memberTbody">
-                        <c:forEach items="${memberList}" var="member" varStatus="status">
+                    </div>
+                    <div class="sender-div">
+                        <button id="openModalBtn" onclick="openModal();">이메일 전송</button>
+                    </div>
+                    <div class="user-search">
+                        <div class="search-header">회원 검색</div>
+                        <input type="text" id="memberSearchInput" placeholder="회원 이름을 입력하세요">
+                        <button onclick="filterMembers()">검색</button>
+                    </div>
+                    <div class="cluster-member-info">
+                        <table class="member-info-table">
+                            <thead>
                             <tr>
-                                <td>${member.clusterNum}</td>
-                                <td>${member.name}</td>
-                                <td>${member.email}</td>
-                                <td>${member.gender}</td>
-                                <td>${member.age}</td>
-                                <td>${member.phone}</td>
-                                <c:set var="addressParts" value="${fn:split(member.address, ' ')}"/>
-                                <td>${addressParts[0]}</td>
+                                <th>군집번호</th>
+                                <th>이름</th>          <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
+                                <th>이메일</th>        <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
+                                <th>성별</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
+                                <th>나이</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
+                                <th>전화번호</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
+                                <th>주소</th>       <!-- 예시 컬럼, 실제 구조에 맞게 조절 필요 -->
+                                <!-- 다른 필요한 컬럼들 -->
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                    <div class="pagination">
-                        <button id="prev">이전</button>
-                        <div id="pageNumbers"></div>
-                        <button id="next">이후</button>
+                            </thead>
+                            <tbody id="memberTbody">
+                            <c:forEach items="${memberList}" var="member" varStatus="status">
+                                <tr>
+                                    <td style="text-align: center;">${member.clusterNum}</td>
+                                    <td>${member.name}</td>
+                                    <td>${member.email}</td>
+                                    <td style="text-align: center;">
+                                        <c:if test="${member.gender == 'F'}">여성</c:if>
+                                        <c:if test="${member.gender == 'M'}">남성</c:if>
+                                    </td>
+                                    <td style="text-align: center;">${member.age}세</td>
+                                    <td>${member.phone}</td>
+                                    <c:set var="addressParts" value="${fn:split(member.address, ' ')}"/>
+                                    <td>${addressParts[0]}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button id="prev">이전</button>
+                            <div id="pageNumbers"></div>
+                            <button id="next">이후</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
-        <div class="input-group">
-            <label for="recipientEmail">받는 사람:</label>
-            <input type="email" id="recipientEmail" placeholder="받는 이메일 주소를 입력하세요">
+        <div class="modal-header">군집별 메일전송</div>
+        <div class="cluster-info">
+            <div class="emailTo">받는사람</div>
+            <select id="mail-clusterSelect">
+                <c:forEach items="${clusterList}" var="clusterNum" varStatus="loop">
+                    <option value="${clusterNum}">${clusterNum}번 군집</option>
+                </c:forEach>
+            </select>
+            <div class="cluster-count"></div>
         </div>
 
-        <!-- 제목 입력 필드 -->
         <div class="input-group">
-            <label for="emailTitle">제목:</label>
-            <input type="text" id="emailTitle" placeholder="이메일 제목을 입력하세요">
+            <label for="emailTitle">제목</label>
+            <input type="text" id="emailTitle" placeholder="제목을 입력하세요">
         </div>
 
-        <!-- 내용 입력 필드 -->
+
         <div class="input-group">
-            <label for="emailContent">내용:</label>
-            <textarea id="emailContent" rows="4" placeholder="이메일 내용을 입력하세요"></textarea>
+            <label for="emailContent">내용</label>
+            <textarea id="emailContent" placeholder="내용을 입력하세요"></textarea>
         </div>
 
-        <!-- 이메일 전송 버튼 -->
-        <button id="sendEmailBtn" onclick="sendEmailData()">이메일 전송</button>
+
+        <button class="sendEmailBtn" onclick="sendEmailData()">이메일 발송</button>
 
     </div>
 </div>
@@ -156,13 +212,13 @@
 
     function sendEmailData() {
         // 입력 상자에서 데이터 가져오기
-        var recipientEmail = $('#recipientEmail').val();
+        // var recipientEmail = $('#recipientEmail').val();
         var emailTitle = $('#emailTitle').val();
         var emailContent = $('#emailContent').val();
 
         // 데이터를 서버에 전송하기 위한 객체 생성
         var data = {
-            to: recipientEmail,
+            to: "pooh5045@naver.com",
             title: emailTitle,
             message: emailContent
         };
@@ -176,6 +232,7 @@
             success: function (response) {
                 console.log('Success:', response);
                 alert('이메일이 성공적으로 전송되었습니다.');
+                window.location.replace("/admin/email");
             },
             error: function (error) {
                 console.error('Error:', error);
@@ -184,7 +241,7 @@
         });
     }
 
-    function sendCardClusterToServer(clusterNum) {
+    function sendClusterToServer(clusterNum) {
         console.log("clusterNum" + clusterNum)
         $.ajax({
             type: "POST",
@@ -223,15 +280,43 @@
     }
 
 
+    function sendModalClusterToServer(clusterNum) {
+        console.log("clusterNum" + clusterNum)
+        $.ajax({
+            type: "POST",
+            url: "/admin/clusterMailContent",
+            contentType: "application/json",
+            data: JSON.stringify({clusterNum: clusterNum}),
+            success: function (response) {
+                $("#emailTitle").val(response.mailTitle);
+                $("#emailContent").val(response.mailContent);
+                $(".cluster-count").text(response.memberCount + "명");
+
+
+            },
+            error: function (error) {
+                // 실패 시 수행할 작업 (예: 오류 메시지 표시)
+                console.error("Error sending data:", error);
+            }
+        });
+    }
+
+
     /////////////pagenation
 
     $(document).ready(function () {
-// select 요소 값 변경 감지
+        // select 요소 값 변경 감지
         $("#clusterSelect").change(function () {
             var selectedCluster = $(this).val();
-            sendCardClusterToServer(selectedCluster);
-        });
+            sendClusterToServer(selectedCluster);
+        });  // <-- 여기에 닫는 괄호와 세미콜론을 추가
+
+        $("#mail-clusterSelect").change(function () {
+            var selectedCluster = $(this).val();
+            sendModalClusterToServer(selectedCluster);
+        });  // <-- 여기에 닫는 괄호와 세미콜론을 추가
     });
+
 
     document.getElementById("prev").addEventListener("click", function () {
         if (currentPage > 1) {

@@ -201,6 +201,16 @@
 .subcontainer{
     display: flex;
     flex-direction: row;
+    margin-left: 70px;
+    margin-right: 70px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
 }
 
 .right-info{
@@ -296,8 +306,16 @@
 }
 
 .myselect-option{
-    margin : 20px auto;
+    margin : 10px auto;
     font-size: 18px;
+}
+
+.btn-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .next-Btn{
@@ -307,11 +325,25 @@
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    background-color: #00857F;
-    font-size: 17px;
+    background-color: #00a49d;
+    font-size: 15px;
+
     transition: background-color 0.3s;
-    margin: 30px auto;
     display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
+}
+
+.prev-Btn{
+    color: white;
+    border: none;
+    padding: 12px 40px 12px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #404b57;
+    font-size: 15px;
+    margin-right: 15px;
+    transition: background-color 0.3s;
+    display: block;
 }
 
 .time-subcontainer{
@@ -372,18 +404,23 @@ select:focus {
     outline: none;
 }
 
+.highlighted-text{
+    color: green;
+}
+
+.highlighted-text-no{
+    color: red;
+}
 
 
 .grid-container {
-    margin: auto;
-    margin-top: 10%;
+    margin-top: 7%;
     margin-bottom: 30px;
     display: grid;
     grid-template-columns: repeat(6, 85px); /* 2열로 반복 */
     /*grid-gap: 10px; !* 박스 사이의 간격 설정 *!*/
     align-items: center; /* 내용 수직 가운데 정렬 */
     text-align: center; /* 내용 가로 가운데 정렬 */
-    margin-left: 4%;
 }
 
 .grid-item {
@@ -396,7 +433,7 @@ select:focus {
     cursor: pointer;
     transition: background-color 0.3s;
     position: relative;
-    font-size: 15px;
+    font-size: 14px;
 
 }
 
@@ -410,6 +447,7 @@ select:focus {
     background-color: transparent; /* 초기 배경 설정 */
     transition: background-color 0.3s ease; /* 배경 변경 시 부드러운 효과를 위한 트랜지션 추가 */
     padding: 0px 3px;
+    color: black;
 }
 
 .dropdown-item:hover {
@@ -430,9 +468,9 @@ select:focus {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
 }
 
-.grid-item:hover .dropdown-item {
+.grid-item:hover .dropdown-item{
     display: block;
-    color: black;
+    /*color: black;*/
 }
 
 .grid-image {
@@ -445,9 +483,10 @@ select:focus {
 
 .grid-item:hover {
     background-color: #00857F;
+    color: white;
     border: 1px solid #ffffff;
-    color: black;
 }
+
 
 /*.limited-options {*/
 /*    max-height: 130px; !* 이 값을 조절하여 5개의 항목에 대한 대략적인 높이를 설정하세요. *!*/
@@ -463,4 +502,5 @@ select:focus {
     font-size: 15px;
     margin-top: 20px;
     margin-bottom: 15px;
+    border: 1px solid #ccc;
 }

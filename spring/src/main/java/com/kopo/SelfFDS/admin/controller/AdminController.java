@@ -5,6 +5,7 @@ import com.kopo.SelfFDS.admin.model.dto.Cluster;
 import com.kopo.SelfFDS.admin.service.AdminService;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.member.model.dto.Member;
+import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import com.kopo.SelfFDS.payment.model.dto.WordToVec;
 import com.kopo.SelfFDS.payment.service.PaymentService;
@@ -62,23 +63,58 @@ public class AdminController {
         mav.addObject("amountSumByDateRate", adminService.getAmountSumByDateRate());
         mav.addObject("memberCntByYear", adminService.getMemberCntByYear());
         mav.addObject("cardCntByYear", adminService.getCardCntByYear());
-        mav.addObject("amountSumByYear", adminService.getAmountSumByDate());
+        mav.addObject("amountSumByWeek", adminService.getAmountSumByDate());
+        mav.addObject("safetyDataCount", adminService.selectSafetyDataCount());
+        mav.addObject("fdsDataCount", adminService.selectFdsDataCount());
+        mav.addObject("clusterCount", adminService.selectClusterCount());
+
         mav.setViewName("admin/admin");
 
         return mav;
     }
 
-    @GetMapping("/safetyCard")
-    public String adminSafetyCardPage() {
-        return "admin/safetyCard";
+    @GetMapping("/safety")
+    public ModelAndView adminSafetyCardPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("safetyMemberList", adminService.selectSafetyAndMember());
+        mav.addObject("safetyCardCount", adminService.selectSafetyCardCount());
+        mav.addObject("safetyDataCount", adminService.selectSafetyDataCount());
+        mav.addObject("safetyUserCount", adminService.selectSafetyUserCount());
+        mav.setViewName("admin/adminSafety");
+        return mav;
+    }
+
+    @PostMapping("/safetyInfo")
+    public ResponseEntity<Map<String,Object>> safetyInfo(@RequestParam String cardId) {
+        int safetyCount = adminService.selectSafetyCountByCardId(cardId);
+        List<SafetyCard> safetyCardList=paymentService.selectSafetyRuleByCardId(cardId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("safetyCount", safetyCount);
+        response.put("safetyCardList", safetyCardList);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/safetyData")
+    public ModelAndView adminSafetyDataPage() {
+        ModelAndView mav = new ModelAndView();
+
+        mav.addObject("safetyCardCount", adminService.selectSafetyCardCount());
+        mav.addObject("notApprovalList", adminService.getNotApprovalData());
+        mav.addObject("safetyDataCount", adminService.selectSafetyDataCount());
+        mav.addObject("safetyUserCount", adminService.selectSafetyUserCount());
+        mav.setViewName("admin/adminSafetyData");
+        return mav;
     }
 
     @GetMapping("/fds")
     public ModelAndView adminFdsPage() {
         ModelAndView mav = new ModelAndView();
-        System.out.println(adminService.selectFdsAndMember());
 
         mav.addObject("FdsMemberList", adminService.selectFdsAndMember());
+        mav.addObject("fdsCardCount", adminService.selectFdsCardCount());
+        mav.addObject("fdsDataCount", adminService.selectFdsDataCount());
+        mav.addObject("fdsUserCount", adminService.selectFdsUserCount());
         mav.setViewName("admin/adminFds");
         return mav;
     }
@@ -88,7 +124,29 @@ public class AdminController {
         ModelAndView mav = new ModelAndView();
         List<PaymentLog> anomalyList = adminService.getAllAnomalyData();
         mav.addObject("anomalyList", anomalyList);
+        mav.addObject("fdsCardCount", adminService.selectFdsCardCount());
+        mav.addObject("fdsDataCount", adminService.selectFdsDataCount());
+        mav.addObject("fdsUserCount", adminService.selectFdsUserCount());
         mav.setViewName("admin/adminFdsData");
+        return mav;
+    }
+
+    @PostMapping("/fdsDataCount")
+    public ResponseEntity<Map<String,Integer>> fdsDataCount(@RequestParam String cardId) {
+        int fdsCount = adminService.selectFdsCountByCardId(cardId);
+
+        Map<String, Integer> response = new HashMap<>();
+        response.put("fdsCount", fdsCount);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/paymentLogData")
+    public ModelAndView paymentLogDataPage() {
+        ModelAndView mav = new ModelAndView();
+        List<PaymentLog> paymentLogList = adminService.getAllPaymentData();
+        mav.addObject("paymentLogList", paymentLogList);
+        mav.setViewName("admin/paymentLogPage");
         return mav;
     }
 
@@ -121,26 +179,20 @@ public class AdminController {
 
 
     //    cardid의 거래내역을 가지고 gmm 알고리즘 학습
-    @PostMapping("/learning")
-    public ResponseEntity<String> learningPage(@RequestParam("cardId") String cardId) {
-        // RestTemplate 인스턴스 생성
-        RestTemplate restTemplate = new RestTemplate();
-
-        System.out.println("cardId" + cardId);
-
-        // FastAPI URL
-        String fastApiUrl = "http://localhost:8000/train";
-
-        // Request Body를 위한 Map 생성
-        Map<String, String> body = new HashMap<>();
-        body.put("cardId", cardId);
-
-        // FastAPI 호출
-        ResponseEntity<String> response = restTemplate.postForEntity(fastApiUrl, body, String.class);
-        System.out.println("response" + response);
-
-        return ResponseEntity.ok(response.getBody());
-    }
+//    @PostMapping("/learning")
+//    public ResponseEntity<String> learningPage(@RequestParam("cardId") String cardId) {
+//        // RestTemplate 인스턴스 생성
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        System.out.println("cardId" + cardId);
+//
+//
+//
+//
+//        System.out.println("response" + response);
+//
+//        return ResponseEntity.ok(response.getBody());
+//    }
 
 
     @GetMapping("/cluster")
@@ -158,16 +210,14 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> clusterDetailChart(@RequestBody Cluster cluster) {
         Map<String, Object> response = new HashMap<>();
-        System.out.println("cluster"+cluster.getClusterNum());
-        List<Cluster> clusterPeopleInfo=adminService.selectClusterPeopleInfo(cluster.getClusterNum());
-        List<Cluster> clusterDetail=adminService.selectClusterDetail(cluster.getClusterNum());
-        Cluster cluster1=adminService.selectClusterStatic2ByCluster(cluster.getClusterNum());
-        System.out.println("clusterPeopleInfo"+clusterPeopleInfo);
-        System.out.println("clusterDetail"+clusterDetail);
+        System.out.println("cluster" + cluster.getClusterNum());
+        List<Cluster> clusterPeopleInfo = adminService.selectClusterPeopleInfo(cluster.getClusterNum());
+        List<Cluster> clusterDetail = adminService.selectClusterDetail(cluster.getClusterNum());
+        Cluster cluster1 = adminService.selectClusterStatic2ByCluster(cluster.getClusterNum());
 
-        response.put("clusterPeopleInfo",clusterPeopleInfo);
-        response.put("clusterDetail",clusterDetail);
-        response.put("cluster1",cluster1);
+        response.put("clusterPeopleInfo", clusterPeopleInfo);
+        response.put("clusterDetail", clusterDetail);
+        response.put("cluster1", cluster1);
 
         if (!response.isEmpty()) {
             return ResponseEntity.ok(response);
@@ -177,17 +227,13 @@ public class AdminController {
     }
 
 
-
-
-
-
     @GetMapping("/email")
     public ModelAndView adminEmailPage() {
-        ModelAndView mav=new ModelAndView();
-        List<String> clusterList=adminService.selectClusterNum();
-        List<Member> memberList=adminService.selectClusterMemberInfo();
-        mav.addObject("clusterList",clusterList);
-        mav.addObject("memberList",memberList);
+        ModelAndView mav = new ModelAndView();
+        List<String> clusterList = adminService.selectClusterNum();
+        List<Member> memberList = adminService.selectClusterMemberInfo();
+        mav.addObject("clusterList", clusterList);
+        mav.addObject("memberList", memberList);
         mav.setViewName("admin/email");
         return mav;
     }
@@ -195,10 +241,10 @@ public class AdminController {
     @PostMapping("/clusterMemberList")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> clusterMemberList(@RequestBody Member member) {
-        List<Member> memberInfoList=adminService.selectMemberInfoByClusterNum(member.getClusterNum());
+        List<Member> memberInfoList = adminService.selectMemberInfoByClusterNum(member.getClusterNum());
 
         Map<String, Object> response = new HashMap<>();
-        response.put("memberInfoList",memberInfoList);
+        response.put("memberInfoList", memberInfoList);
         if (!response.isEmpty()) {
             return ResponseEntity.ok(response);
         } else {
@@ -206,11 +252,51 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/clusterMailContent")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> clusterMailContent(@RequestBody Cluster cluster) {
+        List<Cluster> memberInfoList = adminService.selectClusterPeopleInfo(cluster.getClusterNum());
+        int totalCount = 0;
+        for (Cluster clusterItem : memberInfoList) {
+            totalCount += clusterItem.getCount(); // 'getCount()'는 Cluster 클래스 내의 count 변수의 getter 메서드라고 가정합니다.
+        }
+        List<Cluster> clusterDetail = adminService.selectClusterDetail(cluster.getClusterNum());
+        String top3 = "";
+        String bottom3 = "";
+
+
+        top3 = clusterDetail.get(2).getCategorySmall() + ", " +
+                clusterDetail.get(1).getCategorySmall() + ", " +
+                clusterDetail.get(0).getCategorySmall();
+
+        // 마지막 행에서 마지막에서 2번째 행까지의 categorySmall 값을 가져오기
+        bottom3 = clusterDetail.get(clusterDetail.size() - 1).getCategorySmall() + ", " +
+                clusterDetail.get(clusterDetail.size() - 2).getCategorySmall() + ", " +
+                clusterDetail.get(clusterDetail.size() - 3).getCategorySmall();
+
+        String mailTitle="안녕하세요 하나카드 SafetyONE입니다.";
+
+        String mailContent = "고객님 안녕하세요 하나카드를 이용해주셔서 감사합니다.\n\n" +
+                "고객님께서는 최근 3개월간 " + top3 + "업종에 소비를 많이 하셨습니다.\n" +
+                "또한 "+ bottom3 + "업종에 대한 소비가 극히 드문 것으로 확인되셨습니다.\n\n" +
+                "SafetyOne의 안심카드서비스로 평소 고객님이 거래하지 않는 나만의 Rule을 설정하여 금융사고를 예방하시길 추천드립니다.\n\n" +
+                "하나카드 이용에 항상 감사드립니다.";
+        Map<String, Object> response = new HashMap<>();
+        response.put("mailTitle", mailTitle);
+        response.put("mailContent", mailContent);
+        response.put("memberCount", totalCount);
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @GetMapping("/lostCard")
     public ModelAndView adminLostCardPage() {
         List<LostCard> lostCardList = adminService.selectAllLostCard();
         List<String> reasonList = adminService.selectLostReason();
-        System.out.println("lostCardList" + lostCardList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("lostCardList", lostCardList);
         mav.addObject("reasonList", reasonList);
@@ -222,13 +308,14 @@ public class AdminController {
     public ModelAndView adminLostReason() {
         List<LostCard> lostCardList = adminService.selectAllLostCard();
         List<String> reasonList = adminService.selectLostReason();
-        System.out.println("lostCardList" + lostCardList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("lostCardList", lostCardList);
         mav.addObject("reasonList", reasonList);
         mav.setViewName("admin/adminLostCard");
         return mav;
     }
+
+
 
 
 }

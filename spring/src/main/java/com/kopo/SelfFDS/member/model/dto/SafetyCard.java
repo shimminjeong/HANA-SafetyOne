@@ -7,8 +7,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Data
-@Getter
-@Setter
 public class SafetyCard {
 
     private int safetyIdSeq;
@@ -23,8 +21,8 @@ public class SafetyCard {
     private String time;
     private String stopStartDate;
     private String stopEndDate;
-    private String safetyStringInfo;
     private String cardName;
+    private Member member;
 
     @Override
     public String toString() {
@@ -41,7 +39,6 @@ public class SafetyCard {
                 ", time='" + time + '\'' +
                 ", StopStartDate='" + stopStartDate + '\'' +
                 ", StopEndDate='" + stopEndDate + '\'' +
-                ", safetyStringInfo='" + safetyStringInfo + '\'' +
                 '}';
     }
 }

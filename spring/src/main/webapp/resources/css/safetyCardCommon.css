@@ -79,10 +79,21 @@ main hr {
     margin-bottom: 5%;
 }
 
-.chart-name{
-    margin-top: 2%;
+.chart-name {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     font-size: 16px;
+    height: 36px;
+    width: 163px;
 }
+
+.chart-name:hover {
+    background-color: #e6e6e6;
+}
+
 
 
 .reg-Btn {
@@ -98,17 +109,6 @@ main hr {
     margin : 0 auto;
     margin-bottom: 30px;
     display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
-}
-
-.chart canvas{
-    width: 50%;
-    max-width: 750px;
-    margin: 10px 0;
-}
-
-.chart-head{
-    font-size: 20px;
-    margin : 10px;
 }
 
 
@@ -194,13 +194,43 @@ main hr {
     font-size: 20px;
 }
 
-#myRegionmodal, #myCategorymodal, #myTimemodal {
+#myRegionmodal {
     display: none; /* 처음에는 숨겨둠. JavaScript로 보이게 할 예정 */
     position: fixed; /* 스크롤 해도 위치 고정 */
     top: 50%;
     left: 70%;
     transform: translate(-50%, -50%); /* 중앙 정렬 */
-    width: 436px;
+    width: 400px;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    padding: 20px;
+    border-radius: 8px; /* 모서리 둥글게 */
+    z-index: 1000; /* 다른 요소 위에 위치 */
+}
+
+#myTimemodal{
+    display: none; /* 처음에는 숨겨둠. JavaScript로 보이게 할 예정 */
+    position: fixed; /* 스크롤 해도 위치 고정 */
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    width: 450px;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    padding: 20px;
+    border-radius: 8px; /* 모서리 둥글게 */
+    z-index: 1000; /* 다른 요소 위에 위치 */
+}
+
+#myCategorymodal{
+    display: none; /* 처음에는 숨겨둠. JavaScript로 보이게 할 예정 */
+    position: fixed; /* 스크롤 해도 위치 고정 */
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    width: 420px;
     max-width: 800px;
     background-color: #fff;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
@@ -210,24 +240,56 @@ main hr {
 }
 
 /* 캔버스 스타일 */
-#myRegionmodal canvas, #myCategorymodal canvas, #myTimemodal canvas {
+#myRegionmodal canvas, #myTimemodal canvas {
     width: 50%;
     max-width: 750px;
     margin: 10px 0;
 
 }
 
-#myRegionmodal .close, #myCategorymodal .close, #myTimemodal .close{
+#myCategorymodal canvas{
+    width: 100%;
+    max-height: 200px;
+    margin: 10px 0;
+
+}
+
+.close-btn {
     position: absolute;
-    right: 10px;
     top: 10px;
-    color: black;
-    padding: 5px 10px;
+    right: 20px; /* Considering the padding of auth-container */
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 18px;
+    color: black;
+    z-index: 10;
 }
 
-#myRegionmodal .close:hover, #myCategorymodal .close:hover, #myTimemodal .close:hover{
-    background-color: #00857F;
+.chart canvas{
+    width: 50%;
+    max-width: 750px;
+    margin: 10px 0;
 }
 
+.chart-head{
+    font-size: 20px;
+    margin-bottom : 20px;
+
+}
+
+.myCategorymodal > .chart-div{
+    height: 200px;
+    width: 200px;
+}
+
+.chart-info{
+    margin-top: 20px;
+}
+
+.chart-info1{
+    margin-top: 20px;
+}
+
+.chart-info2{
+    margin-top: 10px;
+}

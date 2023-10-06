@@ -23,4 +23,14 @@ public interface MyPageMapper {
     List<PaymentLog> selectPaymentLogByCardId(String cardId);
     List<PaymentLog> selectPaymentLogByEmail(String email);
 
+//    report
+    List<CardHistory> select6MonthTotalAmountByEmail(String email);
+    List<CardHistory> selectTopCategoryTotalAmountByEmail(String email);
+    List<CardHistory> selectTopCategoryDifferenceByEmail(String email);
+    List<CardHistory> selectTopStoreCountByEmail(String email);
+    List<CardHistory> selectTimeTotalAmountByEmail(String email);
+    List<CardHistory> selectRegionTotalAmountByEmail(String email);
+    List<String> selectCategory3monthByEmail(String email);
+    List<String> selectAllSmallCategory();
+
 }

@@ -47,11 +47,11 @@ public interface MemberMapper {
 
 
     //    cardhistory
-    List<CardHistory> selectCountRegionOfCardId(String cardId);
+    List<CardHistory> selectCountRegionOfEmail(String email);
 
-    List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(@Param("cardId") String cardId, @Param("categoryBig") String categoryBig);
+    List<CardHistory> selectCountSmallCategoryOfEmail(@Param("email") String email, @Param("categoryBig") String categoryBig);
 
-    List<CardHistory> selectCountTimeOfCardId(String cardId);
+    List<CardHistory> selectCountTimeOfEmail(String email);
 
 
 //    List<CardHistory> selectManyCategoryLatestMonthOfCardID(String cardId);
@@ -91,6 +91,12 @@ public interface MemberMapper {
 
     List<SafetyCard> selectSafetyCardNotRegionByCarId(String cardId);
     List<SafetyCard> selectSafetyCardRegionByCarId(String cardId);
+
+    List<CardHistory> selectSmallCategroyTopOfEmail(String email);
+
+    List<SafetyCard> selectAllSafetyCard();
+
+    void updateSafetyStatus(@Param("safetyIdSeq") int safetyIdSeq, @Param("status") String status);
 
 
 }

@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/payment.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="../../../resources/js/userOuath.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
                 <div class="option">
                     <div>
                         <form onsubmit="searchPlaces(); return false;">
-                            키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
+                            키워드 : <input type="text" value="철산 맥도날드" id="keyword" size="15">
                             <button type="submit">검색</button>
                         </form>
                     </div>
@@ -55,8 +56,8 @@
                 </div>
                 <div class="price-div">
                     <div class="price">금액</div>
-                    <div class="place-price"><input type="text" id="price" name="price"
-                                                    oninput="formatCurrency(this)"><span>원</span></div>
+                    <div class="place-price" style="text-align: right"><input style="text-align: right;" type="text" id="price" name="price"
+                                                    oninput="formatCurrency(this)"><span class="won-text">원</span></div>
                 </div>
                 <div class="phone">전화번호
                     <span class="place-phone"></span>
@@ -64,9 +65,6 @@
                 <div class="road_address_name">도로명주소
                     <span class="place-road_address_name"></span>
                 </div>
-<%--                <div class="product">상품명 :--%>
-<%--                    <span class="place-product">망고스무디</span>--%>
-<%--                </div>--%>
                 <div class="cardNum-div">
                     <div class="cardNum">카드선택</div>
                     <div class="cardId-info">
@@ -77,7 +75,7 @@
                         <div class="slideshow-container">
                             <c:forEach items="${cards}" var="card" varStatus="loop">
                                 <div class="mySlides" onclick="selectCardId('${card.cardId}')">
-                                    <img src="../../resources/img/cardImg${loop.index + 1}.png"
+                                    <img src="../../resources/img/${card.cardName}.png"
                                          data-card-id="${card.cardId}">
                                     <div class="cardIdtext">${card.cardId}</div>
                                 </div>
@@ -163,6 +161,8 @@
         currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 
+
+
     function paymentRequest() {
 
         var store = $('.place-store').text();
@@ -173,7 +173,7 @@
         // var product = $('.place-product').text();
         var amountStr = $('#price').val().replace(/,/g, '');  // 쉼표 제거
         var amount = parseInt(amountStr);  // 정수로 변환
-        address = address.replace("경기", "제주도");
+        address = address.replace("경기", "경기도");
         address = address.replace("서울", "서울특별시");
         address = address.replace("인천", "인천광역시");
         address = address.replace("강원특별자치도", "강원도");
@@ -249,8 +249,6 @@
             contentType: 'application/json',
             dataType: 'text',
             success: function (response) {
-                // 서버 응답 처리
-                // alert(response.message);
 
                 console.log("response", response);
 
@@ -258,7 +256,7 @@
                 if (response === "거래승인") {
                     window.location.href = "/payment/paymentApproval?" + queryParams;
                 } else if (response === "거래미승인") {
-                    alert("거래미승인!");
+                    // sendNotApproval(currentCardId,store)
                     window.location.href = "/payment/paymentNotApproval?"+ queryParams;
                 } else {
                     alert(response);

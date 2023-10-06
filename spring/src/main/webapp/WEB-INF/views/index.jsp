@@ -21,7 +21,7 @@
     <div class="sub-main1" onclick="window.location.href='/safetyCard/'">
         <div class="sub-main1-word">
             <div>안심카드서비스</div>
-            <div style="margin-top:15px; font-size: 20px">사용하지 않는 거래를 차단해보세요</div>
+            <div style="margin-top:20px; font-size: 20px">사용하지 않는 거래를 차단해보세요</div>
             <div class="sub-main1-img">
                 <div class="img-div1"><img src="../../resources/img/pin.png"/></div>
                 <div class="img-div1"><img src="../../resources/img/clock1.png"/></div>
@@ -32,7 +32,7 @@
     <div class="sub-main2" onclick="window.location.href='/fds/'">
         <div class="sub-main2-word">
             <div>이상소비알림서비스</div>
-            <div style="margin-top:15px; font-size: 20px">본인의 소비패턴과 다른 거래내역은 알림을 드립니다</div>
+            <div style="margin-top:20px; font-size: 20px">본인의 소비패턴과 다른 거래내역은 알림을 드립니다</div>
             <div class="sub-main2-img">
                 <div class="img-div2"><img src="../../resources/img/credit.png"/></div>
                 <div class="img-div2"><img src="../../resources/img/search.png"/></div>

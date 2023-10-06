@@ -21,25 +21,33 @@
             <li><a href="#">카드분실신고해제</a></li>
             <li><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>
         </nav>
-        <div class="lost-header"><h2>카드를 선택해주세요</h2></div>
+        <div class="lost-header"><h3>카드를 선택해주세요</h3></div>
+<%--        <span class="sub-container-hearder">보유카드 목록</span>--%>
+        <hr class="sub-hr">
+        <div class="cardAll-div">
+            <div class="cardAll-img-div"><img src="../../../resources/img/circle.png" onclick="AllCard()"></div>
+            <div class="all-text">전체선택</div>
+        </div>
         <c:forEach items="${cards}" var="card" varStatus="loop">
             <div class="lostcard-list">
-                <div class="card-list-info" id="${card.cardId}" onclick="confirmCardHistory(this)">
+                <div class="card-list-info" id="${card.cardId}">
                     <div class="card-list-info-img-div">
                         <img src="../../../resources/img/circle.png" onclick="changeImage(this, '${card.cardId}')">
                     </div>
+                    <img class="card-img" src="../../../resources/img/${card.cardName}.png">
                     <div class="card-list-info-cardid">${card.cardId}</div>
-                    <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;<%= name %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    </div>
+                    <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                     <div class="card-list-info-cardname">${card.cardName}</div>
-                    <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
+                    <img class="down-img" src="../../../resources/img/down-arrow.png"
+                         onclick="showCardInfo('${card.cardId}', this)">
                 </div>
+                <hr class="tmp-hr">
                 <div class="history-panel">
                     <div id="cardInfo-${card.cardId}">
                         <!-- 서버로부터 받아온 정보가 이곳에 추가될 것입니다. -->
                     </div>
                 </div>
-                <hr>
+
                 <div class="reissued">
                     <span>재발급 신청 여부</span>
                     <button id="btn-ok" class="reissued-ok" onclick="setReissued('Y', this)">신청</button>
@@ -103,95 +111,77 @@
         }
     }
 
-    function confirmCardHistory(element) {
-        const cardId = element.id;
-
-        $.ajax({
-            type: "POST",
-            url: "/customCenter/confirmCardHistory",
-            data: JSON.stringify({cardId: cardId}),
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (response) {
-                displayCardHistory(cardId, response);
-            },
-            error: function (error) {
-                console.error("Error fetching card history:", error);
-            }
-        });
-    }
+    // function confirmCardHistory(element) {
+    //     const cardId = element.id;
+    //
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/customCenter/confirmCardHistory",
+    //         data: JSON.stringify({cardId: cardId}),
+    //         contentType: 'application/json',
+    //         dataType: 'json',
+    //         success: function (response) {
+    //             displayCardHistory(cardId, response);
+    //         },
+    //         error: function (error) {
+    //             console.error("Error fetching card history:", error);
+    //         }
+    //     });
+    // }
 
     function formatCurrency(amount) {
         return amount.toLocaleString('ko-KR') + "원";
     }
 
 
-    var acc = document.getElementsByClassName("card-list-info");
-    for (var i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-                var cardId = this.id; // 클릭한 accordion의 id를 가져옵니다.
-                var cardInfoList = $("#cardInfo-" + cardId); // 이 부분이 추가되었습니다.
-                console.log("cardid", cardId);
-                // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
-                $.ajax({
-                    url: "/customCenter/confirmCardHistory",
-                    type: 'POST',
-                    data: JSON.stringify({cardId: cardId}),
-                    contentType: 'application/json',
-                    success: function (data) {
-
-                        cardInfoList.empty();
-                        cardInfoList.append("<h4>최근 거래내역</h4>");
-
-                        // var cardInfoListContent = "";
-                        // for (let i = 0; i < 3 && i < data.length; i++) {
-                        //     cardInfoListContent += "<div class='info-list'>" +
-                        //         "<span class='cardhistory-date'>" + data[i].cardHisDate + "</span>" +
-                        //         "<span class='cardhistory-regionName'>" + data[i].regionName + "</span>" +
-                        //         "<span class='cardhistory-store'>" + data[i].store + "</span>" +
-                        //         "<span class='cardhistory-amount'>" + data[i].amount + "</span></div>";
-                        // }
-                        //
-                        // cardInfoList.append(cardInfoListContent);
-
-                        var cardInfoListContent = "<table class='info-list-table'>";
-
-// 테이블 헤더 추가
-                        cardInfoListContent += "<thead><tr>" +
-                            "<th class='cardhistory-date'>Date</th>" +
-                            "<th class='cardhistory-regionName'>Region</th>" +
-                            "<th class='cardhistory-store'>Store</th>" +
-                            "<th class='cardhistory-amount'>Amount</th>" +
-                            "</tr></thead><tbody>";
-
-// 테이블 본문에 데이터 추가
-                        for (let i = 0; i < 3 && i < data.length; i++) {
-                            cardInfoListContent += "<tr>" +
-                                "<td class='cardhistory-date'>" + data[i].cardHisDate + "</td>" +
-                                "<td class='cardhistory-regionName'>" + data[i].regionName + "</td>" +
-                                "<td class='cardhistory-store'>" + data[i].store + "</td>" +
-                                "<td class='cardhistory-amount'>" + formatCurrency(data[i].amount) + "</td>"
-                                +
-                                "</tr>";
-                        }
-
-                        cardInfoListContent += "</tbody></table>";
-
-// 변수에 저장된 테이블 HTML을 원하는 위치에 추가합니다.
-                        cardInfoList.append(cardInfoListContent);
+    function showCardInfo(cardId) {
+        var clickedElement = document.getElementById(cardId);
+        clickedElement.classList.toggle("active");
 
 
+        var panel = clickedElement.nextElementSibling.nextElementSibling;  // 수정된 부분
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+
+            var cardInfoList = $("#cardInfo-" + cardId);
+            console.log("cardid", cardId);
+
+            $.ajax({
+                url: "/customCenter/confirmCardHistory",
+                type: 'POST',
+                data: JSON.stringify({cardId: cardId}),
+                contentType: 'application/json',
+                success: function (data) {
+                    cardInfoList.empty();
+                    var cardInfoListContent = "<table class='info-list-table'>";
+                    cardInfoListContent += "<thead><tr>" +
+                        "<th class='cardhistory-date'>거래일시</th>" +
+                        "<th class='cardhistory-category'>카테고리</th>" +
+                        "<th class='cardhistory-regionName'>가맹점주소</th>" +
+                        "<th class='cardhistory-store'>가맹점명</th>" +
+                        "<th class='cardhistory-amount'>금액</th>" +
+                        "</tr></thead><tbody>";
+
+                    for (let i = 0; i < 3 && i < data.length; i++) {
+                        var formattedDate = data[i].cardHisDate.substring(0, data[i].cardHisDate.length - 3);
+                        cardInfoListContent += "<tr>" +
+                            "<td class='cardhistory-date'>" + formattedDate + "</td>" +
+                            "<td class='cardhistory-category'>" + data[i].categorySmall + "</td>" +
+                            "<td class='cardhistory-regionName'>" + data[i].regionName + "</td>" +
+                            "<td class='cardhistory-store'>" + data[i].store + "</td>" +
+                            "<td class='cardhistory-amount'>" + formatCurrency(data[i].amount) + "</td>" +
+                            "</tr>";
                     }
-                });
-            }
-        })
+
+                    cardInfoListContent += "</tbody></table>";
+                    cardInfoList.append(cardInfoListContent);
+                }
+            });
+        }
     }
+
 
 
 

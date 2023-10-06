@@ -5,7 +5,7 @@
 <head>
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link href="../../resources/css/modalStyle.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <style>

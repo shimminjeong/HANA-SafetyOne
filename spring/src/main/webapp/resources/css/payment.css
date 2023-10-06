@@ -139,7 +139,7 @@
     display: none;
 }
 
-.place-store, .place-address, .place-category ,.place-price{
+.place-store, .place-address, .place-category {
     border: 1px solid #ccc;    /* Adds a lighter border */
     padding: 5px 10px ;              /* Gives some space inside the inner box */
     height: 26px;              /* Sets a fixed height */
@@ -148,6 +148,12 @@
     align-items: center;
 }
 
+.place-price{
+    border: 1px solid #ccc;    /* Adds a lighter border */
+    padding: 5px 10px ;              /* Gives some space inside the inner box */
+    height: 26px;              /* Sets a fixed height */
+    width: 80%;
+}
 .store-div, .address-div, .category-div, .price-div,.cardNum-div{
     display: flex;
     flex-direction: row;
@@ -155,9 +161,10 @@
     width: 100%;
 }
 
+
 .place-price input {
+    outline: none;
     border: none;
-    outline: none; /* This is to ensure the blue outline (which browsers often show when the input is focused) is not displayed */
 }
 
 a {
@@ -212,8 +219,17 @@ a {
 
 .paymentRequest{
     margin-top: 3%;
-    font-size: 16px;
-    width: 30%;
     height: 36px;
+    background: #00857f;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    width: 100%;
 
+}
+
+.won-text{
+    margin-right: 5px;
 }

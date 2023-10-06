@@ -8,15 +8,15 @@
       </a>
     </li>
     <li class="menu__item">
-      <a href="/admin/safetyCard" class="menu__link">
+      <a href="/admin/safety" class="menu__link">
         <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
-        안심카드관리
+        안심카드서비스
       </a>
     </li>
     <li class="menu__item">
       <a href="/admin/fds" class="menu__link">
         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-        이상소비관리
+        이상거래서비스
       </a>
     </li>
     <li class="menu__item">
@@ -35,6 +35,12 @@
       <a href="/admin/lostCard" class="menu__link">
         <div class="menu__icon"><img src="../../../resources/img/lostcard.png"></div>
         분실카드관리
+      </a>
+    </li>
+    <li class="menu__item">
+      <a href="/admin/paymentLogData" class="menu__link">
+        <div class="menu__icon"><img src="../../../resources/img/log.png"></div>
+        결제로그
       </a>
     </li>
   </ul>

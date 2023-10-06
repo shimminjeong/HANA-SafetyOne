@@ -6,6 +6,7 @@ import com.kopo.SelfFDS.member.model.dao.MemberMapper;
 import com.kopo.SelfFDS.member.model.dto.CardHistory;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.member.model.dto.Member;
+import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.payment.model.dao.PaymentMapper;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,31 +171,6 @@ public class AdminServiceImpl implements AdminService {
         return result;
     }
 
-    @Override
-//    public List<List<Double>> statsToPdf(double mean, double variance) {
-//        double lowerBound = mean - 3 * Math.sqrt(variance);
-//        double upperBound = mean + 3 * Math.sqrt(variance);
-//        int steps = 1000;
-//        double stepSize = (upperBound - lowerBound) / steps;
-//
-//        List<Double> x_pdfValues = new ArrayList<>();
-//        List<Double> pdfValues = new ArrayList<>();
-//
-//        NormalDistribution normalDistribution = new NormalDistribution(mean, Math.sqrt(variance));
-//
-//        for (int j = 0; j < steps; j++) {
-//            double xValue = lowerBound + j * stepSize;
-//            double pdfValue = normalDistribution.density(xValue);
-//
-//            x_pdfValues.add(xValue);
-//            pdfValues.add(pdfValue);
-//        }
-//
-//        List<List<Double>> result = new ArrayList<>();
-//        result.add(x_pdfValues);
-//        result.add(pdfValues);
-//        return result;
-//    }
 
     public List<List<Double>> statsToPdf(double mean, double variance) {
         double[] pdf_x = linspace(mean - 3 * Math.sqrt(variance), mean + 3 * Math.sqrt(variance), 1000);
@@ -293,6 +269,66 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Member> selectClusterMemberInfo() {
         return adminMapper.selectClusterMemberInfo();
+    }
+
+    @Override
+    public List<PaymentLog> getAllPaymentData() {
+        return adminMapper.getAllPaymentData();
+    }
+
+    @Override
+    public List<PaymentLog> getNotApprovalData() {
+        return adminMapper.getNotApprovalData();
+    }
+
+    @Override
+    public int selectFdsCardCount() {
+        return adminMapper.selectFdsCardCount();
+    }
+
+    @Override
+    public int selectSafetyCardCount() {
+        return adminMapper.selectSafetyCardCount();
+    }
+
+    @Override
+    public int selectFdsDataCount() {
+        return adminMapper.selectFdsDataCount();
+    }
+
+    @Override
+    public int selectSafetyDataCount() {
+        return adminMapper.selectSafetyDataCount();
+    }
+
+    @Override
+    public int selectFdsUserCount() {
+        return adminMapper.selectFdsUserCount();
+    }
+
+    @Override
+    public int selectSafetyUserCount() {
+        return adminMapper.selectSafetyUserCount();
+    }
+
+    @Override
+    public List<SafetyCard> selectSafetyAndMember() {
+        return adminMapper.selectSafetyAndMember();
+    }
+
+    @Override
+    public int selectFdsCountByCardId(String cardId) {
+        return adminMapper.selectFdsCountByCardId(cardId);
+    }
+
+    @Override
+    public int selectSafetyCountByCardId(String cardId) {
+        return adminMapper.selectSafetyCountByCardId(cardId);
+    }
+
+    @Override
+    public int selectClusterCount() {
+        return adminMapper.selectClusterCount();
     }
 
 

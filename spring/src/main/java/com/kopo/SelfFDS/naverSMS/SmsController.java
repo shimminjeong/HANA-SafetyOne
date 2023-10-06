@@ -45,4 +45,21 @@ public class SmsController {
             return "본인인증실패";
         }
     }
+
+    @PostMapping("/sms/notApproval")
+    public ResponseEntity<SmsResponseDto> notApprovalMessage(@RequestBody MessageDto MessageDto,HttpServletRequest sessionRequest) throws NoSuchAlgorithmException, URISyntaxException, UnsupportedEncodingException, InvalidKeyException, JsonProcessingException {
+        System.out.println("차단문자발송");
+        SmsResponseDto data = smsService.sendMessage(MessageDto.getTo(), MessageDto.getContent());
+        HttpSession session = sessionRequest.getSession();
+        return ResponseEntity.ok().body(data);
+    }
+
+    @PostMapping("/sms/fdsAlarm")
+    public ResponseEntity<SmsResponseDto> fdsAlarmMessage(@RequestBody MessageDto MessageDto,HttpServletRequest sessionRequest) throws NoSuchAlgorithmException, URISyntaxException, UnsupportedEncodingException, InvalidKeyException, JsonProcessingException {
+
+        System.out.println("이상거래문자발송");
+        SmsResponseDto data = smsService.sendMessage(MessageDto.getTo(), MessageDto.getContent());
+        HttpSession session = sessionRequest.getSession();
+        return ResponseEntity.ok().body(data);
+    }
 }

@@ -1,0 +1,203 @@
+.modal {
+    display: none; /* 기본적으로 모달은 숨겨진 상태로 시작 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경 */
+    z-index: 1000;
+    overflow-y: auto; /* 필요에 따라 스크롤 추가 */
+    align-items: center;
+    justify-content: center;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px; /* Considering the padding of auth-container */
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    z-index: 10;
+}
+
+.auth-container {
+    position: relative; /* This is necessary for absolute positioning of child elements like .close-btn */
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    margin: 15% auto;
+    width: 48%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-header {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+    align-self: center;
+}
+
+/* 행과 컬럼 스타일링 */
+.content-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.content-div-header {
+    width: 120px;
+}
+
+.content-div-input, .content-div-phone {
+    width: 100%;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.content-div-input:last-child, .content-div-phone:last-child {
+    margin-right: 0;
+}
+
+/* 인풋 스타일링 */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.number > input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* 휴대전화 관련 스타일링 */
+
+
+.phone-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* ... 기존 CSS ... */
+
+.agree-form {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+.toggle-icon {
+    margin-right: 10px;
+}
+
+.accordion-indicator {
+    transition: transform 0.3s;
+}
+
+.accordion-content {
+    display: none;
+    padding-top: 10px;
+}
+
+.accordion-content > div {
+    margin-bottom: 5px;
+}
+
+.accordion-content > hr {
+    margin: 0px;
+}
+
+/* ... 나머지 CSS ... */
+
+
+/*.agree-form {*/
+/*    font-size: 14px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*.accordion-toggle {*/
+/*    background: none;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    text-align: left;*/
+/*}*/
+
+/*.accordion-content {*/
+/*    display: none;*/
+/*    overflow: hidden;*/
+/*    transition: max-height 0.2s ease-out;*/
+/*}*/
+
+.company-select, .phone-select {
+    flex-basis: 17%;
+}
+
+select {
+    width: 89%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+.number {
+    flex-basis: 38%;
+}
+
+.btn-div {
+    flex-basis: 23%;
+}
+
+.send-authNumber {
+    width: 100%;
+    padding: 10px;
+    background-color: #00857F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-authNumber:hover {
+    background-color: #0056b3;
+}
+
+
+.number {
+    flex-basis: 40%;
+    margin-right: 10px;
+}
+
+.auth-confirm {
+    margin-top: 2%;
+    width: 15%;
+    padding: 10px;
+    background-color: #00857F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

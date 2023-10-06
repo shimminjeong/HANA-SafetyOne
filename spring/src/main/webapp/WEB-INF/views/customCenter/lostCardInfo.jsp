@@ -24,18 +24,13 @@
             <li><a href="#">카드분실신고해제</a></li>
             <li class="on"><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>
         </nav>
-        <div class="lost-header"><h2>분실신고 카드내역</h2></div>
-        <hr>
+        <div class="lost-header"><h3>분실신고 카드내역</h3></div>
         <table>
-            <colgroup>
-                <col span="1" style="width:23%;">
-                <col span="1" style="width:77%;">
-            </colgroup>
             <tbody>
             <tr>
                 <th scope="row" class="left">분실카드</th>
                 <td class="left">
-                    <div class="value">${lostCard.cardId} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${cardInfo.cardName}</div>
+                    <div class="value">${lostCard.cardId}&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;${cardInfo.cardName}</div>
                 </td>
             </tr>
             <tr>
@@ -65,24 +60,22 @@
             </tr>
             </tbody>
         </table>
-        <hr>
     </div>
-    <button class="registerLostBtn" onclick="registerLostCard()">다음</button>
 </div>
 
 <%--    알림문자보내기--%>
-<div class="form-group">
-    <label for="phoneNumber">전화번호</label>
-    <div class="input-wrapper">
-        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="010XXXXXXXX" required maxlength="11">
-        <!-- <button type="submit" id="sendSmsButton">인증번호 전송</button> -->
-        <button onclick="sendSmsRequest()" class="button">인증번호 전송</button>
-    </div>
-</div>
+<%--<div class="form-group">--%>
+<%--    <label for="phoneNumber">전화번호</label>--%>
+<%--    <div class="input-wrapper">--%>
+<%--        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="010XXXXXXXX" required maxlength="11">--%>
+<%--        <!-- <button type="submit" id="sendSmsButton">인증번호 전송</button> -->--%>
+<%--        <button onclick="sendSmsRequest()" class="button">인증번호 전송</button>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
-<input type="tel" id="userOuathNum" name="userOuathNum" placeholder="인증번호입력" required maxlength="5">
-<button onclick="verifySmsCode()" class="button">인증번호 확인</button>
-<div id="result"></div>
+<%--<input type="tel" id="userOuathNum" name="userOuathNum" placeholder="인증번호입력" required maxlength="5">--%>
+<%--<button onclick="verifySmsCode()" class="button">인증번호 확인</button>--%>
+<%--<div id="result"></div>--%>
 </body>
 
 

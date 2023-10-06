@@ -7,7 +7,7 @@
 .cluster-header {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background-color: #f6f8fa;
+    background-color: #ffffff;
     border-radius: 5px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -29,6 +29,10 @@
     border-collapse: collapse;
 }
 
+table, th, td {
+    border: 1px solid #dddddd;  /* 테두리 색상 및 두께 설정 */
+}
+
 .table-div th, .table-div td {
     padding: 10px 15px;
     text-align: left;
@@ -37,6 +41,7 @@
 .table-div th {
     background-color: #00857F;
     color: #fff;
+    text-align: center;
 }
 
 .table-div tbody tr:hover {
@@ -44,17 +49,16 @@
 }
 
 .table-div button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #00857F;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.table-div button:hover {
-    background-color: #2980b9;
+    display: block;
+    margin: auto; /* 수평 중앙 정렬 */
+    padding: 8px 20px;  /* 버튼의 내부 패딩 */
+    font-size: 15px;    /* 텍스트 크기 */
+    background-color: #00857F; /* 버튼의 배경색 */
+    border: none;   /* 테두리 제거 */
+    color: #ffffff; /* 버튼의 글자색 */
+    border-radius: 5px;   /* 버튼 모서리 둥글게 */
+    cursor: pointer;  /* 마우스 커서를 손가락 모양으로 */
+    transition: background-color 0.3s;  /* 배경색 변경 시 부드럽게 전환 */
 }
 
 .modal {
@@ -74,8 +78,8 @@
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 60%;
-    height: 700px;
+    width: 80%;
+    height: 800px;
 }
 
 .close {
@@ -95,24 +99,31 @@
 /* 부모 div 요소들에 flex를 적용하여 내부의 div 요소들을 가로로 나열합니다. */
 .row1-div, .row2-div {
     margin-top: 3%;
-    display: flex;
-    justify-content: space-between; /* 자식 요소들 사이에 동일한 간격을 만듭니다. */
+    display: flex; /* 자식 요소들 사이에 동일한 간격을 만듭니다. */
     height: 270px;
     margin-bottom: 3%;
 }
 
-/* 각각의 자식 div 요소들의 크기와 스타일을 설정합니다. */
-.report-div, .many-chart-div, .gender-chart-div, .small-chart-div {
-    flex: 1; /* 부모 요소의 너비를 균등하게 나눕니다. */
-    margin: 10px; /* 주변과의 간격을 만듭니다. */
-    padding: 10px; /* 내부의 내용과 테두리 사이의 간격을 만듭니다. */
+
+.report-div,.gender-chart-div{
+    width: 45%;
+    margin: 15px; /* 주변과의 간격을 만듭니다. */
+    padding: 16px; /* 내부의 내용과 테두리 사이의 간격을 만듭니다. */
     border: 1px solid white; /* 테두리 색상을 흰색으로 설정합니다. */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과를 적용합니다. */
-    background-color: #f9f9f9; /* 배경색을 약간 회색톤으로 설정합니다. */
-    height: 230px;
-    margin-bottom: 3%;
+    background-color: #f6f8fa; /* 배경색을 약간 회색톤으로 설정합니다. */
+    height: 260px;
 }
 
+.many-chart-div,.small-chart-div {
+    width: 50%;
+    margin: 15px; /* 주변과의 간격을 만듭니다. */
+    padding: 16px; /* 내부의 내용과 테두리 사이의 간격을 만듭니다. */
+    border: 1px solid white; /* 테두리 색상을 흰색으로 설정합니다. */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과를 적용합니다. */
+    background-color: #f6f8fa; /* 배경색을 약간 회색톤으로 설정합니다. */
+    height: 260px;
+}
 .cluster-chart-div {
     display: flex;       /* flex 레이아웃을 사용합니다 */
     justify-content: space-between;  /* div 요소들 사이에 동일한 간격을 부여합니다 */
@@ -122,8 +133,8 @@
 /* 각 div 요소의 width를 동일하게 설정합니다. */
 .cluster-chart-div .pie-div {
     width: 36%;   /* 원하는 너비로 조절 */
-    height: 295px;
-    background-color: #f6f8fa;
+    height: 305px;
+    background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding-left: 15px;
@@ -142,9 +153,9 @@
 }
 
 .cluster-chart-div .bar1-div {
-    width: 50%;   /* 원하는 너비로 조절 */
-    height: 310px;
-    background-color: #f6f8fa;
+    width: 55%;   /* 원하는 너비로 조절 */
+    height: 320px;
+    background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding-left: 15px;
@@ -159,7 +170,10 @@
     /*display: block;*/
 }
 
-
+/*.canvas-div canvas {*/
+/*    width: 387px !important;*/
+/*    height: 220px !important;*/
+/*}*/
 
 
 
@@ -216,11 +230,9 @@
 
 .report{
     margin-top: 15px;
-    font-size: 20px;
-    margin-left: 290px;
-    margin-right: 290px;
-    font-weight: 200;
-
+    font-size: 23px;
+    font-weight: 700;
+    text-align: center;
 }
 
 .mean-div{

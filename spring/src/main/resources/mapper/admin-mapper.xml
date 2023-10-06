@@ -10,6 +10,31 @@
         <result property="serviceStatus" column="serviceStatus"/>
         <result property="serRegDate" column="serRegDate"/>
         <result property="learningDate" column="learningDate"/>
+        <result property="weightSavePath" column="weightSavePath"/>
+
+        <!-- member 테이블과의 association -->
+        <association property="member" javaType="com.kopo.SelfFDS.member.model.dto.Member">
+            <result property="email" column="email"/>
+            <result property="name" column="name"/>
+            <result property="phone" column="phone"/>
+            <result property="address" column="address"/>
+            <result property="age" column="age"/>
+            <result property="gender" column="gender"/>
+        </association>
+    </resultMap>
+
+
+    <resultMap id="SafetyMemberMap" type="com.kopo.SelfFDS.member.model.dto.SafetyCard">
+        <!-- selfFds 테이블 필드 매핑 -->
+        <result property="cardId" column="cardId"/> <!-- 이 부분은 예상 값입니다. 실제 column 값을 확인해야 합니다. -->
+        <result property="status" column="status"/>
+        <result property="safetyStartDate" column="safetyStartDate"/>
+        <result property="safetyEndDate" column="safetyEndDate"/>
+        <result property="regionName" column="regionName"/>
+        <result property="time" column="time"/>
+        <result property="categorySmall" column="categorySmall"/>
+        <result property="stopStartDate" column="stopStartDate"/>
+        <result property="stopEndDate" column="stopEndDate"/>
 
         <!-- member 테이블과의 association -->
         <association property="member" javaType="com.kopo.SelfFDS.member.model.dto.Member">
@@ -39,7 +64,7 @@
         FROM member
         GROUP BY
             substr(regdate, 1, 2)
-        order by year desc
+        order by year
     </select>
 
     <!--    연도별 가입카드수-->
@@ -48,21 +73,75 @@
         FROM card
         GROUP BY
             substr(cardregdate, 1, 2)
-        order by year desc
+        order by year
     </select>
 
 
     <!--    일주일 매출금액-->
     <select id="getAmountSumByDate" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
     <![CDATA[
-        SELECT CARDHISDATE, amountSum
-        FROM (SELECT CARDHISDATE, sum(amount) as amountSum
-              FROM cardhistory
-              GROUP BY CARDHISDATE
-              order by CARDHISDATE desc)
+        SELECT cardhisdate, amountSum
+        FROM (
+                 SELECT TRUNC(CARDHISDATE) as cardhisdate, sum(amount) as amountSum
+                 FROM cardhistory
+                 GROUP BY TRUNC(CARDHISDATE)
+                 ORDER BY TRUNC(CARDHISDATE) desc
+             )
         WHERE ROWNUM <= 7
+        ORDER BY cardhisdate
         ]]>
     </select>
+
+    <!--    안심카드 서비스사용자관리-->
+<!--    <select id="selectSafetyAndMember" resultMap="SafetyMemberMap">-->
+<!--        SELECT m.email         as email,-->
+<!--               m.name          as name,-->
+<!--               m.phone         as phone,-->
+<!--               m.address       as address,-->
+<!--               m.age           as age,-->
+<!--               m.gender        as gender,-->
+<!--               f.status as status,-->
+<!--               f.cardId        as cardId,-->
+<!--               f.safetystartdate    as safetyStartDate,-->
+<!--               f.regionName    as regionName,-->
+<!--               f.categorySmall    as categorySmall,-->
+<!--               f.time              as time,-->
+<!--               f.safetystringinfo    as safetyStringInfo,-->
+<!--               f.stopstartdate    as stopStartDate,-->
+<!--               f.stopenddate    as stopEndDate-->
+<!--        FROM member m-->
+<!--                 JOIN card c ON m.email = c.email-->
+<!--                 JOIN safetycard f ON c.CARdid = f.CARDID-->
+<!--    </select>-->
+
+
+    <select id="selectSafetyAndMember" resultMap="SafetyMemberMap">
+        SELECT
+            MAX(m.email) as email,
+            MAX(m.name) as name,
+            max(m.phone)         as phone,
+            max(m.address)       as address,
+            max(m.age)           as age,
+            max(m.gender)        as gender,
+            max(c.selffdsserstatus) as status,
+            max(f.cardId)        as cardId,
+            max(f.safetystartdate)    as safetyStartDate
+        FROM member m
+                 JOIN card c ON m.email = c.email
+                 JOIN safetycard f ON c.CARdid = f.CARDID
+        GROUP BY f.CARDID
+        order by safetyStartDate desc
+    </select>
+
+    <select id="selectFdsCountByCardId" resultType="int">
+        SELECT count(*) from paymentlog where FDSDETECTIONSTATUS='Y' AND cardiD=#{cardId}
+    </select>
+
+    <select id="selectSafetyCountByCardId" resultType="int">
+        SELECT count(*) from paymentlog where PAYMENTAPPROVALSTATUS='N' AND cardiD=#{cardId}
+    </select>
+
+
 
 
     <!--    이상소비서비스사용자관리-->
@@ -76,10 +155,59 @@
                f.SERVICESTATUS as serviceStatus,
                f.cardId        as cardId,
                f.serregdate    as serRegDate,
-               f.learningdate  as learningDate
+               f.learningdate  as learningDate,
+               f.weightsavepath  as weightSavePath
         FROM member m
                  JOIN card c ON m.email = c.email
                  JOIN fds f ON c.CARdid = f.CARDID
+        order by serRegDate desc
+    </select>
+
+<!--    fds 서비스 이용중인 카드수-->
+    <select id="selectFdsCardCount" resultType="int">
+        SELECT count(*) from card where fdsserstatus='Y'
+    </select>
+
+
+    <!--    safety 서비스 이용중인 카드수-->
+    <select id="selectSafetyCardCount" resultType="int">
+        SELECT count(*) from card where selffdsserstatus='Y'
+    </select>
+
+    <!--   금일 이상거래 건수-->
+    <select id="selectFdsDataCount" resultType="int">
+        SELECT count(*) from paymentlog where FDSDETECTIONSTATUS='Y' and TRUNC(paymentdate) = TO_DATE('2023-10-05', 'YYYY-MM-DD')
+    </select>
+
+
+    <!--    금일 거래 차단 건수-->
+    <select id="selectSafetyDataCount" resultType="int">
+        SELECT count(*)
+        from paymentlog
+        where paymentApprovalstatus = 'N'
+          and TRUNC(paymentdate) = TO_DATE('2023-10-05', 'YYYY-MM-DD')
+    </select>
+
+<!--    safety 사용 유저수-->
+    <select id="selectFdsUserCount" resultType="int">
+        SELECT COUNT(DISTINCT EMAIL)
+        FROM card
+        WHERE selffdsserstatus = 'Y'
+    </select>
+
+    <!--    fds 사용 유저수-->
+    <select id="selectSafetyUserCount" resultType="int">
+    SELECT COUNT(DISTINCT EMAIL)
+    FROM card
+    WHERE fdsserstatus = 'Y'
+    </select>
+
+    <!-- 거래차단 데이터 로그확인-->
+    <select id="getNotApprovalData" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        select *
+        from paymentlog
+        where paymentApprovalstatus = 'N'
+        order by paymentdate desc
     </select>
 
 
@@ -89,6 +217,14 @@
         from paymentlog
         where fdsdetectionstatus = 'Y'
         order by paymentdate desc
+    </select>
+
+    <!-- 하나의 결제로그출력 -->
+    <select id="getAllPaymentData" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        SELECT *
+        FROM paymentlog
+        WHERE paymentdate > TO_DATE('2023-10-07', 'YYYY-MM-DD')
+        ORDER BY paymentdate DESC
     </select>
 
 
@@ -107,10 +243,12 @@
 
     <!--    버블차트그리기 위한 where 카드아이디 groupby count-->
     <select id="getRegionGroupCntByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
-        SELECT regionName, count(*) as cnt
+        SELECT
+            SUBSTR(regionName, 1, NVL(NULLIF(INSTR(regionName, ' ')-1, -1), LENGTH(regionName))) AS regionName,
+            COUNT(*) as cnt
         FROM cardhistory
-        where cardid = #{cardId}
-        group by regionName
+        WHERE cardid = #{cardId}
+        GROUP BY SUBSTR(regionName, 1, NVL(NULLIF(INSTR(regionName, ' ')-1, -1), LENGTH(regionName)))
     </select>
 
     <select id="getCategoryGroupCntByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">
@@ -280,6 +418,10 @@
             clt.CLUSTERNum = #{clusterNum}
         ORDER BY
             clt.clusterNum
+    </select>
+
+    <select id="selectClusterCount" resultType="int">
+        select count(unique(clusternum)) from clustertable
     </select>
 
 

@@ -1,4 +1,23 @@
+
+var radarChartMany;
+var myRadarChart;
+var horizontalChart;
 function drawChart(chartData) {
+
+
+
+    if (radarChartMany) {
+        radarChartMany.destroy();
+    }
+
+    if (horizontalChart) {
+        horizontalChart.destroy();
+    }
+
+    if (myRadarChart) {
+        myRadarChart.destroy();
+    }
+
 
     var modalButton = document.querySelector('.open-modal');
     var clusterPeopleCount = modalButton.getAttribute('data-clusterPeopleCount');
@@ -17,10 +36,11 @@ function drawChart(chartData) {
 
     // chartData.cluster1.clusterNum
     var reportDiv = document.querySelector('.report');
-    reportDiv.innerText = chartData.cluster1.clusterNum+ " 번 군집 대시보드";
+    reportDiv.innerText = chartData.cluster1.clusterNum + " 번 군집 대시보드";
 
 
-    var ctx= document.getElementById('manyChart').getContext('2d');
+
+    var ctx = document.getElementById('manyChart').getContext('2d');
 
     var data = chartData.clusterDetail.slice(0, 5).map(function (item) {
         return {
@@ -31,7 +51,7 @@ function drawChart(chartData) {
     });
 
     // labels 배열 생성
-    var labels = data.map(function(item) {
+    var labels = data.map(function (item) {
         return '[' + item.categorySmall + ']';
     });
 
@@ -55,40 +75,66 @@ function drawChart(chartData) {
         return item.count;
     });
 
-    var myRadarChart = new Chart(ctx, {
-        type: 'radar',
+
+
+    radarChartMany = new Chart(ctx, {
+        type: 'bar',
         data: {
             labels: labels,
             datasets: [
                 {
-                    label: 'top5 거래금액',
+                    label: '거래건수',
+                    data: countData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // 붉은색
+                    yAxisID: 'y-axis-count'
+                },
+                {
+                    label: '평균 거래금액',
                     data: amountData,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    datalabels: {
-                        align: 'end',
-                        anchor: 'end',
-                        color: '#555',
-                        formatter: function (value, context) {
-                            return value.toLocaleString();  // 숫자를 콤마로 구분된 문자열로 변환
-                        }
-                    }
-                }]
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
+                    yAxisID: 'y-axis-sum'
+                }
+            ]
         },
         options: {
-            scale: {
-                ticks: {
-                    beginAtZero: true
-                }
+            responsive: true,
+            legend: {
+                position: 'top'
             },
-            plugins: {
-                datalabels: {
-                    display: true
-                }
+            scales: {
+                xAxes: [{
+                    stacked: false
+                }],
+                yAxes: [
+                    {
+                        id: 'y-axis-count',
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return value + '건';
+                            }
+                        }
+                    },
+                    {
+                        id: 'y-axis-sum',
+                        position: 'right',
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';
+                            }
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }
+                ]
             }
         }
     });
+
 
 
     var ctx = document.getElementById('smallChart').getContext('2d');
@@ -102,7 +148,7 @@ function drawChart(chartData) {
     });
 
     // labels 배열 생성
-    var labels = data.map(function(item) {
+    var labels = data.map(function (item) {
         return '[' + item.categorySmall + ']';
     });
 
@@ -117,7 +163,6 @@ function drawChart(chartData) {
     });
 
 
-
     var amountData = data.map(function (item) {
         return item.totalAmount;
     });
@@ -126,41 +171,72 @@ function drawChart(chartData) {
         return item.count;
     });
 
-    console.log("amountData" + amountData);
+    console.log("labels",labels);
+    console.log("amountData",amountData);
+    console.log("countData",countData);
 
-    var myRadarChart = new Chart(ctx, {
-        type: 'radar',
+
+
+    myRadarChart = new Chart(ctx, {
+        type: 'bar',
         data: {
             labels: labels,
             datasets: [
                 {
-                    label: 'amount',
+                    label: '거래건수',
+                    data: countData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // 붉은색
+                    yAxisID: 'y-axis-count'
+                },
+                {
+                    label: '평균 거래금액',
                     data: amountData,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
+                    yAxisID: 'y-axis-sum'
+                }
+            ]
         },
         options: {
-            scale: {
-                ticks: {
-                    beginAtZero: true
-                }
+            responsive: true,
+            legend: {
+                position: 'top'
             },
-            plugins: {
-                datalabels: {
-                    display: true
-                }
+            scales: {
+                xAxes: [{
+                    stacked: false
+                }],
+                yAxes: [
+                    {
+                        id: 'y-axis-count',
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return value + '건';
+                            }
+                        }
+                    },
+                    {
+                        id: 'y-axis-sum',
+                        position: 'right',
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';
+                            }
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }
+                ]
             }
         }
     });
 
 
-
-
-
-
-        // 인구분포
+    // 인구분포
     var rawData = chartData.clusterPeopleInfo.map(function (item) {
         return {
             gender: item.gender,
@@ -185,8 +261,10 @@ function drawChart(chartData) {
         return data ? -data.count : 0; // 음수로 설정하여 왼쪽에 그리게 합니다.
     });
 
+
+
     var ctx = document.getElementById('genderAgeChart').getContext('2d');
-    new Chart(ctx, {
+    horizontalChart=new Chart(ctx, {
         type: 'horizontalBar',
         data: {
             labels: ageRanges,

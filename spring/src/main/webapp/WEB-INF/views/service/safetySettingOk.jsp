@@ -18,7 +18,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top:10%;
+        margin-top:7%;
     }
     .container > img{
         width: 5%;
@@ -51,28 +51,11 @@
         display: block; /* 버튼을 블록 레벨로 설정하여 가운데 정렬을 위한 설정 */
     }
 
-    .circle-container {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;    /* 원 형태로 만듭니다. */
-        overflow: hidden;       /* 원 밖의 이미지 부분을 숨깁니다. */
-        background-color: #eafaf3;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .circle-container img {
-        width: 80%;
-        height: 80%;
-    }
 </style>
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="container">
-    <div class="circle-container">
-        <img src="../../../resources/img/check.png" alt="Checkmark">
-    </div>
+        <img src="../../../resources/img/ico_mybenefit.png" alt="Checkmark">
     <div class="ok-head">선택하신 카드의 안심카드 Self Rule 이 등록되었습니다.</div>
     <div class="ok-content">고객님께서 선택하신 카드는 안심카드사용 Self Rule이 등록되어,</div>
     <div class="ok-content">설정하신 내용의 거래는 안전하게 차단됩니다.</div>

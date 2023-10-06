@@ -6,7 +6,7 @@
 <head>
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">
+<%--    <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/mypage.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.js"></script>
@@ -23,7 +23,7 @@
         <div class="sub-container">
             <span class="user-info">
                 <span class="hello"><%= name %>님 안녕하세요!!</span>
-                <button class="myinfo-button"> > 내정보관리</button>
+                <button class="myinfo-button">내정보관리</button>
             </span>
             <div class="cardId-info">
                 <div class="allow-img-prev"><a class="prev" onclick="plusSlides(-1)">
@@ -43,8 +43,8 @@
                 <div class="cardId-info-sub">
                     <div class="cardId-info-name"></div>
                     <div class="cardId-info-sub-stats">
-                        <div class="total-amount">총 거래금액<br><br><span id="totalAmount"></span></div>
-                        <div class="total-cnt">총거래건수<br><br><span id="totalCnt"></span></div>
+                        <div class="total-amount">총 거래금액<br><br><div style="text-align: right" id="totalAmount"></div></div>
+                        <div class="total-cnt">총 거래건수<br><br><div style="text-align: right" id="totalCnt"></div></div>
                     </div>
                 </div>
                 <div class="cardId-serviceStatus">
@@ -80,14 +80,24 @@
                     </c:forEach>
                 </div>
                 <div class="cardTotal-info-div2">
-                    <div class="cardTotal-info-div-header">이번달 TOP5 카테고리</div>
+                    <div class="cardTotal-info-div-header">카테고리별 사용 금액 TOP5 </div>
                     <div class="cardTotal-info-div-chart">
                         <canvas id="myPieChart"></canvas>
                     </div>
                 </div>
                 <div class="cardTotal-info-div3">
-                    <div class="cardTotal-info-div-header">이번달 과소비한 영역은 어디?</div>
-                    <div class=""></div>
+                    <div class="cardTotal-info-div-header">사용처별 이용 횟수 TOP5</div>
+                    <div>
+                        <c:forEach var="item" items="${storeCntList}" begin="0" end="4" varStatus="status">
+                            <div class="name-left" style="margin-bottom: 10px;">
+                                <span>${status.index + 1}&nbsp;&nbsp;</span>
+                                <span> ${item.store}</span>
+
+                            </div>
+                            <div class="name-right">${item.categoryCnt}회
+                            </div>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,7 +127,11 @@
             datasets: [{
                 data: data,
                 backgroundColor: [
-                    '#FF6B6B', '#4ECDC4', '#F7FFF7', '#FFE66D', '#1A535C'
+                    'rgb(255, 99, 132)',   // 진한 붉은색
+                    'rgb(54, 162, 235)',   // 진한 파란색
+                    'rgb(255, 206, 86)',   // 진한 노란색
+                    'rgb(75, 192, 192)',   // 진한 청록색
+                    'rgb(153, 102, 255)',  // 진한 보라색
                 ]
             }]
         },

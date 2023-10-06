@@ -7,13 +7,17 @@
     <select id="selectSumAmountByCardId" resultType="int">
         select sum(amount) as amountSum
         from cardhistory
-        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10' and TO_CHAR(cardhisdate, 'YYYY') = '2023'
+        where cardid = #{cardId}
+          and TO_CHAR(cardhisdate, 'MM') = '10'
+          and TO_CHAR(cardhisdate, 'YYYY') = '2023'
     </select>
 
     <select id="selectCountByCardId" resultType="int">
         select count(*) as amountCnt
         from cardhistory
-        where cardid = #{cardId} and TO_CHAR(cardhisdate, 'MM') = '10' and TO_CHAR(cardhisdate, 'YYYY') = '2023'
+        where cardid = #{cardId}
+          and TO_CHAR(cardhisdate, 'MM') = '10'
+          and TO_CHAR(cardhisdate, 'YYYY') = '2023'
     </select>
 
     <select id="selectSafetyStatusByCardId">
@@ -35,8 +39,9 @@
     </select>
 
     <select id="selectCardHistoryByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        select * from cardhistory
-        where cardid in (select cardid from card where email=#{email})
+        select *
+        from cardhistory
+        where cardid in (select cardid from card where email = #{email})
         order by cardhisdate desc
     </select>
 
@@ -45,6 +50,7 @@
         from cardhistory
         where cardid in (select cardid from card where email = #{email})
           AND TO_CHAR(cardhisdate, 'MM') = '10'
+          and TO_CHAR(cardhisdate, 'YYYY') = '2023'
         group by categorySmall
         order by amountSum desc
     </select>
@@ -52,7 +58,7 @@
     <select id="selectCardHistoryByCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
         select *
         from cardhistory
-        where cardid =#{cardId}
+        where cardid = #{cardId}
         order by cardHisdate desc
     </select>
 
@@ -70,5 +76,102 @@
         where cardid = #{cardId}
         order by paymentdate desc
     </select>
+
+    <!--    6개월치 totalprice 조회-->
+    <select id="select6MonthTotalAmountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT TO_CHAR(cardhisdate, 'MM') AS month, SUM(amount) AS amountSum,count(amount) as categoryCnt
+        FROM cardhistory
+        WHERE cardid IN (SELECT cardid FROM card WHERE email=#{email})
+          AND TO_NUMBER(TO_CHAR(cardhisdate
+            , 'YYYY')) = 2023
+          AND TO_NUMBER(TO_CHAR(cardhisdate
+            , 'MM')) BETWEEN 5
+          AND 10
+        GROUP BY TO_CHAR(cardhisdate, 'MM')
+        ORDER BY month
+    </select>
+
+
+    <!--    top3 카테고리 금액 & 비율 조회-->
+    <select id="selectTopCategoryTotalAmountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT categorySmall,
+               SUM(amount)                                                                                AS amountSum,
+               round(SUM(amount) / (SELECT SUM(amount)
+                                    FROM cardhistory
+                                    WHERE TO_CHAR(cardhisdate, 'MM') = '10'
+                                      AND TO_CHAR(cardhisdate, 'YYYY') = '2023'
+                                      AND cardid IN (SELECT cardid FROM card WHERE email = #{email})), 3) AS ratio
+        FROM cardhistory
+        WHERE TO_CHAR(cardhisdate, 'MM') = '10'
+          AND TO_CHAR(cardhisdate, 'YYYY') = '2023'
+          AND cardid IN (SELECT cardid FROM card WHERE email = #{email})
+        GROUP BY categorysmall
+        ORDER BY amountSum DESC
+    </select>
+
+
+    <!--    지날달대비 이번달 소비액이 큰 카테고리 조회-->
+    <select id="selectTopCategoryDifferenceByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT categorySmall,
+               SUM(CASE WHEN TO_CHAR(cardhisdate, 'YYYY-MM') = '2023-09' THEN amount ELSE 0 END)      as amount,
+               SUM(CASE WHEN TO_CHAR(cardhisdate, 'YYYY-MM') = '2023-10' THEN amount ELSE 0 END)      as amountSum,
+               abs(SUM(CASE WHEN TO_CHAR(cardhisdate, 'YYYY-MM') = '2023-10' THEN amount ELSE 0 END) -
+                   SUM(CASE WHEN TO_CHAR(cardhisdate, 'YYYY-MM') = '2023-09' THEN amount ELSE 0 END)) AS difference
+        FROM cardhistory
+        WHERE cardid IN (SELECT cardid FROM card WHERE email = #{email})
+          AND (TO_CHAR(cardhisdate, 'YYYY-MM') = '2023-09' OR TO_CHAR(cardhisdate, 'YYYY-MM') = '2023-10')
+        GROUP BY categorysmall
+        ORDER BY difference desc
+    </select>
+
+<!--    이번달 가장 많이 사용한 store조회-->
+    <select id="selectTopStoreCountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT store, count(*) as categoryCnt
+        FROM cardhistory
+        WHERE TO_CHAR(cardhisdate, 'MM') = '10'
+          AND TO_CHAR(cardhisdate, 'YYYY') = '2023'
+          AND cardid IN (SELECT cardid FROM card WHERE email = #{email})
+        group by store
+        order by categoryCnt desc
+    </select>
+
+    <!--    이번달 시간별 소비액 조회-->
+    <select id="selectTimeTotalAmountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT SUBSTR(cardhistime, 1, INSTR(cardhistime, ':') - 1) AS time, SUM(amount) AS amountSum
+        FROM cardhistory
+        WHERE cardhisdate >= TO_DATE('2023-09-10' , 'YYYY-MM-DD')
+          AND cardid IN (SELECT cardid FROM card WHERE email=#{email})
+        GROUP BY SUBSTR(cardhistime, 1, INSTR(cardhistime, ':')-1)
+        ORDER BY time
+    </select>
+
+    <!--    이번달 지역별 소비액 조회-->
+    <select id="selectRegionTotalAmountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT SUBSTR(regionName, 1,
+                      DECODE(INSTR(regionName, ' '), 0, LENGTH(regionName), INSTR(regionName, ' ') - 1)) AS regionName,
+               SUM(amount)                                                                               AS amountSum
+        FROM cardhistory
+        WHERE cardhisdate >= TO_DATE('2023-09-10', 'YYYY-MM-DD')
+          AND cardid IN (SELECT cardid FROM card WHERE email = #{email})
+        GROUP BY SUBSTR(regionName, 1,
+                        DECODE(INSTR(regionName, ' '), 0, LENGTH(regionName), INSTR(regionName, ' ') - 1))
+        ORDER BY amountSum desc
+    </select>
+
+
+    <!--    최근5개월간 거래한 카테고리 조회-->
+    <select id="selectCategory3monthByEmail" resultType="String">
+        SELECT DISTINCT categorysmall
+        FROM cardhistory
+        WHERE cardhisdate >= TO_DATE('2023-05-10', 'YYYY-MM-DD')
+          AND cardid IN (SELECT cardid FROM card WHERE email = #{email})
+    </select>
+
+    <select id="selectAllSmallCategory" resultType="String">
+        SELECT distinct Categorysmall
+        FROM CATEGORY
+    </select>
+
+
 </mapper>
 

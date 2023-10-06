@@ -154,10 +154,13 @@ public class MemberController {
         List<Card> cardInfo = memberService.selectCardOfEmail(email);
         List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
         List<CardHistory> categoryTopList = myPageService.selectTopCategoryByEmail(email);
+        List<CardHistory> storeCntList = myPageService.selectTopStoreCountByEmail(email);
         ModelAndView mav = new ModelAndView();
         mav.addObject("cards", cardInfo);
         mav.addObject("cardHistoryList", cardHistoryList);
         mav.addObject("categoryTopList", categoryTopList);
+        mav.addObject("storeCntList", storeCntList);
+
 
         mav.setViewName("member/mypage");
         return mav;
@@ -231,13 +234,28 @@ public class MemberController {
     public ModelAndView mypageReport(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
-        List<Card> cardInfo = memberService.selectCardOfEmail(email);
-        List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
-        List<PaymentLog> paymentLogList = myPageService.selectPaymentLogByEmail(email);
+//        List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
+        List<CardHistory> monthList = myPageService.select6MonthTotalAmountByEmail(email);
+        List<CardHistory> topCategoryList = myPageService.selectTopCategoryTotalAmountByEmail(email);
+        List<CardHistory> differenceList = myPageService.selectTopCategoryDifferenceByEmail(email);
+//        List<CardHistory> categoryCntList = myPageService.selectTopStoreCountByEmail(email);
+        List<CardHistory> timeList = myPageService.selectTimeTotalAmountByEmail(email);
+        List<String> categoryAllList = myPageService.selectAllSmallCategory();
+        System.out.println("categoryAllList"+categoryAllList);
+        List<String> categoryList = myPageService.selectCategory3monthByEmail(email);
+        System.out.println("categoryList"+categoryList);
+        categoryAllList.removeAll(categoryList);
+        System.out.println("categoryAllList"+categoryAllList);
+        List<CardHistory> regionNameList = myPageService.selectRegionTotalAmountByEmail(email);
         ModelAndView mav = new ModelAndView();
-        mav.addObject("cards", cardInfo);
-        mav.addObject("cardHistoryList", cardHistoryList);
-        mav.addObject("paymentLogList", paymentLogList);
+
+
+        mav.addObject("monthList", monthList);
+        mav.addObject("topCategoryList", topCategoryList);
+        mav.addObject("differenceList", differenceList);
+        mav.addObject("categoryAllList", categoryAllList);
+        mav.addObject("timeList", timeList);
+        mav.addObject("regionNameList", regionNameList);
 
         mav.setViewName("member/mypageReport");
         return mav;

@@ -88,13 +88,12 @@ function updateAlarmText() {
 
     allAlarmSpans.forEach(alarmSpan => {
         if (existingButtons.length > 0) {
-            alarmSpan.textContent = "까지 결제를 차단합니다.";
+            alarmSpan.innerHTML = "까지 거래를 <span class='highlighted-text-no'>차단</span>합니다.";
         } else {
             alarmSpan.textContent = ""; // 텍스트 삭제
         }
     });
 }
-
 
 function openChartTimeModal() {
     document.getElementById("myTimemodal").style.display = "block";
@@ -107,8 +106,26 @@ function openChartTimeModal() {
         url: '/chart/timeServiceChart',
         type: 'GET',
         success: function (data) {
+
+            let topThreeTimes = data.slice()  // 데이터의 복사본 생성
+                .sort((a, b) => b.timeCnt - a.timeCnt)  // timeCnt를 기준으로 내림차순 정렬
+                .slice(0, 3)  // 상위 3개 항목 선택
+                .map(item => item.time + '시');  // timeName 추출
+
+            let joinedTimes = topThreeTimes.join(', ');  // 추출한 3개의 값을 ,로 연결
+            document.querySelector('.recomend').textContent = joinedTimes;  // 해당 값을 <span class="recomend"></span> 안에 넣음
+
+            let bottomThreeTimes = data.slice()  // 데이터의 복사본 생성
+                .sort((a, b) => a.timeCnt - b.timeCnt)  // timeCnt를 기준으로 오름차순 정렬
+                .slice(0, 3)  // 상위 3개 항목 선택
+                .map(item => item.time + '시');  // timeName 추출
+
+            let joinedBottomTimes = bottomThreeTimes.join(', ');  // 추출한 3개의 값을 ,로 연결
+            document.querySelector('.recomend-bottom').textContent = joinedBottomTimes;  // 해당 값을 <span class="recomend-bottom"></span> 안에 넣음
+
+
             for (let i = 0; i < data.length; i++) {
-                timeNameList.push(data[i].time);
+                timeNameList.push(data[i].time+'시');
                 timeCntList.push(data[i].timeCnt);
                 timeSumList.push(data[i].amountSum);
             }
@@ -122,15 +139,32 @@ function openChartTimeModal() {
                     datasets: [{
                         label: '시간대별 나의 소비 횟수',
                         data: timeCntList,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: '#355C7D',
+                        borderColor:'#355C7D',
                         borderWidth: 1
                     }]
                 },
                 options: {
+                    plugins: {
+                        legend: {
+                            display: false, // Set to false to hide the legend
+                        }
+                    },
                     scales: {
+                        x: { // X축 설정 추가
+                            ticks: {
+                                maxRotation: 0, // 최대 회전 각도
+                                minRotation: 0  // 최소 회전 각도
+                            }
+                        },
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            ticks: {
+                                // 사용자 정의 레이블 콜백 함수
+                                callback: function(value, index, values) {
+                                    return value + '건';
+                                }
+                            }
                         }
                     }
                 }

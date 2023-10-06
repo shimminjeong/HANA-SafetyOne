@@ -122,6 +122,21 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.selectSafetyCardRegionByCarId(cardId);
     }
 
+    @Override
+    public List<CardHistory> selectSmallCategroyTopOfEmail(String email) {
+        return memberMapper.selectSmallCategroyTopOfEmail(email);
+    }
+
+    @Override
+    public List<SafetyCard> selectAllSafetyCard() {
+        return memberMapper.selectAllSafetyCard();
+    }
+
+    @Override
+    public void updateSafetyStatus(int safetyIdSeq, String status) {
+        memberMapper.updateSafetyStatus(safetyIdSeq, status);
+    }
+
 
     @Override
     public List<String> selectAllRegionName() {
@@ -140,18 +155,18 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public List<CardHistory> selectCountRegionOfCardId(String cardId) {
-        return memberMapper.selectCountRegionOfCardId(cardId);
+    public List<CardHistory> selectCountRegionOfEmail(String email) {
+        return memberMapper.selectCountRegionOfEmail(email);
     }
 
     @Override
-    public List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(String cardId, String categoryBig) {
-        return memberMapper.selectCountSmallCategoryOfCardIdCategoryBig(cardId, categoryBig);
+    public List<CardHistory> selectCountSmallCategoryOfEmail(String email, String categoryBig) {
+        return memberMapper.selectCountSmallCategoryOfEmail(email, categoryBig);
     }
 
     @Override
-    public List<CardHistory> selectCountTimeOfCardId(String cardId) {
-        return memberMapper.selectCountTimeOfCardId(cardId);
+    public List<CardHistory> selectCountTimeOfEmail(String email) {
+        return memberMapper.selectCountTimeOfEmail(email);
     }
 
 
@@ -167,14 +182,14 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public void insertSafetySetting(String cardId, List<List<String>> safetyCard, String safetyStringInfo) {
+    public void insertSafetySetting(String cardId, List<List<String>> safetyCard) {
 
         List<String> regionList = safetyCard.get(0);
         List<String> timeList = safetyCard.get(1);
         List<String> categoryList = safetyCard.get(2);
         SafetyCard safety = new SafetyCard();
         safety.setCardId(cardId);
-        safety.setSafetyStringInfo(safetyStringInfo);
+//        safety.setSafetyStringInfo(safetyStringInfo);
 
         Card cardInfo=myPageMapper.selectCardInfoByCardId(cardId);
         safety.setSafetyEndDate(cardInfo.getValidDate());

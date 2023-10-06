@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,12 +73,6 @@ public class SafetyCardServiceController {
         Map<String, List<SafetyRegister>> categoryMap = new HashMap<>();
         mav.addObject("categoryMap", categoryMap);
 
-
-        HttpSession session = request.getSession();
-        String cardId = (String) session.getAttribute("cardId");
-        List<CardHistory> resultList = memberService.selectCountRegionOfCardId(cardId);
-
-        mav.addObject("resultList", resultList);
         mav.addObject("regionExist", regionExist);
         mav.setViewName("service/region");
         return mav;
@@ -98,7 +93,7 @@ public class SafetyCardServiceController {
 
     @GetMapping("/category")
     public ModelAndView CategoryPage(@RequestParam(value = "region", required = false) List<String> regions,
-                                     @RequestParam(value = "time", required = false) List<String> times) {
+                                     @RequestParam(value = "time", required = false) List<String> times, HttpServletRequest request) {
         String regionExist = "regionExist";
         String timeExist = "timeExist";
         String categoryExist = "categoryExist";
@@ -109,10 +104,25 @@ public class SafetyCardServiceController {
             List<SafetyRegister> smallCategoryList = memberService.selectSmallCategoryOfBigCategory(bigcategory);
             categoryMap.put(bigcategory, smallCategoryList);
         }
+        HttpSession session = request.getSession();
+
+        String email = (String) session.getAttribute("email");
+        List<CardHistory> categoryTopList = memberService.selectSmallCategroyTopOfEmail(email);
+        List<String> categoryAllList = myPageService.selectAllSmallCategory();
+
+        List<String> categorySmallList = new ArrayList<>();
+        for (CardHistory cardHistory : categoryTopList) {
+            categorySmallList.add(cardHistory.getCategorySmall());
+        }
+        categoryAllList.removeAll(categorySmallList);
 
         ModelAndView mav = new ModelAndView();
+        mav.addObject("categoryTopList", categoryTopList);
         mav.addObject("categoryMap", categoryMap);
         mav.addObject("categoryBigList", bigCategory);
+        mav.addObject("categoryAllList", categoryAllList);
+        System.out.println("categoryTopList"+categoryTopList);
+
 
         if (regions != null && !regions.isEmpty()) {
             mav.addObject("regions", regions);
@@ -186,21 +196,25 @@ public class SafetyCardServiceController {
 
     @PostMapping("/registerCard")
     @ResponseBody
-    public String registerCard(@RequestBody String cardId, HttpServletRequest request) {
-        Card updateCard = memberService.selectCardOfCardId(cardId);
-        memberService.regSafetyService(updateCard);
-        Card cardInfo=myPageService.selectCardInfoByCardId(cardId);
+    public String registerCard(@RequestBody List<String> cardIds, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("cardId", cardId);
-        session.setAttribute("cardName", cardInfo.getCardName());
+        for (String cardId : cardIds) {
+            Card updateCard = memberService.selectCardOfCardId(cardId);
+            memberService.regSafetyService(updateCard);
+            Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
+            session.setAttribute("cardId", cardId);
+            session.setAttribute("cardName", cardInfo.getCardName());
+        }
         return "안심카드 서비스 신청 성공";
     }
 
     @PostMapping("/cancleCard")
     @ResponseBody
-    public String cancleCard(@RequestBody String cardId, HttpSession session) {
-        Card updateCard = memberService.selectCardOfCardId(cardId);
-        memberService.unregSafetyService(updateCard);
+    public String cancleCard(@RequestBody List<String> cardIds, HttpSession session) {
+        for (String cardId : cardIds) {
+            Card updateCard = memberService.selectCardOfCardId(cardId);
+            memberService.unregSafetyService(updateCard);
+        }
         return "안심카드 서비스 해제 성공";
 
     }
@@ -286,30 +300,31 @@ public class SafetyCardServiceController {
         String cardId = (String) session.getAttribute("cardId");
 
         List<List<String>> settingsList = (List<List<String>>) requestData.get("settingsList");
-        String safetyStringInfo = (String) requestData.get("safetyStringInfo");
 
-        memberService.insertSafetySetting(cardId, settingsList, safetyStringInfo);
+        memberService.insertSafetySetting(cardId, settingsList);
         session.removeAttribute("cardId");
         session.removeAttribute("cardName");
         System.out.println("gogo");
         return "insert성공";
     }
 
-
     @PostMapping("/selectSafetyInfo")
     @ResponseBody
-    public ResponseEntity<List<SafetyCard>> selectSafetyInfo(@RequestBody SafetyCard safetyCard, HttpSession session) {
+    public ResponseEntity<Map<String, Object>> selectSafetyInfo(@RequestBody SafetyCard safetyCard, HttpSession session) {
         String cardId = safetyCard.getCardId();
         List<SafetyCard> safetyCardList = memberService.selectAllSafetyCardOfCardId(cardId);
+        List<String> regionList = memberService.selectAllRegionName();
         System.out.println("safetyCardList" + safetyCardList);
-        if (!safetyCardList.isEmpty()) {
-            return ResponseEntity.ok(safetyCardList);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("safetyCardList", safetyCardList);
+        responseMap.put("regionList", regionList);
+        return ResponseEntity.ok(responseMap);
+
+
     }
 
-    @RequestMapping("/safetyCardStop")
+    @RequestMapping("/CardStop")
     public ModelAndView safetyCardStopPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
@@ -317,28 +332,66 @@ public class SafetyCardServiceController {
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("safetyCardList", safetyCardList);
+        mav.setViewName("safetyCardStop");
+        return mav;
+    }
+
+    @RequestMapping("/safetyCardStop")
+    public ModelAndView CardStopPage(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        List<Card> safetyCardList = memberService.selectSafetyCardYByEmail(email);
+        System.out.println("safetyCardList"+safetyCardList);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("safetyCardList", safetyCardList);
+
         mav.setViewName("service/safetyCardStop");
         return mav;
     }
 
-    @PostMapping("/stopCardDetail")
-    @ResponseBody
-    public Map<String, Object> stopCardDetail(@RequestBody SafetyCard safetyCard) {
-        // Now you have the cardId. You can process it as needed.
-        List<SafetyCard> safetyInfo = memberService.selectAllSafetyCardOfCardId(safetyCard.getCardId());
-        Card cardInfo = myPageService.selectCardInfoByCardId(safetyCard.getCardId());
-        List<SafetyCard> safetyRuleList=memberService.selectSafetyCardNotRegionByCarId(safetyCard.getCardId());
-        List<SafetyCard> safetyRegionList=memberService.selectSafetyCardRegionByCarId(safetyCard.getCardId());
-        System.out.println("safetyInfo" + safetyInfo);
+//    @PostMapping("/stopCardDetail")
+//    @ResponseBody
+//    public Map<String, Object> stopCardDetail(@RequestBody SafetyCard safetyCard) {
+//        List<SafetyCard> safetyRuleList = memberService.selectSafetyCardNotRegionByCarId(safetyCard.getCardId());
+//        List<String> safetyRegionList = memberService.selectSafetyCardRegionByCarId(safetyCard.getCardId());
+//        List<String> regionAllList = memberService.selectAllRegionName();
+//        // Create a Map to hold the results
+//        regionAllList.removeAll(safetyRegionList);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("safetyRuleList", safetyRuleList);
+//        response.put("safetyRegionList", safetyRegionList);
+//        response.put("regionAllList", regionAllList);
+//
+//        return response; // Return the map as the respons
+//
+//    }
 
+    @GetMapping("/stopCardDetail")
+    public ModelAndView stopCardDetail(@RequestParam("cardId") String cardId) {
+        System.out.println("safetyCard.getCardId()"+cardId);
+
+        Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
+        List<SafetyCard> safetyRuleList = memberService.selectSafetyCardNotRegionByCarId(cardId);
+        List<SafetyCard> safetyRegionList = memberService.selectSafetyCardRegionByCarId(cardId);
+        List<String> regionAllList = memberService.selectAllRegionName();
         // Create a Map to hold the results
-        Map<String, Object> response = new HashMap<>();
-        response.put("safetyInfo", safetyInfo);
-        response.put("cardInfo", cardInfo);
-        response.put("safetyRuleList", safetyRuleList);
-        response.put("safetyRegionList", safetyRegionList);
+        for (SafetyCard safetyCard : safetyRegionList) {
+            String regionName = safetyCard.getRegionName();
+            regionAllList.remove(regionName);
+        }
 
-        return response; // Return the map as the respons
+        ModelAndView mav=new ModelAndView();
+        mav.addObject("cardInfo",cardInfo);
+        mav.addObject("safetyRuleList",safetyRuleList);
+        mav.addObject("safetyRegionList",safetyRegionList);
+        mav.addObject("regionAllList",regionAllList);
+        mav.setViewName("service/safetyCardStopDetail");
+
+        return mav;
 
     }
+
+
 }

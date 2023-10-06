@@ -11,60 +11,67 @@
     display: flex;
     margin-top: 10px;
     margin-bottom: 5%;
+    background-color: white;
 }
 
 .hana-info-content-box1{
     border-radius:  10px 0 0 10px;
-    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
     flex: 1;
     height: 100%;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .hana-info-content-box2{
-    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
     flex: 1;
     height: 100%;
-    padding: 20px;
     display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
     flex-direction: column;
     align-items: center;
 }
 
 .hana-info-content-box3{
     border-radius:  0 10px 10px 0;
-    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
     flex: 1;
     height: 100%;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /*padding: 20px;*/
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .hana-info-content-div1{
-    margin-top: 3%;
+    margin-top: 18px;
+    margin-bottom: 15px;
+    font-size: 20px;
 
 }
 .hana-info-content-div2{
-    margin-top: 3%;
-    margin-left: 24px;
-    margin-right: 18px;
+    /*margin-top: 3%;*/
+    /*margin-left: 24px;*/
+    /*margin-right: 18px;*/
 
 }
-
-
 
 
 .safetyone-info{
     display: flex;
     flex-direction: column;
+    margin-right: 50px;
+    margin-left: 50px;
 }
 
 /*safetyone*/
@@ -74,62 +81,81 @@
 }
 
 
-
 .safetyone-info-content{
     display: flex;
     justify-content: space-between;
 }
 
 .safetyone-info-content-box1{
-    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
     padding: 20px; /* 내부 패딩 */
     margin-top: 10px;
     margin-bottom: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
     border-radius: 10px; /* 테두리 둥글게 */
-    height: 30%;
+    height: 100%;
     width: 100%;
-    margin-right: 3%;
+    margin-right: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: white;
+}
+
+.safetyone-info-content-header img{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
 }
 
 .safetyone-info-content-box2{
-    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
     padding: 20px; /* 내부 패딩 */
     margin-top: 10px;
     margin-bottom: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
     border-radius: 10px; /* 테두리 둥글게 */
-    height: 30%;
+    height: 100%;
     width: 100%;
-    margin-right: 3%;
+    margin-right: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: white;
 }
 
 
 .safetyone-info-content-box3{
-    border: 1px solid #00857F; /* 검은색 1픽셀 테두리 */
     padding: 20px; /* 내부 패딩 */
     margin-top: 10px;
     margin-bottom: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
     border-radius: 10px; /* 테두리 둥글게 */
-    height: 30%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: white;
 
 }
 
 .hana-info-content-header{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .safetyone-info-content-header{
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+
+}
+
+.safetyone-info-content-div1{
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.safetyone-info-content-div2{
+    font-size: 21px;
 }

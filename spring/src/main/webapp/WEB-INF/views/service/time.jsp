@@ -17,48 +17,29 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="details">
-    <h2>안심카드설정</h2>
-    <h3>대상카드</h3>
-    <div class="lostcard-list hidden">
-        <div class="card-list-info">
-            <div class="card-list-info-cardid"><%=session.getAttribute("cardId")%>
-            </div>
-            <div class="card-list-info-name">본인 | &nbsp;
-            </div>
-            <div class="card-list-info-cardname"><%=session.getAttribute("cardName")%>
-            </div>
-            <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
-        </div>
-    </div>
     <div class="subcontainer">
-        <div class="details__left">
-            <ul class="menu">
-                <li class="menu__item">
-                    <a href="/mypage" class="menu__link">
-                        <div class="menu__icon"><img src="../../../resources/img/pin.png"></div>
-                        위치
-                    </a>
-                </li>
-                <li class="menu__item">
-                    <a href="/mypageCardHistory" class="menu__link">
-                        <div class="menu__icon"><img src="../../../resources/img/clock1.png"></div>
-                        시간
-                    </a>
-                </li>
-                <li class="menu__item">
-                    <a href="/mypageReport" class="menu__link">
-                        <div class="menu__icon"><img src="../../../resources/img/categories.png"></div>
-                        업종
-                    </a>
-                </li>
-            </ul>
-        </div>
+<%--        <div class="details__left">--%>
+<%--            <ul class="menu">--%>
+<%--                <li class="menu__item">--%>
+<%--                    위치--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="menu__item">--%>
+<%--                    시간--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="menu__item">--%>
+<%--                    업종--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--            </ul>--%>
+<%--        </div>--%>
         <div class="detail__right">
-            <div class="right-info"><h2>시간안심</h2></div>
-            <div class="right-info2"><h3>차단시간 선택</h3>
-                <div class="chart-name" onclick="openChartTimeModal()">시간별 나의 소비 확인 ></div>
+            <div class="right-info"><h2><span style="color:red;">차단</span> 시간 선택</h2></div>
+            <div class="right-info2"><h4></h4>
+                <button class="chart-name" onclick="openChartTimeModal()">시간별 나의 소비 확인</button>
             </div>
-            <div class="right-info3" style="color: red">※ 거래하지 않는 시간을 지정하여 금융사고를 예방하는 서비스입니다.</div>
+<%--            <div class="right-info3" style="color: red">※ 거래하지 않는 시간을 지정하여 금융사고를 예방하는 서비스입니다.</div>--%>
 
             <div class="time-subcontainer">
                 <div class="clock-div">
@@ -94,17 +75,20 @@
                 </div>
             </c:if>
 
-            <div class="reg-btn-div">
-                <button class="next-Btn" onclick="registerTime()">다음</button>
-            </div>
         </div>
+    </div>
+    <div class="btn-div">
+        <button class="prev-Btn" onclick="window.location.href='#'">이전</button>
+        <button class="next-Btn" onclick="registerTime()">다음</button>
     </div>
 </div>
 <div class="modal">
     <div id="myTimemodal">
-        <div class="chart-head">최근 3개월간 나의 소비</div>
-        <canvas id="myTimeCntChart"></canvas>
-        <span class="close" onclick="closeChartTimeModal()">&times;</span>
+        <span class="close-btn" onclick="closeChartTimeModal()">&#10006;</span>
+        <div class="chart-head">최근 3개월 시간별 이용 횟수</div>
+        <div class="chart-div"><canvas id="myTimeCntChart"></canvas></div>
+        <div class="chart-info1"><span class="recomend"></span>에 가장 많이 거래하셨고</div>
+        <div class="chart-info2"><span class="recomend-bottom"></span>에 거래 횟수가 적은 것으로 확인됩니다.</div>
     </div>
 </div>
 

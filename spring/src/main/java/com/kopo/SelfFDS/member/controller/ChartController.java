@@ -26,8 +26,8 @@ public class ChartController {
     public ResponseEntity<List<CardHistory>> regionServiceChart(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        String cardId = (String) session.getAttribute("cardId");
-        List<CardHistory> resultList = memberService.selectCountRegionOfCardId(cardId);
+        String email = (String) session.getAttribute("email");
+        List<CardHistory> resultList = memberService.selectCountRegionOfEmail(email);
 
         if (!resultList.isEmpty()) {
             return ResponseEntity.ok(resultList);
@@ -41,15 +41,19 @@ public class ChartController {
     public ResponseEntity<List<CardHistory>> categoryServiceChart(@RequestBody CardHistory cardHistory, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        String cardId = (String) session.getAttribute("cardId");
-        System.out.println("Cardid" + cardId);
-        System.out.println("cardHistory.getCategoryBig()" + cardHistory.getCategoryBig());
-        List<CardHistory> resultList = memberService.selectCountSmallCategoryOfCardIdCategoryBig(cardId, cardHistory.getCategoryBig());
-        System.out.println("gggg");
+        String email = (String) session.getAttribute("email");
+        List<CardHistory> resultList = memberService.selectCountSmallCategoryOfEmail(email, cardHistory.getCategoryBig());
+
         System.out.println(resultList.get(0).getCategoryBig());
         System.out.println(resultList.get(0).getCategorySmall());
         System.out.println(resultList.get(0).getCategoryCnt());
         System.out.println(resultList.get(0).getAmountSum());
+
+//        List<String> categoryAllList = myPageService.selectAllSmallCategory();
+//        System.out.println("categoryAllList"+categoryAllList);
+//        List<String> categoryList = myPageService.selectCategory3monthByEmail(email);
+//        System.out.println("categoryList"+categoryList);
+//        categoryAllList.removeAll(categoryList);
 
         if (!resultList.isEmpty()) {
             return ResponseEntity.ok(resultList);
@@ -63,8 +67,8 @@ public class ChartController {
     public ResponseEntity<List<CardHistory>> timeServiceChart(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        String cardId = (String) session.getAttribute("cardId");
-        List<CardHistory> resultList = memberService.selectCountTimeOfCardId(cardId);
+        String email = (String) session.getAttribute("email");
+        List<CardHistory> resultList = memberService.selectCountTimeOfEmail(email);
 
 
         if (!resultList.isEmpty()) {

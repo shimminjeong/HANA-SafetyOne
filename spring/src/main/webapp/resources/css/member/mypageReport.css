@@ -8,57 +8,122 @@
     margin-bottom: 4%;
 }
 
-.card-select-text{
-    font-size: 20px;
-    margin-right: 10%;
-}
-
-.card-select-div{
-    display: flex;
-    align-items: center;
-    margin-bottom: 3%;
-
-}
-
-.card-select-div select {
-    width: 400px;  /* 원하는 너비로 설정 */
-    height: 40px;  /* 원하는 높이로 설정 */
-    padding: 5px;  /* 패딩 추가로 좀 더 편안한 느낌을 주기 위함 */
-    font-size: 16px;  /* 글자 크기 조절 */
-}
-
-.hidden {
-    display: none !important; /* !important를 사용하여 다른 스타일과 충돌을 피합니다 */
-}
-
-.lostcard-list {
-    margin-bottom: 2%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ccc; /* 회색 테두리 */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    border-radius: 5px; /* 둥근 테두리 */
-}
-
-.card-list-info {
+.sub-container-content{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    height: 80px;
-    padding-left: 2%;
-    font-size: 18px;
+    width: 99%;
+    height: 100%;
+}
+
+.div-box2{
+    display: flex;
+    flex-direction: column;
+    width: 47%;
+    margin-right: 6%;
+}
+
+.div-box3{
+    display: flex;
+    flex-direction: column;
+    width: 47%;
+}
+
+.div-box1{
     width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.div-box-sub{
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: white; /* 연한 배경색 */
+    padding: 15px;
+    width: 100%;
+    height: 280px;
+    margin-bottom: 20px;
+}
+
+.div-box-sub-2{
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: white; /* 연한 배경색 */
+    padding: 15px;
+    width: 100%;
+    height: 180px;
+    margin-bottom: 20px;
+}
+
+
+.div-box-sub-3{
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: white; /* 연한 배경색 */
+    padding: 15px;
+    width: 100%;
+    margin: 0px auto;
+
+}
+
+.div-box-sub1{
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+    background-color: white;
+    padding: 15px;
+    width: 50%;
+    margin-right: 20px;
+    display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.card-list-info-cardid{
-    margin-right: 3%;
+.div-box-sub2{
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
+    transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
+    background-color: white; /* 연한 배경색 */
+    padding: 15px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.card-list-info-cardname{
-    margin-right: 8%;
+
+
+.left {
+    float: left;
+    width: 60%;
+    text-align: left;
+    margin-bottom: 5px;
 }
 
-.card-list-info .card-img {
-    height: 70%;
+.right {
+    margin-top: 5px;
+    float: right;
+    width: 40%;
+    text-align: right;
+}
+
+.div-box-content{
+    padding: 10px;
+}
+
+.div-box-header1{
+    margin: 20px auto;
+}
+
+.sub-header{
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+.div-box-header2{
+    margin-top: 76px;
+}
+
+.div-box-header{
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

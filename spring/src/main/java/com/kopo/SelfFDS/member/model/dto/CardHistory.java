@@ -37,6 +37,7 @@ public class CardHistory {
     private int difference;
     private int diffAmount;
     private int diffCnt;
+    private double ratio;
 
 
 }

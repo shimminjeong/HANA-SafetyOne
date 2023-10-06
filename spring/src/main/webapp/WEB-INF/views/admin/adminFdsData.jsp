@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,305 +11,125 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../../resources/css/admin/adminCommon.css"/>
     <link rel="stylesheet" href="../../../resources/css/admin/adminFds.css"/>
-    <link rel="stylesheet" href="../../../resources/css/admin/adminFdsData.css"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 <body>
 <jsp:include page="adminHeader.jsp"/>
-<hr>
-<div class="details">
-    <jsp:include page="adminSideBar.jsp"/>
-    <div class="detail__right">
-        <h2 class="details____title">이상소비서비스관리</h2>
-        <div class="box-container">
-            <div class="info-box" onclick="window.location.href='/admin/fds'">
-                <div class="info-content">서비스사용자관리</div>
-            </div>
-            <div class="info-box" onclick="window.location.href='/admin/fdsData'">
-                <div class="info-content">이상소비데이터관리</div>
-            </div>
+<div class="back-container">
+    <div class="details">
+        <div class="details__left">
+            <ul class="menu">
+                <li class="menu__item">
+                    <a href="/admin/" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/dashboard.png"></div>
+                        대시보드
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/safety" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
+                        안심카드서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/fds" class="menu__link active">
+                        <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
+                        이상거래서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/cluster" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/networking.png"></div>
+                        군집분석
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/email" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/gmail.png"></div>
+                        이메일전송
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/lostCard" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/lostcard.png"></div>
+                        분실카드관리
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/paymentLogData" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/log.png"></div>
+                        결제로그
+                    </a>
+                </li>
+            </ul>
         </div>
+        <div class="detail__right">
+            <h2 class="details____title">이상거래 서비스관리</h2>
+            <div class="box-container">
+                <div class="info-box" onclick="window.location.href='/admin/fds'">
+                    <div class="info-content2">
+                        <div class="box-header">이용자 수</div>
+                        <div>${fdsUserCount}명</div>
+                    </div>
+                    <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
+                </div>
+                <div class="info-box" onclick="window.location.href='/admin/fds'">
+                    <div class="info-content2">
+                        <div class="box-header">이용중인 카드 수</div>
+                        <div>${fdsCardCount}개</div>
+                    </div>
+                    <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
+                </div>
+                <div class="info-box" onclick="window.location.href='/admin/fdsData'">
+                    <div class="info-content2">
+                        <div class="box-header">금일 이상거래 건수</div>
+                        <div>${fdsDataCount}건</div>
+                    </div>
+                    <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
+                </div>
+            </div>
 
-        <div class="table-container">
-            <h3>신규 신청</h3>
-            <br>
-            <!-- 테이블로 데이터베이스 데이터 표시 -->
-            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>
-            <table class="data-table">
-                <thead>
-                <tr>
-                    <th>카드번호</th>
-                    <th>거래일자</th>
-                    <th>가맹점주소</th>
-                    <th>업종</th>
-                    <th>거래가격</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${anomalyList}" var="anomalydata">
-                    <tr onclick="showAnomalyDetails(${anomalydata.paymentLogId}, '${anomalydata.cardId}');"
-                        style="cursor: pointer;">
-                        <td>${anomalydata.cardId}</td>
-                        <td>${anomalydata.paymentDate}</td>
-                        <td>${anomalydata.address}</td>
-                        <td>${anomalydata.categorySmall}</td>
-                        <td>${anomalydata.amount}</td>
+            <div class="table-container">
+                <h3>이상거래데이터관리</h3>
+                <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>카드번호</th>
+                        <th>거래일자</th>
+                        <th>가맹점주소</th>
+                        <th>업종</th>
+                        <th>거래가격</th>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<!-- The Modal -->
-<div id="chartModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>Anomaly Details</h2>
-        </div>
-        <div class="modal-body">
-            <div class="canvas-div1">
-                <div class="chart-head">지역</div>
-                <div class="chart-content">
-                    <canvas id="gaussianChart1"></canvas>
-                    <canvas id="bubbleChartRegion"></canvas>
-                </div>
-                <div class="chart-head">시간</div>
-                <div class="chart-content">
-                    <canvas id="gaussianChart2"></canvas>
-                </div>
-
-                <%--            <div class="canvas-div2">--%>
-                <div class="chart-head">업종</div>
-                <div class="chart-content">
-                    <canvas id="gaussianChart3"></canvas>
-                    <canvas id="bubbleChartCategory"></canvas>
-                </div>
-                <div class="chart-head">금액</div>
-                <div class="chart-content">
-                    <canvas id="gaussianChart4"></canvas>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${anomalyList}" var="anomalydata">
+                        <tr onclick="showAnomalyDetails(${anomalydata.paymentLogId}, '${anomalydata.cardId}');"
+                            style="cursor: pointer;">
+                            <td>${anomalydata.cardId}</td>
+                            <td>${anomalydata.paymentDate}</td>
+                            <td>${anomalydata.address}</td>
+                            <td>${anomalydata.categorySmall}</td>
+                            <td><fmt:formatNumber value="${anomalydata.amount}" type="number" pattern="#,###"/>원</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button id="prev">이전</button>
+                    <div id="pageNumbers"></div>
+                    <button id="next">이후</button>
                 </div>
             </div>
-            <%--            </div>--%>
         </div>
     </div>
 </div>
+<!-- drawPaymentChart Modal -->
+<jsp:include page="drawPaymentChart.jsp"/>
 
 
 <script>
-
-    function createBubbleCloudData(dataList) {
-        let colors = [
-            {
-                background: 'rgba(255, 99, 132, 0.2)',
-                border: 'rgba(255, 99, 132, 1)',
-                hoverBg: 'rgba(255, 99, 132, 0.4)',
-                hoverBorder: 'rgba(255, 99, 132, 1)'
-            },
-            {
-                background: 'rgba(54, 162, 235, 0.2)',
-                border: 'rgba(54, 162, 235, 1)',
-                hoverBg: 'rgba(54, 162, 235, 0.4)',
-                hoverBorder: 'rgba(54, 162, 235, 1)'
-            },
-            {
-                background: 'rgba(255, 206, 86, 0.2)',
-                border: 'rgba(255, 206, 86, 1)',
-                hoverBg: 'rgba(255, 206, 86, 0.4)',
-                hoverBorder: 'rgba(255, 206, 86, 1)'
-            }
-        ];
-
-        return dataList.map((data, index) => {
-            let color = colors[index % colors.length];
-            let label = data.regionName || data.categorySmall || 'Unknown';  // regionName 또는 category 중 존재하는 값을 사용하거나 둘 다 없으면 'Unknown'을 사용
-
-            return {
-                label: label,
-                data: [
-                    {
-                        x: Math.random() * 100,
-                        y: Math.random() * 100,
-                        r: data.cnt * 0.4
-                    }
-                ],
-                backgroundColor: color.background,
-                borderColor: color.border,
-                borderWidth: 2,
-                hoverBackgroundColor: color.hoverBg,
-                hoverBorderColor: color.hoverBorder
-            };
-        });
-    }
-
-    function drawBubbleChart(elementId, dataList) {
-        const ctx = document.getElementById(elementId).getContext('2d');
-
-        const datasets = createBubbleCloudData(dataList);
-
-        const data = {
-            datasets: datasets
-        };
-
-        const options = {
-            scales: {
-                x: {display: false},
-                y: {display: false}
-            },
-            plugins: {
-                legend: {
-                    display: true
-                }
-            }
-        };
-
-        new Chart(ctx, {
-            type: 'bubble',
-            data: data,
-            options: options
-        });
-    }
-
-
-    function computeHistogram(data, bins) {
-        let min = Math.min(...data);
-        let max = Math.max(...data);
-        let binSize = (max - min) / bins;
-        let histogram = new Array(bins).fill(0);
-
-        for (let value of data) {
-            let binIndex = Math.min(Math.floor((value - min) / binSize), bins - 1);
-            histogram[binIndex]++;
-        }
-
-        let binCenters = [...Array(bins).keys()].map(i => min + (i * binSize) + (binSize / 2));
-
-        let normalizedHistogram = histogram.map(val => val / (data.length * binSize));
-        let histogramPoints = binCenters.map((center, index) => {
-            return {x: center, y: normalizedHistogram[index]};
-        });
-
-        return histogramPoints;
-    }
-
-
-    function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointData, X_feature) {
-        const ctx = document.getElementById(elementId).getContext('2d');
-
-        let bins = 20;
-        let histogramData = computeHistogram(X_feature, bins);
-
-        const data = {
-            labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
-            datasets: [{
-                label: 'Gaussian PDF',
-                data: pdfData,
-                borderColor: 'green',
-                borderWidth: 1,
-                fill: false
-            },
-                {
-                    label: pointData,
-                    data: [{x: numericData, y: 0}],
-                    borderColor: 'red',
-                    borderWidth: 3,
-                    pointRadius: 6,
-                    pointHoverRadius: 8,
-                    showLine: false,
-                    pointStyle: 'circle'
-                }, {
-                    label: 'Histogram',
-                    data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
-                    type: 'bar',
-                    backgroundColor: 'blue',
-                    borderColor: 'blue',
-                    borderWidth: 1
-                }]
-        };
-
-        const options = {
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    title: {
-                        display: true,
-                        text: xAxisLabel
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: true
-                },
-                afterDatasetsDraw: function (chart, easing) {
-                    // Only on easing complete
-                    if (easing !== 1) return;
-
-                    var ctx = chart.ctx;
-                    chart.data.datasets.forEach(function (dataset, i) {
-                        var meta = chart.getDatasetMeta(i);
-                        if (meta.type !== 'bar') return; // Only draw label on bars
-
-                        meta.data.forEach(function (bar, index) {
-                            // Calculate where to place the label based on the bar's data value
-                            var yPosition = bar._model.y - 5;
-
-                            // Get the data for this bar
-                            var data = dataset.data[index].y;
-
-                            // Draw the data value on top of the bar
-                            ctx.fillText(data.toFixed(2), bar._model.x, yPosition);
-                        });
-                    });
-                }
-            }
-        };
-
-        new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: options
-        });
-    }
-
-
-    function showAnomalyDetails(paymentLogId, cardId) {
-        console.log(paymentLogId);
-        console.log(cardId);
-        $.ajax({
-            type: 'POST',
-            url: '/admin/anomalyChart',
-            data: JSON.stringify({
-                paymentLogId: paymentLogId,
-                cardId: cardId
-            }),
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (responseData) {
-                console.log("responseData.timePdf[0]" + responseData.timePdf[0]);
-                console.log("responseData.regionCntList" + responseData.regionCntList[0].regionName);
-                console.log("responseData.regionCntList" + responseData.regionCntList[0].cnt);
-                console.log("responseData.categoryCntList" + responseData.categoryCntList);
-                console.log("responseData.categoryCntList" + responseData.categoryCntList);
-                drawChart('gaussianChart1', responseData.regionPdf[0], responseData.regionPdf[1], responseData.embeddingData.regionNameNumeric, '지역', responseData.address, responseData.regionFeature);
-                drawChart('gaussianChart2', responseData.timePdf[0], responseData.timePdf[1], responseData.embeddingData.timeNumeric, '시간', responseData.embeddingData.timeNumeric, responseData.timeFeature);
-                drawChart('gaussianChart3', responseData.categorySmallPdf[0], responseData.categorySmallPdf[1], responseData.embeddingData.categorySmallNumeric, '업종', responseData.category, responseData.categoryFeature);
-                drawChart('gaussianChart4', responseData.amountPdf[0], responseData.amountPdf[1], responseData.embeddingData.amountNumeric, '금액', responseData.embeddingData.amountNumeric, responseData.amountFeature);
-                drawBubbleChart('bubbleChartRegion', responseData.regionCntList);
-                drawBubbleChart('bubbleChartCategory', responseData.categoryCntList);
-
-                // 모달을 표시합니다.
-                modal.style.display = "block";
-            },
-            error: function (error) {
-                console.error('Error:', error);
-            }
-        });
-    }
 
     // Get the modal
     var modal = document.getElementById("chartModal");
@@ -323,6 +144,69 @@
 
     // Whenever you want to show the modal:
     // modal.style.display = "block";
+
+    // 페이지네이션
+    document.getElementById("prev").addEventListener("click", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePage();
+        }
+    });
+
+    document.getElementById("next").addEventListener("click", function () {
+        const tbody = document.querySelector(".member-info-table tbody");
+        const rows = tbody.querySelectorAll("tr");
+        const totalPages = Math.ceil(rows.length / itemsPerPage);
+
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePage();
+        }
+    });
+
+    let currentPage = 1; // 현재 페이지
+    const itemsPerPage = 10; // 페이지당 항목 수
+    const pagesToShow = 10; // 한 번에 보여줄 페이지 수
+
+    // 페이지를 업데이트하는 함수
+    function updatePage() {
+        const tbody = document.querySelector(".data-table tbody");
+        const rows = tbody.querySelectorAll("tr");
+        const totalPages = Math.ceil(rows.length / itemsPerPage);
+
+        // 모든 행을 숨깁니다.
+        rows.forEach(row => row.style.display = "none");
+
+        // 현재 페이지의 행만 표시합니다.
+        for (let i = (currentPage - 1) * itemsPerPage; i < currentPage * itemsPerPage && i < rows.length; i++) {
+            rows[i].style.display = "";
+        }
+
+        // 페이지 번호 버튼들을 업데이트합니다.
+        const pageNumbersDiv = document.getElementById("pageNumbers");
+        pageNumbersDiv.innerHTML = ""; // 이전에 있는 버튼들을 모두 제거
+        const startPage = Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1;
+        const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
+        for (let i = startPage; i <= endPage; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = i;
+            if (i === currentPage) {
+                btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
+            }
+            btn.addEventListener("click", function () {
+                currentPage = i;
+                updatePage();
+            });
+            pageNumbersDiv.appendChild(btn);
+        }
+
+        // Prev, Next 버튼의 활성/비활성 상태를 업데이트합니다.
+        document.getElementById("prev").disabled = currentPage === 1;
+        document.getElementById("next").disabled = currentPage === totalPages;
+    }
+
+    // 페이지를 처음 로드할 때 페이지를 업데이트합니다.
+    updatePage();
 
 
 </script>

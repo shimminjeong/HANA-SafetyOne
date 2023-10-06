@@ -38,18 +38,18 @@ public interface MemberService {
     List<SafetyRegister> selectSmallCategoryOfBigCategory(String categoryBig);
 
 
-    List<CardHistory> selectCountRegionOfCardId(String cardId);
+    List<CardHistory> selectCountRegionOfEmail(String email);
 
-    List<CardHistory> selectCountSmallCategoryOfCardIdCategoryBig(String cardId,String categoryBig);
+    List<CardHistory> selectCountSmallCategoryOfEmail(String email,String categoryBig);
 
-    List<CardHistory> selectCountTimeOfCardId(String cardId);
+    List<CardHistory> selectCountTimeOfEmail(String email);
 
 
     List<CardHistory> selectAllCardHistoryOfCardId(String cardId);
 
     List<SafetyCard> selectAllSafetyCardOfCardId(String cardId);
 
-    void insertSafetySetting(String cardId,List<List<String>> safetyCard,String safetyStringInfo);
+    void insertSafetySetting(String cardId,List<List<String>> safetyCard);
 
 
     void insertLostCardInfo(LostCard lostCard);
@@ -73,6 +73,12 @@ public interface MemberService {
 
     List<SafetyCard> selectSafetyCardNotRegionByCarId(String cardId);
     List<SafetyCard> selectSafetyCardRegionByCarId(String cardId);
+
+    List<CardHistory> selectSmallCategroyTopOfEmail(String email);
+
+    List<SafetyCard> selectAllSafetyCard();
+
+    void updateSafetyStatus(int safetyIdSeq,String status);
 
 
 }

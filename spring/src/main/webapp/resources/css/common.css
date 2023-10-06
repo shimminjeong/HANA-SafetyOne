@@ -40,22 +40,29 @@
     text-decoration-line: none;
 }
 
+body{
+    margin: 0;
+}
+
 #headerLogo {
     align-items: center;
     justify-content: center;
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 #headerLogo{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #logo{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 18%;
 }
 
 .imgLogo{
@@ -71,6 +78,7 @@
 /* Additional styles for the child elements */
 #welcomeMessage > span {
     margin-right: 10px;
+    font-size: 13px;
 }
 
 #loginBtn{
@@ -78,18 +86,18 @@
 }
 
 #loginBtn, #joinBtn, #logoutBtn {
+    font-family: Hana-light;
     display: inline-block;
     color: black; /* 글자색 변경 */
-    padding: 10px 20px; /* 패딩 */
-    border: none; /* 테두리 없음 */
+    padding: 7px 10px;
+    border: 0.5px solid #000;
     border-radius: 5px; /* 둥근 모서리 */
     text-align: center;
     text-decoration: none;
-    font-size: 12px; /* 폰트 크기 변경 */
+    font-size: 10px; /* 폰트 크기 변경 */
     cursor: pointer;
     background-color: #ffffff; /* 배경색 추가 */
-    transition: background-color 0.3s, transform 0.3s; /* 부드러운 전환 효과 추가 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+
 }
 
 #loginBtn:hover, #joinBtn:hover, #logoutBtn:hover {
@@ -103,14 +111,14 @@
 .navbar {
     overflow: hidden;
     display: flex;
-    justify-content: center;
     /*background-color: #00857F;*/
+    font-weight: 700;
 
 }
 
 /* Links inside the navbar */
 .navbar a {
-    font-size: 17px;
+    font-size: 16px;
     text-align: center;
     padding: 12px 40px;
     text-decoration: none;
@@ -124,14 +132,15 @@
 /* Dropdown button */
 .dropdown .dropbtn {
     color: black;
-    font-size: 17px;
+    font-size: 16px;
     border: none;
     outline: none;
-    padding: 12px 40px;
+    padding: 12px 0px;
     background-color: inherit;
-    font-family: inherit; /* Important for vertical align on mobile phones */
-    margin: 0; /* Important for vertical align on mobile phones */
+    font-family: inherit;
+    margin: 0;
 }
+
 
 
 /* Dropdown content (hidden by default) */
@@ -154,6 +163,11 @@
     text-align: left;
 }
 
+.dropdown-content a:hover {
+    /* 원하는 hover 스타일을 여기에 추가하세요 */
+    background-color: #cccccc;  /* 예: 배경색 변경 */
+    /*color: #cccccc;                 !* 예: 글자색 변경 *!*/
+}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {

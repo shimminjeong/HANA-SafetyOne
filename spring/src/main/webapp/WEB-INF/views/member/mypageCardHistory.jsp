@@ -7,7 +7,7 @@
 <head>
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">
+<%--    <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/mypage.css" rel="stylesheet">
     <link href="../../../resources/css/member/mypageCardHistory.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -34,12 +34,12 @@
             </div>
             <div class="lostcard-list hidden">
                 <div class="card-list-info">
+                    <img class="card-img">
                     <div class="card-list-info-cardid"><%=request.getAttribute("cardId")%>
                     </div>
                     <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;<%= name %>&nbsp;&nbsp;|&nbsp;&nbsp;
                     </div>
                     <div class="card-list-info-cardname"></div>
-                    <img class="card-img">
                 </div>
             </div>
             <div class="table-div">

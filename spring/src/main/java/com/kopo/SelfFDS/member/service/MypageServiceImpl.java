@@ -51,6 +51,46 @@ public class MypageServiceImpl implements MyPageService {
     }
 
     @Override
+    public List<CardHistory> select6MonthTotalAmountByEmail(String email) {
+        return mypageMapper.select6MonthTotalAmountByEmail(email);
+    }
+
+    @Override
+    public List<CardHistory> selectTopCategoryTotalAmountByEmail(String email) {
+        return mypageMapper.selectTopCategoryTotalAmountByEmail(email);
+    }
+
+    @Override
+    public List<CardHistory> selectTopCategoryDifferenceByEmail(String email) {
+        return mypageMapper.selectTopCategoryDifferenceByEmail(email);
+    }
+
+    @Override
+    public List<CardHistory> selectTopStoreCountByEmail(String email) {
+        return mypageMapper.selectTopStoreCountByEmail(email);
+    }
+
+    @Override
+    public List<CardHistory> selectTimeTotalAmountByEmail(String email) {
+        return mypageMapper.selectTimeTotalAmountByEmail(email);
+    }
+
+    @Override
+    public List<CardHistory> selectRegionTotalAmountByEmail(String email) {
+        return mypageMapper.selectRegionTotalAmountByEmail(email);
+    }
+
+    @Override
+    public List<String> selectCategory3monthByEmail(String email) {
+        return mypageMapper.selectCategory3monthByEmail(email);
+    }
+
+    @Override
+    public List<String> selectAllSmallCategory() {
+        return mypageMapper.selectAllSmallCategory();
+    }
+
+    @Override
     public List<CardHistory> selectCardHistoryByEmail(String email) {
         return mypageMapper.selectCardHistoryByEmail(email);
     }

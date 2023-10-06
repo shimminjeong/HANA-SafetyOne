@@ -60,7 +60,7 @@
     </insert>
 
     <select id="selectPreprocessingCategory" resultType="double">
-        SELECT bartoembedding as categorySmallNumeric
+        SELECT diamondToembedding as categorySmallNumeric
         FROM CATEGORYembedding
         WHERE CATEGORYSMALL=#{categorySmall}
     </select>
@@ -74,9 +74,11 @@
     <update id="updateAnomalyDetection">
         UPDATE PAYMENTLOG
         SET FDSDETECTIONSTATUS = 'Y'
-        WHERE PAYMENTlOGID IN (SELECT PAYMENTlOGID
-                               FROM (SELECT PAYMENTlOGID FROM PAYMENTLOG ORDER BY PAYMENTDATE DESC)
-                               WHERE ROWNUM = 1)
+        WHERE PAYMENTDATE = (
+            SELECT MAX(PAYMENTDATE)
+            FROM PAYMENTLOG
+            WHERE CARDID = #{cardId}
+        ) and CARDID = #{cardId}
     </update>
 
 

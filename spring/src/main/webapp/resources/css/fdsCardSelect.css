@@ -1,19 +1,481 @@
 
-
-.lock-img {
-    width: 40px;
-}
-
-
-.formsize {
-    margin: 0 auto;
+.content-header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: black; /* 글자색 변경 */
-    padding: 30px 80px; /* 패딩 */
-    text-decoration: none;
-    font-size: 12px; /* 폰트 크기 변경 */
+    align-items: center;
+}
+
+.content-header h3 {
+    margin-top: 0px;
+    margin-bottom: 35px;
+}
+
+
+.sub-container-hearder {
+    font-size: 18px;
+    margin-right: 274px;
+}
+
+.sub-hr {
+    border-color: #000; /* 검은색 */
+    border-width: 1.3px; /* 원하는 두께로 조절 가능 */
+    height: 0;
+}
+
+.cardAll-div {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cardAll-img-div {
+    width: 23px;
+    height: 23px;
+    margin-right: 3%;
+}
+
+.cardAll-img-div img {
+    width: 100%;
+    height: 100%;
     cursor: pointer;
 }
+
+.card-list-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70px;
+    padding-left: 2%;
+    font-size: 16px;
+    width: 100%;
+}
+
+.card-list-info .card-img {
+    height: 65%;
+    margin-right: 26px;
+}
+
+.down-img {
+    height: 40%;
+    margin-left: auto;
+    margin-right: 50px; /* 오른쪽 마진 추가 */
+    cursor: pointer;
+
+}
+
+
+.card-list-info-img-div img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.card-list-info-img-div {
+    width: 23px;
+    height: 23px;
+    margin-right: 30px;
+}
+
+.card-list-info-cardid {
+    margin-right: 5%;
+}
+
+.card-list-info-cardname {
+    margin-right: 8%;
+}
+
+.lostcard-list {
+    display: flex;
+    flex-direction: column;
+    /*border: 1px solid #ccc; !* 회색 테두리 *!*/
+    /*box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); !* 그림자 효과 *!*/
+    /*border-radius: 5px; !* 둥근 테두리 *!*/
+}
+
+.div-card-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc; /* 회색 테두리 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    border-radius: 5px; /* 둥근 테두리 */
+    margin-bottom: 3%;
+
+}
+
+
+.sub-content-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70px;
+    padding-left: 2%;
+    font-size: 18px;
+    width: 100%;
+}
+
+.updateMyInfo {
+    margin-left: 15px;
+    background-color: white;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 7px;
+}
+
+
+.agree-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70px;
+    font-size: 16px;
+}
+
+
+.sub-agree-div {
+    display: flex;
+    flex-direction: column;
+    height: 70px;
+    padding-left: 2%;
+    font-size: 16px;
+}
+
+
+.check-div {
+    margin-right: 10px;
+}
+
+.sub-checkbox, .master-checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    /*transform: scale(1.2); !* 1.5배 크게 *!*/
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Chrome, Safari */
+.sub-checkbox:checked, .master-checkbox:checked {
+    background-color: #00857F;
+    border: 1px solid #00857F;
+}
+
+.sub-checkbox:checked:after, .master-checkbox:checked:after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    top: 50%;
+    left: 50%;
+    margin-left: -3px;
+    margin-top: -8px;
+}
+
+.agree-content-btn {
+    margin-left: auto;
+    background-color: white;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 10px;
+    padding: 5px;
+}
+
+.reg-btn-div {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.fds-can-Btn {
+    color: white;
+    border: none;
+    padding: 10px 34px 10px 34px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #d14369;
+    font-size: 17px;
+    margin-right: 20px;
+    width: 130px;
+}
+
+.fds-reg-Btn {
+    color: white;
+    border: none;
+    padding: 10px 34px 10px 34px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00907f;
+    font-size: 17px;
+    margin-right: 15px;
+    width: 130px;
+}
+
+.reg-confirm-div {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    justify-content: center;
+
+}
+
+
+.fds-agree-Btn {
+
+    color: white;
+    border: none;
+    padding: 10px 34px 10px 34px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #00a49d;
+    font-size: 15px;
+}
+
+.fds-back-Btn {
+
+    color: white;
+    border: none;
+    padding: 10px 34px 10px 34px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #404b57;
+    font-size: 15px;
+    margin-right: 15px;
+}
+
+
+.card-info-text {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.card-info-text1 {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    margin-bottom: 10px;
+}
+
+.card-info-text2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-info-cardname {
+    width: 195px;
+    text-align: left;
+}
+
+
+.card-info-regDate {
+    white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.card-info-cardid {
+    margin-right: 81px;
+}
+
+.hidden {
+    display: none;
+}
+
+/*!*safetycard*!*/
+/*.card-list{*/
+/*    margin-bottom: 3%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    border: 1px solid #ccc; !* 회색 테두리 *!*/
+/*    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); !* 그림자 효과 *!*/
+/*    border-radius: 5px; !* 둥근 테두리 *!*/
+/*}*/
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: #efefef;
+    display: none;
+    overflow: hidden;
+
+}
+
+.info-list {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+}
+
+.info-header {
+    width: 130px;
+}
+
+.info-content{
+    width: 100%;
+}
+
+.service-status-img {
+    height: 50%;
+    margin-left: 12%;
+}
+
+.region-div {
+    display: flex;
+}
+
+.rule-div {
+    /*background-color:#ffe6e6;*/
+    width: 100%;
+}
+
+.region-no-div {
+    width: 65%;
+    margin-right: 10%;
+    font-size: 15px;
+}
+
+.region-no{
+    width: 100%;
+    /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
+    border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
+    padding: 12px;
+    margin-right: 5%;
+    /*height: 70%;*/
+}
+
+
+.region-ok-div {
+    width: 22%;
+
+}
+
+.region-ok {
+    width: 100%;
+    /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
+    border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
+    padding: 12px;
+    margin-right: 5%;
+    height: 75%;
+    font-size: 16px;
+}
+
+.rule-div{
+    width: 98%;
+    /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
+    border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
+    padding: 12px;
+    font-size: 15px;
+}
+
+.div-header {
+    margin-top: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    /*border: 1px solid #ffcccc;*/
+}
+
+th, td {
+    border-bottom: 1px solid #ddd; /* 가로선 */
+    padding: 8px 16px;
+    text-align: left;
+}
+
+th {
+    background-color: #eeeeee;
+    font-weight: bold;
+    /*text-align: center;*/
+    border-right: none; /* 세로선 제거 */
+}
+
+.rule-div td {
+    background-color: #ffe6e6; /* 배경색 */
+}
+
+th:last-child {
+    border-right: none; /* 마지막 th에는 세로선 없음 */
+}
+
+tbody tr:hover {
+    background-color: #f5f5f5; /* 마우스 오버 시 행의 배경색 */
+}
+
+.checkbox-button {
+    display: inline-block;
+    background-color: #ffe6e6;
+    border: 1px solid #ffcccc;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 127px;
+}
+
+.checkbox-button:hover {
+    background-color: #ffd9d9;
+}
+
+
+/* 체크박스 스타일 조정 */
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+    width: 18px; /* 체크박스 크기 조정 */
+    height: 18px; /* 체크박스 크기 조정 */
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+/* 체크박스 선택 시 초록색 체크 표시 */
+input[type="checkbox"]:checked::before {
+    content: "✓"; /* 체크 표시 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00857F; /* 체크 표시 색상: 초록색 */
+    font-size: 18px; /* 체크 표시 크기 */
+}
+
+
+
+.text-box {
+    background-color: #eafaf3;
+    border: 1px solid #d5e5d8; /* 선택 사항: 경계선을 추가하여 박스 느낌을 강화합니다 */
+    padding: 10px 15px; /* 패딩을 조정하여 원하는대로 스타일을 적용합니다 */
+    margin :5px;
+    border-radius: 5px; /* 둥근 모서리 */
+    display: inline-block; /* 인라인 요소로 보이되, 박스 스타일을 적용하기 위해 */
+    width: 80px;
+}
+/* 체크박스 선택 시 .checkbox-button 배경색 및 글자색 변경 */
 

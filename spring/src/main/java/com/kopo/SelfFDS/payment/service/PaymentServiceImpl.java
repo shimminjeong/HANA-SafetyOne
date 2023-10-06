@@ -60,7 +60,6 @@ public class PaymentServiceImpl implements PaymentService {
     //    cardid별로 selfrule가져옴
     @Override
     public List<SafetyCard> selectSafetyRuleByCardId(String cardId) {
-        List<SafetyCard> ff=paymentMapper.selectSafetyRuleByCardId(cardId);
         return paymentMapper.selectSafetyRuleByCardId(cardId);
     }
 
@@ -103,8 +102,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void updateAnomalyDetection() {
-        paymentMapper.updateAnomalyDetection();
+    public void updateAnomalyDetection(String cardId) {
+        paymentMapper.updateAnomalyDetection(cardId);
     }
 
 

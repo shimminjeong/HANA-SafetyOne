@@ -3,6 +3,7 @@ package com.kopo.SelfFDS.admin.service;
 import com.kopo.SelfFDS.admin.model.dto.*;
 import com.kopo.SelfFDS.member.model.dto.LostCard;
 import com.kopo.SelfFDS.member.model.dto.Member;
+import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 
 import java.util.List;
@@ -58,6 +59,25 @@ public interface AdminService {
     List<String> selectEmailByCluster(String clusterNum);
 
     List<Member> selectClusterMemberInfo();
+    List<PaymentLog> getAllPaymentData();
 
+    List<PaymentLog> getNotApprovalData();
+
+
+    int selectFdsCardCount();
+    int selectSafetyCardCount();
+    int selectFdsDataCount();
+    int selectSafetyDataCount();
+
+    int selectFdsUserCount();
+    int selectSafetyUserCount();
+
+    List<SafetyCard> selectSafetyAndMember();
+
+    int selectFdsCountByCardId(String cardId);
+
+    int selectSafetyCountByCardId(String cardId);
+
+    int selectClusterCount();
 
 }

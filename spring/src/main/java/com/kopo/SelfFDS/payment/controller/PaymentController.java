@@ -4,6 +4,7 @@ import com.kopo.SelfFDS.member.model.dto.Card;
 import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.member.service.MemberService;
 import com.kopo.SelfFDS.member.service.MyPageService;
+import com.kopo.SelfFDS.naverSMS.SmsService;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import com.kopo.SelfFDS.payment.model.dto.WordToVec;
 import com.kopo.SelfFDS.payment.model.dto.RequestFds;
@@ -28,11 +29,13 @@ public class PaymentController {
     private final MemberService memberService;
     private final MyPageService myPageService;
 
+
     @Autowired
     public PaymentController(PaymentService paymentService, MemberService memberService, MyPageService myPageService) {
         this.paymentService = paymentService;
         this.memberService = memberService;
         this.myPageService = myPageService;
+
     }
 
 
@@ -59,6 +62,7 @@ public class PaymentController {
             System.out.println("거래승인");
             paymentLog.setPaymentApprovalStatus("Y");
             paymentService.insertApprovalTransaction(paymentLog);
+//            메시지보내기
             return ResponseEntity.ok("거래승인");
         } else {
             System.out.println("거래미승인");
@@ -171,17 +175,10 @@ public class PaymentController {
         String fastApiResponse = response.getBody().replaceAll("\"", "");
         System.out.println("Sending response to client: " + fastApiResponse);
         if (fastApiResponse.equals("Y")){
-            paymentService.updateAnomalyDetection();
+            paymentService.updateAnomalyDetection(cardId);
         }
         return ResponseEntity.ok(fastApiResponse);
     }
-
-
-    //정상결제되면 영수증 페이지로 이동
-//    @PostMapping("/insertPaymentLog")
-//    public ResponseEntity<String> insertPaymentLog(){
-//        return null;
-//    }
 
 
 }

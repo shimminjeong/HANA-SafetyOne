@@ -24,12 +24,13 @@
             <div class="lost-header"><h3>분실신고 카드</h3></div>
             <div class="lostcard-list">
                 <div class="card-list-info" id="<%=request.getAttribute("cardId")%>">
+                    <img style="margin-left: 5%;" class="card-img" src="../../../resources/img/${cardInfo.cardName}.png">
                     <div class="card-list-info-cardid"><%=request.getAttribute("cardId")%>
                     </div>
-                    <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;<%= name %>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <div class="card-list-info-name">본인&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="card-list-info-cardname">${cardInfo.cardName}</div>
-                    <img class="card-img" src="../../../resources/img/cardImg${loop.index + 1}.png">
+
                 </div>
             </div>
             <h3>분실신고 접수내용</h3>
@@ -96,7 +97,7 @@
                         <th scope="row" class="left">자택주소</th>
                         <td class="left">
                             <%--                            <input type="text" placeholder="${address}" style="width: 50%; margin-right: 10px">--%>
-                            <div class="address-div">${address}<a href="#">회원정보수정 ></a></div>
+                            <div class="address-div">${address}<button class="updateMyInfo">개인정보변경</button></div>
                         </td>
                     </tr>
                     </tbody>
