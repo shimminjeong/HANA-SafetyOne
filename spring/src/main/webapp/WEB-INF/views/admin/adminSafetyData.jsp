@@ -20,9 +20,9 @@
     <div class="details">
         <jsp:include page="adminSideBar.jsp"/>
         <div class="detail__right">
-            <h2 class="details____title">안심카드 서비스관리</h2>
+            <h2 class="details____title"><img class="img-size" src="../../../resources/img/credit-card.png">안심서비스 관리</h2>
             <div class="box-container">
-                <div class="info-box" onclick="window.location.href='/admin/safety'">
+                <div class="info-box1" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div>${safetyUserCount}명</div>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/safetyData'">
+                <div style="background-color: #eee;" class="info-box1" onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
                         <div>${safetyDataCount}건</div>
@@ -46,27 +46,31 @@
             </div>
 
             <div class="table-container">
-                <h3>차단된 데이터관리</h3>
-                <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
-                <table class="data-table">
+                <h3>안심서비스 미승인 거래내역</h3>
+                <div class="alarm-info">※ 안심서비스 이용으로 인한 거래 미승인 내역 조회</div>
+                <div class="user-search">
+                    <div class="search-header">카드 검색</div>
+                    <input type="text" id="memberSearchInput" placeholder="카드번호를 입력하세요">
+                    <button onclick="filterMembers()">검색</button>
+                </div>
+                <table class="safetydata-table">
                     <thead>
                     <tr>
                         <th>카드번호</th>
-                        <th>거래일자</th>
+                        <th>거래일시<img src="../../../resources/img/sort1.png" alt="Icon for 거래일자" class="th-icon" id="sortDateIcon"></th>
                         <th>가맹점주소</th>
                         <th>업종</th>
-                        <th>거래가격</th>
+                        <th>거래금액<img src="../../../resources/img/sort1.png" alt="Icon for 거래가격" class="th-icon" id="sortAmountIcon"></th>
                     </tr>
-                    </thead>
+                    </thead>뇨
                     <tbody>
                     <c:forEach items="${notApprovalList}" var="notApprovalData">
-                        <tr onclick="showAnomalyDetails(${notApprovalData.paymentLogId}, '${notApprovalData.cardId}');"
-                            style="cursor: pointer;">
-                            <td>${notApprovalData.cardId}</td>
+                        <tr>
+                            <td>${fn:substring(notApprovalData.cardId, 0, 4)}-****-****-${fn:substring(notApprovalData.cardId, 15,20)}</td>
                             <td>${notApprovalData.paymentDate}</td>
                             <td>${notApprovalData.address}</td>
                             <td>${notApprovalData.categorySmall}</td>
-                            <td><fmt:formatNumber value="${notApprovalData.amount}" type="number" pattern="#,###"/>원
+                            <td style="text-align: right"><fmt:formatNumber value="${notApprovalData.amount}" type="number" pattern="#,###"/>원
                             </td>
                         </tr>
                     </c:forEach>
@@ -75,13 +79,14 @@
                 <div class="pagination">
                     <button id="prev">이전</button>
                     <div id="pageNumbers"></div>
-                    <button id="next">이후</button>
+                    <button id="next">다음</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
     <script>
+
         // 페이지네이션
         document.getElementById("prev").addEventListener("click", function () {
             if (currentPage > 1) {
@@ -107,7 +112,7 @@
 
         // 페이지를 업데이트하는 함수
         function updatePage() {
-            const tbody = document.querySelector(".data-table tbody");
+            const tbody = document.querySelector(".safetydata-table tbody");
             const rows = tbody.querySelectorAll("tr");
             const totalPages = Math.ceil(rows.length / itemsPerPage);
 

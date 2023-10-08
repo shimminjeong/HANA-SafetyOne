@@ -40,25 +40,24 @@
         </div>
         <div class="region-div">
             <div class="region-no-div">
-                <div class="div-header">차단한 거래 지역</div>
+                <div class="div-header">추가 허용 지역 선택</div>
                 <div class="region-no">
-                    <c:forEach var="region" items="${safetyRegionList}">
-                        <div class="checkbox-button">
-                            <input type="checkbox"
-                                   data-seq-id="${region.safetyIdSeq}"
-                                   data-card-id="${region.cardId}"
-                                   data-region-name="${region.regionName}"
-                                   data-time="${region.time}"
-                                   data-category="${region.categorySmall}"/>
-                            <span class="checkbox-label">${region.regionName}</span>
-                        </div>
-                    </c:forEach>
-
+                <c:forEach var="region" items="${safetyRegionList}">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="checkbox-${region.safetyIdSeq}"
+                               data-seq-id="${region.safetyIdSeq}"
+                               data-card-id="${region.cardId}"
+                               data-region-name="${region.regionName}"
+                               data-time="${region.time}"
+                               data-category="${region.categorySmall}"/>
+                        <label for="checkbox-${region.safetyIdSeq}" class="checkbox-design"></label>
+                        <span class="checkbox-label">${region.regionName}</span>
+                    </div>
+                </c:forEach>
                 </div>
             </div>
-
             <div class="region-ok-div">
-                <div class="div-header">거래 허용 지역</div>
+                <div class="div-header">기존 허용지역</div>
                 <div class="region-ok">
                     <!-- 서버에서 받아온 regionAllList를 반복하여 추가 -->
                     <c:forEach var="region" items="${regionAllList}">
@@ -68,12 +67,13 @@
             </div>
         </div>
         <br>
-        <div class="div-header"> 차단한 나만의 Rule</div>
+        <div class="div-header">안심서비스 설정내역</div>
+        <div class="div-header">안심서비스 일시정지할 조합을 선택하세요</div>
         <div class="rule-div">
             <table>
                 <thead>
                 <tr>
-                    <th><input type="checkbox" id="selectAllCheckbox"/></th>
+                    <th><input type="checkbox" id="selectAllCheckbox"/><label class="checkbox-design"></label></th>
                     <th>지역</th>
                     <th>시간</th>
                     <th>업종</th>
@@ -83,9 +83,12 @@
                 <!-- 서버에서 받아온 safetyRuleList를 반복하여 추가 -->
                 <c:forEach var="rule" items="${safetyRuleList}">
                     <tr>
-                        <td><input type="checkbox" data-seq-id="${rule.safetyIdSeq}" data-card-id="${rule.cardId}"
+                        <td>
+                            <input type="checkbox" id="checkbox-${rule.safetyIdSeq}" data-seq-id="${rule.safetyIdSeq}" data-card-id="${rule.cardId}"
                                    data-region-name="${rule.regionName}" data-time="${rule.time}"
-                                   data-category="${rule.categorySmall}"/></td>
+                                   data-category="${rule.categorySmall}"/>
+                            <label for="checkbox-${rule.safetyIdSeq}" class="checkbox-design"></label>
+                        </td>
                         <td>${rule.regionName}</td>
                         <td>${rule.time}</td>
                         <td>${rule.categorySmall}</td>
@@ -134,6 +137,9 @@
 
 <script>
 
+    var aa = document.querySelector('input[type="checkbox"]:checked');
+    console.log("aa", aa);
+
     function showSafetyInfo(cardId, element) {
         var panel = element.closest('.div-card-list').querySelector('.panel');
         if (panel.style.display === "block") {
@@ -163,7 +169,7 @@
                     const categoriesSet = new Set();
 
                     data.safetyCardList.forEach(item => {
-                        console.log("item",item)
+                        console.log("item", item)
                         if (item.regionName !== null && item.time === null && item.categorySmall === null) {
                             allowedRegions.push(item.regionName);
                             console.log("1")
@@ -182,9 +188,9 @@
                         }
 
 
-                        if (item.regionName === null && item.time===null && item.category !== null) {
-                            blockStr=item.category + ' 엽종을 차단';
-                            console.log("blockStr",blockStr);
+                        if (item.regionName === null && item.time === null && item.category !== null) {
+                            blockStr = item.category + ' 엽종을 차단';
+                            console.log("blockStr", blockStr);
                             console.log("4")
                         }
 
@@ -199,10 +205,10 @@
                     const timesStr = Array.from(timesSet).join(", ");
                     const categoriesStr = Array.from(categoriesSet).join(", ");
 
-                    const resultStr = regionsStr+' 에서 '+timesStr+' 까지 '+ categoriesStr +' 업종을 차단';
+                    const resultStr = regionsStr + ' 에서 ' + timesStr + ' 까지 ' + categoriesStr + ' 업종을 차단';
 
 
-                    if (data.safetyCardList[0].regionName !==null) {
+                    if (data.safetyCardList[0].regionName !== null) {
 
                         cardInfoList.empty();
                         cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
@@ -213,7 +219,7 @@
                         cardInfoList.append(cardInfoListContent);
                     }
 
-                    if (data.safetyCardList[0].regionName ===null) {
+                    if (data.safetyCardList[0].regionName === null) {
 
                         cardInfoList.empty();
                         cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");

@@ -18,7 +18,7 @@
 <%@ include file="../include/header.jsp" %>
 <div class="details">
     <%@ include file="../include/mypageSideBar.jsp" %>
-    <hr style="border:1px solid #00857F">
+    <hr style="border:1px solid #00857F; margin:0px;">
     <div class="detail__right">
         <div class="sub-container">
             <span class="user-info">

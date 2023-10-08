@@ -29,13 +29,13 @@
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
-                        안심카드서비스
+                        안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link active">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상거래서비스
+                        이상소비서비스
                     </a>
                 </li>
                 <li class="menu__item">
@@ -65,9 +65,9 @@
             </ul>
         </div>
         <div class="detail__right">
-            <h2 class="details____title">이상거래 서비스관리</h2>
+            <h2 class="details____title"><img class="img-size-service" src="../../../resources/img/bellcolor.png">이상소비알림서비스 관리</h2>
             <div class="box-container">
-                <div class="info-box" onclick="window.location.href='/admin/fds'">
+                <div class="info-box1" onclick="window.location.href='/admin/fds'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div>${fdsUserCount}명</div>
@@ -81,9 +81,9 @@
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/fdsData'">
+                <div style="background-color: #eee;"  class="info-box1" onclick="window.location.href='/admin/fdsData'">
                     <div class="info-content2">
-                        <div class="box-header">금일 이상거래 건수</div>
+                        <div class="box-header">금일 이상소비 건수</div>
                         <div>${fdsDataCount}건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
@@ -91,27 +91,40 @@
             </div>
 
             <div class="table-container">
-                <h3>이상거래데이터관리</h3>
+                <h3>이상소비탐지 거래내역</h3>
+                <div class="alarm-info">※ 이상소비로 탐지된 거래내역 조회</div>
+                <div class="alarm-info">※ 거래내역을 클릭하면 이상치로 탐지된 확률분포 그래프를 확인할 수 있습니다.</div>
                 <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
-                <table class="data-table">
+                <div class="user-search">
+                    <div class="search-header">카드 검색</div>
+                    <input type="text" id="memberSearchInput" placeholder="카드번호를 입력하세요">
+                    <button onclick="filterMembers()">검색</button>
+                </div>
+                <table class="fdsdata-table">
                     <thead>
                     <tr>
                         <th>카드번호</th>
-                        <th>거래일자</th>
+                        <th>
+                            거래일시
+                            <img src="../../../resources/img/sort1.png" alt="Icon for 거래일자" class="th-icon" id="sortDateIcon">
+                        </th>
                         <th>가맹점주소</th>
                         <th>업종</th>
-                        <th>거래가격</th>
+                        <th>
+                            거래금액
+                            <img src="../../../resources/img/sort1.png" alt="Icon for 거래가격" class="th-icon" id="sortAmountIcon">
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${anomalyList}" var="anomalydata">
                         <tr onclick="showAnomalyDetails(${anomalydata.paymentLogId}, '${anomalydata.cardId}');"
                             style="cursor: pointer;">
-                            <td>${anomalydata.cardId}</td>
+                            <td>${fn:substring(anomalydata.cardId, 0, 4)}-****-****-${fn:substring(anomalydata.cardId, 15,20)}</td>
                             <td>${anomalydata.paymentDate}</td>
                             <td>${anomalydata.address}</td>
                             <td>${anomalydata.categorySmall}</td>
-                            <td><fmt:formatNumber value="${anomalydata.amount}" type="number" pattern="#,###"/>원</td>
+                            <td style="text-align: right;"><fmt:formatNumber value="${anomalydata.amount}" type="number" pattern="#,###"/>원</td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -119,7 +132,7 @@
                 <div class="pagination">
                     <button id="prev">이전</button>
                     <div id="pageNumbers"></div>
-                    <button id="next">이후</button>
+                    <button id="next">다음</button>
                 </div>
             </div>
         </div>
@@ -130,6 +143,45 @@
 
 
 <script>
+
+    $(document).ready(function () {
+        var ascendingAmount = false;
+
+        // 거래가격 컬럼 클릭 이벤트 핸들러
+        $("#sortAmountIcon").click(function () {
+            sortTable("amount", ascendingAmount);
+            ascendingAmount = !ascendingAmount;
+        });
+
+        function sortTable(column, ascending) {
+            var $table = $(".fdsdata-table");
+            var $rows = $table.find("tbody tr").toArray();
+
+            $rows.sort(function (a, b) {
+                var keyA = parseFloat($(a).find("td:eq(" + getColumnIndex(column) + ")").text().replace(/[^\d.-]/g, ''));
+                var keyB = parseFloat($(b).find("td:eq(" + getColumnIndex(column) + ")").text().replace(/[^\d.-]/g, ''));
+
+                // 오름차순 또는 내림차순으로 정렬
+                return ascending ? keyA - keyB : keyB - keyA;
+            });
+ㄴ
+            $table.find("tbody").empty().append($rows);
+
+            updatePage();
+        }
+
+        function getColumnIndex(columnName) {
+            var $headerRow = $(".fdsdata-table thead tr");
+            var columnIndex = -1;
+            $headerRow.find("th").each(function (index) {
+                if ($(this).text().trim() === columnName) {
+                    columnIndex = index;
+                    return false; // break the loop
+                }
+            });
+            return columnIndex;
+        }
+    });
 
     // Get the modal
     var modal = document.getElementById("chartModal");
@@ -170,7 +222,7 @@
 
     // 페이지를 업데이트하는 함수
     function updatePage() {
-        const tbody = document.querySelector(".data-table tbody");
+        const tbody = document.querySelector(".fdsdata-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 

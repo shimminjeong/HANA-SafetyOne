@@ -28,13 +28,13 @@
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
-                        안심카드서비스
+                        안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link active">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상거래서비스
+                        이상소비서비스
                     </a>
                 </li>
                 <li class="menu__item">
@@ -64,25 +64,25 @@
             </ul>
         </div>
         <div class="detail__right">
-            <h2 class="details____title">이상거래 서비스관리</h2>
+            <h2 class="details____title"><img class="img-size-service" src="../../../resources/img/bellcolor.png">이상소비알림서비스 관리</h2>
             <div class="box-container">
-                <div class="info-box" onclick="window.location.href='/admin/fds'">
+                <div style="background-color: #eee;" class="info-box1" onclick="window.location.href='/admin/fds'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div>${fdsUserCount}명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/fds'">
+                <div style="background-color: #eee;" class="info-box" onclick="window.location.href='/admin/fds'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
                         <div>${fdsCardCount}개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/fdsData'">
+                <div class="info-box1" onclick="window.location.href='/admin/fdsData'">
                     <div class="info-content2">
-                        <div class="box-header">금일 이상거래 건수</div>
+                        <div class="box-header">금일 이상소비 건수</div>
                         <div>${fdsDataCount}건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
@@ -90,27 +90,37 @@
             </div>
 
             <div class="table-container">
-                <h3>서비스 사용자 관리</h3>
+                <h3>서비스 이용 사용자 및 카드 관리</h3>
+                <div class="alarm-info">※ 회원의 이름을 클릭하면 자세한 회원정보를 확인할 수 있습니다.</div>
+                <div class="user-search">
+                    <div class="search-header">회원 검색</div>
+                    <input type="text" id="memberSearchInput" placeholder="회원 이름을 입력하세요">
+                    <button onclick="filterMembers()">검색</button>
+                </div>
                 <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
-                <table class="data-table">
+                <table class="fdsmember-table">
                     <thead>
                     <tr>
-
                         <th>아이디</th>
+                        <th>이름</th>
                         <th>카드번호</th>
-                        <th>서비스 시작일시</th>
+                        <th>
+                            서비스 시작일시
+                            <img src="../../../resources/img/sort1.png" alt="Icon for 아이디" class="th-icon" id="sortIcon">
+                        </th>
+
                         <th>서비스상태</th>
                         <th>가중치저장경로</th>
                         <!-- 필요한 다른 컬럼들도 여기에 추가 -->
                     </tr>
                     </thead>
-
                     <tbody>
                     <c:forEach items="${FdsMemberList}" var="fdsmember">
                         <tr>
+                            <td>${fdsmember.member.email}</td>
                             <td onclick="showMemberDetails('${fdsmember.member.email}','${fdsmember.cardId}','${fdsmember.member.name}','${fdsmember.member.address}','${fdsmember.member.phone}','${fdsmember.member.age}','${fdsmember.member.gender}')"
-                                style="cursor: pointer;">${fdsmember.member.email}</td>
-                            <td>${fdsmember.cardId}</td>
+                                style="cursor: pointer;">${fn:substring(fdsmember.member.name, 0, 1)}*${fn:substring(fdsmember.member.name, 2, 3)}</td>
+                            <td>${fn:substring(fdsmember.cardId, 0, 4)}-****-****-${fn:substring(fdsmember.cardId, 15,20)}</td>
                             <td>${fn:substring(fdsmember.serRegDate, 0, 16)}</td>
                                 <%--                        <td>${fn:split(fdsmember.serRegDate, ' ')[0]}</td>--%>
                             <!-- JSTL if문 -->
@@ -133,7 +143,7 @@
                 <div class="pagination">
                     <button id="prev">이전</button>
                     <div id="pageNumbers"></div>
-                    <button id="next">이후</button>
+                    <button id="next">다음</button>
                 </div>
             </div>
 
@@ -183,6 +193,46 @@
 </div>
 <script>
 
+    $(document).ready(function () {
+        var ascending = false;
+
+        // 이미지 클릭 이벤트 핸들러
+        $("#sortIcon").click(function () {
+            // 테이블과 이미지 아이콘을 포함한 컬럼을 선택
+            var $table = $(".fdsmember-table");
+            var $rows = $table.find("tbody tr").toArray();
+
+            // 오름차순 또는 내림차순으로 정렬
+            if (ascending) {
+                $rows.sort(function (a, b) {
+                    var keyA = $(a).find("td:eq(3)").text();
+                    var keyB = $(b).find("td:eq(3)").text();
+                    return keyA.localeCompare(keyB);
+                });
+                ascending = false;
+            } else {
+                $rows.sort(function (a, b) {
+                    var keyA = $(a).find("td:eq(3)").text();
+                    var keyB = $(b).find("td:eq(3)").text();
+                    return keyB.localeCompare(keyA);
+                });
+                ascending = true;
+            }
+
+            // 행 재배열 및 테이블 업데이트
+            $table.find("tbody").empty().append($rows);
+
+            updatePage();
+
+            // 이미지 아이콘 업데이트
+            if (ascending) {
+                $("#sortIcon").attr("src", "../../../resources/img/sort1.png");
+            } else {
+                $("#sortIcon").attr("src", "../../../resources/img/sort2.png");
+            }
+        });
+    });
+
     function showMemberDetails(email, cardId, name, address, phone, age, gender) {
         var fdsCount;
         $.ajax({
@@ -212,7 +262,7 @@
                     {label: "전화번호", value: phone},
                     {label: "나이", value: age},
                     {label: "성별", value: gender},
-                    {label: "이상거래 탐지횟수", value: fdsCount}
+                    {label: "이상소비 탐지횟수", value: fdsCount}
                 ];
 
                 // 각 데이터 쌍에 대해 테이블 행 추가
@@ -280,7 +330,7 @@
 
     // 페이지를 업데이트하는 함수
     function updatePage() {
-        const tbody = document.querySelector(".data-table tbody");
+        const tbody = document.querySelector(".fdsmember-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 

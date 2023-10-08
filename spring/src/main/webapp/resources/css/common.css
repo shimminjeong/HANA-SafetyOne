@@ -41,22 +41,21 @@
 }
 
 body{
-    margin: 0;
+
+}
+
+header{
+    padding-top: 7px;
 }
 
 #headerLogo {
-    align-items: center;
-    justify-content: center;
-    margin-left: 50px;
-    margin-right: 50px;
-}
-#headerLogo{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-left: 150px;
+    margin-right: 150px;
 }
+
 
 #logo{
     display: flex;
@@ -112,18 +111,24 @@ body{
     overflow: hidden;
     display: flex;
     /*background-color: #00857F;*/
-    font-weight: 700;
+    justify-content: center;
 
 }
 
 /* Links inside the navbar */
 .navbar a {
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 17px;
     text-align: center;
-    padding: 12px 40px;
+    padding: 3px 40px 15px 40px;
     text-decoration: none;
     color: black;
 }
+
+.navbar a:hover {
+    color: #00857F;
+}
+
 
 .dropdown {
     overflow: hidden;

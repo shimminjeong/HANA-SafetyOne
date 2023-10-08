@@ -15,8 +15,22 @@
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
-            <h2>Anomaly Details</h2>
+            <h2><span class="cardId"></span> 거래내역 확률분포 시각화</h2>
         </div>
+        <div class="info-div">
+            <div class="info-left">
+                <div class="anomalychart-info"><span class="cardId"></span> 거래지역, 시간, 업종, 금액에 대한 확률분포를 시각화한 것입니다.</div>
+                <div class="anomalychart-info">※ 초록색 그래프는 가우시안 확률분포를 사용하여 추정한 데이터의 확률 분포를 각 feature 별로 시각화한 것 입니다.</div>
+                <div class="anomalychart-info">※ 사용자의 각 4개 요소에 대한 거래가 발생할 확률을 이용하여 이상치를 판단할 수 있습니다.</div>
+            </div>
+            <div class="info-right">
+                <div class="region"></div>
+                <div class="time"></div>
+                <div class="category"></div>
+                <div class="amount"></div>
+            </div>
+        </div>
+
         <div class="outer-container">
             <%--            <div class="canvas-div1">--%>
             <div class="region-div">

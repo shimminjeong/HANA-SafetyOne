@@ -21,7 +21,7 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 <div class="stopCardContainer">
-    <div class="sub-container-hearder">안심카드서비스 변경</div>
+    <div class="sub-container-hearder">안심서비스 변경</div>
 
     <div class="card-select-div">
         <div class="card-select-text">카드선택</div>
@@ -44,7 +44,7 @@
     </div>
     <div class="serviceDate1 hidden">
         <h4>해당서비스는 결제를 차단한 나만의 rule 중에서 일정기간동안 결제를 허용하는 서비스입니다.</h4>
-        <div style="margin-bottom: 3%;">특정 기간동안 안심카드서비스를 일시정지할 조합을 선택하세요</div>
+        <div style="margin-bottom: 3%;">특정 기간동안 안심서비스를 일시정지할 조합을 선택하세요</div>
         <div style="color:red;">※ 특정 기간동안 선택한 조합의 결제가 허용됩니다.</div>
     </div>
     <div class="table-div hidden">

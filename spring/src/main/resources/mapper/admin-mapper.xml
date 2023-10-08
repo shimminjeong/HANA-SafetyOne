@@ -174,7 +174,7 @@
         SELECT count(*) from card where selffdsserstatus='Y'
     </select>
 
-    <!--   금일 이상거래 건수-->
+    <!--   금일 이상소비 건수-->
     <select id="selectFdsDataCount" resultType="int">
         SELECT count(*) from paymentlog where FDSDETECTIONSTATUS='Y' and TRUNC(paymentdate) = TO_DATE('2023-10-05', 'YYYY-MM-DD')
     </select>

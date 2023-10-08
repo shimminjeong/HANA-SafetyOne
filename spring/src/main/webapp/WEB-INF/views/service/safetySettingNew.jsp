@@ -21,26 +21,26 @@
 <div class="setting-container">
     <div class="content-div">
         <div class="content-header">
-            <h2>안심카드 나만의 Rule 설정</h2>
-            <h3>거래를 허용하거나 차단할 나만의 Rule을 설정해보세요</h3>
+            <h2>안심 서비스 설정</h2>
+            <h3>거래를 허용하거나 차단할 항목을 설정해주세요</h3>
         </div>
         <%--        <div style="margin-bottom: 10px; color: red;">※ 거래 지정하여 금융사고를 예방하는 서비스입니다.</div>--%>
 
         <div class="lostcard-list">
             <div class="card-list-info">
+                <img class="card-img" src="../../../resources/img/<%=session.getAttribute("cardName")%>.png">
                 <div class="card-list-info-cardid"><%=session.getAttribute("cardId")%>
                 </div>
                 <div class="card-list-info-name">본인 | &nbsp;
                 </div>
                 <div class="card-list-info-cardname"><%=session.getAttribute("cardName")%>
                 </div>
-                <img class="card-img" src="../../../resources/img/<%=session.getAttribute("cardName")%>.png">
+
             </div>
         </div>
         <div class="setting-options">
             <c:if test="${empty regions && empty categorySmalls && empty times}">
-                <div id="result-info-div" class="setting-result-info"><img src="../../../resources/img/right-arrow.png">거래를&nbsp;<span style="color: green">허용</span>하고 싶은 지역이 있다면
-                    추가하세요
+                <div id="result-info-div" class="setting-result-info"><img src="../../../resources/img/right-arrow.png">거래를&nbsp;<span style="color: green">허용</span>할 지역을 선택하세요.
                 </div>
             </c:if>
             <div class="setting-buttons">
@@ -49,34 +49,24 @@
                 <div class="select-header"><span style="color: green">허용</span>지역</div>
                 <div class="select-content">
                     <div class="select-button">
-                        <button class="select-no" id="region-no" onclick="noSelect(this); nextStep();">선택안함</button>
-                        <button class="select-thing" id="select-region"
-                                onclick="window.location.href='/safetyCard/region'">지역선택
-                        </button>
+                        <c:if test="${not empty regions}">
+                            <c:forEach var="region" items="${regions}" varStatus="loop">
+                                <span><strong>${region}</strong></span>
+                                <c:if test="${loop.index+1 < fn:length(regions)}">
+                                    <span>,&nbsp;</span>
+                                </c:if>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${empty regions}">
+                            <button class="select-no" id="region-no" onclick="noSelect(this); nextStep();">선택안함</button>
+                            <button class="select-thing" id="select-region" onclick="window.location.href='/safetyCard/region'">지역선택</button>
+                        </c:if>
                     </div>
 
                 </div>
             </div>
-            <c:if test="${not empty regions}">
-                <script>
-                    document.getElementById('select-region').style.background = "#404b57";
-                    document.getElementById('select-region').style.color = "white";
-                </script>
-                <div class="setting-result-ok">
-                    <c:forEach var="region" items="${regions}" varStatus="loop">
-                        <span><strong>${region}</strong></span>
-                        <c:if test="${loop.index+1 < fn:length(regions)}">
-                            <span>,</span>
-                        </c:if>
-                    </c:forEach> 지역의 거래만 <strong><span style="color: green">허용</span></strong>합니다.
-                </div>
 
-            </c:if>
-            <c:if test="${not empty regions && empty categorySmalls && empty times}">
-                <div class="setting-time-info"><img src="../../../resources/img/right-arrow.png">거래&nbsp; <span style="color: green">허용</span>지역내에서&nbsp; <span style="color:red;">차단</span>하고 싶은 시간이
-                    있다면 추가하세요
-                </div>
-            </c:if>
+
             <div class="setting-region-no-info hidden"><img src="../../../resources/img/right-arrow.png"><span style="color:red;">차단</span>하고 싶은 시간이 있다면 선택해주세요</div>
             <div class="setting-buttons">
                 <%--                <span class="img-div"><img src="../../../resources/img/steps_2192581%202.png"></span>--%>
@@ -84,10 +74,21 @@
                 <div class="select-header"><span style="color:red;">차단</span>시간</div>
                 <div class="select-content">
                     <div class="select-button">
-                        <button class="select-no" id="time-no" onclick="noSelect(this)">선택안함</button>
-                        <button class="select-thing" id="select-time" onclick="redirectToTimePage()">시간선택</button>
+                        <c:if test="${not empty times}">
+                            <c:forEach var="time" items="${times}" varStatus="loop">
+                                <span><strong>${time}</strong></span>
+                                <c:if test="${loop.index+1 < fn:length(times)}">
+                                    <span>,</span>
+                                </c:if>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${empty times}">
+                            <button class="select-no" id="time-no" onclick="noSelect(this)">선택안함</button>
+                            <button class="select-thing" id="select-time" onclick="redirectToTimePage()">시간선택</button>
+                        </c:if>
                     </div>
                 </div>
+
             </div>
             <c:if test="${not empty times && empty categorySmalls}">
                 <script>
@@ -131,13 +132,38 @@
                 <div class="select-header"><span style="color:red;">차단</span>업종</div>
                 <div class="select-content">
                     <div class="select-button">
-                        <button class="select-no" id="category-no" onclick="noSelect(this); finishStep();">선택안함</button>
-                        <button class="select-thing" id="select-category" onclick="redirectToCategoryPage()">업종선택
-                        </button>
+                        <c:if test="${not empty categorySmalls}">
+                            <c:forEach var="categorySmall" items="${categorySmalls}" varStatus="loop">
+                                <span><strong>${categorySmall}</strong></span>
+                                <c:if test="${loop.index+1 < fn:length(categorySmalls)}">
+                                    <span>,&nbsp;</span>
+                                </c:if>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${empty categorySmalls}">
+                            <button class="select-no" id="category-no" onclick="noSelect(this); finishStep();">선택안함</button>
+                            <button class="select-thing" id="select-category" onclick="redirectToCategoryPage()">업종선택</button>
+                        </c:if>
                     </div>
+
 
                 </div>
             </div>
+            <c:if test="${not empty regions}">
+                <script>
+                    document.getElementById('select-region').style.background = "#404b57";
+                    document.getElementById('select-region').style.color = "white";
+                </script>
+                <div class="setting-result-ok">
+                    <c:forEach var="region" items="${regions}" varStatus="loop">
+                        <span><strong>${region}</strong></span>
+                        <c:if test="${loop.index+1 < fn:length(regions)}">
+                            <span>,</span>
+                        </c:if>
+                    </c:forEach> 지역의 거래만 <strong><span style="color: green">허용</span></strong>합니다.
+                </div>
+
+            </c:if>
             <div class="setting-result hidden"></div>
             <c:if test="${not empty categorySmalls}">
                 <script>document.getElementById('select-category').style.background = "#404b57";</script>

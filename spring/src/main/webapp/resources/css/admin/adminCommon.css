@@ -131,6 +131,9 @@ body{
 .details____title {
     font-size: 25px;
     margin : 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 .details__subtitle {
@@ -199,6 +202,9 @@ body{
     background: #eee; /* 원하는 색상으로 변경 가능 */
 }
 
+.alarm-info{
+    margin-bottom: 10px;
+}
 
 .detail__right{
     display: flex;
@@ -227,4 +233,31 @@ hr {
     height: 1px;
     background-color: #00857F; /* 빨간색 배경색으로 선 색상 설정 */
     width: 100%;
+}
+
+.img-size{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.img-size-service{
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+}
+
+.anomalychart-info{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.info-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-left,
+.info-right {
+    width: 48%; /* 왼쪽과 오른쪽 컨테이너 너비 조절 */
 }

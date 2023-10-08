@@ -19,8 +19,9 @@
 <div class="container">
     <div class="content-div" style="margin-right: 50px;margin-left: 50px;">
         <div class="content-header">
-            <h2>안심카드 서비스 일시정지</h2>
-            <h3>일시정지란 거래를 차단한 나만의 Rule 중 일정기간동안 거래를 허용하는 서비스입니다.</h3>
+            <h2>안심서비스 일시해제</h2>
+            <h3>일시해제란 안심서비스를 일정기간동안 중지하는 서비스입니다.</h3>
+            <h4>일시해제란 안심서비스를  허용하는 서비스입니다.</h4>
         </div>
         <span class="sub-container-hearder">서비스 이용 중인 카드 목록</span>
         <c:forEach items="${safetyCardList}" var="card" varStatus="loop">

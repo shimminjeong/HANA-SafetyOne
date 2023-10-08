@@ -28,6 +28,7 @@ public interface MyPageService {
     List<CardHistory> select6MonthTotalAmountByEmail(String email);
 
     List<CardHistory> selectTopCategoryTotalAmountByEmail(String email);
+    List<CardHistory> selectTopCategoryCountByEmail(String email);
     List<CardHistory> selectTopCategoryDifferenceByEmail(String email);
 
     List<CardHistory> selectTopStoreCountByEmail(String email);
@@ -36,4 +37,6 @@ public interface MyPageService {
 
     List<String> selectCategory3monthByEmail(String email);
     List<String> selectAllSmallCategory();
+
+    PaymentLog selectByPaymentLogId(int paymentLogId);
 }

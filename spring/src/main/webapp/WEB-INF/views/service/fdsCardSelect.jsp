@@ -20,10 +20,10 @@
 <div class="container">
     <div class="content-div">
         <div class="content-header">
-            <h2>이상 거래 알림서비스</h2>
-            <h3>선택한 카드의 거래내역으로 소비패턴을 학습합니다.</h3>
+            <h2>이상소비 알림서비스 카드 선택</h2>
+            <span style="align-self: flex-start; font-size: 18px; margin-bottom: 30px; margin-top:10px;" >선택한 카드의 거래내역으로 소비패턴을 학습합니다.</span>
         </div>
-        <span class="sub-container-hearder">보유카드 목록</span><span class="fds-info-text">사용기간이 6개월 이상 지난 카드만 신청 가능합니다.</span>
+        <span class="sub-container-hearder">보유카드 목록</span><span class="fds-info-text" style="text-align: right">※ 사용기간이 6개월 이상 지난 카드만 신청 가능합니다.</span>
         <hr class="sub-hr">
         <div class="cardAll-div">
             <div class="cardAll-img-div"><img src="../../../resources/img/circle.png" onclick="AllCard()"></div>
@@ -39,12 +39,13 @@
                     <img class="card-img" src="../../../resources/img/${card.cardName}.png">
                     <div class="card-info-text">
                         <div class="card-info-text1">
-                            <div class="card-info-cardid">${card.cardId}</div>
-                            <div class="card-info-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[본인]&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<%= name %>
+                            <div class="card-info-cardname">${card.cardName}</div>
+
+                            <div class="card-info-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[본인]
                             </div>
                         </div>
                         <div class="card-info-text2">
-                            <span class="card-info-cardname">${card.cardName}</span>
+                            <span class="card-info-cardid">${fn:substring(card.cardId, 0, 4)}-****-****-${fn:substring(card.cardId, 15,20)}</span>
                             <span class="card-info-regDate">[유효 기간] ${fn:substring(card.cardRegDate, 0,10)}&nbsp;~&nbsp;${fn:substring(card.validDate, 0, 10)}  </span>
                         </div>
                     </div>
@@ -205,17 +206,6 @@
         }
     }
 
-    document.querySelector('.accordion-header').addEventListener('click', function () {
-        const content = document.querySelector('.accordion-content');
-        const indicator = document.querySelector('.accordion-indicator');
-        if (content.style.display === "none" || !content.style.display) {
-            content.style.display = "block";
-            indicator.style.transform = "rotate(180deg)";
-        } else {
-            content.style.display = "none";
-            indicator.style.transform = "rotate(0deg)";
-        }
-    });
 
     //
     $(document).ready(function () {
@@ -232,6 +222,7 @@
     });
 
     let selectedCardIds = [];
+    console.log("selectedCardIds",selectedCardIds)
 
     function AllCard() {
         // 'cardAll-img-div' 클래스를 가진 div의 이미지와

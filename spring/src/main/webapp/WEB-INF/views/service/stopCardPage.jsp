@@ -36,7 +36,7 @@
             <span>서비스 이용 기간</span><span>${safetyInfo[0].safetyStartDate.split(" ")[0]} ~ 카드유효기간(${safetyInfo[0].safetyEndDate.split(" ")[0]})</span>
         </div>
         <div class="car">
-            <div>특정 기간동안 안심카드서비스를 일시정지할 조합을 선택하세요</div>
+            <div>특정 기간동안 안심서비스를 일시정지할 조합을 선택하세요</div>
             <div>※ 특정 기간동안선택한 조합의 결제가 허용됩니다.</div>
         </div>
         <div class="table-div">

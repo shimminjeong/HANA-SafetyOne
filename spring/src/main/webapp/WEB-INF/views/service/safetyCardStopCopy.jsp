@@ -59,7 +59,7 @@
     <div class="content-div">
         <div class="content-div-header">
             <h2>안심카드 일시정지</h2>
-            <h3>안심카드서비스 이용현황</h3>
+            <h3>안심서비스 이용현황</h3>
             <h4>카드를 선택 후 일시정지를 선택해주세요</h4>
         </div>
         <div class="stopcard-div">

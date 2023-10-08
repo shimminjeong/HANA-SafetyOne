@@ -94,19 +94,30 @@
 
     <!--    top3 카테고리 금액 & 비율 조회-->
     <select id="selectTopCategoryTotalAmountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
-        SELECT categorySmall,
-               SUM(amount)                                                                                AS amountSum,
-               round(SUM(amount) / (SELECT SUM(amount)
-                                    FROM cardhistory
-                                    WHERE TO_CHAR(cardhisdate, 'MM') = '10'
-                                      AND TO_CHAR(cardhisdate, 'YYYY') = '2023'
-                                      AND cardid IN (SELECT cardid FROM card WHERE email = #{email})), 3) AS ratio
+        SELECT
+            categorySmall,
+            SUM(amount) AS amountSum,
+            ROUND(SUM(amount) / (SELECT SUM(amount) FROM cardhistory WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'
+                                        AND cardid IN (SELECT cardid FROM card WHERE email = #{email})), 3) AS ratio
         FROM cardhistory
-        WHERE TO_CHAR(cardhisdate, 'MM') = '10'
-          AND TO_CHAR(cardhisdate, 'YYYY') = '2023'
+        WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'
           AND cardid IN (SELECT cardid FROM card WHERE email = #{email})
-        GROUP BY categorysmall
+        GROUP BY categorySmall
         ORDER BY amountSum DESC
+    </select>
+
+    <!--    top3 카테고리 빈도 & 비율 조회-->
+    <select id="selectTopCategoryCountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
+        SELECT
+            categorySmall,
+            COUNT(*) AS categoryCnt,
+            ROUND(COUNT(*) / (SELECT COUNT(*) FROM cardhistory WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'
+                                                                 AND cardid IN (SELECT cardid FROM card WHERE email = #{email})), 3) AS ratio
+        FROM cardhistory
+        WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'
+          AND cardid IN (SELECT cardid FROM card WHERE email = #{email})
+        GROUP BY categorySmall
+        ORDER BY categoryCnt DESC
     </select>
 
 
@@ -139,7 +150,7 @@
     <select id="selectTimeTotalAmountByEmail" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
         SELECT SUBSTR(cardhistime, 1, INSTR(cardhistime, ':') - 1) AS time, SUM(amount) AS amountSum
         FROM cardhistory
-        WHERE cardhisdate >= TO_DATE('2023-09-10' , 'YYYY-MM-DD')
+        WHERE cardhisdate >= TO_DATE('2023-07-10' , 'YYYY-MM-DD')
           AND cardid IN (SELECT cardid FROM card WHERE email=#{email})
         GROUP BY SUBSTR(cardhistime, 1, INSTR(cardhistime, ':')-1)
         ORDER BY time
@@ -151,7 +162,7 @@
                       DECODE(INSTR(regionName, ' '), 0, LENGTH(regionName), INSTR(regionName, ' ') - 1)) AS regionName,
                SUM(amount)                                                                               AS amountSum
         FROM cardhistory
-        WHERE cardhisdate >= TO_DATE('2023-09-10', 'YYYY-MM-DD')
+        WHERE cardhisdate >= TO_DATE('2023-07-10', 'YYYY-MM-DD')
           AND cardid IN (SELECT cardid FROM card WHERE email = #{email})
         GROUP BY SUBSTR(regionName, 1,
                         DECODE(INSTR(regionName, ' '), 0, LENGTH(regionName), INSTR(regionName, ' ') - 1))
@@ -172,6 +183,9 @@
         FROM CATEGORY
     </select>
 
+    <select id="selectByPaymentLogId" parameterType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
+        SELECT * FROM paymentlog where paymentlogid=#{paymentLogId}
+    </select>
 
 </mapper>
 

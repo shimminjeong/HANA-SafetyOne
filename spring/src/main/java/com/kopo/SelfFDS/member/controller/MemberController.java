@@ -147,6 +147,27 @@ public class MemberController {
     }
 
 
+    @PostMapping("/cardHistoryReceipt")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> cardHistoryReceipt(@RequestBody PaymentLog paymentLog) {
+        Map<String, Object> response = new HashMap<>();
+        System.out.println("paymentLog.getPaymentLogId()"+paymentLog.getPaymentLogId());
+        System.out.println("paymentLog.getCardId()"+paymentLog.getCardId());
+        PaymentLog paymentLog1 = myPageService.selectByPaymentLogId(paymentLog.getPaymentLogId());
+
+
+        Card cardInfo=myPageService.selectCardInfoByCardId(paymentLog.getCardId());
+        response.put("paymentLog1", paymentLog1);
+        response.put("cardInfo", cardInfo);
+
+        if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @RequestMapping("/mypage")
     public ModelAndView mypage(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -212,11 +233,11 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> cardHistoryDetail(@RequestBody CardHistory cardHistory) {
         String cardId = cardHistory.getCardId();
-        System.out.println("cardId"+cardId);
+        System.out.println("cardId" + cardId);
 
         List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByCardId(cardId);
         List<PaymentLog> paymentLogList = myPageService.selectPaymentLogByCardId(cardId);
-        System.out.println("paymentLogList"+paymentLogList);
+        System.out.println("paymentLogList" + paymentLogList);
         Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
         Map<String, Object> response = new HashMap<>();
         response.put("cardHistoryList", cardHistoryList);
@@ -237,21 +258,23 @@ public class MemberController {
 //        List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByEmail(email);
         List<CardHistory> monthList = myPageService.select6MonthTotalAmountByEmail(email);
         List<CardHistory> topCategoryList = myPageService.selectTopCategoryTotalAmountByEmail(email);
+        List<CardHistory> topCountCategoryList = myPageService.selectTopCategoryCountByEmail(email);
         List<CardHistory> differenceList = myPageService.selectTopCategoryDifferenceByEmail(email);
 //        List<CardHistory> categoryCntList = myPageService.selectTopStoreCountByEmail(email);
         List<CardHistory> timeList = myPageService.selectTimeTotalAmountByEmail(email);
         List<String> categoryAllList = myPageService.selectAllSmallCategory();
-        System.out.println("categoryAllList"+categoryAllList);
+        System.out.println("categoryAllList" + categoryAllList);
         List<String> categoryList = myPageService.selectCategory3monthByEmail(email);
-        System.out.println("categoryList"+categoryList);
+        System.out.println("categoryList" + categoryList);
         categoryAllList.removeAll(categoryList);
-        System.out.println("categoryAllList"+categoryAllList);
+        System.out.println("categoryAllList" + categoryAllList);
         List<CardHistory> regionNameList = myPageService.selectRegionTotalAmountByEmail(email);
         ModelAndView mav = new ModelAndView();
 
 
         mav.addObject("monthList", monthList);
         mav.addObject("topCategoryList", topCategoryList);
+        mav.addObject("topCountCategoryList", topCountCategoryList);
         mav.addObject("differenceList", differenceList);
         mav.addObject("categoryAllList", categoryAllList);
         mav.addObject("timeList", timeList);
@@ -260,7 +283,6 @@ public class MemberController {
         mav.setViewName("member/mypageReport");
         return mav;
     }
-
 
 
 //    mypage copy

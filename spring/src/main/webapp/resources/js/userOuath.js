@@ -2,12 +2,12 @@
 function sendSmsRequest() {
     const phoneNumber = "010" + document.getElementById('phoneNumber').value;
 
-    const ouathNum = String(Math.floor(10000 + Math.random() * 90000));
+    const ouathNum = String(Math.floor(100000 + Math.random() * 900000));
     console.log("ouathNum", ouathNum);
 
     const requestData = {
         recipientPhoneNumber: phoneNumber,
-        content: '[하나안심서비스] 하나안심카드서비스 사용을 위해 인증번호 [' + ouathNum + '] 를 입력하세요.',
+        content: '[하나안심서비스] 하나안심서비스 사용을 위해 인증번호 [' + ouathNum + '] 를 입력하세요.',
         ouathNum: ouathNum // 생성한 무작위 숫자 할당
     };
 
@@ -127,7 +127,7 @@ function sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount) {
             + formattedAmount+'\n'
             + formattedDateTime+'\n'
             + store+'\n'
-            + '거래가 이상거래로 감지되었습니다.',
+            + '거래가 이상소비로 감지되었습니다.',
     };
 
     $.ajax({

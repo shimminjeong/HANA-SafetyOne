@@ -29,27 +29,28 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
     const data = {
         labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
         datasets: [{
-            label: 'Gaussian PDF',
+            label: '확률분포',
             data: pdfData,
-            borderColor: 'green',
-            borderWidth: 1,
+            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderWidth: 0.3,
+            pointRadius: 1.5,
             fill: false
         },
             {
-                label: pointData,
-                data: [{x: numericData, y: 0}],
+                label: '거래데이터',
+                data: [{ x: numericData, y: 0 }],
                 borderColor: 'red',
-                borderWidth: 3,
-                pointRadius: 6,
+                borderWidth: 2,
+                pointRadius: 5,
                 pointHoverRadius: 8,
                 showLine: false,
-                pointStyle: 'circle'
+                pointStyle: 'circle', // 내부가 채워진 circle로 표시
+                backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
             }, {
-                label: 'Histogram',
+                label: '빈도수',
                 data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
                 type: 'bar',
-                backgroundColor: 'blue',
-                borderColor: 'blue',
+                backgroundColor: 'rgb(6,63,103)',
                 borderWidth: 1
             }]
     };
@@ -108,32 +109,33 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
     let histogramData = computeHistogram(X_feature, bins);
 
     const data = {
-        labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
+        labels: labels, // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
         datasets: [{
-            label: 'Gaussian PDF',
+            label: '확률분포',
             data: pdfData,
-            borderColor: 'green',
-            borderWidth: 1,
+            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderWidth: 0.3,
+            pointRadius: 1.5,
             fill: false
-        },
-            {
-                label: pointData,
-                data: [{x: numericData, y: 0}],
-                borderColor: 'red',
-                borderWidth: 3,
-                pointRadius: 6,
-                pointHoverRadius: 8,
-                showLine: false,
-                pointStyle: 'circle'
-            }, {
-                label: 'Histogram',
-                data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
-                type: 'bar',
-                backgroundColor: 'blue',
-                borderColor: 'blue',
-                borderWidth: 1
-            }]
+        }, {
+            label: '거래데이터',
+            data: [{ x: numericData, y: 0 }],
+            borderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            showLine: false,
+            pointStyle: 'circle', // 내부가 채워진 circle로 표시
+            backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
+        }, {
+            label: '빈도수',
+            data: histogramData, // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
+            type: 'bar',
+            backgroundColor: 'rgb(6,63,103)', // 예쁜 파란색
+
+            borderWidth: 1
+        }]
     };
+
 
     const options = {
         scales: {
@@ -249,6 +251,24 @@ function showAnomalyDetails(paymentLogId, cardId) {
             drawChart1('gaussianChart4', responseData.amountPdf[0], responseData.amountPdf[1], responseData.embeddingData.amountNumeric, '금액', responseData.embeddingData.amountNumeric.toLocaleString() + '원', responseData.amountFeature);
             // drawBubbleChart('bubbleChartRegion', responseData.regionCntList);
             // drawBubbleChart('bubbleChartCategory', responseData.categoryCntList);
+
+            const cardIdElement = document.querySelector('.anomalychart-info .cardId');
+            const regionElement = document.querySelector('.info-right .region');
+            const timeElement = document.querySelector('.info-right .time');
+            const categoryElement = document.querySelector('.info-right .category');
+            const amountElement = document.querySelector('.info-right .amount');
+
+            const cardIdValue = cardId+'카드의 '; // responseData.cardId는 실제 데이터로 대체해야 합니다.
+            const regionValue = '거래 지역 : ' + formattedAddress; // responseData.embeddingData.region는 실제 데이터로 대체해야 합니다.
+            const timeValue = '거래 시간 : ' + responseData.embeddingData.timeNumeric + '시'; // responseData.embeddingData.timeNumeric는 실제 데이터로 대체해야 합니다.
+            const categoryValue = '거래 업종 : ' + responseData.category; // responseData.category는 실제 데이터로 대체해야 합니다.
+            const amountValue = '거래 금액 : ' + responseData.embeddingData.amountNumeric.toLocaleString() + '원'; // responseData.embeddingData.amountNumeric는 실제 데이터로 대체해야 합니다.
+
+            cardIdElement.textContent = cardIdValue;
+            regionElement.textContent = regionValue;
+            timeElement.textContent = timeValue;
+            categoryElement.textContent = categoryValue;
+            amountElement.textContent = amountValue;
 
             // 모달을 표시합니다.
             modal.style.display = "block";

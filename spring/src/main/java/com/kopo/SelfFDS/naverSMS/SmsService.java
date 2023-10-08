@@ -98,7 +98,7 @@ public class SmsService {
         List<MessageDto> messages = new ArrayList<>();
         messages.add(new MessageDto(to, content));
 
-        SmsRequestDto smsRequest = new SmsRequestDto("LMS", "COMM", "<SafetyOne 이상거래감지>","82", senderNumber, "내용", messages);
+        SmsRequestDto smsRequest = new SmsRequestDto("LMS", "COMM", "<SafetyOne 이상소비감지>","82", senderNumber, "내용", messages);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(smsRequest);
 

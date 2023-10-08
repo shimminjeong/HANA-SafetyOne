@@ -43,7 +43,7 @@ table thead {
 table thead th {
     padding: 10px 15px; /* 패딩 */
     border: 1px solid #ddd; /* 경계선 */
-    background-color: #dae6eb;;
+    background-color: #f3f3f3;
 }
 
 /* 테이블 본문 스타일 */

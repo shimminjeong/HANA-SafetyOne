@@ -43,6 +43,7 @@
     grid-template-rows: repeat(2, auto); /* 2행 설정 */
     grid-row-gap: 7px;
     grid-column-gap: 0px;
+    margin-top: 10px;
 }
 
 .region-div {
@@ -123,4 +124,17 @@ canvas {
     /* grid-row: 2; */
     /* grid-column: 2; */
     font-size: 13px;
+}
+
+.info-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-left{
+    width: 75%;
+}
+
+.info-right {
+    width: 20%; /* 왼쪽과 오른쪽 컨테이너 너비 조절 */
 }

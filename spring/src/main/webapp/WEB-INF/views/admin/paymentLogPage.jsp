@@ -19,25 +19,31 @@
     <div class="details">
         <jsp:include page="adminSideBar.jsp"/>
         <div class="detail__right">
-            <h2 class="details____title">결제 로그 관리</h2>
+            <h2 class="details____title"><img class="img-size-service" src="../../../resources/img/log.png">결제 로그 관리</h2>
             <div class="sub-container">
+                <div class="alarm-info">해당 서비스의 모든 결제로그를 조회할 수 있습니다.</div>
                 <div class="user-search">
-                    <div class="search-header">회원 검색</div>
-                    <select id="clusterSelect">
-                        <option value="all">승인여부</option>
-                        <c:forEach items="${clusterList}" var="clusterNum" varStatus="loop">
-                            <option value="${clusterNum}">${clusterNum}번 군집</option>
-                        </c:forEach>
-                    </select>
+                    <div class="search-header">카드 검색</div>
+                    <input type="text" id="memberSearchInput" placeholder="카드번호를 입력하세요">
+                    <button onclick="filterMembers()">검색</button>
                 </div>
-                <table class="data-table">
+<%--                <div class="user-search">--%>
+<%--                    <div class="search-header">회원 검색</div>--%>
+<%--                    <select id="clusterSelect">--%>
+<%--                        <option value="all">승인여부</option>--%>
+<%--                        <c:forEach items="${clusterList}" var="clusterNum" varStatus="loop">--%>
+<%--                            <option value="${clusterNum}">${clusterNum}번 군집</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
+                <table class="logdata-table">
                     <thead>
                     <tr>
                         <th>카드번호</th>
-                        <th>거래일자</th>
+                        <th>거래일시<img src="../../../resources/img/sort1.png" alt="Icon for 아이디" class="th-icon" id="sortedIcon"></th>
                         <th>가맹점주소</th>
                         <th>업종</th>
-                        <th>거래가격</th>
+                        <th>거래금액<img src="../../../resources/img/sort1.png" alt="Icon for 아이디" class="th-icon" id="sortIcon"></th>
                         <th>승인여부</th>
                         <th>이상탐지여부</th>
                     </tr>
@@ -46,7 +52,7 @@
                     <c:forEach items="${paymentLogList}" var="paymentdata">
                         <tr onclick="showAnomalyDetails(${paymentdata.paymentLogId}, '${paymentdata.cardId}');"
                             style="cursor: pointer;">
-                            <td>${paymentdata.cardId}</td>
+                            <td>${fn:substring(paymentdata.cardId, 0, 4)}-****-****-${fn:substring(paymentdata.cardId, 15,20)}</td>
                             <td>${fn:substring(paymentdata.paymentDate, 0, 16)}</td>
                             <c:set var="addressParts" value="${fn:split(paymentdata.address, ' ')}"/>
                             <c:choose>
@@ -58,16 +64,16 @@
                                 </c:otherwise>
                             </c:choose>
                             <td>${paymentdata.categorySmall}</td>
-                            <td><fmt:formatNumber value="${paymentdata.amount}" type="number" pattern="#,###"/>원</td>
+                            <td style="text-align: right"><fmt:formatNumber value="${paymentdata.amount}" type="number" pattern="#,###"/>원</td>
                             <c:choose>
                                 <c:when test="${paymentdata.paymentApprovalStatus == 'Y'}">
-                                    <td>정상승인</td>
+                                    <td style="text-align: center;">거래승인</td>
                                 </c:when>
                                 <c:otherwise>
-                                    <td>미승인</td>
+                                    <td style="text-align: center;">미승인</td>
                                 </c:otherwise>
                             </c:choose>
-                            <td>
+                            <td style="text-align: center;">
                                 <c:choose>
                                     <c:when test="${paymentdata.fdsDetectionStatus == 'Y'}">이상</c:when>
                                     <c:otherwise>정상</c:otherwise>
@@ -80,7 +86,7 @@
                 <div class="pagination">
                     <button id="prev">이전</button>
                     <div id="pageNumbers"></div>
-                    <button id="next">이후</button>
+                    <button id="next">다음</button>
                 </div>
             </div>
         </div>
@@ -126,7 +132,7 @@
 
     // 페이지를 업데이트하는 함수
     function updatePage() {
-        const tbody = document.querySelector(".data-table tbody");
+        const tbody = document.querySelector(".logdata-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 

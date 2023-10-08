@@ -30,13 +30,13 @@
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
-                        안심카드서비스
+                        안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상거래서비스
+                        이상소비서비스
                     </a>
                 </li>
                 <li class="menu__item">
@@ -66,21 +66,23 @@
             </ul>
         </div>
         <div class="detail__right">
-            <h2 class="details____title">회원 군집 분석</h2>
+            <h2 class="details____title"><img class="img-size-service" src="../../../resources/img/networking.png">하나카드 회원 군집분석</h2>
             <div class="sub-container">
                 <div class="cluster-header">
                     <h3>회원 소비특성별 군집</h3>
-                    <div class="table-div">
-                        <table>
+                    <div style="margin-bottom: 10px">3개월마다 회원의 거래내역으로 군집분석이 시행됩니다.</div>
+                    <div>현 군집은 2023-08-08 ~ 2023-10-08 까지의 거래내역으로 분석하였습니다. </div>
+                    <div>
+                        <table  class="table-div">
                             <thead>
                             <tr>
                                 <th>군집</th>
-                                <th>소속회원 수</th>
+                                <th>소속회원수</th>
                                 <th>주요거래업종</th>
                                 <th>비주요거래업종</th>
                                 <th>군집비율(%)</th>
-                                <th>군집특성</th>
-                                <%--                            <th>전체메일보내기</th>--%>
+                                <th>군집특성확인</th>
+                                <th>이메일발송</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -90,11 +92,16 @@
                                     <td>${cluster.clusterPeopleCount}명</td>
                                     <td>${cluster.categoryMaxName}</td>
                                     <td>${cluster.categoryMinName}</td>
-                                    <td>${cluster.clusterPeopleRatio*100}</td>
+                                    <td style="text-align: right">${(cluster.clusterPeopleRatio * 100).intValue()}%</td>
+
 
                                     <td>
                                         <button class="open-modal" data-clusterNum="${cluster.clusterNum}"
                                                 data-clusterPeopleCount="${cluster.clusterPeopleCount}">군집특성확인
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button>이메일전송
                                         </button>
                                     </td>
                                         <%--                                <td>--%>
@@ -108,11 +115,11 @@
                 </div>
                 <div class="cluster-chart-div">
                     <div class="pie-div">
-                        <h3>군집별 인구 분포</h3>
+                        <h3>군집별 인구 분포 시각화</h3>
                         <canvas id="pieChart"></canvas>
                     </div>
                     <div class="bar1-div">
-                        <h3>군집별 거래횟수 및 거래금액</h3>
+                        <h3>평균 한달 군집별 거래횟수 및 거래금액</h3>
                         <canvas id="combinedBarChart"></canvas>
                     </div>
                 </div>
@@ -146,7 +153,7 @@
             </div>
             <div class="many-chart-div">
                 <div class="chartname-header">
-                    <strong>주요소비처 거래횟수 및 거래금액</strong>
+                    <strong>주요소비처 한달 평균 거래횟수 및 거래금액</strong>
                 </div>
                 <div class="canvas-div">
                     <canvas id="manyChart"></canvas>
@@ -162,7 +169,7 @@
             </div>
             <div class="small-chart-div">
                 <div class="chartname-header">
-                    <strong>비주요소비처 거래횟수 및 거래금액</strong>
+                    <strong>비주요소비처 한달 평균 거래횟수 및 거래금액</strong>
                 </div>
                 <div class="canvas-div">
                     <canvas id="smallChart"></canvas>
@@ -254,7 +261,7 @@
                     yAxisID: 'y-axis-count'
                 },
                 {
-                    label: '평균 거래금액',
+                    label: '거래금액',
                     data: dataSum,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
                     yAxisID: 'y-axis-sum'

@@ -13,10 +13,17 @@
     /*margin-top: 20px;*/
 }
 
+.section-header{
+    font-size: 20px;
+    text-align: center;
+    margin: 20px;
+
+}
 
 .menu {
     list-style: none; /* Remove bullet points */
     padding: 0; /* Remove default padding */
+    margin: 0;
 }
 
 .menu__item {
@@ -59,6 +66,7 @@
     width: 100%;
     padding-left: 2%;
     padding-right: 2%;
+    padding-top: 1%;
 }
 * {
     box-sizing: border-box
@@ -137,10 +145,8 @@
 }
 
 .sub-container {
-
     display: flex;
     flex-direction: column;
-
 }
 
 .hello {
@@ -211,7 +217,7 @@
 .total-amount, .total-cnt{
     padding: 15px;
     margin-top: 10px;
-    margin-right: 10px;
+    margin-right: 25px;
     margin-bottom: 10px;
     align-items: center;
     background-color: #00857F;

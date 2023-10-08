@@ -18,7 +18,7 @@
 <div class="container">
     <div class="content-div">
         <div class="content-header">
-            <h2>안심카드 서비스</h2>
+            <h2>안심서비스 카드 선택</h2>
             <h3>선택한 카드의 거래 지역, 시간 , 업종 등 허용하거나 차단할 나만의 Rule을 설정할 수 있습니다.</h3>
         </div>
         <span class="sub-container-hearder">보유카드 목록</span><span class="fds-info-text hidden">사용기간이 6개월 이상 지난 카드만 신청 가능합니다.</span>

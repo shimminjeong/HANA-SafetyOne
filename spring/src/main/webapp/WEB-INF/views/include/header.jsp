@@ -12,30 +12,6 @@
             <img class="imgLogo" src="../../resources/img/logo.png" height="60">
             <a class="nameLogo" href="/">SafetyOne</a>
         </div>
-        <nav>
-            <div class="navbar">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="window.location.href='/safetyCard/'">안심카드서비스
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="/safetyCard/">서비스 등록 및 해제</a>
-                        <a href="/safetyCard/">서비스 이용현황</a>
-                        <a href="/safetyCard/safetyCardStop">서비스 일시정지</a>
-                    </div>
-                </div>
-                <a href="/fds/">이상소비알림서비스</a>
-                <div class="dropdown">
-                    <button class="dropbtn">고객센터
-                    </button>
-                    <div class="dropdown-content"  style="max-width: 130px;">
-                        <a href="/customCenter/lostCardSelect">카드 분실신고</a>
-                        <a href="#">카드 재발급</a>
-                    </div>
-                </div>
-                <a href="/mypage">마이페이지</a>
-            </div>
-<%--            <hr style="border:1px solid #00857F"/>--%>
-        </nav>
         <%
             String email = (String) session.getAttribute("email");
             String name = (String) session.getAttribute("name");
@@ -52,7 +28,34 @@
         <%}%>
         <%--        <a href="/join">회원가입</a>--%>
     </div>
-<%--                <hr style="border:1px solid #00857F"/>--%>
+    <nav>
+        <div class="navbar">
+            <%--            <div class="dropdown">--%>
+            <%--                <button class="dropbtn" onclick="window.location.href='/safetyCard/'">안심서비스--%>
+            <%--                </button>--%>
+            <%--                <div class="dropdown-content">--%>
+            <%--                    <a href="/safetyCard/">서비스 등록 및 해제</a>--%>
+            <%--                    <a href="/safetyCard/">서비스 이용현황</a>--%>
+            <%--                    <a href="/safetyCard/safetyCardStop">서비스 일시정지</a>--%>
+            <%--                </div>--%>
+            <%--                <div>--%>
+            <%--                </div>--%>
+            <a href="/safetyCard/">안심서비스</a>
+            <a href="/fds/">이상소비알림서비스</a>
+            <a href="/customCenter/lostCardSelect">고객센터</a>
+            <%--                <div class="dropdown">--%>
+            <%--                    <button class="dropbtn">고객센터--%>
+            <%--                    </button>--%>
+            <%--                    <div class="dropdown-content" style="max-width: 130px;">--%>
+            <%--                        <a href="/customCenter/lostCardSelect">카드 분실신고</a>--%>
+            <%--                        <a href="#">카드 재발급</a>--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+            <a href="/mypage">마이페이지</a>
+        </div>
+        <%--            <hr style="border:1px solid #00857F"/>--%>
+    </nav>
+    <hr style="border:1px solid #00857F; margin: 0px;"/>
 </header>
 
 </body>

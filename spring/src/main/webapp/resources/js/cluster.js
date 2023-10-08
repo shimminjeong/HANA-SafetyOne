@@ -189,7 +189,7 @@ function drawChart(chartData) {
                     yAxisID: 'y-axis-count'
                 },
                 {
-                    label: '평균 거래금액',
+                    label: '거래금액',
                     data: amountData,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
                     yAxisID: 'y-axis-sum'

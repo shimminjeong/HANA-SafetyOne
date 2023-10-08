@@ -29,13 +29,13 @@
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
-                        안심카드서비스
+                        안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상거래알림서비스
+                        이상소비알림서비스
                     </a>
                 </li>
                 <li class="menu__item">
@@ -65,7 +65,7 @@
             </ul>
         </div>
         <div class="detail__right">
-            <h2 class="details____title">안심카드서비스 추천 이메일 전송</h2>
+            <h2 class="details____title">안심서비스 추천 이메일 전송</h2>
             <div class="sub-container">
                 <div class="email-content">
                 <span class="search-cluster">
@@ -108,11 +108,12 @@
                             <c:forEach items="${memberList}" var="member" varStatus="status">
                                 <tr>
                                     <td style="text-align: center;">${member.clusterNum}</td>
-                                    <td>${member.name}</td>
+                                    <td>${fn:substring(member.name, 0, 1)}*${fn:substring(member.name, 2, 3)}</td>
                                     <td>${member.email}</td>
-                                    <td style="text-align: center;">
-                                        <c:if test="${member.gender == 'F'}">여성</c:if>
-                                        <c:if test="${member.gender == 'M'}">남성</c:if>
+                                    <td>
+<%--                                        <c:if test="${member.gender == 'F'}">여성</c:if>--%>
+<%--                                        <c:if test="${member.gender == 'M'}">남성</c:if>--%>
+                                ${member.gender}
                                     </td>
                                     <td style="text-align: center;">${member.age}세</td>
                                     <td>${member.phone}</td>
@@ -125,7 +126,7 @@
                         <div class="pagination">
                             <button id="prev">이전</button>
                             <div id="pageNumbers"></div>
-                            <button id="next">이후</button>
+                            <button id="next">다음</button>
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,7 @@
     padding: 10px 12px;
     border: 1px solid #ddd; /* 경계선 */
     background-color: white;
+    font-size: 14px;
 }
 
 .lostCard-table th {
@@ -58,4 +59,47 @@
     height: 35px;  /* 원하는 높이로 설정 */
     padding: 5px;  /* 패딩 추가로 좀 더 편안한 느낌을 주기 위함 */
     font-size: 16px;  /* 글자 크기 조절 */
+}
+
+.th-icon { /* gives some space between the text and the image */
+    vertical-align: middle;
+    margin-left: 5px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.img-size-service{
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+}
+
+.lostCard-table th {
+    text-align: center;
+}
+
+.lostCard-table table th:nth-child(1),
+.lostCard-table table td:nth-child(1) {
+    width: 170px; /* 첫 번째 열의 너비 설정 */
+}
+
+.lostCard-table table th:nth-child(2),
+.lostCard-table table td:nth-child(2) {
+    width: 120px; /* 두 번째 열의 너비 설정 */
+}
+
+.lostCard-table tablee th:nth-child(3),
+.lostCard-table tablee td:nth-child(3) {
+    width: 100px; /* 세 번째 열의 너비 설정 */
+}
+
+.lostCard-table table th:nth-child(4),
+.lostCard-table table td:nth-child(4) {
+    width: 120px; /* 네 번째 열의 너비 설정 */
+}
+
+.lostCard-table table th:nth-child(5),
+.lostCard-table table td:nth-child(5) {
+    width: 80px; /* 다섯 번째 열의 너비 설정 */
 }

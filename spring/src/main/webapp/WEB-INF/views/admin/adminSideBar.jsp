@@ -10,13 +10,13 @@
     <li class="menu__item">
       <a href="/admin/safety" class="menu__link">
         <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
-        안심카드서비스
+        안심서비스
       </a>
     </li>
     <li class="menu__item">
       <a href="/admin/fds" class="menu__link">
         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-        이상거래서비스
+        이상소비서비스
       </a>
     </li>
     <li class="menu__item">

@@ -14,7 +14,7 @@
 
 .sub-container-hearder {
     font-size: 18px;
-    margin-right: 274px;
+    margin-right: 378px;
 }
 
 .sub-hr {
@@ -49,7 +49,7 @@
     align-items: center;
     height: 70px;
     padding-left: 2%;
-    font-size: 16px;
+    font-size: 17px;
     width: 100%;
 }
 
@@ -287,7 +287,7 @@
 }
 
 .card-info-cardid {
-    margin-right: 81px;
+    margin-right: 83px;
 }
 
 .hidden {
@@ -325,7 +325,7 @@
     width: 130px;
 }
 
-.info-content{
+.info-content {
     width: 100%;
 }
 
@@ -336,11 +336,7 @@
 
 .region-div {
     display: flex;
-}
 
-.rule-div {
-    /*background-color:#ffe6e6;*/
-    width: 100%;
 }
 
 .region-no-div {
@@ -349,7 +345,7 @@
     font-size: 15px;
 }
 
-.region-no{
+.region-no {
     width: 100%;
     /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
@@ -376,7 +372,7 @@
     font-size: 16px;
 }
 
-.rule-div{
+.rule-div {
     width: 98%;
     /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
@@ -400,7 +396,7 @@ table {
 
 th, td {
     border-bottom: 1px solid #ddd; /* 가로선 */
-    padding: 8px 16px;
+    padding: 8px 0px;
     text-align: left;
 }
 
@@ -423,47 +419,87 @@ tbody tr:hover {
     background-color: #f5f5f5; /* 마우스 오버 시 행의 배경색 */
 }
 
-.checkbox-button {
-    display: inline-block;
-    background-color: #ffe6e6;
-    border: 1px solid #ffcccc;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.checkbox-container {
+    display: inline-flex; /* flex를 사용하여 체크박스와 라벨을 수평으로 배열 */
+    align-items: center; /* 라벨과 체크박스를 수직 중앙에 위치시킴 */
+    background-color: #ffe6e6; /* 배경색을 빨간색으로 설정 */
+    padding: 8px 12px;
+    border-radius: 5px; /* 둥근 모서리 스타일 추가 */
+    margin: 5px; /* 주변 요소와의 간격 설정 */
+    cursor: pointer; /* 마우스 오버 시 포인터 아이콘으로 변경 */
     width: 127px;
+    border: 1px solid #ffcccc;
 }
 
-.checkbox-button:hover {
-    background-color: #ffd9d9;
+.checkbox-container input[type="checkbox"] {
+    display: none;  /* 원래의 체크박스를 숨깁니다 */
 }
 
-
-/* 체크박스 스타일 조정 */
-input[type="checkbox"] {
-    appearance: none;
-    background-color: #fff;
+.checkbox-design {
+    width: 17px;
+    height: 17px;
+    background-color: #f4f4f4;  /* 체크박스의 기본 배경색 */
     border: 1px solid #ccc;
-    border-radius: 3px;
-    display: inline-block;
-    position: relative;
-    width: 18px; /* 체크박스 크기 조정 */
-    height: 18px; /* 체크박스 크기 조정 */
-    vertical-align: middle;
+    margin-right: 10px;
     cursor: pointer;
-    margin-right: 5px;
 }
 
-/* 체크박스 선택 시 초록색 체크 표시 */
-input[type="checkbox"]:checked::before {
-    content: "✓"; /* 체크 표시 */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #00857F; /* 체크 표시 색상: 초록색 */
-    font-size: 18px; /* 체크 표시 크기 */
+.checkbox-container:hover .checkbox-design {
+    background-color: #ddd;  /* 호버 시의 체크박스 배경색 */
+}
+
+/* 체크박스 선택 시의 스타일 */
+.checkbox-container input[type="checkbox"]:checked + .checkbox-design {
+    background-color: #00857F;  /* 체크박스 배경색을 초록색으로 변경 */
+}
+
+
+/* 테이블 체크박스 스타일 */
+table td input[type="checkbox"] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    margin-right: 10px;  /* 체크박스 오른쪽에 여백 추가 */
+    opacity: 0;  /* 체크박스를 완전히 투명하게 만듭니다 */
+    height: 20px;
+    width: 20px;
+}
+
+/* 테이블 체크박스 옆에 추가할 커스텀 디자인 라벨 */
+table td input[type="checkbox"] + .checkbox-design {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #f4f4f4;  /* 체크박스의 기본 배경색 */
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+th input[type="checkbox"] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    margin-right: 10px;  /* 체크박스 오른쪽에 여백 추가 */
+    opacity: 0;  /* 체크박스를 완전히 투명하게 만듭니다 */
+    height: 20px;
+    width: 20px;
+}
+
+/* 테이블 체크박스 옆에 추가할 커스텀 디자인 라벨 */
+th input[type="checkbox"] + .checkbox-design {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #f4f4f4;  /* 체크박스의 기본 배경색 */
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* 테이블 내 체크된 체크박스의 스타일 */
+table td input[type="checkbox"]:checked + .checkbox-design {
+    background-color: #00857F;  /* 체크된 상태의 체크박스 배경색을 초록색으로 변경 */
 }
 
 
@@ -472,10 +508,11 @@ input[type="checkbox"]:checked::before {
     background-color: #eafaf3;
     border: 1px solid #d5e5d8; /* 선택 사항: 경계선을 추가하여 박스 느낌을 강화합니다 */
     padding: 10px 15px; /* 패딩을 조정하여 원하는대로 스타일을 적용합니다 */
-    margin :5px;
+    margin: 5px;
     border-radius: 5px; /* 둥근 모서리 */
     display: inline-block; /* 인라인 요소로 보이되, 박스 스타일을 적용하기 위해 */
     width: 80px;
 }
+
 /* 체크박스 선택 시 .checkbox-button 배경색 및 글자색 변경 */
 

@@ -5,33 +5,22 @@
 
 .sub-container-hearder{
     font-size: 30px;
-    margin-bottom: 4%;
+    margin: 30px auto;
+
 }
 
 .sub-container-content{
     display: flex;
-    flex-direction: row;
-    width: 99%;
+    flex-direction: column;
+    width: 100%;
     height: 100%;
 }
 
 .div-box2{
     display: flex;
-    flex-direction: column;
-    width: 47%;
-    margin-right: 6%;
-}
-
-.div-box3{
-    display: flex;
-    flex-direction: column;
-    width: 47%;
-}
-
-.div-box1{
-    width: 100%;
-    display: flex;
     flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .div-box-sub{
@@ -39,9 +28,9 @@
     transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
     background-color: white; /* 연한 배경색 */
     padding: 15px;
-    width: 100%;
-    height: 280px;
+    width: 49%;
     margin-bottom: 20px;
+    border-radius: 7px;
 }
 
 .div-box-sub-2{
@@ -126,4 +115,22 @@
 .div-box-header{
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.div-header{
+    font-size: 20px;
+    margin-top: 15px;
+}
+.sub-container-content hr{
+    width: 100%;
+}
+
+.chart-header{
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.fir{
+    margin-top: 125px;
+    clear: both;
 }

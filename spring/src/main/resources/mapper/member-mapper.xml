@@ -116,6 +116,7 @@
         SELECT *
         FROM CARDHISTORY
         WHERE cardId = #{cardId}
+          and cardhisdate >= TO_DATE('2023-06-04', 'YYYY-MM-DD')
         ORDER BY CARDHISDATE DESC
     </select>
 
@@ -258,7 +259,7 @@
     </select>
 
 
-<!--    지날달대비 이번달 지출액이 큰 소비카테고리-->
+    <!--    지날달대비 이번달 지출액이 큰 소비카테고리-->
     <select id="selectDiffCategoryOfMonthByCardId" parameterType="com.kopo.SelfFDS.member.model.dto.CardHistory">
         SELECT A.CATEGORYSMALL as  categorySmall,
                B.latestamount - A.lastamount as diffAmount,
@@ -269,9 +270,9 @@
               FROM cardhistory
               WHERE CARDID = #{cardId}
                 AND cardhisdate BETWEEN
-                  (SELECT MAX(cardhisdate) - 60 FROM cardhistory WHERE CARDID = #{cardId})
+                      (SELECT MAX(cardhisdate) - 60 FROM cardhistory WHERE CARDID = #{cardId})
                   AND
-                  (SELECT MAX(cardhisdate) - 30 FROM cardhistory WHERE CARDID = #{cardId})
+                      (SELECT MAX(cardhisdate) - 30 FROM cardhistory WHERE CARDID = #{cardId})
               GROUP BY CATEGORYSMALL) A
                  LEFT JOIN
              (SELECT CATEGORYSMALL,
@@ -280,9 +281,9 @@
               FROM cardhistory
               WHERE CARDID = #{cardId}
                 AND cardhisdate BETWEEN
-                  (SELECT MAX(cardhisdate) - 30 FROM cardhistory WHERE CARDID = #{cardId})
+                      (SELECT MAX(cardhisdate) - 30 FROM cardhistory WHERE CARDID = #{cardId})
                   AND
-                  (SELECT MAX(cardhisdate) FROM cardhistory WHERE CARDID = #{cardId})
+                      (SELECT MAX(cardhisdate) FROM cardhistory WHERE CARDID = #{cardId})
               GROUP BY CATEGORYSMALL) B
              ON A.CATEGORYSMALL = B.CATEGORYSMALL
     </select>
@@ -369,4 +370,3 @@
 
 
 </mapper>
-

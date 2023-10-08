@@ -27,13 +27,13 @@
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
-                        안심카드서비스
+                        안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상거래서비스
+                        이상소비서비스
                     </a>
                 </li>
                 <li class="menu__item">
@@ -63,7 +63,7 @@
             </ul>
         </div>
         <div class="detail__right">
-            <h2 class="details____title">카드분실내역관리</h2>
+            <h2 class="details____title"><img class="img-size-service" src="../../../resources/img/lostcard.png">분실카드관리</h2>
             <div class="sub-container">
                 <div class="lost-info">
                     <div class="lostReason-select-div">
@@ -81,7 +81,7 @@
                             <thead>
                             <tr>
                                 <th>카드번호</th>
-                                <th>분실일자</th>
+                                <th>분실일자<img src="../../../resources/img/sort1.png" alt="Icon for 아이디" class="th-icon" id="sortIcon"></th>
                                 <th>분실장소</th>
                                 <th>분실사유</th>
                                 <th>재발급여부</th>
@@ -90,7 +90,7 @@
                             <tbody>
                             <c:forEach items="${lostCardList}" var="lostCard">
                                 <tr>
-                                    <td>${lostCard.cardId}</td>
+                                    <td>${fn:substring(lostCard.cardId, 0, 4)}-****-****-${fn:substring(lostCard.cardId, 15,20)}</td>
                                     <td>${fn:substring(lostCard.lostDate, 0, 10)}</td>
                                     <td>${lostCard.lostPlace}</td>
                                     <td>${lostCard.lostReason}</td>

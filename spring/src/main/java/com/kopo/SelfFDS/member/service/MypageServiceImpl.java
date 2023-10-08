@@ -60,6 +60,10 @@ public class MypageServiceImpl implements MyPageService {
         return mypageMapper.selectTopCategoryTotalAmountByEmail(email);
     }
 
+    public List<CardHistory> selectTopCategoryCountByEmail(String email) {
+        return mypageMapper.selectTopCategoryCountByEmail(email);
+    }
+
     @Override
     public List<CardHistory> selectTopCategoryDifferenceByEmail(String email) {
         return mypageMapper.selectTopCategoryDifferenceByEmail(email);
@@ -88,6 +92,11 @@ public class MypageServiceImpl implements MyPageService {
     @Override
     public List<String> selectAllSmallCategory() {
         return mypageMapper.selectAllSmallCategory();
+    }
+
+    @Override
+    public PaymentLog selectByPaymentLogId(int paymentLogId) {
+        return mypageMapper.selectByPaymentLogId(paymentLogId);
     }
 
     @Override

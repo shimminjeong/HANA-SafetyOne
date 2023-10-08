@@ -10,7 +10,6 @@
             String name = (String) session.getAttribute("name");
             if (email != null) {%>
         <span class="welcomeMessage">
-            <img src="../../../resources/img/admin.png">
             <span><%= name %> 관리자님 환영합니다</span>
             <a href="/logout"><button id="logoutBtn">로그아웃</button></a>
         </span>

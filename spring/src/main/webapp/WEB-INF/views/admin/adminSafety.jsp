@@ -23,9 +23,9 @@
     <div class="details">
         <jsp:include page="adminSideBar.jsp"/>
         <div class="detail__right">
-            <h2 class="details____title">안심카드 서비스 관리</h2>
+            <h2 class="details____title"><img class="img-size" src="../../../resources/img/credit-card.png">안심서비스 관리</h2>
             <div class="box-container">
-                <div class="info-box" onclick="window.location.href='/admin/safety'">
+                <div style="background-color: #eee;" class="info-box1" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div><fmt:formatNumber value="${safetyUserCount}"
@@ -33,7 +33,7 @@
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/safety'">
+                <div style="background-color: #eee;" class="info-box" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
                         <div><fmt:formatNumber value="${safetyCardCount}"
@@ -42,7 +42,7 @@
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/safetyData'">
+                <div class="info-box1" onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
                         <div><fmt:formatNumber value="${safetyDataCount}"
@@ -53,14 +53,24 @@
             </div>
 
             <div class="table-container">
-                <h3>서비스 사용자 관리</h3>
-                <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
+                <h3>서비스 이용 사용자 및 카드 관리</h3>
+                <div class="alarm-info">※ 회원의 이름을 클릭하면 자세한 회원정보를 확인할 수 있습니다.</div>
+                <div class="alarm-info">※ 카드번호를 클릭하면 해당 카드의 안심서비스 이용내역을 확인할 수 있습니다.</div>
+                <div class="user-search">
+                    <div class="search-header">회원 검색</div>
+                    <input type="text" id="memberSearchInput" placeholder="회원 이름을 입력하세요">
+                    <button onclick="filterMembers()">검색</button>
+                </div>
                 <table class="data-table">
                     <thead>
                     <tr>
-                        <th>이메일</th>
+                        <th >이메일</th>
+                        <th>이름</th>
                         <th>카드번호</th>
-                        <th>서비스 시작일시</th>
+                        <th>
+                            서비스 시작일시
+                            <img src="../../../resources/img/sort1.png" alt="Icon for 아이디" class="th-icon" id="sortIcon">
+                        </th>
                         <th>서비스 상태</th>
                         <!-- 필요한 다른 컬럼들도 여기에 추가 -->
                     </tr>
@@ -69,8 +79,9 @@
                     <tbody>
                     <c:forEach items="${safetyMemberList}" var="safetymember">
                         <tr>
+                            <td>${safetymember.member.email}</td>
                             <td onclick="showMemberDetails('${safetymember.member.email}','${safetymember.cardId}','${safetymember.member.name}','${safetymember.member.address}','${safetymember.member.phone}','${safetymember.member.age}','${safetymember.member.gender}')"
-                                style="cursor: pointer;">${safetymember.member.email}</td>
+                                style="cursor: pointer;">${fn:substring(safetymember.member.name, 0, 1)}*${fn:substring(safetymember.member.name, 2, 3)}</td>
                             <td onclick="showSafetyDetails('${safetymember.cardId}')" style="cursor: pointer;">${fn:substring(safetymember.cardId, 0, 4)}-****-****-${fn:substring(safetymember.cardId, 15,20)}</td>
                             <td>${fn:substring(safetymember.safetyStartDate, 0, 16)}</td>
                                 <%--                        <td>${fn:split(fdsmember.serRegDate, ' ')[0]}</td>--%>
@@ -86,7 +97,7 @@
                 <div class="pagination">
                     <button id="prev">이전</button>
                     <div id="pageNumbers"></div>
-                    <button id="next">이후</button>
+                    <button id="next">다음</button>
                 </div>
             </div>
 
@@ -126,7 +137,7 @@
                 <td><!-- 성별 값 --></td>
             </tr>
             <tr>
-                <td>차단된 거래 횟수</td>
+                <td>미승인 거래 횟수</td>
                 <td></td>
             </tr>
 <%--            <tr>--%>
@@ -162,6 +173,45 @@
     </div>
 </div>
 <script>
+
+    $(document).ready(function () {
+        var ascending = false;
+
+        // 이미지 클릭 이벤트 핸들러
+        $("#sortIcon").click(function () {
+            // 테이블과 이미지 아이콘을 포함한 컬럼을 선택
+            var $table = $(".data-table");
+            var $rows = $table.find("tbody tr").toArray();
+
+            // 오름차순 또는 내림차순으로 정렬
+            if (ascending) {
+                $rows.sort(function (a, b) {
+                    var keyA = $(a).find("td:eq(2)").text();
+                    var keyB = $(b).find("td:eq(2)").text();
+                    return keyA.localeCompare(keyB);
+                });
+                ascending = false;
+            } else {
+                $rows.sort(function (a, b) {
+                    var keyA = $(a).find("td:eq(2)").text();
+                    var keyB = $(b).find("td:eq(2)").text();
+                    return keyB.localeCompare(keyA);
+                });
+                ascending = true;
+            }
+
+            // 행 재배열 및 테이블 업데이트
+            $table.find("tbody").empty().append($rows);
+            updatePage();
+
+            // 이미지 아이콘 업데이트
+            if (ascending) {
+                $("#sortIcon").attr("src", "../../../resources/img/sort1.png");
+            } else {
+                $("#sortIcon").attr("src", "../../../resources/img/sort2.png");
+            }
+        });
+    });
 
     function showSafetyDetails(cardId) {
         $.ajax({
