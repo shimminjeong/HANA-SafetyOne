@@ -27,14 +27,14 @@
                 </li>
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
-                        <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
+                        <div class="menu__icon"><img src="../../../resources/img/secure-payment.png"></div>
                         안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상소비서비스
+                        이상소비알림서비스
                     </a>
                 </li>
                 <li class="menu__item">
@@ -140,7 +140,7 @@
                         <div class="safetyone-info-content-box1">
 
                             <div class="safetyone-info-content-header" style="margin-bottom: 14px;">
-                                <img src="../../../resources/img/credit-card.png" style="width: 42px; height: 42px;">안심카드 서비스
+                                <img src="../../../resources/img/secure-payment.png" style="width: 42px; height: 42px;">안심카드 서비스
                             </div>
                             <div class="safetyone-info-content-div1">금일 차단 건수</div>
                             <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>

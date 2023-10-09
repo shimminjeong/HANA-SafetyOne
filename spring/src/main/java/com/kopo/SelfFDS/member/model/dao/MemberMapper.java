@@ -98,5 +98,5 @@ public interface MemberMapper {
 
     void updateSafetyStatus(@Param("safetyIdSeq") int safetyIdSeq, @Param("status") String status);
 
-
+    String selectBigCategoryOfSmallCategory(String categorySmall);
 }

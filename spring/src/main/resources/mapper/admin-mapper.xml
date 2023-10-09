@@ -144,7 +144,7 @@
 
 
 
-    <!--    이상소비서비스사용자관리-->
+    <!--    이상소비알림서비스사용자관리-->
     <select id="selectFdsAndMember" resultMap="FdsMemberMap">
         SELECT m.email         as email,
                m.name          as name,

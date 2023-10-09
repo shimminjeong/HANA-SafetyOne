@@ -19,7 +19,7 @@
     <div class="content-div">
         <div class="content-header">
             <h2>안심서비스 카드 선택</h2>
-            <h3>선택한 카드의 거래 지역, 시간 , 업종 등 허용하거나 차단할 나만의 Rule을 설정할 수 있습니다.</h3>
+<%--            <h3>선택한 카드의 거래 지역, 시간 , 업종 등 허용하거나 차단할 나만의 Rule을 설정할 수 있습니다.</h3>--%>
         </div>
         <span class="sub-container-hearder">보유카드 목록</span><span class="fds-info-text hidden">사용기간이 6개월 이상 지난 카드만 신청 가능합니다.</span>
         <hr class="sub-hr">
@@ -51,14 +51,14 @@
                     <img class="card-img" src="../../../resources/img/${card.cardName}.png">
                     <div class="card-info-text">
                         <div class="card-info-text1">
-                            <div class="card-info-cardname">${card.cardName}</div>
+                            <div class="safetycard-info-cardname">${card.cardName}</div>
 
                             <div class="card-info-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[본인]
                             </div>
                         </div>
                         <div class="card-info-text2">
-                            <span class="card-info-cardid">${card.cardId}</span>
-                            <span class="card-info-regDate">[유효 기간] ${fn:substring(card.cardRegDate, 0,10)}&nbsp;~&nbsp;${fn:substring(card.validDate, 0, 10)}  </span>
+                            <span class="card-info-cardid">${fn:substring(card.cardId, 0, 4)}-****-****-${fn:substring(card.cardId, 15,20)}</span>
+                            <span class="card-info-regDate">[유효 기간] ${fn:substring(card.cardRegDate, 0,10)}&nbsp;~&nbsp;${fn:substring(card.validDate, 0, 10)}</span>
                         </div>
                     </div>
                     <c:if test="${card.selffdsSerStatus eq 'Y'}">
@@ -110,7 +110,7 @@
     //                     console.log(splitInfo[2])
     //
     //                     cardInfoList.empty();
-    //                     cardInfoList.append("<h3>안심카드 맞춤설정 이용중입니다.</h3>");
+    //                     cardInfoList.append("<h3>안심서비스 이용현황</h3>");
     //                     var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스이용기간 </div><div class='info-content'>" + data[0].safetyEndDate.split(" ")[0] + " ~ " + data[0].safetyEndDate.split(" ")[0] + "</div></div>" +
     //                         "<div class='info-list'><div class='info-header'>허용된 지역</div><div class='info-content'>" + splitInfo[0] + "</div></div>";
     //

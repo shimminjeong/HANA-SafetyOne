@@ -116,11 +116,33 @@ public class SafetyCardServiceController {
         }
         categoryAllList.removeAll(categorySmallList);
 
+
+        List<String> smallCategoryList = new ArrayList<>();
+
+        for (int i = 0; i < 3 && i < categoryAllList.size(); i++) {
+            String categorySmall = categoryAllList.get(i);
+            smallCategoryList.add(categorySmall);
+        }
+
+
+        List<String> bigCategoryList = new ArrayList<>();
+
+        for (int i = 0; i < 3 && i < categoryAllList.size(); i++) {
+            String categorySmall = categoryAllList.get(i);
+            String result = memberService.selectBigCategoryOfSmallCategory(categorySmall);
+            System.out.println("result" + result);
+            bigCategoryList.add(result);
+        }
+
+
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("categoryTopList", categoryTopList);
         mav.addObject("categoryMap", categoryMap);
         mav.addObject("categoryBigList", bigCategory);
         mav.addObject("categoryAllList", categoryAllList);
+        mav.addObject("bigCategoryList", bigCategoryList);
+        mav.addObject("smallCategoryList", smallCategoryList);
         System.out.println("categoryTopList"+categoryTopList);
 
 
@@ -190,7 +212,7 @@ public class SafetyCardServiceController {
         safetyCard.setStatus("N");
         System.out.println("safetyCard" + safetyCard);
         memberService.updateStopDate(safetyCard);
-        return "일시정지업데이트";
+        return "일시해제업데이트";
     }
 
 
@@ -381,6 +403,7 @@ public class SafetyCardServiceController {
             String regionName = safetyCard.getRegionName();
             regionAllList.remove(regionName);
         }
+        System.out.println("safetyRuleList"+safetyRuleList);
 
         ModelAndView mav=new ModelAndView();
         mav.addObject("cardInfo",cardInfo);

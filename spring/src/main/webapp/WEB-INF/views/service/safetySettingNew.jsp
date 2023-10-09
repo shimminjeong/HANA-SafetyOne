@@ -21,15 +21,16 @@
 <div class="setting-container">
     <div class="content-div">
         <div class="content-header">
-            <h2>안심 서비스 설정</h2>
+            <h2>안심서비스 설정</h2>
             <h3>거래를 허용하거나 차단할 항목을 설정해주세요</h3>
         </div>
         <%--        <div style="margin-bottom: 10px; color: red;">※ 거래 지정하여 금융사고를 예방하는 서비스입니다.</div>--%>
-
         <div class="lostcard-list">
             <div class="card-list-info">
                 <img class="card-img" src="../../../resources/img/<%=session.getAttribute("cardName")%>.png">
-                <div class="card-list-info-cardid"><%=session.getAttribute("cardId")%>
+                <div class="card-list-info-cardid">${fn:substring(sessionScope.cardId, 0, 4)}-****-****-${fn:substring(sessionScope.cardId, 15,19)}
+
+
                 </div>
                 <div class="card-list-info-name">본인 | &nbsp;
                 </div>
@@ -66,10 +67,17 @@
                 </div>
             </div>
 
-
-            <div class="setting-region-no-info hidden"><img src="../../../resources/img/right-arrow.png"><span style="color:red;">차단</span>하고 싶은 시간이 있다면 선택해주세요</div>
+            <c:if test="${not empty regions && empty categorySmalls && empty times}">
+            <div class="setting-region-no-info"><img src="../../../resources/img/right-arrow.png">허용지역 내에서&nbsp;<span style="color:red;">차단</span>할 시간을 선택하세요.</div>
+            </c:if>
+            <c:if test="${empty regions && empty categorySmalls && empty times}">
+                <div class="setting-region-no-info hidden"><img src="../../../resources/img/right-arrow.png"><span style="color:red;">차단</span>할 시간을 선택하세요.</div>
+            </c:if>
             <div class="setting-buttons">
-                <%--                <span class="img-div"><img src="../../../resources/img/steps_2192581%202.png"></span>--%>
+                <%--                <c:if test="${not empty regions && empty categorySmalls && empty times}">--%>
+                <%--                    <div id="result-info-div" class="setting-result-info"><img src="../../../resources/img/right-arrow.png">허용지역 내에서<span style="color: red">차단</span>할 시간을 선택해주세요.--%>
+                <%--                    </div>--%>
+
                 <div class="step-div">STEP2</div>
                 <div class="select-header"><span style="color:red;">차단</span>시간</div>
                 <div class="select-content">
@@ -83,7 +91,7 @@
                             </c:forEach>
                         </c:if>
                         <c:if test="${empty times}">
-                            <button class="select-no" id="time-no" onclick="noSelect(this)">선택안함</button>
+                            <button class="select-no" id="time-no" onclick="noSelect(this); nextcategoryStep();">선택안함</button>
                             <button class="select-thing" id="select-time" onclick="redirectToTimePage()">시간선택</button>
                         </c:if>
                     </div>
@@ -97,10 +105,10 @@
                 </script>
                 <div class="setting-result-time">
                     <c:if test="${not empty regions}">
-                        <script>
-                            document.getElementById('select-region').style.background = "#404b57";
-                            document.getElementById('select-region').style.color = "white";
-                        </script>
+<%--                        <script>--%>
+<%--                            document.getElementById('select-region').style.background = "#404b57";--%>
+<%--                            document.getElementById('select-region').style.color = "white";--%>
+<%--                        </script>--%>
                         <c:forEach var="region" items="${regions}" varStatus="loop">
                             <span><strong>${region}</strong></span>
                             <c:if test="${loop.index+1 < fn:length(regions)}">
@@ -124,10 +132,11 @@
                 </div>
             </c:if>
             <c:if test="${not empty times && empty categorySmalls}">
-                <div id="category-info-div" class="setting-category-info"><img src="../../../resources/img/right-arrow.png">나만의 Rule에&nbsp; <span style="color:red;">차단</span>하고 싶은 업종이 있다면 추가하세요</div>
+                <div id="category-info-div" class="setting-category-info"><img src="../../../resources/img/right-arrow.png">차단 Rule에서&nbsp;<span style="color:red;">차단</span>할 업종을 선택하세요</div>
             </c:if>
+            <div class="setting-categoryselect-info hidden"><img src="../../../resources/img/right-arrow.png"><span style="color: green">허용</span>지역 내에서&nbsp;<span style="color:red;">차단</span>할 업종을 선택하세요</div>
             <div class="setting-buttons">
-                <%--                <span class="img-div"><img src="../../../resources/img/steps_2192581%203.png"></span>--%>
+
                 <div class="step-div">STEP3</div>
                 <div class="select-header"><span style="color:red;">차단</span>업종</div>
                 <div class="select-content">
@@ -149,98 +158,113 @@
 
                 </div>
             </div>
-            <c:if test="${not empty regions}">
-                <script>
-                    document.getElementById('select-region').style.background = "#404b57";
-                    document.getElementById('select-region').style.color = "white";
-                </script>
-                <div class="setting-result-ok">
-                    <c:forEach var="region" items="${regions}" varStatus="loop">
-                        <span><strong>${region}</strong></span>
-                        <c:if test="${loop.index+1 < fn:length(regions)}">
-                            <span>,</span>
-                        </c:if>
-                    </c:forEach> 지역의 거래만 <strong><span style="color: green">허용</span></strong>합니다.
-                </div>
 
-            </c:if>
-            <div class="setting-result hidden"></div>
-            <c:if test="${not empty categorySmalls}">
-                <script>document.getElementById('select-category').style.background = "#404b57";</script>
-                <div class="setting-result-category">
-                    <script>
-                        document.getElementById('select-category').style.color = "white";
-                    </script>
-                    <c:choose>
-                        <c:when test="${not empty regions && not empty times}">
-                            <script>
-                                document.getElementById('select-region').style.background = "#404b57";
-                                document.getElementById('select-region').style.color = "white";
-                                document.getElementById('select-time').style.background = "#404b57";
-                                document.getElementById('select-time').style.color = "white";
-                            </script>
-                            <c:forEach var="region" items="${regions}" varStatus="loop">
-                                <span><strong>${region}</strong></span>
-                                <c:if test="${loop.index+1 < fn:length(regions)}">
-                                    <span><strong>,</strong></span>
-                                </c:if>
-                            </c:forEach> 에서
-                            <c:forEach var="time" items="${times}" varStatus="loop">
-                                <span><strong>${time}</strong></span>
-                                <c:if test="${loop.index+1 < fn:length(times)}">
-                                    <span><strong>,</strong></span>
-                                </c:if>
-                            </c:forEach> 까지
-                        </c:when>
-                        <c:when test="${empty regions && not empty times}">
-                            <script>
-                                document.getElementById('region-no').style.background = "#404b57";
-                                document.getElementById('region-no').style.color = "white";
-                                document.getElementById('select-time').style.background = "#404b57";
-                                document.getElementById('select-time').style.color = "white";
-                            </script>
-                            <strong>모든 지역</strong>에서
-                            <c:forEach var="time" items="${times}" varStatus="loop">
-                                <span><strong>${time}</strong></span>
-                                <c:if test="${loop.index+1 < fn:length(times)}">
-                                    <span><strong>,</strong></span>
-                                </c:if>
-                            </c:forEach> 까지
-                        </c:when>
-                        <c:when test="${not empty regions && empty times}">
-                            <script>
-                                document.getElementById('select-region').style.background = "#404b57";
-                                document.getElementById('select-region').style.color = "white";
-                                document.getElementById('time-no').style.background = "#404b57";
-                                document.getElementById('time-no').style.color = "white";
-                            </script>
-                            <c:forEach var="region" items="${regions}" varStatus="loop">
-                                <span><strong>${region}</strong></span>
-                                <c:if test="${loop.index+1 < fn:length(regions)}">
-                                    <span><strong>,</strong></span>
-                                </c:if>
-                            </c:forEach> 에서
-                        </c:when>
-                        <c:otherwise>
-                            <script>
-                                document.getElementById('region-no').style.background = "#404b57";
-                                document.getElementById('region-no').style.color = "white";
-                                document.getElementById('time-no').style.background = "#404b57";
-                                document.getElementById('time-no').style.color = "white";
-                            </script>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:forEach var="categorySmall" items="${categorySmalls}" varStatus="loop">
-                        <span><strong>${categorySmall}</strong></span>
-                        <c:if test="${loop.index+1 < fn:length(categorySmalls)}">
-                            <span><strong>,</strong></span>
-                        </c:if>
-                    </c:forEach>업종의 거래를 &nbsp;<strong><span style="color:red;">차단</span></strong>하였습니다.
-                </div>
-            </c:if>
-        </div>
+
     </div>
-    <div class="btn-div">
+    <div class="myRule-confirm"><strong>안심서비스 설정내역</strong></div>
+    <hr>
+    <c:if test="${not empty regions}">
+        <%--                <script>--%>
+        <%--                    document.getElementById('select-region').style.background = "#404b57";--%>
+        <%--                    document.getElementById('select-region').style.color = "white";--%>
+        <%--                </script>--%>
+        <div class="setting-result-ok">
+            <c:forEach var="region" items="${regions}" varStatus="loop">
+                <span><strong>${region}</strong></span>
+                <c:if test="${loop.index+1 < fn:length(regions)}">
+                    <span>,</span>
+                </c:if>
+            </c:forEach> 지역의 거래만 <strong><span style="color: green">허용</span></strong>합니다.
+        </div>
+
+    </c:if>
+        <div class="setting-result hidden"></div>
+        <c:if test="${not empty categorySmalls}">
+            <%--                <script>document.getElementById('select-category').style.background = "#404b57"</script>--%>
+            <div class="setting-result-category">
+                    <%--                    <script>--%>
+                    <%--                        document.getElementById('select-category').style.color = "white";--%>
+                    <%--                    </script>--%>
+                <c:choose>
+                    <c:when test="${not empty regions && not empty times}">
+                        <%--                            <script>--%>
+                        <%--                                document.getElementById('select-region').style.background = "#404b57";--%>
+                        <%--                                document.getElementById('select-region').style.color = "white";--%>
+                        <%--                                document.getElementById('select-time').style.background = "#404b57";--%>
+                        <%--                                document.getElementById('select-time').style.color = "white";--%>
+                        <%--                            </script>--%>
+                        <c:forEach var="region" items="${regions}" varStatus="loop">
+                            <span><strong>${region}</strong></span>
+                            <c:if test="${loop.index+1 < fn:length(regions)}">
+                                <span><strong>,</strong></span>
+                            </c:if>
+                        </c:forEach> 에서
+                        <c:forEach var="time" items="${times}" varStatus="loop">
+                            <span><strong>${time}</strong></span>
+                            <c:if test="${loop.index+1 < fn:length(times)}">
+                                <span><strong>,</strong></span>
+                            </c:if>
+                        </c:forEach> 까지
+                    </c:when>
+                    <c:when test="${empty regions && not empty times}">
+                        <script>
+                            document.getElementById('region-no').style.background = "#404b57";
+                            document.getElementById('region-no').style.color = "white";
+                            document.getElementById('select-time').style.background = "#404b57";
+                            document.getElementById('select-time').style.color = "white";
+                        </script>
+                        <strong>모든 지역</strong>에서
+                        <c:forEach var="time" items="${times}" varStatus="loop">
+                            <span><strong>${time}</strong></span>
+                            <c:if test="${loop.index+1 < fn:length(times)}">
+                                <span><strong>,</strong></span>
+                            </c:if>
+                        </c:forEach> 까지
+                    </c:when>
+                    <c:when test="${not empty regions && empty times}">
+                        <script>
+                            // document.getElementById('select-region').style.background = "#404b57";
+                            // document.getElementById('select-region').style.color = "white";
+                            document.getElementById('time-no').style.background = "#404b57";
+                            document.getElementById('time-no').style.color = "white";
+                        </script>
+                        <c:forEach var="region" items="${regions}" varStatus="loop">
+                            <span><strong>${region}</strong></span>
+                            <c:if test="${loop.index+1 < fn:length(regions)}">
+                                <span><strong>,</strong></span>
+                            </c:if>
+                        </c:forEach> 에서
+                    </c:when>
+                    <c:when test="${not empty regions && empty times && not empty categorySmalls}">
+                        <script>
+                            console.log("here")
+                            // document.getElementById('select-region').style.background = "#404b57";
+                            // document.getElementById('select-region').style.color = "white";
+                            document.getElementById('time-no').style.background = "#404b57";
+                            document.getElementById('time-no').style.color = "white";
+                        </script>
+                    </c:when>
+                    <c:otherwise>
+                        <script>
+                            console.log("여기")
+                            document.getElementById('region-no').style.background = "#404b57";
+                            document.getElementById('region-no').style.color = "white";
+                            document.getElementById('time-no').style.background = "#404b57";
+                            document.getElementById('time-no').style.color = "white";
+                        </script>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach var="categorySmall" items="${categorySmalls}" varStatus="loop">
+                    <span><strong>${categorySmall}</strong></span>
+                    <c:if test="${loop.index+1 < fn:length(categorySmalls)}">
+                        <span><strong>,</strong></span>
+                    </c:if>
+                </c:forEach>업종의 거래를 &nbsp;<strong><span style="color:red;">차단</span></strong>하였습니다.
+            </div>
+        </c:if>
+    </div>
+
+    <div class="btn-div" style="margin-top:40px; margin-bottom:40px;">
         <button class="prev-Btn" onclick="reset()">취소</button>
         <button class="next-Btn" onclick="modalCheck()">등록</button>
     </div>
@@ -288,6 +312,17 @@
         var resultInfoDiv = document.getElementById("result-info-div");
         if (resultInfoDiv) { // div가 있을 때만 숨김 처리
             resultInfoDiv.style.display = "none";
+        }
+    }
+
+    function nextcategoryStep(){
+        var regionNoInfoDiv = document.querySelector(".setting-region-no-info");
+        if (regionNoInfoDiv) { // div가 있을 때만 클래스를 제거
+            regionNoInfoDiv.style.display="none";
+        }
+        var element = document.querySelector('.setting-categoryselect-info');
+        if (element) {
+            element.classList.remove('hidden');
         }
     }
 

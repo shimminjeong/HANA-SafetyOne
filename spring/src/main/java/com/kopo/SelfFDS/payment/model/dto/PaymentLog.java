@@ -21,6 +21,7 @@ public class PaymentLog {
     private int amount;
     private String paymentApprovalStatus;
     private String fdsDetectionStatus;
+    private int approvalNum;
 
     @Override
     public String toString() {

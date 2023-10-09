@@ -170,7 +170,7 @@
     padding: 20px;
     border: 1px solid #888;
     border-radius: 10px;
-    width: 70%; /* 너비 설정 */
+    width: 50%; /* 너비 설정 */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19); /* 그림자 효과 */
     animation-name: animatetop;
     animation-duration: 0.4s;

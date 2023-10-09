@@ -19,11 +19,12 @@
 <%@ include file="../include/header.jsp" %>
 <div class="active-container">
     <div class="cont_box_area">
-        <nav class="tab_ty02">
-            <li><a href="/customCenter/lostCardSelect" title="현재 선택 탭">카드분실/도난신고</a></li>
-            <li><a href="#">카드분실신고해제</a></li>
-            <li class="on"><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>
-        </nav>
+<%--        <nav class="tab_ty02">--%>
+<%--            <li><a href="/customCenter/lostCardSelect" title="현재 선택 탭">카드분실/도난신고</a></li>--%>
+<%--            <li><a href="#">카드분실신고해제</a></li>--%>
+<%--            <li class="on"><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>--%>
+<%--        </nav>--%>
+    <div class="title">분실신고/재발급</div>
         <div class="lost-header"><h3>분실신고 카드내역</h3></div>
         <table>
             <tbody>

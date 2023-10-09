@@ -3,6 +3,7 @@ package com.kopo.SelfFDS.payment.service;
 import com.kopo.SelfFDS.member.model.dto.*;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import com.kopo.SelfFDS.payment.model.dto.WordToVec;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,8 @@ public interface PaymentService {
     WordToVec wordEmbedding(String regionName, String categorySmall, String time, int amount);
 
     void updateAnomalyDetection(String cardId);
+
+    int selectPaymentLogId(String cardId,String store);
 
 
 }

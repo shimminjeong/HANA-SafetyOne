@@ -23,13 +23,15 @@
     <div class="details">
         <jsp:include page="adminSideBar.jsp"/>
         <div class="detail__right">
-            <h2 class="details____title"><img class="img-size" src="../../../resources/img/credit-card.png">안심서비스 관리</h2>
+            <h2 class="details____title"><img class="img-size" src="../../../resources/img/secure-payment.png">안심서비스 관리
+            </h2>
             <div class="box-container">
                 <div style="background-color: #eee;" class="info-box1" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div><fmt:formatNumber value="${safetyUserCount}"
-                                                                 pattern="#,###,###"/>명</div>
+                                               pattern="#,###,###"/>명
+                        </div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
@@ -37,7 +39,8 @@
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
                         <div><fmt:formatNumber value="${safetyCardCount}"
-                                                                 pattern="#,###,###"/>개</div>
+                                               pattern="#,###,###"/>개
+                        </div>
 
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
@@ -46,7 +49,8 @@
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
                         <div><fmt:formatNumber value="${safetyDataCount}"
-                                                                 pattern="#,###,###"/>건</div>
+                                               pattern="#,###,###"/>건
+                        </div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
@@ -64,12 +68,13 @@
                 <table class="data-table">
                     <thead>
                     <tr>
-                        <th >이메일</th>
+                        <th>이메일</th>
                         <th>이름</th>
                         <th>카드번호</th>
                         <th>
                             서비스 시작일시
-                            <img src="../../../resources/img/sort1.png" alt="Icon for 아이디" class="th-icon" id="sortIcon">
+                            <img src="../../../resources/img/sort1.png" alt="Icon for 아이디" class="th-icon"
+                                 id="sortIcon">
                         </th>
                         <th>서비스 상태</th>
                         <!-- 필요한 다른 컬럼들도 여기에 추가 -->
@@ -82,7 +87,8 @@
                             <td>${safetymember.member.email}</td>
                             <td onclick="showMemberDetails('${safetymember.member.email}','${safetymember.cardId}','${safetymember.member.name}','${safetymember.member.address}','${safetymember.member.phone}','${safetymember.member.age}','${safetymember.member.gender}')"
                                 style="cursor: pointer;">${fn:substring(safetymember.member.name, 0, 1)}*${fn:substring(safetymember.member.name, 2, 3)}</td>
-                            <td onclick="showSafetyDetails('${safetymember.cardId}')" style="cursor: pointer;">${fn:substring(safetymember.cardId, 0, 4)}-****-****-${fn:substring(safetymember.cardId, 15,20)}</td>
+                            <td onclick="showSafetyInfo('${safetymember.cardId}')"
+                                style="cursor: pointer;">${fn:substring(safetymember.cardId, 0, 4)}-****-****-${fn:substring(safetymember.cardId, 15,20)}</td>
                             <td>${fn:substring(safetymember.safetyStartDate, 0, 16)}</td>
                                 <%--                        <td>${fn:split(fdsmember.serRegDate, ' ')[0]}</td>--%>
                             <!-- JSTL if문 -->
@@ -140,10 +146,10 @@
                 <td>미승인 거래 횟수</td>
                 <td></td>
             </tr>
-<%--            <tr>--%>
-<%--                <td>차단된 조합</td>--%>
-<%--                <td></td>--%>
-<%--            </tr>--%>
+            <%--            <tr>--%>
+            <%--                <td>차단된 조합</td>--%>
+            <%--                <td></td>--%>
+            <%--            </tr>--%>
             </tbody>
         </table>
 
@@ -154,22 +160,23 @@
 <div id="safetyModal" class="modal">
     <div class="safety-modal-content">
         <span class="close" onclick="safetycloseModal()">&times;</span>
-        <div class="modal-header">차단 조합</div>
-        <table id="safetyDetailsTable">
-            <thead>
-            <tr>
-                <th>지역</th>
-                <th>시간</th>
-                <th>업종</th>
-                <th>서비스상태</th>
-                <th>일시정지시작일자</th>
-                <th>일시정지종료일자</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- 여기에 데이터가 삽입됩니다 -->
-            </tbody>
-        </table>
+        <div class="modal-header">안심서비스 이용정보</div>
+        <div class="safety-info"></div>
+        <%--        <table id="safetyDetailsTable">--%>
+        <%--            <thead>--%>
+        <%--            <tr>--%>
+        <%--                <th>지역</th>--%>
+        <%--                <th>시간</th>--%>
+        <%--                <th>업종</th>--%>
+        <%--                <th>서비스상태</th>--%>
+        <%--                <th>일시해제시작일자</th>--%>
+        <%--                <th>일시해제종료일자</th>--%>
+        <%--            </tr>--%>
+        <%--            </thead>--%>
+        <%--            <tbody>--%>
+        <%--            <!-- 여기에 데이터가 삽입됩니다 -->--%>
+        <%--            </tbody>--%>
+        <%--        </table>--%>
     </div>
 </div>
 <script>
@@ -213,35 +220,147 @@
         });
     });
 
-    function showSafetyDetails(cardId) {
+    function showSafetyInfo(cardId) {
+        var cardInfoList = $(".safety-info");
+        // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
         $.ajax({
-            url: '/admin/safetyInfo',
+            url: "/safetyCard/selectSafetyInfo",
             type: 'POST',
-            dataType: 'json',
-            data: {
-                cardId: cardId
-            },
+            data: JSON.stringify({cardId: cardId}),
+            contentType: 'application/json',
             success: function (data) {
-                console.log("adata", data);
-
+                console.log("data", data)
                 document.getElementById('safetyModal').style.display = "block";
+                let regionNameAllList = data.regionList.map(item => item);
+                let regionNames = data.safetyCardList.map(item => item.regionName);
 
-                const tableBody = document.getElementById('safetyDetailsTable').getElementsByTagName('tbody')[0];
-                tableBody.innerHTML = "";  // Clear existing rows
 
-                // Assuming data.safetyCardList is an array with the needed details
+                let allowedRegions = [];
+                let blockStr = "";
+                let timeStr = "";
+                let regionStr = "";
+                let categoryStr = "";
+                let stopStartDate = "";
+                let stopEndDate = "";
+
+
+                const regionsSet = new Set();
+                const timesSet = new Set();
+                const categoriesSet = new Set();
+
+                const stopregionsSet = new Set();
+                const stoptimesSet = new Set();
+                const stopcategoriesSet = new Set();
+
                 data.safetyCardList.forEach(item => {
-                    let rowHTML = '<tr><td>' + (item.regionName || '') + '</td><td>' + (item.time || '') + '</td><td>' + (item.categorySmall || '') + '</td><td>' + (item.status || '') + '</td><td>' + (item.stopStartDate || '') + '</td><td>' + (item.stopEndDate || '') + '</td></tr>';
-                    tableBody.insertAdjacentHTML('beforeend', rowHTML);
+                    console.log("item", item)
+
+                    if (item.regionName !== null && item.time === null && item.categorySmall === null) {
+                        allowedRegions.push(item.regionName);
+                        console.log("1")
+                    }
+
+                    if (item.regionName !== null && item.time !== null && item.categorySmall !== null) {
+                        regionsSet.add(item.regionName);
+                        timesSet.add(item.time);
+                        categoriesSet.add(item.categorySmall);
+                        console.log("2")
+                    }
+                    if (item.regionName !== null && item.time === null && item.categorySmall !== null) {
+                        regionsSet.add(item.regionName);
+                        categoriesSet.add(item.categorySmall);
+                    }
+
+                    if (item.regionName !== null && item.time !== null && item.categorySmall === null) {
+                        regionsSet.add(item.regionName);
+                        timesSet.add(item.time);
+                    }
+
+                    if (item.regionName === null && item.time === null && item.categorySmall !== null) {
+                        categoriesSet.add(item.categorySmall);
+                    }
+
+                    if (item.regionName === null && item.time !== null && item.categorySmall === null) {
+                        timesSet.add(item.time);
+                    }
+
+                    if (item.regionName === null && item.time !== null && item.categorySmall !== null) {
+                        timesSet.add(item.time);
+                        categoriesSet.add(item.categorySmall);
+                    }
+
+                    if(item.stopStartDate !==null){
+                        stopregionsSet.add(item.regionName);
+                        stoptimesSet.add(item.time);
+                        stopcategoriesSet.add(item.categorySmall);
+                        stopStartDate=item.stopStartDate;
+                        stopEndDate=item.stopEndDate;
+                    }
+
                 });
 
-            },
-            error: function (error) {
-                console.error('Error:', error);
+                // Remove allowedRegions from data.regionList
+                data.regionList = data.regionList.filter(region => !allowedRegions.includes(region));
+                let allowedRegionsString = data.regionList.join(", ");
+
+                // Convert Sets to Strings
+                const regionsStr = Array.from(regionsSet).join(", ");
+                const timesStr = Array.from(timesSet).join(", ");
+                const categoriesStr = Array.from(categoriesSet).join(", ");
+
+                const stopregionsStr = Array.from(stopregionsSet).join(", ");
+
+                var resultRegionStr = ""
+                var resultTimeStr = ""
+                var resultCategoryStr = ""
+                if (regionsSet.size !== 0) {
+                    resultRegionStr = regionsStr + "에서 ";
+                }
+                if (timesSet.size !== 0) {
+                    resultTimeStr = timesStr + "까지 ";
+                }
+                if (categoriesSet.size !== 0) {
+                    resultCategoryStr = categoriesStr + " 업종을 ";
+                }
+                let noStr = "차단"
+
+                const resultStr = resultRegionStr + resultTimeStr + resultCategoryStr + noStr;
+
+
+                if (data.safetyCardList[0].regionName !== null) {
+
+                    cardInfoList.empty();
+                    var cardInfoListContent = "<hr><h3>안심서비스 설정항목<h3><div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>서비스시작일시 : " + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":") + "</div>";
+                    cardInfoListContent += "<div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>허용 지역 : "+ allowedRegionsString + "</div>";
+                    cardInfoListContent += "<div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>차단 조합 : "+ resultStr + "</div>";
+
+                    if (stopStartDate!==""){
+                        cardInfoListContent +="<h3 style='margin-top:30px;'>일시해제 이용정보<h3>"+
+                            "<div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>선택 지역 : "+stopregionsStr+"</div><div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>일시해제 기간 : "+ stopStartDate.split(" ")[0] +" ~ "+ stopEndDate.split(" ")[0]+"</div>";
+                    }
+                    cardInfoList.append(cardInfoListContent);
+                }
+
+                if (data.safetyCardList[0].regionName === null) {
+
+                    cardInfoList.empty();
+                    var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스시작일시 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":") + "</div></div>";
+                    cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + resultStr + "</div></div>"
+
+                    if (stopStartDate!==""){
+                        cardInfoListContent +="<h3 style='margin-top:30px;>일시해제 이용정보<h3>"+
+                            "<div style='margin-bottom: 10px'>선택 지역 : "+stopregionsStr+"</div><div>일시해제 기간 : "+ stopStartDate.split[0] +" ~ "+ stopEndDate.split[0]+"</div>";
+                    }
+                    cardInfoList.append(cardInfoListContent);
+
+
+                }
+
+
+
             }
         });
     }
-
 
 
 

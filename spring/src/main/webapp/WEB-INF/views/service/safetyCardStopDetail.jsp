@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <html>
@@ -21,13 +22,15 @@
 <div class="container">
     <div class="content-div" style="margin-right: 50px;margin-left: 50px;">
         <div class="content-header">
-            <h2>안심카드 서비스 일시정지</h2>
-            <h3>일정 기간동안 거래를 허용할 조합을 선택하세요</h3>
+            <h2>안심서비스 일시해제</h2>
+            <h3 style="margin-bottom: 0px;">일정 기간동안 안심서비스를 해제할 항목을 선택하세요</h3>
+            <h4>※ 선택한 항목의 거래는 일정 기간동안 거래가 허용됩니다.</h4>
         </div>
+        <div class="left-text">선택카드</div>
         <div class="div-card-list">
             <div class="card-list-info">
                 <img class="card-img" src="../../../resources/img/${cardInfo.cardName}.png">
-                <div class="card-list-info-cardid">${cardInfo.cardId}</div>
+                <div class="card-list-info-cardid">${fn:substring(cardInfo.cardId, 0, 4)}-****-****-${fn:substring(cardInfo.cardId, 15,20)}</div>
                 <div class="card-list-info-cardname">본인 | ${cardInfo.cardName}</div>
                 <img class="down-img" src="../../../resources/img/down-arrow.png"
                      onclick="showSafetyInfo('${cardInfo.cardId}', this)" style="margin-right: 5%">
@@ -68,29 +71,27 @@
         </div>
         <br>
         <div class="div-header">안심서비스 설정내역</div>
-        <div class="div-header">안심서비스 일시정지할 조합을 선택하세요</div>
         <div class="rule-div">
             <table>
                 <thead>
                 <tr>
                     <th><input type="checkbox" id="selectAllCheckbox"/><label class="checkbox-design"></label></th>
                     <th>지역</th>
-                    <th>시간</th>
                     <th>업종</th>
                 </tr>
                 </thead>
                 <tbody>
+
                 <!-- 서버에서 받아온 safetyRuleList를 반복하여 추가 -->
                 <c:forEach var="rule" items="${safetyRuleList}">
                     <tr>
                         <td>
                             <input type="checkbox" id="checkbox-${rule.safetyIdSeq}" data-seq-id="${rule.safetyIdSeq}" data-card-id="${rule.cardId}"
-                                   data-region-name="${rule.regionName}" data-time="${rule.time}"
+                                   data-region-name="${rule.regionName}"
                                    data-category="${rule.categorySmall}"/>
                             <label for="checkbox-${rule.safetyIdSeq}" class="checkbox-design"></label>
                         </td>
                         <td>${rule.regionName}</td>
-                        <td>${rule.time}</td>
                         <td>${rule.categorySmall}</td>
                     </tr>
                 </c:forEach>
@@ -162,6 +163,9 @@
 
                     let allowedRegions = [];
                     let blockStr = "";
+                    let timeStr="";
+                    let regionStr="";
+                    let categoryStr="";
 
 
                     const regionsSet = new Set();
@@ -169,7 +173,7 @@
                     const categoriesSet = new Set();
 
                     data.safetyCardList.forEach(item => {
-                        console.log("item", item)
+                        console.log("item",item)
                         if (item.regionName !== null && item.time === null && item.categorySmall === null) {
                             allowedRegions.push(item.regionName);
                             console.log("1")
@@ -181,17 +185,27 @@
                             categoriesSet.add(item.categorySmall);
                             console.log("2")
                         }
-                        if (item.regionName === null && item.time !== null && item.categorySmall === null) {
-                            blockStr = item.time + ' 까지 차단';
-                            console.log("blockStr", blockStr);
-                            console.log("3");
+                        if (item.regionName !== null && item.time === null && item.categorySmall !== null) {
+                            regionsSet.add(item.regionName);
+                            categoriesSet.add(item.categorySmall);
                         }
 
+                        if (item.regionName !== null && item.time !== null && item.categorySmall === null) {
+                            regionsSet.add(item.regionName);
+                            timesSet.add(item.time);
+                        }
 
-                        if (item.regionName === null && item.time === null && item.category !== null) {
-                            blockStr = item.category + ' 엽종을 차단';
-                            console.log("blockStr", blockStr);
-                            console.log("4")
+                        if (item.regionName === null && item.time === null && item.categorySmall !== null) {
+                            categoriesSet.add(item.categorySmall);
+                        }
+
+                        if (item.regionName === null && item.time !== null && item.categorySmall === null) {
+                            timesSet.add(item.time);
+                        }
+
+                        if (item.regionName === null && item.time !== null && item.categorySmall !== null) {
+                            timesSet.add(item.time);
+                            categoriesSet.add(item.categorySmall);
                         }
 
                     });
@@ -204,45 +218,48 @@
                     const regionsStr = Array.from(regionsSet).join(", ");
                     const timesStr = Array.from(timesSet).join(", ");
                     const categoriesStr = Array.from(categoriesSet).join(", ");
+                    console.log("timesSet",timesSet);
+                    console.log("regionsSet",regionsSet);
+                    console.log("categoriesSet",categoriesSet);
 
-                    const resultStr = regionsStr + ' 에서 ' + timesStr + ' 까지 ' + categoriesStr + ' 업종을 차단';
+                    var resultRegionStr=""
+                    var resultTimeStr=""
+                    var resultCategoryStr=""
+                    if (regionsSet.size!==0){
+                        resultRegionStr=regionsStr+"에서 ";
+                    }
+                    if (timesSet.size !==0){
+                        resultTimeStr=timesStr+"까지 ";
+                    }
+                    if (categoriesSet.size !== 0) {
+                        resultCategoryStr=categoriesStr+" 업종을 ";
+                    }
+                    let noStr="차단"
+
+                    const resultStr = resultRegionStr+resultTimeStr+resultCategoryStr+noStr;
 
 
-                    if (data.safetyCardList[0].regionName !== null) {
+                    if (data.safetyCardList[0].regionName !==null) {
 
                         cardInfoList.empty();
-                        cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
-                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스이용기간 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(" ")[0] + " ~ " + data.safetyCardList[0].safetyEndDate.split(" ")[0] + "</div></div>";
+                        cardInfoList.append("<h4>안심서비스 이용현황</h4>");
+                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스시작일시 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":")+"</div></div>";
                         cardInfoListContent += "<div class='info-list'><div class='info-header'>허용 지역</div><div class='info-content'>" + allowedRegionsString + "</div></div>";
                         cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + resultStr + "</div></div>";
 
                         cardInfoList.append(cardInfoListContent);
                     }
 
-                    if (data.safetyCardList[0].regionName === null) {
+                    if (data.safetyCardList[0].regionName ===null) {
 
                         cardInfoList.empty();
-                        cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
-                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스이용기간 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(" ")[0] + " ~ " + data.safetyCardList[0].safetyEndDate.split(" ")[0] + "</div></div>";
-                        cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + blockStr + "</div></div>";
+                        cardInfoList.append("<h4>안심서비스 이용현황</h4>");
+                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스시작일시 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":")+"</div></div>";
+                        cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + resultStr + "</div></div>";
 
                         cardInfoList.append(cardInfoListContent);
                     }
-                    // splitInfo = data[0].safetyStringInfo.split('.')
-                    // console.log(splitInfo[0])
-                    // console.log(splitInfo[1])
-                    // console.log(splitInfo[2])
 
-
-                    // if (data[0].regionName !== null ) {
-                    //     cardInfoListContent += "<div class='info-list'><div class='info-header'>허용된 지역</div><div class='info-content'>" + splitInfo[0] + "</div></div>";
-                    //     cardInfoListContent += "<div class='info-list'><div class='info-header'>차단된 조합</div><div class='info-content'>" + splitInfo[1] + "</div></div>";
-                    // } else {
-                    //     cardInfoListContent += "<div class='info-list'><div class='info-header'>차단된 조합</div><div class='info-content'>" + data[0].safetyStringInfo + "</div></div>";
-                    //
-                    // }
-                    //
-                    // cardInfoList.append(cardInfoListContent);
                 }
             });
         }
@@ -259,7 +276,7 @@
             var time = selectedCheckbox.getAttribute('data-time');
             var category = selectedCheckbox.getAttribute('data-category');
 
-            // 선택한 체크박스 정보를 활용하여 일시정지 처리를 수행
+            // 선택한 체크박스 정보를 활용하여 일시해제 처리를 수행
             console.log('seqId: ' + seqId);
             console.log('cardId: ' + cardId);
             console.log('regionName: ' + regionName);
@@ -332,8 +349,8 @@
             contentType: "application/json", // <-- 추가
             success: function (response) {
                 closeModal();
-                if (response === "일시정지업데이트") {
-                    window.location.href = "/safetyCard/safetySettingOk"; // 페이지 리다이렉트
+                if (response === "일시해제업데이트") {
+                    window.location.href = "/safetyCard/; // 페이지 리다이렉트
                 } else {
                     alert(response); // 그렇지 않으면 서버의 응답을 그대로 경고로 표시합니다.
                 }

@@ -24,7 +24,8 @@
     <div class="detail__right">
         <div class="sub-container">
             <div class="sub-container-hearder">카드이용내역</div>
-            <div class="info">※ 카드를 선택하시면 카드별 이용내역을 확인할 수 있습니다.</div>
+            <div class="info" style="font-size: 17px;">카드를 선택하시면 카드별 이용내역을 확인할 수 있습니다.</div>
+
 
             <div class="card-select-div">
                 <div class="card-select-text">카드선택</div>
@@ -50,7 +51,9 @@
                 <input type="text" id="memberSearchInput" placeholder="카테고리를 입력하세요">
                 <button onclick="filterMembers()">검색</button>
             </div>
+            <div class="info" style="font-size:17px; margin-bottom: 10px;">정상승인 중 <strong>알림이미지</strong>가 존재하는 거래내역은 <strong>이상소비</strong>로 탐지된 거래입니다.</div>
             <div class="info" style="margin-top: 10px;">※ 이용내역을 클릭할시 해당 결제에 대한 자세한 정보를 확인할 수 있습니다.</div>
+
 
             <div class="table-div">
                 <%--                <div class="menu-tab">--%>
@@ -63,30 +66,25 @@
                         <th>카드번호</th>
                         <th>거래일시<img src="../../../resources/img/sort1.png" alt="Icon for 거래일자" class="th-icon" id="sortDateIcon"></th>
                         <th>카테고리<img src="../../../resources/img/sort1.png" alt="Icon for 거래일자" class="th-icon" id="sortCategoryIcon"></th>
-                        <th>가맹점주소</th>
+                        <th>가맹점명</th>
                         <th>금액<img src="../../../resources/img/sort1.png" alt="Icon for 거래일자" class="th-icon" id="sortAmountIcon"></th>
                         <th>승인여부</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${paymentLogList}" var="paymentLog">
-                        <tr onclick="showReceipt(${paymentLog.paymentLogId}, '${paymentLog.cardId}');"
+                        <tr data-paymentlogid="${paymentLog.paymentLogId}" data-cardid="${paymentLog.cardId}" onclick="showReceiptFromData(this);"
                             style="cursor: pointer;">
                             <c:set var="cardIdParts" value="${fn:split(paymentLog.cardId, '-')}"/>
                             <td>${cardIdParts[0]}-****-****-${cardIdParts[3]}</td>
                             <td>${fn:substring(paymentLog.paymentDate, 0, 16)}</td>
                             <td>${paymentLog.categorySmall}</td>
-                            <c:set var="addressParts" value="${fn:split(paymentLog.address, ' ')}"/>
-                            <c:choose>
-                                <c:when test="${fn:length(addressParts) >= 2}">
-                                    <td>${addressParts[0]} ${addressParts[1]}</td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>${paymentLog.address}</td>
-                                </c:otherwise>
-                            </c:choose>
+                            <td>${paymentLog.store}</td>
                             <td><fmt:formatNumber value="${paymentLog.amount}" type="number" pattern="#,###"/>원</td>
                             <c:choose>
+                                <c:when test="${paymentLog.paymentApprovalStatus == 'Y' and paymentLog.fdsDetectionStatus == 'Y'}">
+                                    <td>정상승인<span class="small-bell">🔔</span></td>
+                                </c:when>
                                 <c:when test="${paymentLog.paymentApprovalStatus == 'Y'}">
                                     <td>정상승인</td>
                                 </c:when>
@@ -134,17 +132,16 @@
                 <div class="content-value-cardName"></div>
             </div>
             <hr>
-            <div class="receipt-content-div">
+            <div class="receipt-content-div2">
                 <div class="content-name">승인번호</div>
-                <div class="content-value-cardName">123122</div>
+                <div class="content-value-approvalNum"></div>
             </div>
-            <hr>
+            <hr class="approval-hr">
             <div class="receipt-content-div">
                 <div class="content-name">승인상태</div>
                 <div class="content-approval"></div>
             </div>
             <div class="content-reason-value"></div>
-
 
             <div class="store-info">
                 <div class="receipt-content-div" style="margin-bottom: 10px;">
@@ -273,6 +270,12 @@
         document.getElementById('receiptModal').style.display = 'none';
     }
 
+    function showReceiptFromData(rowElement) {
+        var paymentLogId = $(rowElement).data('paymentlogid');
+        var cardId = $(rowElement).data('cardid');
+        showReceipt(paymentLogId, cardId);
+    }
+
 
     function showReceipt(paymentLogId, cardId) {
         console.log("paymentLogId", paymentLogId)
@@ -292,14 +295,45 @@
                 console.log("responseData", responseData.paymentLog1);
                 console.log("responseData", responseData.cardInfo);
                 document.getElementById('receiptModal').style.display = 'block';
-                if (responseData.paymentLog1.paymentApprovalStatus == 'Y') {
+                if (responseData.paymentLog1.paymentApprovalStatus == 'Y' && responseData.paymentLog1.fdsDetectionStatus=='Y') {
+                    $('.receipt-content-div2').css({
+                        'display': 'flex',
+                        'flex-direction': 'row',
+                        'width': '100%',
+                        'justify-content': 'space-between',
+                        'margin-top': '2px',
+                        'margin-bottom': '2px'
+                    });
 
+                    $('.approval-hr').css('display', 'block');
+                    $('.content-reason-value').html('<span class="small-bell">🔔</span>이상소비로 감지된 거래내역 입니다.');
+                    $('.content-reason-value').css({
+                        'display': 'block',
+                        'color': 'black'
+                    });
+                    $('.content-approval').text('정상');
+                }
+                else if (responseData.paymentLog1.paymentApprovalStatus == 'Y') {
+                    $('.receipt-content-div2').css({
+                        'display': 'flex',
+                        'flex-direction': 'row',
+                        'width': '100%',
+                        'justify-content': 'space-between',
+                        'margin-top': '2px',
+                        'margin-bottom': '2px'
+                    });
+
+                    $('.approval-hr').css('display', 'block');
+                    $('.content-reason-value').text('!안심서비스 이용으로 인한 거래미승인');
+                    $('.content-reason-value').css('display', 'none');
                     $('.content-approval').text('정상');
 
                 } else {
                     $('.content-approval').text('미승인');
                     $('.content-reason-value').text('!안심서비스 이용으로 인한 거래미승인');
                     $('.content-reason-value').css('display', 'block');
+                    $('.receipt-content-div2').css('display', 'none');
+                    $('.approval-hr').css('display', 'none');
                 }
                 var amount = responseData.paymentLog1.amount;
                 var formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -307,6 +341,7 @@
 
 
                 $('.content-value-cardName').text(responseData.cardInfo.cardName);
+                $('.content-value-approvalNum').text(responseData.paymentLog1.paymentLogId);
                 $('.content-value-cardId').text(responseData.paymentLog1.cardId.split);
                 $('.content-value-store').text(responseData.paymentLog1.store);
                 $('.content-value-address').text(responseData.paymentLog1.address);
@@ -406,11 +441,18 @@
                             $(tds[3]).text(history.address); // Fallback to the full address if splitting didn't work as expected
                         }
                         $(tds[4]).text(Number(history.amount).toLocaleString() + "원");
-                        if (history.paymentApprovalStatus === 'Y') {
+                        if (history.paymentApprovalStatus === 'Y' && history.fdsDetectionStatus === 'Y') {
+                            $(tds[5]).html('정상승인<span class="small-bell">🔔</span>');
+                            // $(tds[5]).text('이상');
+                        } else if (history.paymentApprovalStatus === 'Y') {
+
                             $(tds[5]).text('정상승인');
                         } else {
                             $(tds[5]).text('미승인');
                         }
+
+
+                        // <td>정상승인<span class="small-bell">🔔</span></td>
 
                     });
                 },

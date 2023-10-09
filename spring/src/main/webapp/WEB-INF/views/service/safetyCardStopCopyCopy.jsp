@@ -44,7 +44,7 @@
     </div>
     <div class="serviceDate1 hidden">
         <h4>해당서비스는 결제를 차단한 나만의 rule 중에서 일정기간동안 결제를 허용하는 서비스입니다.</h4>
-        <div style="margin-bottom: 3%;">특정 기간동안 안심서비스를 일시정지할 조합을 선택하세요</div>
+        <div style="margin-bottom: 3%;">특정 기간동안 안심서비스를 일시해제할 조합을 선택하세요</div>
         <div style="color:red;">※ 특정 기간동안 선택한 조합의 결제가 허용됩니다.</div>
     </div>
     <div class="table-div hidden">
@@ -70,7 +70,7 @@
         <div class="region"></div>
     </div>
     <div class="reg-cancle-btn hidden">
-        <button class="reg-Btn" onclick="stopCard()">일시정지</button>
+        <button class="reg-Btn" onclick="stopCard()">일시해제</button>
     </div>
 </div>
 <div id="pauseModal">
@@ -208,7 +208,7 @@
 
         // 체크박스가 선택되지 않았다면 경고를 표시하십시오.
         if (checkedBoxes.length === 0) {
-            alert("일시정지할 카드를 선택하십시오.");
+            alert("일시해제할 카드를 선택하십시오.");
             return;
         }
 
@@ -289,7 +289,7 @@
             contentType: "application/json", // <-- 추가
             success: function (response) {
                 closeModal();
-                if (response === "일시정지업데이트") {
+                if (response === "일시해제업데이트") {
                     window.location.href = "/safetyCard/safetySettingOk"; // 페이지 리다이렉트
                 } else {
                     alert(response); // 그렇지 않으면 서버의 응답을 그대로 경고로 표시합니다.

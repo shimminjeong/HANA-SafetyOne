@@ -137,10 +137,10 @@ header{
 /* Dropdown button */
 .dropdown .dropbtn {
     color: black;
-    font-size: 16px;
+    font-size: 17px;
     border: none;
     outline: none;
-    padding: 12px 0px;
+    padding: 3px 40px 15px 40px;
     background-color: inherit;
     font-family: inherit;
     margin: 0;

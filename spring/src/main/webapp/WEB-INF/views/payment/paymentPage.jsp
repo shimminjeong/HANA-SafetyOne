@@ -75,6 +75,7 @@
                         <div class="slideshow-container">
                             <c:forEach items="${cards}" var="card" varStatus="loop">
                                 <div class="mySlides" onclick="selectCardId('${card.cardId}')">
+                                    <div class="cardNametext" style="margin-top: 0px;">${card.cardName}</div>
                                     <img src="../../resources/img/${card.cardName}.png"
                                          data-card-id="${card.cardId}">
                                     <div class="cardIdtext">${card.cardId}</div>
@@ -147,8 +148,31 @@
         inputElem.setSelectionRange(caretPosition, caretPosition);
     }
 
+
+
+    // 날짜 변경
+    // function getToday() {
+    //     var date = new Date();
+    //     var year = date.getFullYear();
+    //     var month = ("0" + (1 + date.getMonth())).slice(-2);
+    //     var day = ("0" + date.getDate()).slice(-2);
+    //
+    //     return year + "-" + month + "-" + day;
+    // }
+    //
+    // document.getElementById("current-date").innerText = getToday();
+    //
+    // const currentTime = document.getElementById('current-time'); // id가 'current-time'인 요소
+    //
+    // // 1초마다 현재 시각 업데이트
+    // setInterval(() => {
+    //     const date = new Date(); // 새로운 Date 객체 생성
+    //     currentTime.innerHTML = date.toLocaleTimeString();
+    // }, 1000);
+
     function getToday() {
         var date = new Date();
+        date.setDate(date.getDate() + 3);  // 현재 날짜에 3일 추가
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
@@ -163,11 +187,16 @@
     // 1초마다 현재 시각 업데이트
     setInterval(() => {
         const date = new Date(); // 새로운 Date 객체 생성
+        date.setHours(date.getHours() + 5);  // 현재 시간에 5시간 추가
         currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 
 
 
+
+
+
+    //
     function paymentRequest() {
         var username = $('.user-name').text();
         var userPhone = $('.user-phone').text();

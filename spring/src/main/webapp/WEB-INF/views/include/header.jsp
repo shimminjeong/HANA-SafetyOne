@@ -30,28 +30,41 @@
     </div>
     <nav>
         <div class="navbar">
-            <%--            <div class="dropdown">--%>
-            <%--                <button class="dropbtn" onclick="window.location.href='/safetyCard/'">안심서비스--%>
-            <%--                </button>--%>
-            <%--                <div class="dropdown-content">--%>
-            <%--                    <a href="/safetyCard/">서비스 등록 및 해제</a>--%>
-            <%--                    <a href="/safetyCard/">서비스 이용현황</a>--%>
-            <%--                    <a href="/safetyCard/safetyCardStop">서비스 일시정지</a>--%>
-            <%--                </div>--%>
-            <%--                <div>--%>
-            <%--                </div>--%>
-            <a href="/safetyCard/">안심서비스</a>
-            <a href="/fds/">이상소비알림서비스</a>
-            <a href="/customCenter/lostCardSelect">고객센터</a>
-            <%--                <div class="dropdown">--%>
-            <%--                    <button class="dropbtn">고객센터--%>
-            <%--                    </button>--%>
-            <%--                    <div class="dropdown-content" style="max-width: 130px;">--%>
-            <%--                        <a href="/customCenter/lostCardSelect">카드 분실신고</a>--%>
-            <%--                        <a href="#">카드 재발급</a>--%>
-            <%--                    </div>--%>
-            <%--                </div>--%>
-            <a href="/mypage">마이페이지</a>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="window.location.href='/safetyCard/'">안심서비스
+                </button>
+                <div class="dropdown-content">
+                    <a href="/safetyCard/">서비스 등록 및 해제</a>
+                    <a href="/safetyCard/">서비스 이용현황</a>
+                    <a href="/safetyCard/safetyCardStop">서비스 일시해제</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="window.location.href='/fds/'">이상소비알림서비스
+                </button>
+                <div class="dropdown-content">
+                    <a href="/fds/">서비스 등록 및 해제</a>
+                    <a href="/safetyCard/">서비스 이용현황</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="window.location.href='/customCenter/lostCardSelect'">고객센터
+                </button>
+                <div class="dropdown-content">
+                    <a href="/customCenter/lostCardSelect">분실/도난신고</a>
+                    <a href="#">분실신고해제</a>
+                    <a href="#">분실신고내역</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="window.location.href='/mypage'">마이페이지
+                </button>
+                <div class="dropdown-content">
+                    <a href="/mypage">대시보드</a>
+                    <a href="/mypageCardHistory/">카드이용내역</a>
+                    <a href="/mypageReport">소비레포트</a>
+                </div>
+            </div>
         </div>
         <%--            <hr style="border:1px solid #00857F"/>--%>
     </nav>

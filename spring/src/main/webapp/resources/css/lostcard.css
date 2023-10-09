@@ -295,3 +295,11 @@ input, select {
 .ui-datepicker select.ui-datepicker-month {
     padding-right: 10px; /* 원하는 값으로 조정 */
 }
+
+.title {
+    margin-bottom: 4%;
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}

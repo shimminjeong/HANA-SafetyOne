@@ -58,6 +58,8 @@ public class PaymentController {
         System.out.println("paymentLogcardiD" + paymentLog.getCardId());
         SafetyCard responseSafetyCard = paymentService.requestPayment(paymentLog, paymentLog.getCardId());
         System.out.println("responseSafetyCard" + responseSafetyCard);
+        System.out.println("date"+paymentLog.getPaymentDate());
+        System.out.println("date"+paymentLog.getTime());
         if (responseSafetyCard == null) {
             System.out.println("거래승인");
             paymentLog.setPaymentApprovalStatus("Y");
@@ -89,9 +91,8 @@ public class PaymentController {
         System.out.println(time);
         System.out.println(categorySmall);
         System.out.println(amount);
-        // 데이터 처리 로직
-        // 예를 들어, 데이터를 데이터베이스에 저장하거나, 다른 서비스로 전송 등
 
+        int approvalNum=paymentService.selectPaymentLogId(cardId, store);
         ModelAndView mav = new ModelAndView();
         // 필요한 뷰 이름 설정. 예를 들면:
         mav.setViewName("payment/receipt");  // 뷰 이름을 적절하게 변경해야 합니다.
@@ -106,6 +107,7 @@ public class PaymentController {
         mav.addObject("paymentDate", paymentDate);
         mav.addObject("storePhoneNumber", storePhoneNumber);
         mav.addObject("cardInfo", cardInfo);
+        mav.addObject("approvalNum", approvalNum);
         // 다른 데이터도 동일한 방식으로 추가
 
         return mav;

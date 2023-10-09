@@ -27,14 +27,14 @@
                 </li>
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
-                        <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
+                        <div class="menu__icon"><img src="../../../resources/img/secure-payment.png"></div>
                         안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link active">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상소비서비스
+                        이상소비알림서비스
                     </a>
                 </li>
                 <li class="menu__item">

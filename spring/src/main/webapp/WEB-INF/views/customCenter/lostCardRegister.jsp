@@ -20,7 +20,7 @@
         <input type="hidden" name="cardId" value="<%=request.getAttribute("cardId")%>">
         <input type="hidden" name="reissued" value="<%=request.getAttribute("reissued")%>">
         <div class="cont_box_area">
-            <div class="lost-header"><h2>카드분실신고 및 재발급 신청</h2></div>
+            <div class="title">분실신고/재발급</div>
             <div class="lost-header"><h3>분실신고 카드</h3></div>
             <div class="lostcard-list">
                 <div class="card-list-info" id="<%=request.getAttribute("cardId")%>">

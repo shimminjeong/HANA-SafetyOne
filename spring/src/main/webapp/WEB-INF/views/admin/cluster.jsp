@@ -29,14 +29,14 @@
                 </li>
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
-                        <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
+                        <div class="menu__icon"><img src="../../../resources/img/secure-payment.png"></div>
                         안심서비스
                     </a>
                 </li>
                 <li class="menu__item">
                     <a href="/admin/fds" class="menu__link">
                         <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
-                        이상소비서비스
+                        이상소비알림서비스
                     </a>
                 </li>
                 <li class="menu__item">
@@ -71,7 +71,7 @@
                 <div class="cluster-header">
                     <h3>회원 소비특성별 군집</h3>
                     <div style="margin-bottom: 10px">3개월마다 회원의 거래내역으로 군집분석이 시행됩니다.</div>
-                    <div>현 군집은 2023-08-08 ~ 2023-10-08 까지의 거래내역으로 분석하였습니다. </div>
+                    <div>현 군집은 2023-07-08 ~ 2023-10-08 까지의 거래내역으로 분석하였습니다. </div>
                     <div>
                         <table  class="table-div">
                             <thead>
@@ -119,7 +119,7 @@
                         <canvas id="pieChart"></canvas>
                     </div>
                     <div class="bar1-div">
-                        <h3>평균 한달 군집별 거래횟수 및 거래금액</h3>
+                        <h3>한 달 평균 군집별 거래횟수 및 거래금액</h3>
                         <canvas id="combinedBarChart"></canvas>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
             </div>
             <div class="many-chart-div">
                 <div class="chartname-header">
-                    <strong>주요소비처 한달 평균 거래횟수 및 거래금액</strong>
+                    <strong>주요소비처 한 달 평균 거래횟수 및 거래금액</strong>
                 </div>
                 <div class="canvas-div">
                     <canvas id="manyChart"></canvas>
@@ -169,7 +169,7 @@
             </div>
             <div class="small-chart-div">
                 <div class="chartname-header">
-                    <strong>비주요소비처 한달 평균 거래횟수 및 거래금액</strong>
+                    <strong>비주요소비처 한 달 평균 거래횟수 및 거래금액</strong>
                 </div>
                 <div class="canvas-div">
                     <canvas id="smallChart"></canvas>

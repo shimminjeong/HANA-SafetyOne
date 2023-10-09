@@ -180,6 +180,9 @@
 }
 
 
+.small-bell{
+    font-size: 15px;
+}
 
 
 
@@ -327,7 +330,7 @@
     justify-content: space-between;
 }
 
-.receipt-content-div, .receipt-content-div1{
+.receipt-content-div, .receipt-content-div1,.receipt-content-div2{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -388,7 +391,7 @@
 
 .card-history-table th:nth-child(4),
 .card-history-table td:nth-child(4) {
-    width: 220px; /* 네 번째 열의 너비 설정 */
+    width: 150px; /* 네 번째 열의 너비 설정 */
 }
 
 .card-history-table th:nth-child(5),

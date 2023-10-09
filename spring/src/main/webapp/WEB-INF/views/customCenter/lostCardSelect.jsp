@@ -16,13 +16,17 @@
 <%@ include file="../include/header.jsp" %>
 <div class="active-container">
     <div class="cont_box_area">
-        <nav class="tab_ty02">
-            <li class="on"><a href="/customCenter/lostCardSelect" title="현재 선택 탭">카드분실/도난신고</a></li>
-            <li><a href="#">카드분실신고해제</a></li>
-            <li><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>
-        </nav>
-        <div class="lost-header"><h3>카드를 선택해주세요</h3></div>
-<%--        <span class="sub-container-hearder">보유카드 목록</span>--%>
+        <%--        <nav class="tab_ty02">--%>
+        <%--            <li class="on"><a href="/customCenter/lostCardSelect" title="현재 선택 탭">카드분실/도난신고</a></li>--%>
+        <%--            <li><a href="#">카드분실신고해제</a></li>--%>
+        <%--            <li><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>--%>
+        <%--        </nav>--%>
+
+        <div class="title">분실신고/재발급</div>
+            <div style="font-size: 18px;" >※ 분실신고 즉시 카드거래가 정지됩니다.</div>
+
+            <div class="lost-header"><h3>카드 선택</h3></div>
+        <%--        <span class="sub-container-hearder">보유카드 목록</span>--%>
         <hr class="sub-hr">
         <div class="cardAll-div">
             <div class="cardAll-img-div"><img src="../../../resources/img/circle.png" onclick="AllCard()"></div>
@@ -181,8 +185,6 @@
             });
         }
     }
-
-
 
 
 </script>

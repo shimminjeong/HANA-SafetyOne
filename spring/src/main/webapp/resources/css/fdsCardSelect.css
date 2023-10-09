@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
 }
 
 .content-header h3 {
@@ -281,6 +282,11 @@
     text-align: left;
 }
 
+.safetycard-info-cardname {
+    width: 195px;
+    text-align: left;
+}
+
 
 .card-info-regDate {
     white-space: nowrap; /* 줄바꿈 방지 */
@@ -336,6 +342,7 @@
 
 .region-div {
     display: flex;
+    justify-content: space-between;
 
 }
 
@@ -346,7 +353,7 @@
 }
 
 .region-no {
-    width: 100%;
+    width: 103%;
     /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
     border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
@@ -362,14 +369,13 @@
 }
 
 .region-ok {
-    width: 100%;
     /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
     border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
     padding: 12px;
-    margin-right: 5%;
     height: 75%;
     font-size: 16px;
+    align-items: center;
 }
 
 .rule-div {

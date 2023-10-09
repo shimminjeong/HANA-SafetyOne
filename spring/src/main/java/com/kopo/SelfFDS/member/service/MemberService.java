@@ -80,5 +80,6 @@ public interface MemberService {
 
     void updateSafetyStatus(int safetyIdSeq,String status);
 
+    String selectBigCategoryOfSmallCategory(String categorySmall);
 
 }

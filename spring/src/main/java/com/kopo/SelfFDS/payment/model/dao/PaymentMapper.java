@@ -27,4 +27,6 @@ public interface PaymentMapper {
 
     void updateAnomalyDetection(String cardId);
 
+    int selectPaymentLogId(@Param("cardId") String cardId,@Param("store") String store);
+
 }

@@ -28,7 +28,7 @@
                 </li>
                 <li class="menu__item">
                     <a href="/admin/safety" class="menu__link">
-                        <div class="menu__icon"><img src="../../../resources/img/credit-card.png"></div>
+                        <div class="menu__icon"><img src="../../../resources/img/secure-payment.png"></div>
                         안심서비스
                     </a>
                 </li>
@@ -108,7 +108,7 @@
                             <c:forEach items="${memberList}" var="member" varStatus="status">
                                 <tr>
                                     <td style="text-align: center;">${member.clusterNum}</td>
-                                    <td>${fn:substring(member.name, 0, 1)}*${fn:substring(member.name, 2, 3)}</td>
+                                    <td data-name="${member.name}">${fn:substring(member.name, 0, 1)}*${fn:substring(member.name, 2, 3)}</td>
                                     <td>${member.email}</td>
                                     <td>
 <%--                                        <c:if test="${member.gender == 'F'}">여성</c:if>--%>
@@ -180,10 +180,10 @@
 
         // 각 행을 순회하며 이름과 입력된 값 비교
         for (var i = 0; i < tr.length; i++) {
-            var td = tr[i].getElementsByTagName('td')[1]; // 이름은 두 번째 열에 있으므로
+            var td = tr[i].getElementsByTagName('td')[1];
             if (td) {
-                var txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                var originalName = td.getAttribute('data-name').toUpperCase();
+                if (originalName.indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";

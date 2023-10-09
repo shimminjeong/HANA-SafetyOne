@@ -20,7 +20,7 @@
     <div class="details">
         <jsp:include page="adminSideBar.jsp"/>
         <div class="detail__right">
-            <h2 class="details____title"><img class="img-size" src="../../../resources/img/credit-card.png">안심서비스 관리</h2>
+            <h2 class="details____title"><img class="img-size" src="../../../resources/img/secure-payment.png">안심서비스 관리</h2>
             <div class="box-container">
                 <div class="info-box1" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">

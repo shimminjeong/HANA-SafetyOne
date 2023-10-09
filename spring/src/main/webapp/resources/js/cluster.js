@@ -32,7 +32,7 @@ function drawChart(chartData) {
     var meanDiv = document.querySelector('.mean-div');
 
 // 해당 <div> 요소의 내용을 수정합니다.
-    meanDiv.innerText = "한달 평균 사용금액 : 약 " + totalAmount.toLocaleString() + "원";
+    meanDiv.innerText = "한 달 평균 사용금액 : 약 " + totalAmount.toLocaleString() + "원";
 
     // chartData.cluster1.clusterNum
     var reportDiv = document.querySelector('.report');

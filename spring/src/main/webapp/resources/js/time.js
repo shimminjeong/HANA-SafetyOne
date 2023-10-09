@@ -37,8 +37,10 @@ function handleTimeRangeClick(button) {
 
     allSelectedBtnDivs.forEach(selectedBtnDiv => {
         const newButton = document.createElement('button');
+        newButton.style.display = 'inline-block'; // 버튼을 인라인-블록 요소로 변경
         newButton.textContent = timeText;
         newButton.classList.add('selected-time-no', 'custom-button-style');
+
 
         // 새로운 버튼을 선택된 버튼 영역에 추가
         selectedBtnDiv.appendChild(newButton);

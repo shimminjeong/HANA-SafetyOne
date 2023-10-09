@@ -106,6 +106,10 @@ public class PaymentServiceImpl implements PaymentService {
         paymentMapper.updateAnomalyDetection(cardId);
     }
 
+    @Override
+    public int selectPaymentLogId(String cardId, String store) {
+        return paymentMapper.selectPaymentLogId(cardId, store);
+    }
 
 
 }

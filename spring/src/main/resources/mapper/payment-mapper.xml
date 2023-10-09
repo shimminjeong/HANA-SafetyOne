@@ -50,13 +50,13 @@
     <!--    cardhistory 테이블에 데이터 삽입-->
     <insert id="insertCardHistory">
         INSERT INTO CARDHISTORY(CARDHISID,CARDID,CATEGORYBIG,CATEGORYSMALL,REGIONNAME,STORE,CARDHISDATE,CARDHISTIME,AMOUNT)
-        VALUES (CARD_HIS_ID_SEQ.NEXTVAL, #{cardId}, 'gg', #{categorySmall},#{address},#{store}, current_date, #{time}, #{amount})
+        VALUES (CARD_HIS_ID_SEQ.NEXTVAL, #{cardId}, 'gg', #{categorySmall},#{address},#{store}, TO_DATE(#{paymentDate}, 'YYYY-MM-DD'), #{time}, #{amount})
     </insert>
 
 <!--    safetycard하고 PAYMENTLOG 테이블에 데이터 삽입-->
     <insert id="insertPaymentLog">
         INSERT INTO PAYMENTLOG (PAYMENTLOGID, CARDID, ADDRESS, STORE, PAYMENTDATE, categorySmall, AMOUNT, paymentApprovalStatus)
-        VALUES (PAYMENTLOGIDSEQ.nextval, #{cardId}, #{address}, #{store}, current_date, #{categorySmall}, #{amount}, #{paymentApprovalStatus})
+        VALUES (PAYMENTLOGIDSEQ.nextval, #{cardId}, #{address}, #{store}, TO_TIMESTAMP(#{paymentDate} || ' ' || #{time}, 'YYYY-MM-DD HH24:MI:SS'), #{categorySmall}, #{amount}, #{paymentApprovalStatus})
     </insert>
 
     <select id="selectPreprocessingCategory" resultType="double">
@@ -80,6 +80,19 @@
             WHERE CARDID = #{cardId}
         ) and CARDID = #{cardId}
     </update>
+
+    <select id="selectPaymentLogId" resultType="int">
+        SELECT paymentlogid
+        FROM paymentlog
+        WHERE cardId = #{cardId}
+          AND store = #{store}
+          AND paymentdate = (
+            SELECT MAX(paymentdate)
+            FROM paymentlog
+            WHERE cardId = #{cardId}
+              AND store = #{store}
+        )
+    </select>
 
 
 </mapper>

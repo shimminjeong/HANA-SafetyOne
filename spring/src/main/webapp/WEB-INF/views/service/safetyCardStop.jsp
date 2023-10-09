@@ -21,7 +21,6 @@
         <div class="content-header">
             <h2>안심서비스 일시해제</h2>
             <h3>일시해제란 안심서비스를 일정기간동안 중지하는 서비스입니다.</h3>
-            <h4>일시해제란 안심서비스를  허용하는 서비스입니다.</h4>
         </div>
         <span class="sub-container-hearder">서비스 이용 중인 카드 목록</span>
         <c:forEach items="${safetyCardList}" var="card" varStatus="loop">
@@ -31,7 +30,7 @@
                         <img src="../../../resources/img/circle.png" onclick="changeImage(this, '${card.cardId}')">
                     </div>
                     <img class="card-img" src="../../../resources/img/${card.cardName}.png">
-                    <div class="card-list-info-cardid">${card.cardId}</div>
+                    <div class="card-list-info-cardid">${fn:substring(card.cardId, 0, 4)}-****-****-${fn:substring(card.cardId, 15,20)}</div>
                     <div class="card-list-info-cardname">본인 | ${card.cardName}</div>
                     <img class="down-img" src="../../../resources/img/down-arrow.png"
                          onclick="showSafetyInfo('${card.cardId}', this)">
@@ -46,7 +45,7 @@
         <%--        <div class="ajax-content"></div>--%>
         <div class="reg-confirm-div">
             <button class="fds-back-Btn" onclick="window.location.href='/'">취소</button>
-            <button class="fds-agree-Btn" onclick="stopCard()">일시정지</button>
+            <button class="fds-agree-Btn" onclick="stopCard()">일시해제</button>
         </div>
     </div>
 </div>
@@ -163,6 +162,9 @@
 
                     let allowedRegions = [];
                     let blockStr = "";
+                    let timeStr="";
+                    let regionStr="";
+                    let categoryStr="";
 
 
                     const regionsSet = new Set();
@@ -182,17 +184,27 @@
                             categoriesSet.add(item.categorySmall);
                             console.log("2")
                         }
-                        if (item.regionName === null && item.time !== null && item.categorySmall === null) {
-                            blockStr = item.time + ' 까지 차단';
-                            console.log("blockStr", blockStr);
-                            console.log("3");
+                        if (item.regionName !== null && item.time === null && item.categorySmall !== null) {
+                            regionsSet.add(item.regionName);
+                            categoriesSet.add(item.categorySmall);
                         }
 
+                        if (item.regionName !== null && item.time !== null && item.categorySmall === null) {
+                            regionsSet.add(item.regionName);
+                            timesSet.add(item.time);
+                        }
 
-                        if (item.regionName === null && item.time===null && item.category !== null) {
-                            blockStr=item.category + ' 엽종을 차단';
-                            console.log("blockStr",blockStr);
-                            console.log("4")
+                        if (item.regionName === null && item.time === null && item.categorySmall !== null) {
+                            categoriesSet.add(item.categorySmall);
+                        }
+
+                        if (item.regionName === null && item.time !== null && item.categorySmall === null) {
+                            timesSet.add(item.time);
+                        }
+
+                        if (item.regionName === null && item.time !== null && item.categorySmall !== null) {
+                            timesSet.add(item.time);
+                            categoriesSet.add(item.categorySmall);
                         }
 
                     });
@@ -205,15 +217,32 @@
                     const regionsStr = Array.from(regionsSet).join(", ");
                     const timesStr = Array.from(timesSet).join(", ");
                     const categoriesStr = Array.from(categoriesSet).join(", ");
+                    console.log("timesSet",timesSet);
+                    console.log("regionsSet",regionsSet);
+                    console.log("categoriesSet",categoriesSet);
 
-                    const resultStr = regionsStr+' 에서 '+timesStr+' 까지 '+ categoriesStr +' 업종을 차단';
+                    var resultRegionStr=""
+                    var resultTimeStr=""
+                    var resultCategoryStr=""
+                    if (regionsSet.size!==0){
+                        resultRegionStr=regionsStr+"에서 ";
+                    }
+                    if (timesSet.size !==0){
+                        resultTimeStr=timesStr+"까지 ";
+                    }
+                    if (categoriesSet.size !== 0) {
+                        resultCategoryStr=categoriesStr+" 업종을 ";
+                    }
+                    let noStr="차단"
+
+                    const resultStr = resultRegionStr+resultTimeStr+resultCategoryStr+noStr;
 
 
                     if (data.safetyCardList[0].regionName !==null) {
 
                         cardInfoList.empty();
-                        cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
-                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스이용기간 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(" ")[0] + " ~ " + data.safetyCardList[0].safetyEndDate.split(" ")[0] + "</div></div>";
+                        cardInfoList.append("<h4>안심서비스 이용현황</h4>");
+                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스시작일시 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":")+"</div></div>";
                         cardInfoListContent += "<div class='info-list'><div class='info-header'>허용 지역</div><div class='info-content'>" + allowedRegionsString + "</div></div>";
                         cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + resultStr + "</div></div>";
 
@@ -223,27 +252,13 @@
                     if (data.safetyCardList[0].regionName ===null) {
 
                         cardInfoList.empty();
-                        cardInfoList.append("<h4>안심카드 맞춤설정 이용중입니다.</h4>");
-                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스이용기간 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(" ")[0] + " ~ " + data.safetyCardList[0].safetyEndDate.split(" ")[0] + "</div></div>";
-                        cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + blockStr + "</div></div>";
+                        cardInfoList.append("<h4>안심서비스 이용현황</h4>");
+                        var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스시작일시 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":")+"</div></div>";
+                        cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + resultStr + "</div></div>";
 
                         cardInfoList.append(cardInfoListContent);
                     }
-                    // splitInfo = data[0].safetyStringInfo.split('.')
-                    // console.log(splitInfo[0])
-                    // console.log(splitInfo[1])
-                    // console.log(splitInfo[2])
 
-
-                    // if (data[0].regionName !== null ) {
-                    //     cardInfoListContent += "<div class='info-list'><div class='info-header'>허용된 지역</div><div class='info-content'>" + splitInfo[0] + "</div></div>";
-                    //     cardInfoListContent += "<div class='info-list'><div class='info-header'>차단된 조합</div><div class='info-content'>" + splitInfo[1] + "</div></div>";
-                    // } else {
-                    //     cardInfoListContent += "<div class='info-list'><div class='info-header'>차단된 조합</div><div class='info-content'>" + data[0].safetyStringInfo + "</div></div>";
-                    //
-                    // }
-                    //
-                    // cardInfoList.append(cardInfoListContent);
                 }
             });
         }

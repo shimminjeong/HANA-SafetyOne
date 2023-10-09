@@ -85,7 +85,7 @@
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[승인번호]&nbsp;</div>
-                <div class="content-value">12345678</div>
+                <div class="content-value">${approvalNum}</div>
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[승인일시]&nbsp;</div>

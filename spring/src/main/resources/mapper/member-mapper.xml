@@ -110,6 +110,13 @@
         WHERE CATEGORYBIG = #{categoryBig}
     </select>
 
+    <!--    업종 소분류로 대분류 가져오기-->
+    <select id="selectBigCategoryOfSmallCategory" resultType="String">
+        SELECT categoryBig
+        FROM CATEGORY
+        WHERE categorySmall = #{categorySmall}
+    </select>
+
 
     <!--    cardhistory-->
     <select id="selectAllCardHistoryOfCardId" resultType="com.kopo.SelfFDS.member.model.dto.CardHistory">
@@ -227,10 +234,11 @@
         VALUES (lostcard_id_seq.nextval, sysdate, #{cardId}, #{lostDate}, #{lostPlace}, #{lostReason}, #{reissued})
     </insert>
 
-    <!--    일시정지 일자 update-->
+    <!--    일시해제 일자 update-->
     <update id="updateStopDate">
         UPDATE safetyCard
-        SET stopStartDate = #{stopStartDate},
+        SET status=#{status},
+            stopStartDate = #{stopStartDate},
             stopEndDate   = #{stopEndDate}
         WHERE safetyIdSeq = #{safetyIdSeq}
     </update>
@@ -345,7 +353,7 @@
     <select id="selectSafetyCardNotRegionByCarId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
         select *
         from safetycard
-        WHERE CARDID = #{cardId} and categorysmall is not null and time is not null
+        WHERE CARDID = #{cardId} and (categorysmall is not null or time is not null)
     </select>
 
     <select id="selectSafetyCardRegionByCarId" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">

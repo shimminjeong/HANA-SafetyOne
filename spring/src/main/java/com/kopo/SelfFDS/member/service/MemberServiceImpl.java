@@ -137,6 +137,11 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.updateSafetyStatus(safetyIdSeq, status);
     }
 
+    @Override
+    public String selectBigCategoryOfSmallCategory(String categorySmall) {
+        return memberMapper.selectBigCategoryOfSmallCategory(categorySmall);
+    }
+
 
     @Override
     public List<String> selectAllRegionName() {
