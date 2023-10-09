@@ -52,7 +52,6 @@
                 </button>
                 <div class="dropdown-content">
                     <a href="/customCenter/lostCardSelect">분실/도난신고</a>
-                    <a href="#">분실신고해제</a>
                     <a href="#">분실신고내역</a>
                 </div>
             </div>

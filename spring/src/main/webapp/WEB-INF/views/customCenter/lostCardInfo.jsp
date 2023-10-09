@@ -62,6 +62,7 @@
             </tbody>
         </table>
     </div>
+    <button class="confirm-btn">확인</button>
 </div>
 
 <%--    알림문자보내기--%>

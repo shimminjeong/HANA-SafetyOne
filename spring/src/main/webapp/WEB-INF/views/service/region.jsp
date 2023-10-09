@@ -128,11 +128,11 @@
 <div class="modal">
     <div id="myRegionmodal">
         <span class="close-btn" onclick="closeChartRegionModal()">&#10006;</span>
-        <div class="chart-head">최근 3개월 지역별 이용 횟수</div>
+        <div class="chart-head">최근 3개월 지역별 이용 빈도</div>
         <div class="chart-div">
             <canvas id="myRegionCntChart"></canvas>
         </div>
-        <div class="chart-info"><span class="recomend"></span>에서 가장 많이 거래하셨어요</div>
+        <div class="chart-info">주 거래 지역 : <span class="recomend"></span></div>
     </div>
 </div>
 </body>

@@ -46,7 +46,7 @@
                 <div class="right-info2"><h4></h4>
                     <button class="chart-name" onclick="openChartCategoryModal()">업종별 나의 소비 확인</button>
                 </div>
-                <div class="right-info3">※ 붉은색 업종에 마우스를 올리면 추천 차단 항목을 확인할 수 있습니다.</div>
+                <div class="right-info3">※ 붉은색으로 표시된 업종에 마우스를 올리면 추천 차단 항목을 볼 수 있습니다.</div>
                 <div class="right-subcontainer">
                     <div class="grid-container">
                         <c:set var="imgList"
@@ -158,7 +158,7 @@
 <div class="modal">
     <div id="myCategorymodal">
         <span class="close-btn" onclick="closeChartCategoryModal()">&#10006;</span>
-        <div class="chart-head">최근 3개월 업종별 이용 횟수</div>
+        <div class="chart-head">최근 3개월 업종별 이용 빈도</div>
         <select id="selectCategoryBig" class="limited-options">
             <c:forEach var="entry" items="${categoryBigList}">
                 <option name="${entry}">${entry}</option>
@@ -167,21 +167,22 @@
         <div class="chart-div">
             <canvas id="myCategoryCntChart"></canvas>
         </div>
-        <div class="chart-info1"><span class="recomend"><c:forEach var="category" items="${categoryTopList}"
+        <div class="chart-info1"><span class="recomend">
+            주 이용 업종 : <c:forEach var="category" items="${categoryTopList}"
                                                                    varStatus="status">
-            <c:if test="${status.index < 3}">
+             <c:if test="${status.index < 3}">
                 ${category.categorySmall}
                 <c:if test="${status.index + 1 != 3}">,</c:if>
             </c:if>
-        </c:forEach></span>업종을 가장 많이 거래하셨고
+        </c:forEach></span>
         </div>
-        <div class="chart-info2"><span class="recomend-bottom"><c:forEach var="category" items="${categoryAllList}"
+        <div class="chart-info2"><span class="recomend-bottom">이용하지 않은 업종 : <c:forEach var="category" items="${categoryAllList}"
                                                                           varStatus="status">
             <c:if test="${status.index < 3}">
-                ${category}
+                <span style="color:#d45151;">${category}</span>
                 <c:if test="${status.index + 1 != 3}">,</c:if>
             </c:if>
-        </c:forEach>업종은 거래가 없던 것으로 확인됩니다.
+        </c:forEach>
         </div>
     </div>
 </div>

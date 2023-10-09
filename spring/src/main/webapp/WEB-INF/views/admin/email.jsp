@@ -162,7 +162,7 @@
         </div>
 
 
-        <button class="sendEmailBtn" onclick="sendEmailData()">이메일 발송</button>
+        <button class="sendEmailBtn" onclick="sendEmailData()">이메일 전송</button>
 
     </div>
 </div>

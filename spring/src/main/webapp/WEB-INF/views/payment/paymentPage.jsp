@@ -151,28 +151,8 @@
 
 
     // 날짜 변경
-    // function getToday() {
-    //     var date = new Date();
-    //     var year = date.getFullYear();
-    //     var month = ("0" + (1 + date.getMonth())).slice(-2);
-    //     var day = ("0" + date.getDate()).slice(-2);
-    //
-    //     return year + "-" + month + "-" + day;
-    // }
-    //
-    // document.getElementById("current-date").innerText = getToday();
-    //
-    // const currentTime = document.getElementById('current-time'); // id가 'current-time'인 요소
-    //
-    // // 1초마다 현재 시각 업데이트
-    // setInterval(() => {
-    //     const date = new Date(); // 새로운 Date 객체 생성
-    //     currentTime.innerHTML = date.toLocaleTimeString();
-    // }, 1000);
-
     function getToday() {
         var date = new Date();
-        date.setDate(date.getDate() + 3);  // 현재 날짜에 3일 추가
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
@@ -187,10 +167,30 @@
     // 1초마다 현재 시각 업데이트
     setInterval(() => {
         const date = new Date(); // 새로운 Date 객체 생성
-        date.setHours(date.getHours() + 5);  // 현재 시간에 5시간 추가
         currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 
+    // function getToday() {
+    //     var date = new Date();
+    //     date.setDate(date.getDate() + 3);  // 현재 날짜에 3일 추가
+    //     var year = date.getFullYear();
+    //     var month = ("0" + (1 + date.getMonth())).slice(-2);
+    //     var day = ("0" + date.getDate()).slice(-2);
+    //
+    //     return year + "-" + month + "-" + day;
+    // }
+    //
+    // document.getElementById("current-date").innerText = getToday();
+    //
+    // const currentTime = document.getElementById('current-time'); // id가 'current-time'인 요소
+    //
+    // // 1초마다 현재 시각 업데이트
+    // setInterval(() => {
+    //     const date = new Date(); // 새로운 Date 객체 생성
+    //     date.setHours(date.getHours() + 5);  // 현재 시간에 5시간 추가
+    //     currentTime.innerHTML = date.toLocaleTimeString();
+    // }, 1000);
+    //
 
 
 

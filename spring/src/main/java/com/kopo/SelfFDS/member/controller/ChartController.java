@@ -44,11 +44,6 @@ public class ChartController {
         String email = (String) session.getAttribute("email");
         List<CardHistory> resultList = memberService.selectCountSmallCategoryOfEmail(email, cardHistory.getCategoryBig());
 
-        System.out.println(resultList.get(0).getCategoryBig());
-        System.out.println(resultList.get(0).getCategorySmall());
-        System.out.println(resultList.get(0).getCategoryCnt());
-        System.out.println(resultList.get(0).getAmountSum());
-
 //        List<String> categoryAllList = myPageService.selectAllSmallCategory();
 //        System.out.println("categoryAllList"+categoryAllList);
 //        List<String> categoryList = myPageService.selectCategory3monthByEmail(email);

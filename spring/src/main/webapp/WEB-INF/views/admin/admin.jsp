@@ -67,7 +67,7 @@
             <div class="sub-container">
                 <div class="hana-info">
                     <h2 class="details____title" style="text-align: center">하나카드 이용 현황</h2>
-                    <div style="font-size:16px; text-align: right">2023.10.08 기준</div>
+                    <div style="font-size:16px; text-align: right">2023.10.09 기준</div>
                     <div class="hana-info-content">
                         <div class="hana-info-content-box1">
                             <div class="hana-info-content-header">총 회원 수</div>
@@ -140,7 +140,7 @@
                         <div class="safetyone-info-content-box1">
 
                             <div class="safetyone-info-content-header" style="margin-bottom: 14px;">
-                                <img src="../../../resources/img/secure-payment.png" style="width: 42px; height: 42px;">안심카드 서비스
+                                <img src="../../../resources/img/secure-payment.png" style="width: 42px; height: 42px;">안심서비스
                             </div>
                             <div class="safetyone-info-content-div1">금일 차단 건수</div>
                             <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>
@@ -192,7 +192,7 @@
                     ticks: {
                         // 이 부분을 추가하여 각 틱에 '명'을 붙입니다.
                         callback: function (value, index, values) {
-                            return value + '명';
+                            return new Intl.NumberFormat('en-US').format(value) + '명';
                         }
                     }
                 }
@@ -233,7 +233,7 @@
                     ticks: {
                         // 이 부분을 추가하여 각 틱에 '명'을 붙입니다.
                         callback: function (value, index, values) {
-                            return value + '개';
+                            return new Intl.NumberFormat('en-US').format(value) + '개';
                         }
                     }
                 }
@@ -282,12 +282,12 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    min: 240000000, // 최소값 설정
-                    max: 300000000, // 최대값 설정
+                    min: 1000000000, // 최소값 설정
+                    max: 1150000000, // 최대값 설정
                     ticks: {
                         callback: function (value, index, values) {
                             // 값을 10,000으로 나누고, ','로 구분하여 표시
-                            return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';
+                            return new Intl.NumberFormat('en-US').format(value / 10000000) + '천만원';
                         }
                     }
 

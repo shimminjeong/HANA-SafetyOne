@@ -70,8 +70,8 @@
             <div class="sub-container">
                 <div class="cluster-header">
                     <h3>회원 소비특성별 군집</h3>
-                    <div style="margin-bottom: 10px">3개월마다 회원의 거래내역으로 군집분석이 시행됩니다.</div>
-                    <div>현 군집은 2023-07-08 ~ 2023-10-08 까지의 거래내역으로 분석하였습니다. </div>
+                    <div style="margin-bottom: 10px">3개월마다 회원의 거래내역으로 군집분석이 진행됩니다.</div>
+                    <div>현 군집은 2023-07-08 ~ 2023-10-08 까지의 거래내역을 기준으로 분석하였습니다.</div>
                     <div>
                         <table  class="table-div">
                             <thead>
@@ -82,7 +82,7 @@
                                 <th>비주요거래업종</th>
                                 <th>군집비율(%)</th>
                                 <th>군집특성확인</th>
-                                <th>이메일발송</th>
+                                <th>이메일전송</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -153,7 +153,7 @@
             </div>
             <div class="many-chart-div">
                 <div class="chartname-header">
-                    <strong>주요소비처 한 달 평균 거래횟수 및 거래금액</strong>
+                    <strong>주요 거래업종 한 달 평균 거래횟수 및 거래금액</strong>
                 </div>
                 <div class="canvas-div">
                     <canvas id="manyChart"></canvas>
@@ -169,7 +169,7 @@
             </div>
             <div class="small-chart-div">
                 <div class="chartname-header">
-                    <strong>비주요소비처 한 달 평균 거래횟수 및 거래금액</strong>
+                    <strong>비주요 거래업종 한 달 평균 거래횟수 및 거래금액</strong>
                 </div>
                 <div class="canvas-div">
                     <canvas id="smallChart"></canvas>

@@ -24,7 +24,7 @@
     <div class="detail__right">
         <div class="sub-container">
             <div class="sub-container-hearder">카드이용내역</div>
-            <div class="info" style="font-size: 17px;">카드를 선택하시면 카드별 이용내역을 확인할 수 있습니다.</div>
+            <div class="info" style="font-size: 17px;">카드를 선택하여 해당 카드의 이용 내역을 조회하세요.</div>
 
 
             <div class="card-select-div">
@@ -51,8 +51,8 @@
                 <input type="text" id="memberSearchInput" placeholder="카테고리를 입력하세요">
                 <button onclick="filterMembers()">검색</button>
             </div>
-            <div class="info" style="font-size:17px; margin-bottom: 10px;">정상승인 중 <strong>알림이미지</strong>가 존재하는 거래내역은 <strong>이상소비</strong>로 탐지된 거래입니다.</div>
-            <div class="info" style="margin-top: 10px;">※ 이용내역을 클릭할시 해당 결제에 대한 자세한 정보를 확인할 수 있습니다.</div>
+            <div class="info" style="font-size:17px; margin-bottom: 10px;"><strong>알림이미지</strong>가 포함된 정상승인 내역은 <strong>이상소비</strong>로 탐지된 거래입니다.</div>
+            <div class="info" style="margin-top: 10px;">※ 이용 내역을 선택하면 관련 결제의 상세 정보를 볼 수 있습니다.</div>
 
 
             <div class="table-div">

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -69,29 +71,32 @@
                 <div style="background-color: #eee;" class="info-box1" onclick="window.location.href='/admin/fds'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
-                        <div>${fdsUserCount}명</div>
+                        <div><fmt:formatNumber value="${fdsUserCount}" groupingUsed="true" />
+                            명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
                 <div style="background-color: #eee;" class="info-box" onclick="window.location.href='/admin/fds'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
-                        <div>${fdsCardCount}개</div>
+                        <div><fmt:formatNumber value="${fdsCardCount}" groupingUsed="true" />
+                            개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
                 <div class="info-box1" onclick="window.location.href='/admin/fdsData'">
                     <div class="info-content2">
                         <div class="box-header">금일 이상소비 건수</div>
-                        <div>${fdsDataCount}건</div>
+                        <div><fmt:formatNumber value="${fdsDataCount}" groupingUsed="true" />건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
             </div>
+            <div style="text-align: right; margin-bottom:20px;">금일 이상소비 건수를 선택하면 이상소비 내역을 조회할 수 있습니다.</div>
 
             <div class="table-container">
-                <h3>서비스 이용 사용자 및 카드 관리</h3>
-                <div class="alarm-info">※ 회원의 이름을 클릭하면 자세한 회원정보를 확인할 수 있습니다.</div>
+                <h3>서비스 사용자 및 카드 관리</h3>
+                <div class="alarm-info">※ 회원의 이름을 선택하면 상세한 회원 정보를 조회할 수 있습니다.</div>
                 <div class="user-search">
                     <div class="search-header">회원 검색</div>
                     <input type="text" id="memberSearchInput" placeholder="회원 이름을 입력하세요">
@@ -101,7 +106,7 @@
                 <table class="fdsmember-table">
                     <thead>
                     <tr>
-                        <th>아이디</th>
+                        <th>이메일</th>
                         <th>이름</th>
                         <th>카드번호</th>
                         <th>

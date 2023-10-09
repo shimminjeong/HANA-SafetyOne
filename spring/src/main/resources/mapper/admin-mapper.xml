@@ -92,7 +92,7 @@
         ]]>
     </select>
 
-    <!--    안심카드 서비스사용자관리-->
+    <!--    안심서비스사용자관리-->
 <!--    <select id="selectSafetyAndMember" resultMap="SafetyMemberMap">-->
 <!--        SELECT m.email         as email,-->
 <!--               m.name          as name,-->

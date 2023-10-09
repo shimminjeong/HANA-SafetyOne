@@ -14,6 +14,7 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
+    color: #3c3c3c;
 }
 
 .div-box2{
@@ -21,16 +22,18 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
+
 }
 
 .div-box-sub{
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가: x-offset, y-offset, 흐림, 색 */
     transition: box-shadow 0.3s; /* 그림자 효과에 부드러운 전환 추가 */
-    background-color: white; /* 연한 배경색 */
+    background-color: #f6f8fa; /* 연한 배경색 */
     padding: 15px;
     width: 49%;
     margin-bottom: 20px;
     border-radius: 7px;
+    color: #3c3c3c;
 }
 
 .div-box-sub-2{
@@ -108,6 +111,9 @@
     margin-bottom: 18px;
 }
 
+.color-change{
+    color: RGB(205, 92, 92);
+}
 .div-box-header2{
     margin-top: 76px;
 }
@@ -119,7 +125,17 @@
 
 .div-header{
     font-size: 20px;
-    margin-top: 15px;
+    margin-top: 25px;
+    align-self: center;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.div-header img{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
 }
 .sub-container-content hr{
     width: 100%;

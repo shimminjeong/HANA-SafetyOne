@@ -22,44 +22,44 @@
     <hr style="border:1px solid #00857F; margin:0px;">
     <div class="detail__right">
         <div class="sub-container">
-            <div class="sub-container-hearder">소비레포트</div>
-            <div style="text-align:right; margin-bottom: 10px">2023년 10월 9일 기준</div>
+            <div class="sub-container-hearder"><%=session.getAttribute("name")%>님의 소비레포트</div>
+            <div style="text-align:right; margin-bottom: 10px"></div>
+            <div style="text-align:right; ">2023/10/10 9:30 기준</div>
             <div class="sub-container-content">
-                <div class="div-header">
-                    지난달과 다르게 변화한 이번달 소비
+                <div class="div-header"><img src="../../../resources/img/magnifier.png">
+                    지난달과 비교했을 때 이번달의 소비 변화
                 </div>
-                <hr>
+<%--                <hr>--%>
                 <div class="div-box2">
                     <div class="div-box-sub">
                         <div class="div-box-header">
-                            <div class="chart-header">최근 6개월 카드 결제 금액 비교</div>
+                            <div class="chart-header">최근 6개월 간 카드 결제 금액 비교</div>
                         </div>
                         <div class="div-box-content">
                             <canvas id="monthChart"></canvas>
                         </div>
-                        <div>이번달은 이용금액은 <fmt:formatNumber value="${monthList[5].amountSum}" type="number"
-                                                          pattern="#,###"/> 원 입니다.</div>
+                        <div>이번달 이용금액은 <span class="color-change"> <fmt:formatNumber value="${monthList[5].amountSum}" type="number"
+                                                          pattern="#,###"/></span>원 입니다.</div>
                     </div>
 
                     <div class="div-box-sub">
                         <div class="div-box-header">
-                            <div class="chart-header">지날달 대비 변동금액이 큰 카테고리</div>
+                            <div class="chart-header">지난달 대비 가장 변동이 큰 카테고리</div>
 
                             <div class="div-box-content">
                                 <canvas id="diffChart"></canvas>
                             </div>
-                            <div>지난달 대비 '${differenceList[0].categorySmall}' 에서 이용금액 변동이 가장 큰것으로 확인됩니다.</div>
+                            <div><span class="color-change">${differenceList[0].categorySmall}</span> 카테고리의 지난달 대비 지출 변동이 큽니다.</div>
                         </div>
                     </div>
                 </div>
                 <div class="div-header">
-                    최근 3개월 이용 카테고리 확인
+                    <img src="../../../resources/img/magnifier.png">최근 3개월 동안의 이용 카테고리 분석
                 </div>
-                <hr>
                 <div class="div-box2">
                     <div class="div-box-sub">
 
-                        <div class="sub-header">카테고리별 사용비중 금액 TOP3</div>
+                        <div class="sub-header">카테고리별 사용 금액 TOP3</div>
 
                         <c:forEach var="item" items="${topCategoryList}" begin="0" end="2" varStatus="status">
                             <div class="left">
@@ -68,15 +68,15 @@
                                 <span>${(item.ratio * 100).intValue()}%</span>
                             </div>
                             <div class="right"><fmt:formatNumber value="${item.amountSum}" type="number"
-                                                                 pattern="#,###"/>원
+                                                                                            pattern="#,###"/>원
                             </div>
                         </c:forEach>
                         <%--                        </div>--%>
-                        <div class="fir">'${topCategoryList[0].categorySmall}' 에서 가장 많은 금액을 사용하셨습니다.</div>
+                        <div class="fir"><span class="color-change">${topCategoryList[0].categorySmall}</span> 카데고리에서 가장 큰 지출이 발생했습니다.</div>
 
                     </div>
                     <div class="div-box-sub">
-                        <div class="sub-header">카테고리별 사용 빈도 TOP3</div>
+                        <div class="sub-header">카테고리별 결제 빈도 TOP3</div>
                         <c:forEach var="item" items="${topCountCategoryList}" begin="0" end="2" varStatus="status">
                             <div class="left">
                                 <span>${status.index + 1}&nbsp;&nbsp;</span>
@@ -85,21 +85,20 @@
                             </div>
                             <div class="right">${item.categoryCnt}회</div>
                         </c:forEach>
-                        <div class="fir">'${topCountCategoryList[0].categorySmall}' 에서 가장 많이 이용하셨어요.</div>
+                        <div class="fir"><span class="color-change">${topCountCategoryList[0].categorySmall}</span> 카테고리에서 가장 빈번한 이용이 확인되었습니다.</div>
                     </div>
 
                 </div>
                 <div class="div-header">
-                    최근 3개월 이용 시간 및 지역별 이용금액
+                    <img src="../../../resources/img/magnifier.png">최근 3개월 동안의 이용 시간 및 지역별 지출 금액
                 </div>
-                <hr>
                     <div class="div-box2">
                         <div class="div-box-sub">
-                            <div class="sub-header">시간대별 이용금액</div>
+                            <div class="sub-header">시간대별 결제 금액</div>
                             <canvas id="timeChart"></canvas>
                         </div>
                         <div class="div-box-sub">
-                            <div class="sub-header">지역별 이용금액</div>
+                            <div class="sub-header">지역별 결제 금액</div>
                             <canvas id="regionChart"></canvas>
                         </div>
                     </div>
@@ -127,7 +126,7 @@
                     label: '월별 거래금액',
                     data: data,
                     backgroundColor: [
-                        '#1A535C'
+                        '#61de62'
                     ]
                 }]
             },
@@ -229,7 +228,7 @@
                 datasets: [{
                     data: data2,
                     backgroundColor: [
-                        '#1A535C'
+                        '#3a8cc5'
                     ]
                 }]
             },
@@ -277,9 +276,11 @@
                 labels: labels3,
                 datasets: [{
                     data: data3,
-                    backgroundColor: [
-                        '#1A535C'
-                    ]
+                    backgroundColor: labels3.map(function(label, index) {
+                        // 여기서 원하는 색상 팔레트를 사용하십시오
+                        var colors = ['#4E937A', '#F3D250', '#F29F05', '#F24B0F'];
+                        return colors[index % colors.length];
+                    })
                 }]
             },
             options: {

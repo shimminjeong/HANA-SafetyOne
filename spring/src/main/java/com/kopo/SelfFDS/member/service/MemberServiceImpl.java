@@ -90,7 +90,6 @@ public class MemberServiceImpl implements MemberService {
         card.setFdsSerStatus("Y");
         memberMapper.updateFdsStatus(card);
         String serviceStatus="학습대기";
-        System.out.println("card.getCardId()"+card.getCardId());
         memberMapper.insertFds(card.getCardId(), serviceStatus);
     }
 
@@ -198,8 +197,6 @@ public class MemberServiceImpl implements MemberService {
 
         Card cardInfo=myPageMapper.selectCardInfoByCardId(cardId);
         safety.setSafetyEndDate(cardInfo.getValidDate());
-        System.out.println("---------"+cardInfo.getValidDate());
-        System.out.println("timeList" + timeList);
 
 
         if (!regionList.isEmpty()) {
@@ -303,9 +300,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<CardHistory> selectAmountOfMonthByCardIdCategory(String cardId, String categorySmall) {
-        System.out.println("ddd"+cardId+"sss"+categorySmall);
+
         List<CardHistory> aa=memberMapper.selectAmountOfMonthByCardIdCategory(cardId,categorySmall);
-        System.out.println("aa"+aa);
+
         return memberMapper.selectAmountOfMonthByCardIdCategory(cardId,categorySmall);
     }
 

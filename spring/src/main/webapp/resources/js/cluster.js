@@ -89,7 +89,7 @@ function drawChart(chartData) {
                     yAxisID: 'y-axis-count'
                 },
                 {
-                    label: '평균 거래금액',
+                    label: '거래금액',
                     data: amountData,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
                     yAxisID: 'y-axis-sum'
@@ -269,11 +269,11 @@ function drawChart(chartData) {
         data: {
             labels: ageRanges,
             datasets: [{
-                label: 'M',
+                label: '남성',
                 data: mCounts,
                 backgroundColor: 'blue'
             }, {
-                label: 'F',
+                label: '여성',
                 data: fCounts,
                 backgroundColor: 'pink'
             }]
@@ -284,7 +284,7 @@ function drawChart(chartData) {
                     ticks: {
                         beginAtZero: true,
                         callback: function (value) {
-                            return Math.abs(value);
+                            return Math.abs(value) + '명';
                         }
                     }
                 }]
@@ -294,6 +294,8 @@ function drawChart(chartData) {
                 position: 'top'
             }
         }
+
+
     });
 
 

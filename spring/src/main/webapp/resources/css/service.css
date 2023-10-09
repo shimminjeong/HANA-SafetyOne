@@ -13,6 +13,8 @@
     font-size: 32px;
     font-weight: bold;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .serviceTitle > img{
@@ -84,7 +86,7 @@
 }
 
 .marker_dot li{
-    font-size: 14px;
+    font-size: 15px;
     font-family: Hana-light;
     margin-bottom: 15px;
     line-height: 1.5;

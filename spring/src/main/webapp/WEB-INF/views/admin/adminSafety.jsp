@@ -21,45 +21,84 @@
 <jsp:include page="adminHeader.jsp"/>
 <div class="back-container">
     <div class="details">
-        <jsp:include page="adminSideBar.jsp"/>
+        <div class="details__left">
+            <ul class="menu">
+                <li class="menu__item">
+                    <a href="/admin/" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/dashboard.png"></div>
+                        대시보드
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/safety" class="menu__link active">
+                        <div class="menu__icon"><img src="../../../resources/img/secure-payment.png"></div>
+                        안심서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/fds" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/bellcolor.png"></div>
+                        이상소비알림서비스
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/cluster" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/networking.png"></div>
+                        군집분석
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/email" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/gmail.png"></div>
+                        이메일전송
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/lostCard" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/lostcard.png"></div>
+                        분실카드관리
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/admin/paymentLogData" class="menu__link">
+                        <div class="menu__icon"><img src="../../../resources/img/log.png"></div>
+                        결제로그
+                    </a>
+                </li>
+            </ul>
+        </div>
         <div class="detail__right">
             <h2 class="details____title"><img class="img-size" src="../../../resources/img/secure-payment.png">안심서비스 관리
             </h2>
             <div class="box-container">
-                <div style="background-color: #eee;" class="info-box1" onclick="window.location.href='/admin/safety'">
+                <div class="info-box1" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
-                        <div><fmt:formatNumber value="${safetyUserCount}"
-                                               pattern="#,###,###"/>명
-                        </div>
+                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
-                <div style="background-color: #eee;" class="info-box" onclick="window.location.href='/admin/safety'">
+                <div class="info-box" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
-                        <div><fmt:formatNumber value="${safetyCardCount}"
-                                               pattern="#,###,###"/>개
-                        </div>
-
+                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
-                <div class="info-box1" onclick="window.location.href='/admin/safetyData'">
+                <div style="background-color: #eee;" class="info-box1"
+                     onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
-                        <div><fmt:formatNumber value="${safetyDataCount}"
-                                               pattern="#,###,###"/>건
-                        </div>
+                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
             </div>
 
             <div class="table-container">
-                <h3>서비스 이용 사용자 및 카드 관리</h3>
-                <div class="alarm-info">※ 회원의 이름을 클릭하면 자세한 회원정보를 확인할 수 있습니다.</div>
-                <div class="alarm-info">※ 카드번호를 클릭하면 해당 카드의 안심서비스 이용내역을 확인할 수 있습니다.</div>
+                <h3>서비스 사용자 및 카드 관리</h3>
+                <div class="alarm-info">※ 회원의 이름을 선택하면 상세한 회원 정보를 조회할 수 있습니다.</div>
+                <div class="alarm-info">※ 카드번호를 선택하면 해당 카드의 안심서비스 이용내역을 확인할 수 있습니다.</div>
                 <div class="user-search">
                     <div class="search-header">회원 검색</div>
                     <input type="text" id="memberSearchInput" placeholder="회원 이름을 입력하세요">
@@ -289,12 +328,12 @@
                         categoriesSet.add(item.categorySmall);
                     }
 
-                    if(item.stopStartDate !==null){
+                    if (item.stopStartDate !== null) {
                         stopregionsSet.add(item.regionName);
                         stoptimesSet.add(item.time);
                         stopcategoriesSet.add(item.categorySmall);
-                        stopStartDate=item.stopStartDate;
-                        stopEndDate=item.stopEndDate;
+                        stopStartDate = item.stopStartDate;
+                        stopEndDate = item.stopEndDate;
                     }
 
                 });
@@ -331,12 +370,12 @@
 
                     cardInfoList.empty();
                     var cardInfoListContent = "<hr><h3>안심서비스 설정항목<h3><div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>서비스시작일시 : " + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":") + "</div>";
-                    cardInfoListContent += "<div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>허용 지역 : "+ allowedRegionsString + "</div>";
-                    cardInfoListContent += "<div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>차단 조합 : "+ resultStr + "</div>";
+                    cardInfoListContent += "<div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>허용 지역 : " + allowedRegionsString + "</div>";
+                    cardInfoListContent += "<div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>차단 조합 : " + resultStr + "</div>";
 
-                    if (stopStartDate!==""){
-                        cardInfoListContent +="<h3 style='margin-top:30px;'>일시해제 이용정보<h3>"+
-                            "<div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>선택 지역 : "+stopregionsStr+"</div><div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>일시해제 기간 : "+ stopStartDate.split(" ")[0] +" ~ "+ stopEndDate.split(" ")[0]+"</div>";
+                    if (stopStartDate !== "") {
+                        cardInfoListContent += "<h3 style='margin-top:30px;'>일시해제 이용정보<h3>" +
+                            "<div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>선택 지역 : " + stopregionsStr + "</div><div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>일시해제 기간 : " + stopStartDate.split(" ")[0] + " ~ " + stopEndDate.split(" ")[0] + "</div>";
                     }
                     cardInfoList.append(cardInfoListContent);
                 }
@@ -347,9 +386,9 @@
                     var cardInfoListContent = "<hr><div class='info-list'><div class='info-header'>서비스시작일시 </div><div class='info-content'>" + data.safetyCardList[0].safetyStartDate.split(":").slice(0, 2).join(":") + "</div></div>";
                     cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + resultStr + "</div></div>"
 
-                    if (stopStartDate!==""){
-                        cardInfoListContent +="<h3 style='margin-top:30px;>일시해제 이용정보<h3>"+
-                            "<div style='margin-bottom: 10px'>선택 지역 : "+stopregionsStr+"</div><div>일시해제 기간 : "+ stopStartDate.split[0] +" ~ "+ stopEndDate.split[0]+"</div>";
+                    if (stopStartDate !== "") {
+                        cardInfoListContent += "<h3 style='margin-top:30px;>일시해제 이용정보<h3>" +
+                            "<div style='margin-bottom: 10px'>선택 지역 : " + stopregionsStr + "</div><div>일시해제 기간 : " + stopStartDate.split[0] + " ~ " + stopEndDate.split[0] + "</div>";
                     }
                     cardInfoList.append(cardInfoListContent);
 
@@ -357,11 +396,9 @@
                 }
 
 
-
             }
         });
     }
-
 
 
     function showMemberDetails(email, cardId, name, address, phone, age, gender) {

@@ -7,7 +7,7 @@ function sendSmsRequest() {
 
     const requestData = {
         recipientPhoneNumber: phoneNumber,
-        content: '[하나안심서비스] 하나안심서비스 사용을 위해 인증번호 [' + ouathNum + '] 를 입력하세요.',
+        content: '[SafetyOne] SafetyOne 사용을 위해 인증번호 [' + ouathNum + '] 를 입력하세요.',
         ouathNum: ouathNum // 생성한 무작위 숫자 할당
     };
 

@@ -130,7 +130,6 @@ public class SafetyCardServiceController {
         for (int i = 0; i < 3 && i < categoryAllList.size(); i++) {
             String categorySmall = categoryAllList.get(i);
             String result = memberService.selectBigCategoryOfSmallCategory(categorySmall);
-            System.out.println("result" + result);
             bigCategoryList.add(result);
         }
 
@@ -143,7 +142,7 @@ public class SafetyCardServiceController {
         mav.addObject("categoryAllList", categoryAllList);
         mav.addObject("bigCategoryList", bigCategoryList);
         mav.addObject("smallCategoryList", smallCategoryList);
-        System.out.println("categoryTopList"+categoryTopList);
+
 
 
         if (regions != null && !regions.isEmpty()) {
@@ -227,7 +226,7 @@ public class SafetyCardServiceController {
             session.setAttribute("cardId", cardId);
             session.setAttribute("cardName", cardInfo.getCardName());
         }
-        return "안심카드 서비스 신청 성공";
+        return "안심서비스 신청 성공";
     }
 
     @PostMapping("/cancleCard")
@@ -237,7 +236,7 @@ public class SafetyCardServiceController {
             Card updateCard = memberService.selectCardOfCardId(cardId);
             memberService.unregSafetyService(updateCard);
         }
-        return "안심카드 서비스 해제 성공";
+        return "안심서비스 해제 성공";
 
     }
 

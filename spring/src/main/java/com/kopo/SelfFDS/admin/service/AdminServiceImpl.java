@@ -91,15 +91,13 @@ public class AdminServiceImpl implements AdminService {
     public double getAmountSumByDateRate() {
 
         List<CardHistoryStats> list =adminMapper.getAmountSumByDate();
-        System.out.println("list.get(1).getAmountSum()"+list.get(1).getAmountSum());
-        System.out.println("list.get(0).getAmountSum()"+list.get(0).getAmountSum());
+
 
         return ((list.get(1).getAmountSum()-list.get(0).getAmountSum())/list.get(1).getAmountSum())*100;
     }
 
     @Override
     public List<Fds> selectFdsAndMember() {
-        System.out.println("adminMapper.selectFdsAndMember()"+adminMapper.selectFdsAndMember());
         return adminMapper.selectFdsAndMember();
     }
 

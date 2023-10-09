@@ -33,7 +33,7 @@
                 <div class="card-list-info-cardid">${fn:substring(cardInfo.cardId, 0, 4)}-****-****-${fn:substring(cardInfo.cardId, 15,20)}</div>
                 <div class="card-list-info-cardname">본인 | ${cardInfo.cardName}</div>
                 <img class="down-img" src="../../../resources/img/down-arrow.png"
-                     onclick="showSafetyInfo('${cardInfo.cardId}', this)" style="margin-right: 5%">
+                     onclick="showSafetyInfo('${cardInfo.cardId}', this)">
             </div>
             <div class="panel">
                 <div id="cardInfo-${cardInfo.cardId}">
@@ -350,7 +350,7 @@
             success: function (response) {
                 closeModal();
                 if (response === "일시해제업데이트") {
-                    window.location.href = "/safetyCard/; // 페이지 리다이렉트
+                    window.location.href = "/safetyCard/"; // 페이지 리다이렉트
                 } else {
                     alert(response); // 그렇지 않으면 서버의 응답을 그대로 경고로 표시합니다.
                 }

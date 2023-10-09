@@ -49,7 +49,7 @@
                 </div>
                 <div class="cardId-serviceStatus">
                     <div class="safety" id="safety-yes">안심카드 이용현황</div>
-                    <div class="no" id="safety-no">안심카드 서비스 신청</div>
+                    <div class="no" id="safety-no">안심서비스 신청</div>
                     <div class="fds" id="fds-yes">이상소비 이용현황</div>
                     <div class="no" id="fds-no">이상소비알림 신청</div>
                 </div>

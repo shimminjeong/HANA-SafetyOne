@@ -32,8 +32,7 @@ public class Schedule {
                 String cardStopStartDateStr = card.getStopStartDate().substring(0, 10);
                 String cardStopEndDateStr = card.getStopEndDate().substring(0, 10);
                 LocalDate cardStopStartDate = LocalDate.parse(cardStopStartDateStr, formatter);
-                System.out.println("cardStopStartDate"+cardStopStartDate);
-                System.out.println("LocalDate.now()"+LocalDate.now());
+
                 if (cardStopStartDate.equals(LocalDate.now())){
                     memberService.updateSafetyStatus(card.getSafetyIdSeq(),"N");
                 }

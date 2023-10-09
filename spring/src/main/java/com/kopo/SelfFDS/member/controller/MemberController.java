@@ -151,8 +151,7 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> cardHistoryReceipt(@RequestBody PaymentLog paymentLog) {
         Map<String, Object> response = new HashMap<>();
-        System.out.println("paymentLog.getPaymentLogId()"+paymentLog.getPaymentLogId());
-        System.out.println("paymentLog.getCardId()"+paymentLog.getCardId());
+
         PaymentLog paymentLog1 = myPageService.selectByPaymentLogId(paymentLog.getPaymentLogId());
 
 
@@ -237,7 +236,7 @@ public class MemberController {
 
         List<CardHistory> cardHistoryList = myPageService.selectCardHistoryByCardId(cardId);
         List<PaymentLog> paymentLogList = myPageService.selectPaymentLogByCardId(cardId);
-        System.out.println("paymentLogList" + paymentLogList);
+
         Card cardInfo = myPageService.selectCardInfoByCardId(cardId);
         Map<String, Object> response = new HashMap<>();
         response.put("cardHistoryList", cardHistoryList);
@@ -263,11 +262,11 @@ public class MemberController {
 //        List<CardHistory> categoryCntList = myPageService.selectTopStoreCountByEmail(email);
         List<CardHistory> timeList = myPageService.selectTimeTotalAmountByEmail(email);
         List<String> categoryAllList = myPageService.selectAllSmallCategory();
-        System.out.println("categoryAllList" + categoryAllList);
+
         List<String> categoryList = myPageService.selectCategory3monthByEmail(email);
-        System.out.println("categoryList" + categoryList);
+
         categoryAllList.removeAll(categoryList);
-        System.out.println("categoryAllList" + categoryAllList);
+
         List<CardHistory> regionNameList = myPageService.selectRegionTotalAmountByEmail(email);
         ModelAndView mav = new ModelAndView();
 
@@ -333,7 +332,7 @@ public class MemberController {
         Map<String, Object> response = new HashMap<>();
         response.put("monthData", monthData);
         response.put("weekData", weekData);
-        System.out.println("weekData" + weekData);
+
 
         response.put("cardHistoryList", cardHistoryServiceList);
         if (!response.isEmpty()) {

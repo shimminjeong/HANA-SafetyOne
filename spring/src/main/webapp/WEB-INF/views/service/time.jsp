@@ -93,12 +93,12 @@
 <div class="modal">
     <div id="myTimemodal">
         <span class="close-btn" onclick="closeChartTimeModal()">&#10006;</span>
-        <div class="chart-head">최근 3개월 시간별 이용 횟수</div>
+        <div class="chart-head">최근 3개월 시간별 이용 빈도</div>
         <div class="chart-div">
             <canvas id="myTimeCntChart"></canvas>
         </div>
-        <div class="chart-info1"><span class="recomend"></span>에 가장 많이 거래하셨고</div>
-        <div class="chart-info2"><span class="recomend-bottom"></span>에 거래 횟수가 적은 것으로 확인됩니다.</div>
+        <div class="chart-info1">높은 빈도의 거래 시간 : <span class="recomend"></span></div>
+        <div class="chart-info2">낮은 빈도의 이용 시간 : <span class="recomend-bottom"></span></div>
     </div>
 </div>
 

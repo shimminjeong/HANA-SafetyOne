@@ -20,7 +20,6 @@ public class EmailController {
     @PostMapping("/sendEmail")
     @ResponseBody
     public String sendEmail(@RequestBody Email email) {
-        System.out.println("sendMail들어옴");
         System.out.println(email);
         String to=email.getTo();
         String subject = email.getTitle();

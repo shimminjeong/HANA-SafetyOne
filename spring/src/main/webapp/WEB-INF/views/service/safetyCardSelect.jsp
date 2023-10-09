@@ -175,7 +175,7 @@
                 contentType: 'application/json',
                 success: function (response) {
                     const ajaxContent = document.querySelector('.ajax-content');
-                    if (response === "안심카드 서비스 신청 성공") {
+                    if (response === "안심서비스 신청 성공") {
                         // openSelectModal();
                         // window.location.href = "/safetyCard/safetySetting";
                         window.location.href = "/safetyCard/safetySettingNew";
@@ -203,8 +203,8 @@
             contentType: 'application/json',
             success: function (response) {
                 const ajaxContent = document.querySelector('.ajax-content');
-                if (response === "안심카드 서비스 해제 성공") {
-                    // ajaxContent.textContent = "안심카드 서비스가 해제되었습니다.";
+                if (response === "안심서비스 해제 성공") {
+                    // ajaxContent.textContent = "안심서비스가 해제되었습니다.";
                     // ajaxContent.style.color = "green";
                     window.location.href = "/";
                 } else {

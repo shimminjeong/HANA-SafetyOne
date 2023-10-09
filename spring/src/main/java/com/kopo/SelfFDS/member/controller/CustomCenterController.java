@@ -59,7 +59,6 @@ public class CustomCenterController {
     public ResponseEntity<List<CardHistory>> confirmCardHistory(@RequestBody CardHistory cardHistory) {
 
         List<CardHistory> cardHistories = myPageService.selectCardHistoryByCardId(cardHistory.getCardId());
-        System.out.println("cardHistories"+cardHistories);
         return ResponseEntity.ok(cardHistories);
 
     }

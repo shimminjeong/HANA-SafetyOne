@@ -154,15 +154,15 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> anomalyChart(@RequestBody PaymentLog paymentLog) {
         PaymentLog paymentPayLoad = adminService.getAnomalyDataById(paymentLog.getPaymentLogId());
-        System.out.println("paymentPayLoad" + paymentPayLoad);
+
         Map<String, Object> calStatsData = adminService.calStats(paymentLog.getCardId());
-        System.out.println("calStatsData" + calStatsData);
+
         PaymentLog paymentLogs = adminService.getAnomalyDataById(paymentLog.getPaymentLogId());
         String hour = paymentLogs.getPaymentDate().split(" ")[1];
-        System.out.println(" " + paymentLogs.getAddress() + paymentLogs.getCategorySmall() + hour + paymentLogs.getAmount());
+
 
         WordToVec embeddingData = paymentService.wordEmbedding(paymentLogs.getAddress(), paymentLogs.getCategorySmall(), hour, paymentLogs.getAmount());
-        System.out.println("embeddingData" + embeddingData);
+
         calStatsData.put("address", paymentLogs.getAddress());
         calStatsData.put("category", paymentLogs.getCategorySmall());
 
@@ -210,7 +210,7 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> clusterDetailChart(@RequestBody Cluster cluster) {
         Map<String, Object> response = new HashMap<>();
-        System.out.println("cluster" + cluster.getClusterNum());
+
         List<Cluster> clusterPeopleInfo = adminService.selectClusterPeopleInfo(cluster.getClusterNum());
         List<Cluster> clusterDetail = adminService.selectClusterDetail(cluster.getClusterNum());
         Cluster cluster1 = adminService.selectClusterStatic2ByCluster(cluster.getClusterNum());
@@ -274,13 +274,13 @@ public class AdminController {
                 clusterDetail.get(clusterDetail.size() - 2).getCategorySmall() + ", " +
                 clusterDetail.get(clusterDetail.size() - 3).getCategorySmall();
 
-        String mailTitle="안녕하세요 하나카드 SafetyONE입니다.";
+        String mailTitle="안녕하세요 하나카드 SafetyONE 입니다.";
 
-        String mailContent = "고객님 안녕하세요 하나카드를 이용해주셔서 감사합니다.\n\n" +
-                "고객님께서는 최근 3개월간 " + top3 + "업종에 소비를 많이 하셨습니다.\n" +
-                "또한 "+ bottom3 + "업종에 대한 소비가 극히 드문 것으로 확인되셨습니다.\n\n" +
-                "SafetyOne의 안심서비스로 평소 고객님이 거래하지 않는 나만의 Rule을 설정하여 금융사고를 예방하시길 추천드립니다.\n\n" +
-                "하나카드 이용에 항상 감사드립니다.";
+        String mailContent = "안녕하세요, 고객님. 하나카드를 이용해 주셔서 진심으로 감사드립니다.\n\n" +
+                "최근 3개월 동안 고객님의 소비 분석 결과, " + top3 + " 업종에서 주로 거래가 이루어진 것을 확인하였습니다.\n" +
+                "반면에 "+ bottom3 + " 업종에서의 거래는 상대적으로 적게 발생한 것으로 파악되었습니다.\n\n" +
+                "SafetyOne의 안심서비스를 통해 평소 거래하지 않는 업종에 대한 나만의 거래 규칙을 설정하시면, 금융사고를 사전에 예방할 수 있습니다.\n\n" +
+                "하나카드와 함께하는 모든 순간에 감사드리며, 안전한 거래를 위해 항상 주의하시길 바랍니다.";
         Map<String, Object> response = new HashMap<>();
         response.put("mailTitle", mailTitle);
         response.put("mailContent", mailContent);
