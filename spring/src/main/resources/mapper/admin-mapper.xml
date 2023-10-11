@@ -119,18 +119,19 @@
         SELECT
             MAX(m.email) as email,
             MAX(m.name) as name,
-            max(m.phone)         as phone,
-            max(m.address)       as address,
-            max(m.age)           as age,
-            max(m.gender)        as gender,
-            max(c.selffdsserstatus) as status,
-            max(f.cardId)        as cardId,
-            max(f.safetystartdate)    as safetyStartDate
+            MAX(m.phone) as phone,
+            MAX(m.address) as address,
+            MAX(m.age) as age,
+            MAX(m.gender) as gender,
+            MAX(c.selffdsserstatus) as status,
+            MAX(f.cardId) as cardId,
+            MAX(f.safetystartdate) as safetyStartDate
         FROM member m
                  JOIN card c ON m.email = c.email
                  JOIN safetycard f ON c.CARdid = f.CARDID
         GROUP BY f.CARDID
-        order by safetyStartDate desc
+        ORDER BY safetyStartDate DESC
+            FETCH NEXT 100 ROWS ONLY
     </select>
 
     <select id="selectFdsCountByCardId" resultType="int">
@@ -161,6 +162,7 @@
                  JOIN card c ON m.email = c.email
                  JOIN fds f ON c.CARdid = f.CARDID
         order by serRegDate desc
+            FETCH NEXT 100 ROWS ONLY
     </select>
 
 <!--    fds 서비스 이용중인 카드수-->
@@ -176,7 +178,7 @@
 
     <!--   금일 이상소비 건수-->
     <select id="selectFdsDataCount" resultType="int">
-        SELECT count(*) from paymentlog where FDSDETECTIONSTATUS='Y' and TRUNC(paymentdate) = TO_DATE('2023-10-05', 'YYYY-MM-DD')
+        SELECT count(*) from paymentlog where FDSDETECTIONSTATUS='Y' and TRUNC(paymentdate) = TO_DATE('2023-10-12', 'YYYY-MM-DD')
     </select>
 
 
@@ -185,7 +187,7 @@
         SELECT count(*)
         from paymentlog
         where paymentApprovalstatus = 'N'
-          and TRUNC(paymentdate) = TO_DATE('2023-10-05', 'YYYY-MM-DD')
+          and TRUNC(paymentdate) = TO_DATE('2023-10-12', 'YYYY-MM-DD')
     </select>
 
 <!--    safety 사용 유저수-->
@@ -217,14 +219,14 @@
         from paymentlog
         where fdsdetectionstatus = 'Y'
         order by paymentdate desc
+        FETCH NEXT 100 ROWS ONLY
     </select>
 
     <!-- 하나의 결제로그출력 -->
     <select id="getAllPaymentData" resultType="com.kopo.SelfFDS.payment.model.dto.PaymentLog">
-        SELECT *
-        FROM paymentlog
-        WHERE paymentdate > TO_DATE('2023-10-07', 'YYYY-MM-DD')
-        ORDER BY paymentdate DESC
+        select * from paymentlog
+        order by paymentdate desc
+            FETCH NEXT 100 ROWS ONLY
     </select>
 
 
@@ -260,8 +262,7 @@
 
     <!--    분실카드-->
     <select id="selectAllLostCard" resultType="com.kopo.SelfFDS.member.model.dto.LostCard">
-        SELECT *
-        FROM lostcard
+        select * from lostcard order by reglostdate desc
     </select>
 
     <select id="selectLostReason" resultType="com.kopo.SelfFDS.member.model.dto.LostCard">

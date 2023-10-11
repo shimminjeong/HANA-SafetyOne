@@ -203,8 +203,40 @@ function displayInfowindow(marker, title, address, category_name) {
     // 나의 db업종에 맞도록 데이터 변환
     var categoryParts = category_name.split(' > ');
     var categorySmall_name;
+    console.log("categoryParts",categoryParts.length)
+    console.log("categoryParts[1]",categoryParts[1]);
 
-    if (categoryParts.length = 3) {
+    if (categoryParts[1] == '카페') {
+        categorySmall_name = '커피전문점';
+        console.log("categorySmall_name",categorySmall_name);
+    }
+
+    if (categoryParts[1] == '패스트푸드') {
+        categorySmall_name = '패스트푸드';
+        console.log("categorySmall_name",categorySmall_name);
+    }
+
+    if (categoryParts[2]  == '보석,귀금속') {
+        categorySmall_name = '귀금속';
+    }
+
+    if (categoryParts.length = 4) {
+        console.log(categoryParts[0]);
+        console.log(categoryParts[1]);
+        console.log(categoryParts[2]);
+        if (categoryParts[2] == '제과,베이커리') {
+            categorySmall_name = '제과점';
+            console.log("categorySmall_name", categorySmall_name);
+        }
+
+        if (categoryParts[1] == '한식') {
+            categorySmall_name = '한식';
+            console.log("categorySmall_name",categorySmall_name)
+        }
+
+
+    } else if (categoryParts.length = 3) {
+        console.log("categorySmall_ddddddname",categorySmall_name);
         categorySmall_name = categoryParts[2];
         if (categoryParts[1] == '패스트푸드') {
             categorySmall_name = '패스트푸드';
@@ -212,28 +244,49 @@ function displayInfowindow(marker, title, address, category_name) {
         if (categoryParts[1] == '술집') {
             categorySmall_name = '유흥주점';
         }
-    } else if (categoryParts.length = 2) {
-        categorySmall_name = categoryParts[1];
 
-    } else if(categoryParts.length = 1){
+
+
+        if (categoryParts[1] == '양식') {
+            categorySmall_name = '일식/중식/양식';
+
+        } else if (categoryParts.length = 2) {
+            categorySmall_name = categoryParts[1];
+
+        }
+
+    } else if (categoryParts.length = 1) {
         categorySmall_name = categoryParts[0];
+    }
+
+    console.log("categorySmall_name", categorySmall_name);
+
+    if (categorySmall_name == '유흥주점' || categorySmall_name == '나이트,클럽') {
+        categorySmall_name = '기타유흥업소';
+    }
+
+    if (categorySmall_name == '양식') {
+        categorySmall_name = '일식/중식/양식';
     }
 
     if (categorySmall_name == '유흥주점' || categorySmall_name == '나이트,클럽') {
         categorySmall_name = '기타유흥업소';
     }
 
-    if (categorySmall_name == '보석,귀금속') {
-        categorySmall_name = '귀금속';
+
+
+    if (categorySmall_name == '제과점') {
+        categorySmall_name = '제과점';
     }
+    console.log("last categorySmall_name",categorySmall_name);
 
 
     var content =
-        '<div style="padding:7px; z-index:1; max-width: 300px; height: 65px;">' +
+        '<div style="padding:7px; z-index:1; max-width: 300px; height: 60px;">' +
         '<div>가게명 : ' + title + '</div>' +
         '<div>주소 : ' + address + '</div>' +
-        '<div>카카오업종 : ' + category_name + '</div>' +
-        '<div>하나업종 : ' + categorySmall_name + '</div>' +
+        // '<div>카카오업종 : ' + category_name + '</div>' +
+        '<div>업종 : ' + categorySmall_name + '</div>' +
         '</div>';
 
 
@@ -259,7 +312,37 @@ function clickPlace(marker, idx) {
     var categoryParts = selectPlace.category_name.split(' > ');
     var categorySmall_name;
 
-    if (categoryParts.length = 3) {
+    if (categoryParts[1] == '카페') {
+        categorySmall_name = '커피전문점';
+        console.log("categorySmall_name",categorySmall_name);
+    }
+
+    if (categoryParts[1] == '패스트푸드') {
+        categorySmall_name = '패스트푸드';
+        console.log("categorySmall_name",categorySmall_name);
+    }
+
+    if (categoryParts[2]  == '보석,귀금속') {
+        categorySmall_name = '귀금속';
+    }
+
+    if (categoryParts.length = 4) {
+        console.log(categoryParts[0]);
+        console.log(categoryParts[1]);
+        console.log(categoryParts[2]);
+        if (categoryParts[2] == '제과,베이커리') {
+            categorySmall_name = '제과점';
+            console.log("categorySmall_name", categorySmall_name);
+        }
+
+        if (categoryParts[1] == '한식') {
+            categorySmall_name = '한식';
+            console.log("categorySmall_name",categorySmall_name)
+        }
+
+
+    } else if (categoryParts.length = 3) {
+        console.log("categorySmall_ddddddname",categorySmall_name);
         categorySmall_name = categoryParts[2];
         if (categoryParts[1] == '패스트푸드') {
             categorySmall_name = '패스트푸드';
@@ -267,20 +350,41 @@ function clickPlace(marker, idx) {
         if (categoryParts[1] == '술집') {
             categorySmall_name = '유흥주점';
         }
-    } else if (categoryParts.length = 2) {
-        categorySmall_name = categoryParts[1];
 
-    } else if(categoryParts.length = 1){
+
+
+        if (categoryParts[1] == '양식') {
+            categorySmall_name = '일식/중식/양식';
+
+        } else if (categoryParts.length = 2) {
+            categorySmall_name = categoryParts[1];
+
+        }
+
+    } else if (categoryParts.length = 1) {
         categorySmall_name = categoryParts[0];
+    }
+
+    console.log("categorySmall_name", categorySmall_name);
+
+    if (categorySmall_name == '유흥주점' || categorySmall_name == '나이트,클럽') {
+        categorySmall_name = '기타유흥업소';
+    }
+
+    if (categorySmall_name == '양식') {
+        categorySmall_name = '일식/중식/양식';
     }
 
     if (categorySmall_name == '유흥주점' || categorySmall_name == '나이트,클럽') {
         categorySmall_name = '기타유흥업소';
     }
 
-    if (categorySmall_name == '보석,귀금속') {
-        categorySmall_name = '귀금속';
+
+
+    if (categorySmall_name == '제과점') {
+        categorySmall_name = '제과점';
     }
+    console.log("last categorySmall_name",categorySmall_name);
 
     console.log("selectPlace.address_name", selectPlace.address_name)
     console.log("categorySmall_name", categorySmall_name)

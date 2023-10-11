@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +74,7 @@
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[카드번호]&nbsp;</div>
-                <div class="content-value-cardId">${cardId}</div>
+                <div class="content-value-cardId">${fn:substring(cardId, 0, 4)}-****-****-${fn:substring(cardId, 15,20)}</td></div>
             </div>
             <div class="receipt-content-div">
                 <div class="content-name">[유효기간]&nbsp;</div>
@@ -186,11 +187,11 @@
                 console.log("'" + response + "'");
 
                 if (response == "Y") {
-                    alert("이상함")
-                    // sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount)
+                    // alert("이상함")
+                    sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount)
                 }
                 if (response == "N") {
-                    alert("정상입니다.")
+                    // alert("정상입니다.")
                 }
                 console.log(response);
             },

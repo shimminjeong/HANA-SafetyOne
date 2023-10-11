@@ -133,48 +133,54 @@
     margin-bottom: 15px;
 }
 
-.mySlides.fade {
-    line-height: 1.5;
-    border: 2px solid #3498db;  /* 푸른색 테두리로 변경 */
-    border-radius: 10px;  /* 둥근 모서리 */
-    border-style: solid;  /* 실선 (원하는 경우 'dotted', 'dashed', 'double' 등으로 변경 가능) */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  /* 약간의 그림자 효과 추가 */
+/*.mySlides.fade {*/
+/*    line-height: 1.5;*/
+/*    border: 2px solid #3498db;  !* 푸른색 테두리로 변경 *!*/
+/*    border-radius: 10px;  !* 둥근 모서리 *!*/
+/*    border-style: solid;  !* 실선 (원하는 경우 'dotted', 'dashed', 'double' 등으로 변경 가능) *!*/
+/*    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  !* 약간의 그림자 효과 추가 *!*/
+/*}*/
+
+/*.ex {*/
+/*    font-weight: 10;*/
+/*    font-size: 20px;*/
+/*    margin-bottom: 2px;*/
+/*}*/
+
+/*.ex-content{*/
+
+/*}*/
+
+/** {*/
+/*    box-sizing: border-box*/
+/*}*/
+
+/*!* Slideshow container *!*/
+/*.slideshow-container {*/
+/*    max-width: 1000px;*/
+/*    position: relative;*/
+/*    margin: auto;*/
+/*}*/
+
+/*!* Hide the images by default *!*/
+/*.mySlides {*/
+/*    display: none;*/
+/*}*/
+
+
+.dot-div{
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
 }
 
-.ex {
-    font-weight: 10;
-    font-size: 20px;
-    margin-bottom: 2px;
-}
 
-.ex-content{
-
-}
-
-* {
-    box-sizing: border-box
-}
-
-/* Slideshow container */
-.slideshow-container {
-    max-width: 1000px;
-    position: relative;
-    margin: auto;
-}
-
-/* Hide the images by default */
-.mySlides {
-    display: none;
-}
-
-
-
-/* The dots/bullets/indicators */
+/*!* The dots/bullets/indicators *!*/
 .dot {
     cursor: pointer;
     height: 15px;
     width: 15px;
-    margin: 0 2px;
+    margin: 0 5px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
@@ -202,6 +208,31 @@
 
 .mySlides.fade {
     line-height: 1.5;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+
+/* 슬라이드 쇼 스타일 */
+.slideshow-container {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+
+}
+
+.mySlides {
+    display: none;
+}
+
+/* 추가 스타일 (선택사항) */
+.ex {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.ex-content {
+    font-size: 18px;
 }
 
 .main-section3{
@@ -214,7 +245,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 100px;
+    height: 45px;
     background-color: #f6f8fa; /* 배경색을 회색으로 설정 */
     border-radius: 10px;      /* 테두리를 둥글게 만들기 위한 속성 */
     justify-content: center;

@@ -123,7 +123,7 @@
                     <c:forEach items="${FdsMemberList}" var="fdsmember">
                         <tr>
                             <td>${fdsmember.member.email}</td>
-                            <td onclick="showMemberDetails('${fdsmember.member.email}','${fdsmember.cardId}','${fdsmember.member.name}','${fdsmember.member.address}','${fdsmember.member.phone}','${fdsmember.member.age}','${fdsmember.member.gender}')"
+                            <td data-name="${fdsmember.member.name}" onclick="showMemberDetails('${fdsmember.member.email}','${fdsmember.cardId}','${fdsmember.member.name}','${fdsmember.member.address}','${fdsmember.member.phone}','${fdsmember.member.age}','${fdsmember.member.gender}')"
                                 style="cursor: pointer;">${fn:substring(fdsmember.member.name, 0, 1)}*${fn:substring(fdsmember.member.name, 2, 3)}</td>
                             <td>${fn:substring(fdsmember.cardId, 0, 4)}-****-****-${fn:substring(fdsmember.cardId, 15,20)}</td>
                             <td>${fn:substring(fdsmember.serRegDate, 0, 16)}</td>
@@ -197,6 +197,30 @@
     </div>
 </div>
 <script>
+
+
+    function filterMembers() {
+        var searchTerm = document.getElementById("memberSearchInput").value; // 사용자가 입력한 검색어 가져오기
+        var table = document.querySelector(".fdsmember-table"); // 테이블 요소 가져오기
+        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+
+        // 각 행을 순회하며 data-cardId 속성을 사용하여 검색어와 일치하는 행을 찾음
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var secondColumn = row.querySelector("td[data-name]"); // data-cardId 속성을 가진 열 찾기
+            if (secondColumn) {
+                var cellValue = secondColumn.getAttribute("data-name");
+                if (cellValue.includes(searchTerm)) { // 검색어와 일치하는 경우
+                    row.style.display = ""; // 보여주기
+                } else {
+                    row.style.display = "none"; // 숨기기
+                }
+            }
+        }
+    }
+
+
+
 
     $(document).ready(function () {
         var ascending = false;

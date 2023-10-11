@@ -154,6 +154,7 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> anomalyChart(@RequestBody PaymentLog paymentLog) {
         PaymentLog paymentPayLoad = adminService.getAnomalyDataById(paymentLog.getPaymentLogId());
+        System.out.println("paymentPayLoad"+paymentPayLoad);
 
         Map<String, Object> calStatsData = adminService.calStats(paymentLog.getCardId());
 
@@ -162,6 +163,8 @@ public class AdminController {
 
 
         WordToVec embeddingData = paymentService.wordEmbedding(paymentLogs.getAddress(), paymentLogs.getCategorySmall(), hour, paymentLogs.getAmount());
+
+        System.out.println("embeddingData"+embeddingData);
 
         calStatsData.put("address", paymentLogs.getAddress());
         calStatsData.put("category", paymentLogs.getCategorySmall());

@@ -19,8 +19,19 @@ function computeHistogram(data, bins) {
     return histogramPoints;
 }
 
+let myChart = null; // 차트를 저장할 변수
+
+function destroyChart() {
+    if (myChart !== null) {
+        myChart.destroy(); // 이전 차트 파기
+        myChart = null; // 변수 초기화
+    }
+}
 
 function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointData, X_feature) {
+
+    destroyChart();
+
     const ctx = document.getElementById(elementId).getContext('2d');
 
     let bins = 20;
@@ -94,7 +105,100 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
         }
     };
 
-    new Chart(ctx, {
+    myChart =new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+}
+
+let myChart2 = null; // 차트를 저장할 변수
+
+function destroyChart2() {
+    if (myChart2 !== null) {
+        myChart2.destroy(); // 이전 차트 파기
+        myChart2 = null; // 변수 초기화
+    }
+}
+
+function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointData, X_feature) {
+
+    destroyChart2();
+
+    const ctx = document.getElementById(elementId).getContext('2d');
+
+    let bins = 20;
+    let histogramData = computeHistogram(X_feature, bins);
+
+    const data = {
+        labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
+        datasets: [{
+            label: '확률분포',
+            data: pdfData,
+            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderWidth: 0.3,
+            pointRadius: 1.5,
+            fill: false
+        },
+            {
+                label: '거래데이터',
+                data: [{ x: numericData, y: 0 }],
+                borderColor: 'red',
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 8,
+                showLine: false,
+                pointStyle: 'circle', // 내부가 채워진 circle로 표시
+                backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
+            }, {
+                label: '빈도수',
+                data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
+                type: 'bar',
+                backgroundColor: 'rgb(6,63,103)',
+                borderWidth: 1
+            }]
+    };
+
+    const options = {
+        scales: {
+            x: {
+                type: 'linear',
+                position: 'bottom',
+                title: {
+                    display: true,
+                    text: xAxisLabel
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: true
+            },
+            afterDatasetsDraw: function (chart, easing) {
+                // Only on easing complete
+                if (easing !== 1) return;
+
+                var ctx = chart.ctx;
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (meta.type !== 'bar') return; // Only draw label on bars
+
+                    meta.data.forEach(function (bar, index) {
+                        // Calculate where to place the label based on the bar's data value
+                        var yPosition = bar._model.y - 5;
+
+                        // Get the data for this bar
+                        var data = dataset.data[index].y;
+
+                        // Draw the data value on top of the bar
+                        ctx.fillText(data.toFixed(2), bar._model.x, yPosition);
+                    });
+                });
+            }
+        }
+    };
+
+    myChart2 =new Chart(ctx, {
         type: 'line',
         data: data,
         options: options
@@ -102,7 +206,116 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
 }
 
 
+
+
+let myChart3 = null; // 차트를 저장할 변수
+
+function destroyChart3() {
+    if (myChart3 !== null) {
+        myChart3.destroy(); // 이전 차트 파기
+        myChart3 = null; // 변수 초기화
+    }
+}
+
+function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointData, X_feature) {
+
+    destroyChart3();
+
+    const ctx = document.getElementById(elementId).getContext('2d');
+
+    let bins = 20;
+    let histogramData = computeHistogram(X_feature, bins);
+
+    const data = {
+        labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
+        datasets: [{
+            label: '확률분포',
+            data: pdfData,
+            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderWidth: 0.3,
+            pointRadius: 1.5,
+            fill: false
+        },
+            {
+                label: '거래데이터',
+                data: [{ x: numericData, y: 0 }],
+                borderColor: 'red',
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 8,
+                showLine: false,
+                pointStyle: 'circle', // 내부가 채워진 circle로 표시
+                backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
+            }, {
+                label: '빈도수',
+                data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
+                type: 'bar',
+                backgroundColor: 'rgb(6,63,103)',
+                borderWidth: 1
+            }]
+    };
+
+    const options = {
+        scales: {
+            x: {
+                type: 'linear',
+                position: 'bottom',
+                title: {
+                    display: true,
+                    text: xAxisLabel
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: true
+            },
+            afterDatasetsDraw: function (chart, easing) {
+                // Only on easing complete
+                if (easing !== 1) return;
+
+                var ctx = chart.ctx;
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (meta.type !== 'bar') return; // Only draw label on bars
+
+                    meta.data.forEach(function (bar, index) {
+                        // Calculate where to place the label based on the bar's data value
+                        var yPosition = bar._model.y - 5;
+
+                        // Get the data for this bar
+                        var data = dataset.data[index].y;
+
+                        // Draw the data value on top of the bar
+                        ctx.fillText(data.toFixed(2), bar._model.x, yPosition);
+                    });
+                });
+            }
+        }
+    };
+
+    myChart3 =new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+}
+
+
+
+let myChart1 = null; // 차트를 저장할 변수
+
+function destroyChart1() {
+    if (myChart1 !== null) {
+        myChart1.destroy(); // 이전 차트 파기
+        myChart1 = null; // 변수 초기화
+    }
+}
+
 function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointData, X_feature) {
+
+    destroyChart1();
+
     const ctx = document.getElementById(elementId).getContext('2d');
 
     let bins = 20;
@@ -194,7 +407,7 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
         }
     };
 
-    new Chart(ctx, {
+    myChart1=new Chart(ctx, {
         type: 'line',
         data: data,
         options: options
@@ -246,8 +459,8 @@ function showAnomalyDetails(paymentLogId, cardId) {
             const formattedAddress = splitAddress[0] + ' ' + splitAddress[1];
 
             drawChart('gaussianChart1', responseData.regionPdf[0], responseData.regionPdf[1], responseData.embeddingData.regionNameNumeric, '지역', formattedAddress, responseData.regionFeature);
-            drawChart('gaussianChart2', responseData.timePdf[0], responseData.timePdf[1], responseData.embeddingData.timeNumeric, '시간', responseData.embeddingData.timeNumeric + '시', responseData.timeFeature);
-            drawChart('gaussianChart3', responseData.categorySmallPdf[0], responseData.categorySmallPdf[1], responseData.embeddingData.categorySmallNumeric, '업종', responseData.category, responseData.categoryFeature);
+            drawChart2('gaussianChart2', responseData.timePdf[0], responseData.timePdf[1], responseData.embeddingData.timeNumeric, '시간', responseData.embeddingData.timeNumeric + '시', responseData.timeFeature);
+            drawChart3('gaussianChart3', responseData.categorySmallPdf[0], responseData.categorySmallPdf[1], responseData.embeddingData.categorySmallNumeric, '업종', responseData.category, responseData.categoryFeature);
             drawChart1('gaussianChart4', responseData.amountPdf[0], responseData.amountPdf[1], responseData.embeddingData.amountNumeric, '금액', responseData.embeddingData.amountNumeric.toLocaleString() + '원', responseData.amountFeature);
             // drawBubbleChart('bubbleChartRegion', responseData.regionCntList);
             // drawBubbleChart('bubbleChartCategory', responseData.categoryCntList);

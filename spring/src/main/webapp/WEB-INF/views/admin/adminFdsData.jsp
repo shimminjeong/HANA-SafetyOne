@@ -97,8 +97,8 @@
                 <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
                 <div class="user-search">
                     <div class="search-header">카드 검색</div>
-                    <input type="text" id="memberSearchInput" placeholder="카드번호를 입력하세요">
-                    <button onclick="filterMembers()">검색</button>
+                    <input type="text" id="cardSearchInput" placeholder="카드번호를 입력하세요">
+                    <button onclick="filterCard()">검색</button>
                 </div>
                 <table class="fdsdata-table">
                     <thead>
@@ -108,7 +108,7 @@
                             거래일시
                             <img src="../../../resources/img/sort1.png" alt="Icon for 거래일자" class="th-icon" id="sortDateIcon">
                         </th>
-                        <th>가맹점주소</th>
+                        <th>가맹점명</th>
                         <th>업종</th>
                         <th>
                             거래금액
@@ -120,9 +120,9 @@
                     <c:forEach items="${anomalyList}" var="anomalydata">
                         <tr onclick="showAnomalyDetails(${anomalydata.paymentLogId}, '${anomalydata.cardId}');"
                             style="cursor: pointer;">
-                            <td>${fn:substring(anomalydata.cardId, 0, 4)}-****-****-${fn:substring(anomalydata.cardId, 15,20)}</td>
+                            <td data-cardId="${anomalydata.cardId}">${fn:substring(anomalydata.cardId, 0, 4)}-****-****-${fn:substring(anomalydata.cardId, 15,20)}</td>
                             <td>${anomalydata.paymentDate}</td>
-                            <td>${anomalydata.address}</td>
+                            <td>${anomalydata.store}</td>
                             <td>${anomalydata.categorySmall}</td>
                             <td style="text-align: right;"><fmt:formatNumber value="${anomalydata.amount}" type="number" pattern="#,###"/>원</td>
                         </tr>
@@ -143,6 +143,28 @@
 
 
 <script>
+
+
+    function filterCard() {
+        var cardSearchInput = document.getElementById("cardSearchInput").value; // 사용자가 입력한 카드번호 가져오기
+        var table = document.querySelector(".fdsdata-table"); // 테이블 요소 가져오기
+        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+
+        // 각 행을 순회하며 data-cardId 속성을 사용하여 검색어와 일치하는 행을 찾음
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var cardNumberCell = row.querySelector("td[data-cardId]"); // data-cardId 속성을 가진 열 찾기
+            if (cardNumberCell) {
+                var cellValue = cardNumberCell.getAttribute("data-cardId");
+                if (cellValue.includes(cardSearchInput)) { // 입력된 카드번호와 일치하는 경우
+                    row.style.display = ""; // 보여주기
+                } else {
+                    row.style.display = "none"; // 숨기기
+                }
+            }
+        }
+    }
+
 
     $(document).ready(function () {
         var ascendingAmount = false;

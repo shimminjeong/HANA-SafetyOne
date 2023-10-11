@@ -71,21 +71,21 @@
             <h2 class="details____title"><img class="img-size" src="../../../resources/img/secure-payment.png">안심서비스 관리
             </h2>
             <div class="box-container">
-                <div class="info-box1" onclick="window.location.href='/admin/safety'">
+                <div style="background-color: #eee;"  class="info-box1" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/safety'">
+                <div  style="background-color: #eee;"  class="info-box" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
                         <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
-                <div style="background-color: #eee;" class="info-box1"
+                <div class="info-box1"
                      onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
@@ -94,7 +94,7 @@
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
             </div>
-
+            <div style="text-align: right; margin-bottom:20px;">금일 차단 건수를 선택하면 안심서비스 차단 내역을 조회할 수 있습니다.</div>
             <div class="table-container">
                 <h3>서비스 사용자 및 카드 관리</h3>
                 <div class="alarm-info">※ 회원의 이름을 선택하면 상세한 회원 정보를 조회할 수 있습니다.</div>
@@ -124,7 +124,7 @@
                     <c:forEach items="${safetyMemberList}" var="safetymember">
                         <tr>
                             <td>${safetymember.member.email}</td>
-                            <td onclick="showMemberDetails('${safetymember.member.email}','${safetymember.cardId}','${safetymember.member.name}','${safetymember.member.address}','${safetymember.member.phone}','${safetymember.member.age}','${safetymember.member.gender}')"
+                            <td data-name="${safetymember.member.name}"  onclick="showMemberDetails('${safetymember.member.email}','${safetymember.cardId}','${safetymember.member.name}','${safetymember.member.address}','${safetymember.member.phone}','${safetymember.member.age}','${safetymember.member.gender}')"
                                 style="cursor: pointer;">${fn:substring(safetymember.member.name, 0, 1)}*${fn:substring(safetymember.member.name, 2, 3)}</td>
                             <td onclick="showSafetyInfo('${safetymember.cardId}')"
                                 style="cursor: pointer;">${fn:substring(safetymember.cardId, 0, 4)}-****-****-${fn:substring(safetymember.cardId, 15,20)}</td>
@@ -219,6 +219,30 @@
     </div>
 </div>
 <script>
+
+
+    function filterMembers() {
+        var searchTerm = document.getElementById("memberSearchInput").value; // 사용자가 입력한 검색어 가져오기
+        var searchTerm = document.getElementById("memberSearchInput").value; // 사용자가 입력한 검색어 가져오기
+        var table = document.querySelector(".data-table"); // 테이블 요소 가져오기
+        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+
+        // 각 행을 순회하며 data-name 속성을 사용하여 검색어와 일치하는 행을 찾음
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var secondColumn = row.querySelector("td[data-name]"); // data-name 속성을 가진 열 찾기
+            if (secondColumn) {
+                var cellValue = secondColumn.getAttribute("data-name");
+                if (cellValue.includes(searchTerm)) { // 검색어와 일치하는 경우
+                    row.style.display = ""; // 보여주기
+                } else {
+                    row.style.display = "none"; // 숨기기
+                }
+            }
+        }
+    }
+
+
 
     $(document).ready(function () {
         var ascending = false;

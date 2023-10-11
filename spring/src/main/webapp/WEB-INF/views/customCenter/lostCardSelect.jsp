@@ -62,6 +62,7 @@
     </div>
     <button class="registerLostBtn" onclick="registerLostCard()">다음</button>
 </div>
+<%@ include file="../include/footer.jsp" %>
 </body>
 <script>
 

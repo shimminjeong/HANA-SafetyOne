@@ -67,7 +67,7 @@
             <div class="sub-container">
                 <div class="hana-info">
                     <h2 class="details____title" style="text-align: center">하나카드 이용 현황</h2>
-                    <div style="font-size:16px; text-align: right">2023.10.09 기준</div>
+                    <div style="font-size:16px; text-align: right">2023.10.13 오후 5시 기준</div>
                     <div class="hana-info-content">
                         <div class="hana-info-content-box1">
                             <div class="hana-info-content-header">총 회원 수</div>
@@ -146,7 +146,7 @@
                             <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>
                         </div>
                         <div class="safetyone-info-content-box2">
-                            <div class="safetyone-info-content-header"><img src="../../../resources/img/bellcolor.png">이상소비 알림서비스</div>
+                            <div class="safetyone-info-content-header"><img src="../../../resources/img/bellcolor.png">이상소비알림서비스</div>
                             <div class="safetyone-info-content-div1">금일 이상소비 건수</div>
                             <div class="safetyone-info-content-div2"><strong>${fdsDataCount}</strong>건</div>
                         </div>
@@ -283,7 +283,7 @@
                 y: {
                     beginAtZero: true,
                     min: 1000000000, // 최소값 설정
-                    max: 1150000000, // 최대값 설정
+                    max: 1550000000, // 최대값 설정
                     ticks: {
                         callback: function (value, index, values) {
                             // 값을 10,000으로 나누고, ','로 구분하여 표시

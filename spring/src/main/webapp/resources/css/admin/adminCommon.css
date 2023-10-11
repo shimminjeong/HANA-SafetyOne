@@ -48,7 +48,7 @@ body{
 #headerLogo {
     display: flex;
     align-items: center;
-    background-color: #a9d3d1;
+    background-color: #62b2ae;
     color: white;
     padding-left: 50px;
     padding-right: 50px;
@@ -260,4 +260,20 @@ hr {
 .info-left,
 .info-right {
     width: 48%; /* 왼쪽과 오른쪽 컨테이너 너비 조절 */
+}
+
+.pick{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+.date-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 30px;
+
 }

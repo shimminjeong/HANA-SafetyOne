@@ -105,7 +105,6 @@
         </div>
     </div>
 </div>
-
 <div id="receiptModal" class="modal">
     <div class="modal-body">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -398,6 +397,8 @@
             var selectedCardIndex = $(this).find('option:selected').index();
             $('.card-img').attr('src', '../../../resources/img/' + selectedCardName + '.png');
         });
+
+
 
         // 함수 정의
         function sendCardIdToServer(cardId) {

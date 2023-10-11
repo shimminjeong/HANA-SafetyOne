@@ -150,6 +150,7 @@ public class AdminServiceImpl implements AdminService {
             }
 //            System.out.println("cardHistory.getRegionName()"+cardHistory.getRegionName());
             int RegionNumeric = paymentMapper.selectPreprocessingRegion(regionName);
+            System.out.println("cardHistory.getCategorySmall()"+cardHistory.getCategorySmall());
             Double categoryDouble = paymentMapper.selectPreprocessingCategory(cardHistory.getCategorySmall());
             int timeNumeric=Integer.parseInt(cardHistory.getCardHisTime().split(":")[0]);
 

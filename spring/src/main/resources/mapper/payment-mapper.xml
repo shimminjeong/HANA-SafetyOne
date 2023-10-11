@@ -50,7 +50,7 @@
     <!--    cardhistory 테이블에 데이터 삽입-->
     <insert id="insertCardHistory">
         INSERT INTO CARDHISTORY(CARDHISID,CARDID,CATEGORYBIG,CATEGORYSMALL,REGIONNAME,STORE,CARDHISDATE,CARDHISTIME,AMOUNT)
-        VALUES (CARD_HIS_ID_SEQ.NEXTVAL, #{cardId}, 'gg', #{categorySmall},#{address},#{store}, TO_DATE(#{paymentDate}, 'YYYY-MM-DD'), #{time}, #{amount})
+        VALUES (CARD_HIS_ID_SEQ.NEXTVAL, #{cardId}, 'gg', #{categorySmall},#{address},#{store}, TO_DATE(#{paymentDate} || ' ' || #{time}, 'YYYY-MM-DD HH24:MI:SS'), #{time}, #{amount})
     </insert>
 
 <!--    safetycard하고 PAYMENTLOG 테이블에 데이터 삽입-->

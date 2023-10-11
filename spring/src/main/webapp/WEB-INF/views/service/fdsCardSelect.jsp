@@ -8,7 +8,7 @@
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<%--    <link href="../../../resources/css/common.css" rel="stylesheet">--%>
+    <%--    <link href="../../../resources/css/common.css" rel="stylesheet">--%>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <%--    <link href="../../../resources/css/cardSelectCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/fdsCardSelect.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 <div class="container">
     <div class="content-div">
         <div class="content-header">
-            <h2>이상소비 알림서비스 카드 선택</h2>
+            <h2>이상소비알림서비스 카드 선택</h2>
             <span style="align-self: flex-start; font-size: 18px; margin-bottom: 30px; margin-top:10px;" >선택한 카드의 거래내역으로 소비패턴을 학습합니다.</span>
         </div>
         <span class="sub-container-hearder">보유카드 목록</span><span class="fds-info-text" style="text-align: right">※ 사용기간이 6개월 이상 지난 카드만 신청 가능합니다.</span>
@@ -52,9 +52,9 @@
                     <c:if test="${card.fdsSerStatus eq 'Y'}">
                         <img class="service-status-img" src="../../../resources/img/notification.png">
                     </c:if>
-<%--                    <c:if test="${card.fdsSerStatus eq 'N'}">--%>
-<%--                        <img class="service-status-img" src="../../../resources/img/silent.png">--%>
-<%--                    </c:if>--%>
+                        <%--                    <c:if test="${card.fdsSerStatus eq 'N'}">--%>
+                        <%--                        <img class="service-status-img" src="../../../resources/img/silent.png">--%>
+                        <%--                    </c:if>--%>
                 </div>
             </div>
             <hr>
@@ -102,6 +102,7 @@
             <%--    <div class="ajax-content"></div>--%>
             <div class="reg-confirm-div">
                 <button class="fds-back-Btn" onclick="window.location.href='/'">취소</button>
+<%--                <button class="fds-agree-Btn" onclick="registerCard()">확인</button>--%>
                 <button class="fds-agree-Btn" onclick="agreePhone()">확인</button>
             </div>
         </div>
@@ -117,27 +118,27 @@
                 <div class="content-div-header" style="margin: auto 0;">이름</div>
                 <div class="content-div-input"><input type="text" placeholder="이름"></div>
             </div>
-            <div class="content-row">
-                <div class="content-div-header" style="margin: auto 0;">생년월일</div>
-                <div class="content-div-input"><input type="text" placeholder="19981223 형식으로 입력"></div>
-            </div>
+<%--            <div class="content-row">--%>
+<%--                <div class="content-div-header" style="margin: auto 0;">생년월일</div>--%>
+<%--                <div class="content-div-input"><input type="text" placeholder="19981223 형식으로 입력"></div>--%>
+<%--            </div>--%>
             <div class="content-row">
                 <div class="content-div-header" style="margin-top: 10px;">휴대전화</div>
                 <div class="content-div-phone">
-<%--                    <div class="agree-form">--%>
-<%--                        <div class="accordion-header">--%>
-<%--                            <span class="toggle-icon">V</span>--%>
-<%--                            본인인증 약관 전체동의--%>
-<%--                            <span class="accordion-indicator">▼</span>--%>
-<%--                        </div>--%>
+                    <%--                    <div class="agree-form">--%>
+                    <%--                        <div class="accordion-header">--%>
+                    <%--                            <span class="toggle-icon">V</span>--%>
+                    <%--                            본인인증 약관 전체동의--%>
+                    <%--                            <span class="accordion-indicator">▼</span>--%>
+                    <%--                        </div>--%>
 
-<%--                        <div class="accordion-content">--%>
-<%--                            <hr>--%>
-<%--                            <div><span class="toggle-icon">v</span> 개인정보 제공 및 이용</div>--%>
-<%--                            <div><span class="toggle-icon">v</span> 고유식별 정보처리</div>--%>
-<%--                            <div><span class="toggle-icon">v</span> 통신사 이용약관</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
+                    <%--                        <div class="accordion-content">--%>
+                    <%--                            <hr>--%>
+                    <%--                            <div><span class="toggle-icon">v</span> 개인정보 제공 및 이용</div>--%>
+                    <%--                            <div><span class="toggle-icon">v</span> 고유식별 정보처리</div>--%>
+                    <%--                            <div><span class="toggle-icon">v</span> 통신사 이용약관</div>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
                     <div class="phone-div">
                         <div class="company-select">
                             <select>
@@ -310,5 +311,3 @@
 
 </script>
 </html>
-
-

@@ -12,7 +12,7 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div id="service">
-        <div class="serviceTitle"><img src="../../../resources/img/bellcolor.png" style="width: 34px; height: 34px;"/><div>이상소비 알림서비스</div></div>
+        <div class="serviceTitle"><img src="../../../resources/img/bellcolor.png" style="width: 34px; height: 34px;"/><div>이상소비알림서비스</div></div>
         <div class="service-content2">
             <div class="text_div">
                 <p><div class="sub-tit">실시간 금융 보호를 위한 알림 서비스</div><br>
@@ -23,7 +23,7 @@
             </a>
         </div>
         <div class="service_wrap">
-            <div class="h_wrap">이상소비 알림서비스란?</div>
+            <div class="h_wrap">이상소비알림서비스란?</div>
             <ul class="marker_dot">
                 <li>이 서비스는 사용자의 일반적인 소비 패턴과 다른 의심스러운 거래를 즉시 감지하여 알림을 제공하는 서비스입니다. <br>
                     사용자의 카드 사용 패턴과 금액 그리고 다른 업종, 지역, 시간대에서 발생하는 거래를 중심으로, 이상소비를 신속하게 <br>

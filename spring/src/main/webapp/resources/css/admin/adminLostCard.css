@@ -48,8 +48,8 @@
 }
 
 .lostReason-select-text{
-    font-size: 20px;
-    margin-right: 10%;
+    font-size: 18px;
+    margin-right: 5%;
     width: 100px;
 }
 
@@ -102,4 +102,60 @@
 .lostCard-table table th:nth-child(5),
 .lostCard-table table td:nth-child(5) {
     width: 80px; /* 다섯 번째 열의 너비 설정 */
+}
+
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.page-btn {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 0.2px solid;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.page-btn:hover {
+    background-color: #00857F; /* 원하는 배경색으로 변경하세요 */
+    color: white;
+}
+
+.current-page {
+    background-color: #00857F; /* 원하는 배경색으로 변경하세요 */
+    color: white; /* 원하는 배경색으로 변경하세요 */
+}
+
+#pageNumbers {
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 37%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#pageNumbers button {
+    margin: 0.7%;
+    width: 30px;
+    height: 27px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+#prev, #next {
+    width: 42px;
+    height: 27px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pagination {
+    height: 5%;
 }

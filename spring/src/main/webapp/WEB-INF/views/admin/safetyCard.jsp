@@ -20,10 +20,6 @@
             <div class="content-div-input"><input type="text" placeholder="이름 입력"></div>
         </div>
         <div class="content-row">
-            <div class="content-div-header" style="margin: auto 0;">생년월일</div>
-            <div class="content-div-input"><input type="text" placeholder="생년월일 입력"></div>
-        </div>
-        <div class="content-row">
             <div class="content-div-header">휴대전화</div>
             <div class="content-div-phone">
                 <div class="agree-form">

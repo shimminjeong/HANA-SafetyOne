@@ -106,7 +106,7 @@
                         <th>카드번호</th>
                         <th>거래일시<img src="../../../resources/img/sort1.png" alt="Icon for 거래일자" class="th-icon"
                                      id="sortDateIcon"></th>
-                        <th>가맹점주소</th>
+                        <th>가맹점명</th>
                         <th>업종</th>
                         <th>거래금액<img src="../../../resources/img/sort1.png" alt="Icon for 거래가격" class="th-icon"
                                      id="sortAmountIcon"></th>
@@ -117,7 +117,7 @@
                         <tr>
                             <td>${fn:substring(notApprovalData.cardId, 0, 4)}-****-****-${fn:substring(notApprovalData.cardId, 15,20)}</td>
                             <td>${notApprovalData.paymentDate}</td>
-                            <td>${notApprovalData.address}</td>
+                            <td>${notApprovalData.store}</td>
                             <td>${notApprovalData.categorySmall}</td>
                             <td style="text-align: right"><fmt:formatNumber value="${notApprovalData.amount}"
                                                                             type="number" pattern="#,###"/>원

@@ -75,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-//    Transactional처리 delete safetycard 테이블에서 delete도 하기
+    //    Transactional처리 delete safetycard 테이블에서 delete도 하기
     @Transactional
     @Override
     public void unregSafetyService(Card card) {
@@ -88,12 +88,15 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void regFdsService(Card card) {
         card.setFdsSerStatus("Y");
+
         memberMapper.updateFdsStatus(card);
         String serviceStatus="학습대기";
+        System.out.println("card.getCardId(),"+card.getCardId());
+        System.out.println("serviceStatus,"+serviceStatus);
         memberMapper.insertFds(card.getCardId(), serviceStatus);
     }
 
-//    fds 서비스 신청 해제
+    //    fds 서비스 신청 해제
     @Transactional
     @Override
     public void unregFdsService(Card card) {

@@ -329,7 +329,7 @@
     </select>
 
     <insert id="insertFds">
-        INSERT INTO FDS (CARDID, serRegDate,SERVICESTATUS) VALUES (#{cardId},sysdate,#{serviceStatus})
+        INSERT INTO FDS (CARDID, serRegDate,SERVICESTATUS) VALUES (#{cardId},TO_DATE('2023-10-12 14:12:00', 'YYYY-MM-DD HH24:MI:SS'),#{serviceStatus})
     </insert>
 
     <delete id="deleteFds">

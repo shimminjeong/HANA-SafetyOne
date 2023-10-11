@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="details__left">
     <div class="section-header">마이페이지</div>
-    <hr style="margin: 0px">
+    <hr style="margin: 0px; border: 1px solid #00857F;">
     <ul class="menu">
         <li class="menu__item">
             <a href="/mypage" class="menu__link">

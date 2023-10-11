@@ -97,7 +97,7 @@
         SELECT
             categorySmall,
             SUM(amount) AS amountSum,
-            ROUND(SUM(amount) / (SELECT SUM(amount) FROM cardhistory WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'
+            ROUND(SUM(amount) / (SELECT SUM(amount) FROM cardhistory WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-07-10'
                                         AND cardid IN (SELECT cardid FROM card WHERE email = #{email})), 3) AS ratio
         FROM cardhistory
         WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'
@@ -111,7 +111,7 @@
         SELECT
             categorySmall,
             COUNT(*) AS categoryCnt,
-            ROUND(COUNT(*) / (SELECT COUNT(*) FROM cardhistory WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'
+            ROUND(COUNT(*) / (SELECT COUNT(*) FROM cardhistory WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-07-10'
                                                                  AND cardid IN (SELECT cardid FROM card WHERE email = #{email})), 3) AS ratio
         FROM cardhistory
         WHERE TO_CHAR(cardhisdate, 'YYYY-MM-DD') >= '2023-08-10'

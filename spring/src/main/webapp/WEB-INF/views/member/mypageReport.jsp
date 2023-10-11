@@ -24,7 +24,7 @@
         <div class="sub-container">
             <div class="sub-container-hearder"><%=session.getAttribute("name")%>님의 소비레포트</div>
             <div style="text-align:right; margin-bottom: 10px"></div>
-            <div style="text-align:right; ">2023/10/10 9:30 기준</div>
+            <div style="text-align:right; ">2023/10/12 오후 12시 기준</div>
             <div class="sub-container-content">
                 <div class="div-header"><img src="../../../resources/img/magnifier.png">
                     지난달과 비교했을 때 이번달의 소비 변화

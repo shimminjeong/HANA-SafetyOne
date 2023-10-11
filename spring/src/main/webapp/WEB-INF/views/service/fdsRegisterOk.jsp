@@ -59,7 +59,7 @@
   <div class="ok-head">선택하신 카드의 이상소비알림서비스가 신청되었습니다.</div>
   <div class="ok-content">고객님께서 선택하신 카드의 거래내역을 학습하여,</div>
   <div class="ok-content">이상소비가 감지되면 알림을 보내드립니다.</div>
-  <button class="info-btn" onclick="window.location.href='/fds/fdsCardSelect'"> 이용현황</button>
+<%--  <button class="info-btn" onclick="window.location.href='/fds/fdsCardSelect'"> 이용현황</button>--%>
 </div>
 </body>
 </html>
