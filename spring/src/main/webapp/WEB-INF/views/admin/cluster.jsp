@@ -140,11 +140,11 @@
                 </div>
                 <div class="category-top3">
                     <div class="big">
-                        <div class="category-header">주요 거래업종</div>
+                        <div class="category-header"><주요 거래업종></div>
                         <div class="bigcategory"></div>
                     </div>
                     <div class="small">
-                        <div class="category-header">비주요 거래업종</div>
+                        <div class="category-header"><비주요 거래업종></div>
                         <div class="smallcategory"></div>
                     </div>
                 </div>
@@ -257,13 +257,13 @@
                 {
                     label: '거래건수',
                     data: dataCount,
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // 붉은색
+                    backgroundColor: 'rgb(7,143,137)',
                     yAxisID: 'y-axis-count'
                 },
                 {
                     label: '거래금액',
                     data: dataSum,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
+                    backgroundColor: 'rgba(199,123,45,0.87)', // 주황색
                     yAxisID: 'y-axis-sum'
                 }
             ]

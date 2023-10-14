@@ -20,7 +20,7 @@
 <div class="big-container">
     <div class="details__left">
         <ul class="menu">
-            <li class="menu__item" style="background-color:#e1f1ff;">
+            <li class="menu__item" style="background-color:#c7dbec;">
                 <a href="/mypage" class="menu__link">
                     STEP1 지역
                 </a>

@@ -8,9 +8,14 @@
 <body>
 <header>
     <div id="headerLogo">
-        <div id="logo">
-            <img class="imgLogo" src="../../resources/img/logo.png" height="60">
-            <a class="nameLogo" href="/">SafetyOne</a>
+        <%--        <div id="logo">--%>
+        <%--            <img class="imgLogo" src="../../resources/img/logo.png" height="60">--%>
+        <%--            <a class="nameLogo" href="/">SafetyOne</a>--%>
+        <%--        </div>--%>
+        <div id="logo" style="margin-top: 5px;">
+            <a href="/">
+                <img class="imgLogo" src="../../resources/img/SafetyOneLogo.svg">
+            </a>
         </div>
         <%
             String email = (String) session.getAttribute("email");
@@ -36,16 +41,16 @@
                 <div class="dropdown-content">
                     <a href="/safetyCard/">서비스 등록 및 해제</a>
                     <a href="/safetyCard/">서비스 이용현황</a>
-                    <a href="/safetyCard/safetyCardStop">서비스 일시해제</a>
+                    <a href="/safetyCard/safetyCardStop">서비스 일시정지</a>
                 </div>
             </div>
             <div class="dropdown">
                 <button class="dropbtn" onclick="window.location.href='/fds/'">이상소비알림서비스
                 </button>
-                <div class="dropdown-content">
-                    <a href="/fds/">서비스 등록 및 해제</a>
-                    <a href="/safetyCard/">서비스 이용현황</a>
-                </div>
+                <%--                <div class="dropdown-content">--%>
+                <%--                    <a href="/fds/">서비스 등록 및 해제</a>--%>
+                <%--                    <a href="/safetyCard/">서비스 이용현황</a>--%>
+                <%--                </div>--%>
             </div>
             <div class="dropdown">
                 <button class="dropbtn" onclick="window.location.href='/customCenter/lostCardSelect'">고객센터
@@ -59,7 +64,6 @@
                 <button class="dropbtn" onclick="window.location.href='/mypage'">마이페이지
                 </button>
                 <div class="dropdown-content">
-                    <a href="/mypage">대시보드</a>
                     <a href="/mypageCardHistory/">카드이용내역</a>
                     <a href="/mypageReport">소비레포트</a>
                 </div>

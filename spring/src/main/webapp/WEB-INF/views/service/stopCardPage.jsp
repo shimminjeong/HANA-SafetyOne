@@ -20,7 +20,7 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
     <div class="main">
-        <h3>안심카드일시해제</h3>
+        <h3>안심카드일시정지</h3>
         <h4>대상카드</h4>
         <hr>
         <div class="card-info">
@@ -36,7 +36,7 @@
             <span>서비스 이용 기간</span><span>${safetyInfo[0].safetyStartDate.split(" ")[0]} ~ 카드유효기간(${safetyInfo[0].safetyEndDate.split(" ")[0]})</span>
         </div>
         <div class="car">
-            <div>특정 기간동안 안심서비스를 일시해제할 조합을 선택하세요</div>
+            <div>특정 기간동안 안심서비스를 일시정지할 조합을 선택하세요</div>
             <div>※ 특정 기간동안선택한 조합의 결제가 허용됩니다.</div>
         </div>
         <div class="table-div">
@@ -46,7 +46,7 @@
                     <th>차단한 지역</th>
                     <th>차단한 시간</th>
                     <th>차단한 업종</th>
-                    <th>일시해제</th>
+                    <th>일시정지</th>
                     <!-- 추가로 다른 칼럼도 포함시킬 수 있습니다. -->
                 </tr>
                 </thead>
@@ -64,7 +64,7 @@
                                     data-time="${info.time}"
                                     data-category="${info.categorySmall}"
                                     onclick="pauseCard(this)">
-                                일시해제
+                                일시정지
                             </button>
                         </td>
                     </tr>
@@ -76,7 +76,7 @@
 </div>
 <div id="pauseModal"
      style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background-color: white; border: 1px solid #ccc; z-index: 1000;">
-    <h2>일시해제 기간 설정</h2>
+    <h2>일시정지 기간 설정</h2>
     <div id="cardIdDisplay"></div>
     <div id="rule">
         <div hidden>번호: <span id="seqId"></span></div>
@@ -164,7 +164,7 @@
             contentType: "application/json", // <-- 추가
             success: function(response) {
                 closeModal();
-                if (response === "일시해제업데이트") {
+                if (response === "일시정지업데이트") {
                     window.location.href = "/safetyCard/safetySettingOk"; // 페이지 리다이렉트
                 } else {
                     alert(response); // 그렇지 않으면 서버의 응답을 그대로 경고로 표시합니다.

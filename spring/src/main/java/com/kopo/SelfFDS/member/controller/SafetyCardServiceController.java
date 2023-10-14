@@ -211,7 +211,7 @@ public class SafetyCardServiceController {
         safetyCard.setStatus("N");
         System.out.println("safetyCard" + safetyCard);
         memberService.updateStopDate(safetyCard);
-        return "일시해제업데이트";
+        return "일시정지업데이트";
     }
 
 
@@ -319,6 +319,7 @@ public class SafetyCardServiceController {
     @ResponseBody
     public String insertSafetyInfo(@RequestBody Map<String, Object> requestData, HttpSession session) {
         String cardId = (String) session.getAttribute("cardId");
+        System.out.println("cardId"+cardId);
 
         List<List<String>> settingsList = (List<List<String>>) requestData.get("settingsList");
 

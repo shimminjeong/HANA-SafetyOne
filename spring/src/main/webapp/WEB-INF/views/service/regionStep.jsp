@@ -105,7 +105,7 @@
 <%--                <li><a href="#none">안심서비스</a>--%>
 <%--                    <ul style="border-top: 1px solid #dcdcdc;">--%>
 <%--                        <li><a href="#none">카드 등록 및 해제</a></li>--%>
-<%--                        <li><a href="#none">서비스 일시해제></a></li>--%>
+<%--                        <li><a href="#none">서비스 일시정지></a></li>--%>
 <%--                        <li><a href="#none">이용현황</a></li>--%>
 <%--                    </ul>--%>
 <%--                </li>--%>

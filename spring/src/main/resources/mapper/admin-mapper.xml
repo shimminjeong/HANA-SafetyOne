@@ -54,7 +54,7 @@
             resultType="int">
         SELECT sum(amount) as amountSum
         FROM cardhistory
-        WHERE cardhisdate = to_char('23/07/23')
+        WHERE cardhisdate = to_char('23/10/13')
     </select>
 
 

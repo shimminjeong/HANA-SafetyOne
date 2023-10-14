@@ -162,6 +162,17 @@
 
 <script>
 
+    $(function() {
+        // 현재 날짜를 설정합니다. (2023년 10월 13일로 예시)
+        var currentDate = new Date(2023, 10, 15); // 월은 0부터 시작하므로 9는 10월을 의미합니다.
+
+        // DatePicker 초기화
+        $("#paymentdatepicker").datepicker();
+
+        // 현재 날짜를 설정한 날짜로 업데이트
+        $("#paymentdatepicker").datepicker("setDate", currentDate);
+    });
+
     function filterCard() {
         var cardSearchInput = document.getElementById("cardSearchInput").value; // 사용자가 입력한 카드번호 가져오기
         var table = document.querySelector(".logdata-table"); // 테이블 요소 가져오기

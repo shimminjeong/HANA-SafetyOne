@@ -520,6 +520,7 @@
             dataType: 'text',
             success: function (response) {
                 console.log(response);
+                console.log("reponseggg")
                 console.log("sss");
                 if (response === "insert성공") {
                     location.href = "/safetyCard/safetySettingOk";

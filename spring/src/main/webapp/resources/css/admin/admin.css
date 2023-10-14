@@ -99,6 +99,7 @@
     flex-direction: column;
     align-items: center;
     background-color: white;
+    cursor: pointer;
 }
 
 .safetyone-info-content-header img{
@@ -120,6 +121,7 @@
     flex-direction: column;
     align-items: center;
     background-color: white;
+    cursor: pointer;
 }
 
 
@@ -135,6 +137,7 @@
     flex-direction: column;
     align-items: center;
     background-color: white;
+    cursor: pointer;
 
 }
 

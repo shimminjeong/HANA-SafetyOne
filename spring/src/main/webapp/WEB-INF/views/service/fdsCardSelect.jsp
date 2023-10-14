@@ -21,7 +21,7 @@
     <div class="content-div">
         <div class="content-header">
             <h2>이상소비알림서비스 카드 선택</h2>
-            <span style="align-self: flex-start; font-size: 18px; margin-bottom: 30px; margin-top:10px;" >선택한 카드의 거래내역으로 소비패턴을 학습합니다.</span>
+            <span style="align-self: flex-start; font-size: 18px; margin-bottom: 30px; margin-top:10px;">선택한 카드의 거래내역으로 소비패턴을 학습합니다.</span>
         </div>
         <span class="sub-container-hearder">보유카드 목록</span><span class="fds-info-text" style="text-align: right">※ 사용기간이 6개월 이상 지난 카드만 신청 가능합니다.</span>
         <hr class="sub-hr">
@@ -102,13 +102,79 @@
             <%--    <div class="ajax-content"></div>--%>
             <div class="reg-confirm-div">
                 <button class="fds-back-Btn" onclick="window.location.href='/'">취소</button>
-<%--                <button class="fds-agree-Btn" onclick="registerCard()">확인</button>--%>
+                <%--                <button class="fds-agree-Btn" onclick="registerCard()">확인</button>--%>
                 <button class="fds-agree-Btn" onclick="agreePhone()">확인</button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal-2" id="termsModal">
+    <div class="modal-content-2">
+        <div class="text-header">휴대폰 메시지 표준약관</div>
+        <div class="text">
+            <div style="margin-top:10px; font-size: 18px; font-weight: 700;">제1조(목적)</div>
+            <span>이 약관은 하나카드 주식회사(이하 “회사”라 함)와 이용자 사이의 휴대폰 메시지 서비스
+            이용조건 및 절차 등에 관한 사항을 규정함으로써 이용자의 권익을 보호하고 거래 당사자
+                상호 간 이해관계를 합리적으로 조정하는 것을 목적으로 합니다.</span>
+
+            <div style="margin-top:10px; font-size: 18px; font-weight: 700;">제2조(정의)</div>
+            <span>이 약관에서 사용하는 용어의 정의는 다음과 같습니다.
+            1. 휴대폰 메시지란 통신사 및 인터넷망 사업자 등의 통신 및 데이터 전송 기능을 통해
+            송부되는 문자, 전자문서 등을 말하며, 휴대폰 문자메시지(SMS 등)와 모바일 메시징
+            서비스를 통한 모바일 메시지를 의미합니다.
+            2. 휴대폰 메시지 서비스란 회사가 이용자로부터 일정 수수료를 대가로 이용자가
+            지정한 휴대폰 번호 또는 다른 통신단말기 번호(이하 “휴대폰 번호”라 함)에 해당하는
+            무선단말기(이하 “휴대폰 ”이라 함)에 회사가 휴대폰 메시지를 이용하여 이용자의 승인,
+            결제 및 기타 서비스 정보 등을 제공하는 것을 말합니다.
+            3. 휴대폰 메시지 서비스 이용자(이하 “이용자”라 한다)란 회사에 카드이용 등과 관련하여
+                본인이 선택한 방법으로 휴대폰 메시지 서비스 이용을 신청한 자를 말합니다.</span>
+
+            <div style="margin-top:10px; font-size: 18px; font-weight: 700;">제3조(서비스 이용계약)</div>
+            <span>① 휴대폰 메시지 서비스를 이용하려는 자는 카드회원 가입 시 서비스 이용을
+            신청하거나 회사 전화, 홈페이지 등을 통해 가입을 신청해야 하고 유효한 휴대폰 번호를
+            회사에 제공해야 합니다.
+            ② 휴대폰 메시지 서비스는 연중무휴, 1일 24시간 제공되며 회사 시스템의
+            유지‧보수‧점검(업무 위‧수탁 업체를 포함한다), 이동통신사 또는 인터넷망 사업자의 시스템
+            유지‧보수‧점검 등으로 휴대폰 메시지 서비스 이용이 제한, 지연, 누락될 경우 1개월
+            전에 이용자에게 이용대금명세서, 서면, 전화, 전자우편(E-mail), 휴대폰 메시지 등으로 동
+            내용을 안내해야 합니다. 다만, 긴급한 사정으로 휴대폰 메시지 서비스 이용이 제한, 지연,
+            누락된 사실을 미리 안내할 수 없는 경우에는 전달되지 못한 휴대폰 메시지 서비스
+            내용을 이용자에게 즉시 다시 전송해야 하며 사후적으로 휴대폰 메시지 서비스 이용이
+            제한, 지연, 누락되어 이용자에게 손해가 발생한 경우에는 이를 배상하도록 합니다.
+            ③ 제2항 단서에도 불구하고 다음 각 호의 경우에는 이용자가 손해배상을 청구할 수
+            없습니다.
+            1. 이용자의 휴대폰 분실, 도난, 파손, 고장 등 이용자의 책임있는 사유로 휴대폰 메시지를
+            정상적으로 수신할 수 없는 경우
+            2. 이용자의 휴대폰 전원이 꺼져있거나, 이용자의 책임있는 사유로 휴대폰이 정지 또는
+            해지된 경우
+            3. 이용자의 휴대폰 번호가 변경된 사실을 회사에 알리지 않은 경우
+            ④ 회사는 휴대폰 메시지 서비스 제공 범위에 따라 이용자별로 개인회원(본인회원 및
+            가족회원별) 300원의 수수료를 청구할 수 있습니다. 수수료를 변경할 경우 변경 전
+            3개월부터 매월 홈페이지, 이용대금명세서, 서면, 우편, 전화, 전자우편(E-mail), 휴대폰
+            메시지 중 2가지 이상의 방법으로 이용자에게 수수료 변경 사유와 변경 내용, 수수료
+            변경에 따른 계약해지 방법을 안내해야 합니다.</span>
+        </div>
+        <button class="close-btn-2">확인</button>
+    </div>
+</div>
+
+<script>
+    document.querySelector(".agree-content-btn").addEventListener("click", function () {
+        document.getElementById("termsModal").style.display = "block";
+    });
+
+    document.querySelector(".close-btn-2").addEventListener("click", function () {
+        document.getElementById("termsModal").style.display = "none";
+    });
+
+    window.addEventListener("click", function (event) {
+        if (event.target === document.getElementById("termsModal")) {
+            document.getElementById("termsModal").style.display = "none";
+        }
+    });
+
+</script>
 <div id="authModal" class="modal">
     <div class="auth-container">
         <span class="close-btn">&times;</span>
@@ -118,10 +184,10 @@
                 <div class="content-div-header" style="margin: auto 0;">이름</div>
                 <div class="content-div-input"><input type="text" placeholder="이름"></div>
             </div>
-<%--            <div class="content-row">--%>
-<%--                <div class="content-div-header" style="margin: auto 0;">생년월일</div>--%>
-<%--                <div class="content-div-input"><input type="text" placeholder="19981223 형식으로 입력"></div>--%>
-<%--            </div>--%>
+            <%--            <div class="content-row">--%>
+            <%--                <div class="content-div-header" style="margin: auto 0;">생년월일</div>--%>
+            <%--                <div class="content-div-input"><input type="text" placeholder="19981223 형식으로 입력"></div>--%>
+            <%--            </div>--%>
             <div class="content-row">
                 <div class="content-div-header" style="margin-top: 10px;">휴대전화</div>
                 <div class="content-div-phone">
@@ -160,7 +226,8 @@
                             <button class="send-authNumber" onclick="sendSmsRequest()">인증번호 받기</button>
                         </div>
                     </div>
-                    <div class="auth-number-input"><input type="text" id="userOuathNum" placeholder="인증번호 숫자만 6자리 입력">
+                    <div class="auth-number-input"><input type="text" id="userOuathNum"
+                                                          placeholder="인증번호 숫자만 6자리 입력">
                     </div>
                 </div>
             </div>
@@ -223,7 +290,7 @@
     });
 
     let selectedCardIds = [];
-    console.log("selectedCardIds",selectedCardIds)
+    console.log("selectedCardIds", selectedCardIds)
 
     function AllCard() {
         // 'cardAll-img-div' 클래스를 가진 div의 이미지와

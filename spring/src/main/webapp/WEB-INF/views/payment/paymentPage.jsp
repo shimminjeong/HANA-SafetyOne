@@ -172,7 +172,7 @@
 
     function getToday() {
         var date = new Date();
-        date.setDate(date.getDate()+2);  // 현재 날짜에 3일 추가
+        date.setDate(date.getDate()+5);  // 현재 날짜에 3일 추가
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
@@ -187,7 +187,7 @@
     // 1초마다 현재 시각 업데이트
     setInterval(() => {
         const date = new Date(); // 새로운 Date 객체 생성
-        date.setHours(date.getHours()-6);  // 현재 시간에 5시간 추가
+        date.setHours(date.getHours()+8);  // 현재 시간에 5시간 추가
         currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 

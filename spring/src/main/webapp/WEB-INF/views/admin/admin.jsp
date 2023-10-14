@@ -137,20 +137,19 @@
                 <div class="safetyone-info">
                     <h2 class="details____title" style="margin-top:0px; text-align: center">SafetyOne 이용 현황</h2>
                     <div class="safetyone-info-content">
-                        <div class="safetyone-info-content-box1">
-
+                        <div class="safetyone-info-content-box1" onclick="window.location.href='/admin/safety'">
                             <div class="safetyone-info-content-header" style="margin-bottom: 14px;">
                                 <img src="../../../resources/img/secure-payment.png" style="width: 42px; height: 42px;">안심서비스
                             </div>
                             <div class="safetyone-info-content-div1">금일 차단 건수</div>
                             <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>
                         </div>
-                        <div class="safetyone-info-content-box2">
+                        <div class="safetyone-info-content-box2" onclick="window.location.href='/admin/fds'">
                             <div class="safetyone-info-content-header"><img src="../../../resources/img/bellcolor.png">이상소비알림서비스</div>
                             <div class="safetyone-info-content-div1">금일 이상소비 건수</div>
                             <div class="safetyone-info-content-div2"><strong>${fdsDataCount}</strong>건</div>
                         </div>
-                        <div class="safetyone-info-content-box3">
+                        <div class="safetyone-info-content-box3" onclick="window.location.href='/admin/cluster'">
                             <div class="safetyone-info-content-header"><img src="../../../resources/img/networking.png">군집 분석</div>
                             <div class="safetyone-info-content-div1">군집 수</div>
                             <div class="safetyone-info-content-div2"><strong>${clusterCount}</strong>개</div>

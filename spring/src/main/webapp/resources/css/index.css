@@ -2,14 +2,14 @@
     margin-top: 3%;
     display: flex;
     width: 100%;
-    height: 50vh;
+    height: 320px;
     justify-content: space-between;
 }
 
 .sub-main1{
-    background-color: #e1f1ff;
-    width: 47%;
-    height: 80%;
+    background-color: #c7dbec;
+    width: 45%;
+    height: 290px;
     border-radius:  0 30px 30px 0;
     display: flex;
     cursor: pointer;
@@ -38,9 +38,9 @@
 
 
 .sub-main2{
-    background-color: #f0edfe;
-    width: 47%;
-    height: 80%;
+    background-color: #cae0df;
+    width: 45%;
+    height: 290px;
     border-radius:   30px 0 0 30px;
     display: flex;
     cursor: pointer;
@@ -100,8 +100,8 @@
 }
 
 .main-section2{
-    margin-left: 300px;
-    margin-right: 300px;
+    margin-left: 270px;
+    margin-right: 270px;
     margin-top: 70px;
     display: flex;
     justify-content: space-between;
@@ -237,8 +237,8 @@
 
 .main-section3{
     display: flex;
-    margin-left: 250px;
-    margin-right: 250px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 .submain-div {
@@ -257,6 +257,8 @@
 .submain-div a{
     color: #3c3c3c;
     font-size: 18px;
+    display: block;
+    text-align: center;
 }
 
 hr{

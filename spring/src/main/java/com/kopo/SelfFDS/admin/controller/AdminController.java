@@ -181,23 +181,6 @@ public class AdminController {
     }
 
 
-    //    cardid의 거래내역을 가지고 gmm 알고리즘 학습
-//    @PostMapping("/learning")
-//    public ResponseEntity<String> learningPage(@RequestParam("cardId") String cardId) {
-//        // RestTemplate 인스턴스 생성
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        System.out.println("cardId" + cardId);
-//
-//
-//
-//
-//        System.out.println("response" + response);
-//
-//        return ResponseEntity.ok(response.getBody());
-//    }
-
-
     @GetMapping("/cluster")
     public ModelAndView adminClusterPage() {
         ModelAndView mav = new ModelAndView();
@@ -261,7 +244,7 @@ public class AdminController {
         List<Cluster> memberInfoList = adminService.selectClusterPeopleInfo(cluster.getClusterNum());
         int totalCount = 0;
         for (Cluster clusterItem : memberInfoList) {
-            totalCount += clusterItem.getCount(); // 'getCount()'는 Cluster 클래스 내의 count 변수의 getter 메서드라고 가정합니다.
+            totalCount += clusterItem.getCount();
         }
         List<Cluster> clusterDetail = adminService.selectClusterDetail(cluster.getClusterNum());
         String top3 = "";
@@ -272,7 +255,6 @@ public class AdminController {
                 clusterDetail.get(1).getCategorySmall() + ", " +
                 clusterDetail.get(0).getCategorySmall();
 
-        // 마지막 행에서 마지막에서 2번째 행까지의 categorySmall 값을 가져오기
         bottom3 = clusterDetail.get(clusterDetail.size() - 1).getCategorySmall() + ", " +
                 clusterDetail.get(clusterDetail.size() - 2).getCategorySmall() + ", " +
                 clusterDetail.get(clusterDetail.size() - 3).getCategorySmall();

@@ -58,9 +58,9 @@
 <div class="container">
     <div class="content-div">
         <div class="content-div-header">
-            <h2>안심카드 일시해제</h2>
+            <h2>안심카드 일시정지</h2>
             <h3>안심서비스 이용현황</h3>
-            <h4>카드를 선택 후 일시해제를 선택해주세요</h4>
+            <h4>카드를 선택 후 일시정지를 선택해주세요</h4>
         </div>
         <div class="stopcard-div">
             <c:forEach items="${safetyInfoList}" var="safetyInfo" varStatus="loop">
@@ -94,7 +94,7 @@
         </div>
         <div class="ajax-content"></div>
         <div class="reg-cancle-btn">
-            <button class="reg-Btn" onclick="stopCard()">일시해제</button>
+            <button class="reg-Btn" onclick="stopCard()">일시정지</button>
         </div>
     </div>
 </div>

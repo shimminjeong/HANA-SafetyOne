@@ -16,10 +16,10 @@
         <div class="service-content2">
             <div class="text_div">
                 <p><div class="sub-tit">실시간 금융 보호를 위한 알림 서비스</div><br>
-                <div class="sub-txt">기존의 소비 패턴과 다른 이상한 거래를 즉시 감지하여 알림을 보내드립니다.</div></p>
+                <div class="sub-txt">평소의 소비 패턴과 다른 거래를 즉시 감지하여 알림을 보내드립니다.</div></p>
             </div>
             <a href="/fds/fdsCardSelect">
-                <button class="regBtn" style="background-color:#9385d7;">신청/해제</button>
+                <button class="regBtn" style="background-color:#6c9b99;">신청/해제</button>
             </a>
         </div>
         <div class="service_wrap">
@@ -40,4 +40,6 @@
     </div>
 </div>
 </body>
+<img src="../../../resources/img/footer.png" style="width: 100%; margin-top: 70px; bottom:0;" >
+
 </html>

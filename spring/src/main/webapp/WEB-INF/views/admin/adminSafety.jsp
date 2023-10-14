@@ -71,7 +71,7 @@
             <h2 class="details____title"><img class="img-size" src="../../../resources/img/secure-payment.png">안심서비스 관리
             </h2>
             <div class="box-container">
-                <div style="background-color: #eee;"  class="info-box1" onclick="window.location.href='/admin/safety'">
+                <div style="background-color: #eee;"  class="info-box2" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>
@@ -208,8 +208,8 @@
         <%--                <th>시간</th>--%>
         <%--                <th>업종</th>--%>
         <%--                <th>서비스상태</th>--%>
-        <%--                <th>일시해제시작일자</th>--%>
-        <%--                <th>일시해제종료일자</th>--%>
+        <%--                <th>일시정지시작일자</th>--%>
+        <%--                <th>일시정지종료일자</th>--%>
         <%--            </tr>--%>
         <%--            </thead>--%>
         <%--            <tbody>--%>
@@ -398,8 +398,8 @@
                     cardInfoListContent += "<div class='info-header' style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>차단 조합 : " + resultStr + "</div>";
 
                     if (stopStartDate !== "") {
-                        cardInfoListContent += "<h3 style='margin-top:30px;'>일시해제 이용정보<h3>" +
-                            "<div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>선택 지역 : " + stopregionsStr + "</div><div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>일시해제 기간 : " + stopStartDate.split(" ")[0] + " ~ " + stopEndDate.split(" ")[0] + "</div>";
+                        cardInfoListContent += "<h3 style='margin-top:30px;'>일시정지 이용정보<h3>" +
+                            "<div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>선택 지역 : " + stopregionsStr + "</div><div style='margin-bottom: 10px; font-size: 16px; font-weight: 500;'>일시정지 기간 : " + stopStartDate.split(" ")[0] + " ~ " + stopEndDate.split(" ")[0] + "</div>";
                     }
                     cardInfoList.append(cardInfoListContent);
                 }
@@ -411,8 +411,8 @@
                     cardInfoListContent += "<div class='info-list'><div class='info-header'>차단 조합</div><div class='info-content'>" + resultStr + "</div></div>"
 
                     if (stopStartDate !== "") {
-                        cardInfoListContent += "<h3 style='margin-top:30px;>일시해제 이용정보<h3>" +
-                            "<div style='margin-bottom: 10px'>선택 지역 : " + stopregionsStr + "</div><div>일시해제 기간 : " + stopStartDate.split[0] + " ~ " + stopEndDate.split[0] + "</div>";
+                        cardInfoListContent += "<h3 style='margin-top:30px;>일시정지 이용정보<h3>" +
+                            "<div style='margin-bottom: 10px'>선택 지역 : " + stopregionsStr + "</div><div>일시정지 기간 : " + stopStartDate.split[0] + " ~ " + stopEndDate.split[0] + "</div>";
                     }
                     cardInfoList.append(cardInfoListContent);
 

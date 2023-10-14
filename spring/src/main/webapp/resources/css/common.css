@@ -40,13 +40,14 @@
     text-decoration-line: none;
 }
 
+.welcomeMessage{
+    font-family: 'Hana-light';
+}
+
 body{
     margin: 0px;
 }
 
-header{
-    padding-top: 7px;
-}
 
 #headerLogo {
     display: flex;
@@ -54,6 +55,7 @@ header{
     align-items: center;
     margin-left: 150px;
     margin-right: 150px;
+    margin-top: 5px;
 }
 
 
@@ -64,9 +66,9 @@ header{
     margin-right: 18%;
 }
 
-.imgLogo{
-    padding-right: 10px;
-}
+/*.imgLogo{*/
+/*    padding-right: 10px;*/
+/*}*/
 
 .nameLogo {
     text-decoration: none;

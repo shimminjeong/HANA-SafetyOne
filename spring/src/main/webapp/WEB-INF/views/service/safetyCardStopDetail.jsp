@@ -22,8 +22,8 @@
 <div class="container">
     <div class="content-div" style="margin-right: 50px;margin-left: 50px;">
         <div class="content-header">
-            <h2>안심서비스 일시해제</h2>
-            <h3 style="margin-bottom: 0px;">일정 기간동안 안심서비스를 해제할 항목을 선택하세요</h3>
+            <h2>안심서비스 일시정지</h2>
+            <h3 style="margin-bottom: 0px;">일정 기간동안 안심서비스를 정지할 항목을 선택하세요</h3>
             <h4>※ 선택한 항목의 거래는 일정 기간동안 거래가 허용됩니다.</h4>
         </div>
         <div class="left-text">선택카드</div>
@@ -43,7 +43,7 @@
         </div>
         <div class="region-div">
             <div class="region-no-div">
-                <div class="div-header">추가 허용 지역 선택</div>
+                <div class="div-header">거래 차단 지역</div>
                 <div class="region-no">
                 <c:forEach var="region" items="${safetyRegionList}">
                     <div class="checkbox-container">
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="region-ok-div">
-                <div class="div-header">기존 허용지역</div>
+                <div class="div-header">거래 허용 지역</div>
                 <div class="region-ok">
                     <!-- 서버에서 받아온 regionAllList를 반복하여 추가 -->
                     <c:forEach var="region" items="${regionAllList}">
@@ -70,13 +70,15 @@
             </div>
         </div>
         <br>
-        <div class="div-header">안심서비스 설정내역</div>
+        <div class="div-header">거래 차단 조합</div>
         <div class="rule-div">
             <table>
                 <thead>
                 <tr>
-                    <th><input type="checkbox" id="selectAllCheckbox"/><label class="checkbox-design"></label></th>
+<%--                    <th><input type="checkbox" id="selectAllCheckbox"/><label class="checkbox-design"></label></th>--%>
+                    <th></th>
                     <th>지역</th>
+<%--                    <th>시간</th>--%>
                     <th>업종</th>
                 </tr>
                 </thead>
@@ -91,8 +93,8 @@
                                    data-category="${rule.categorySmall}"/>
                             <label for="checkbox-${rule.safetyIdSeq}" class="checkbox-design"></label>
                         </td>
-                        <td>${rule.regionName}</td>
-                        <td>${rule.categorySmall}</td>
+                        <td style="text-align: center">${rule.regionName}</td>
+                        <td style="text-align: center">${rule.categorySmall}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -276,7 +278,7 @@
             var time = selectedCheckbox.getAttribute('data-time');
             var category = selectedCheckbox.getAttribute('data-category');
 
-            // 선택한 체크박스 정보를 활용하여 일시해제 처리를 수행
+            // 선택한 체크박스 정보를 활용하여 일시정지 처리를 수행
             console.log('seqId: ' + seqId);
             console.log('cardId: ' + cardId);
             console.log('regionName: ' + regionName);
@@ -349,7 +351,7 @@
             contentType: "application/json", // <-- 추가
             success: function (response) {
                 closeModal();
-                if (response === "일시해제업데이트") {
+                if (response === "일시정지업데이트") {
                     window.location.href = "/safetyCard/"; // 페이지 리다이렉트
                 } else {
                     alert(response); // 그렇지 않으면 서버의 응답을 그대로 경고로 표시합니다.

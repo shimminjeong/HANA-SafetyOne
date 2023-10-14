@@ -65,7 +65,7 @@
         <div class="detail__right">
             <h2 class="details____title"><img class="img-size-service" src="../../../resources/img/lostcard.png">분실카드관리</h2>
             <div class="sub-container">
-                <div class="alarm-info">분실사유 별로 조회할 수 있습니다.</div>
+<%--                <div class="alarm-info">분실사유 별로 조회할 수 있습니다.</div>--%>
                 <div class="lost-info">
                     <div class="lostReason-select-div">
                         <div class="lostReason-select-text">분실사유 : </div>

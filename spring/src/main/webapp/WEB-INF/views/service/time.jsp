@@ -25,7 +25,7 @@
                     STEP1 지역
                 </a>
             </li>
-            <li class="menu__item" style="background-color:#e1f1ff;">
+            <li class="menu__item" style="background-color:#c7dbec;">
                 <a href="/mypageCardHistory" class="menu__link">
                     STEP2 시간
                 </a>

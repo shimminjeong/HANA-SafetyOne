@@ -56,11 +56,11 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
         <img src="../../../resources/img/ico_mybenefit.png" alt="Checkmark">
-    <div class="ok-head">선택하신 카드의 안심카드 Self Rule 이 등록되었습니다.</div>
-    <div class="ok-content">고객님께서 선택하신 카드는 안심카드사용 Self Rule이 등록되어,</div>
+    <div class="ok-head">선택하신 카드의 안심설정이 등록되었습니다.</div>
+    <div class="ok-content">고객님께서 선택하신 카드는 안심서비스로 등록되어,</div>
     <div class="ok-content">설정하신 내용의 거래는 안전하게 차단됩니다.</div>
-    <div class="ok-content">(오프라인 거래)</div>
-    <button class="info-btn" onclick="window.location.href='/safetyCard/safetyCardSelect'"> 이용현황</button>
+<%--    <div class="ok-content">(오프라인 거래)</div>--%>
+<%--    <button class="info-btn" onclick="window.location.href='/safetyCard/safetyCardSelect'"> 이용현황</button>--%>
 </div>
 </body>
 </html>

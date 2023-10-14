@@ -68,7 +68,7 @@
         <div class="detail__right">
             <h2 class="details____title"><img class="img-size-service" src="../../../resources/img/bellcolor.png">이상소비알림서비스 관리</h2>
             <div class="box-container">
-                <div style="background-color: #eee;" class="info-box1" onclick="window.location.href='/admin/fds'">
+                <div style="background-color: #eee;" class="info-box2" onclick="window.location.href='/admin/fds'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
                         <div><fmt:formatNumber value="${fdsUserCount}" groupingUsed="true" />

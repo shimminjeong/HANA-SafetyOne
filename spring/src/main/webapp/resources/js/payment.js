@@ -220,6 +220,10 @@ function displayInfowindow(marker, title, address, category_name) {
         categorySmall_name = '귀금속';
     }
 
+    if (categoryParts[2] == '유흥주점' || categoryParts[2] == '나이트,클럽') {
+        categorySmall_name = '기타유흥업소';
+    }
+
     if (categoryParts.length = 4) {
         console.log(categoryParts[0]);
         console.log(categoryParts[1]);
@@ -326,6 +330,10 @@ function clickPlace(marker, idx) {
         categorySmall_name = '귀금속';
     }
 
+    if (categoryParts[2] == '유흥주점' || categoryParts[2] == '나이트,클럽') {
+        categorySmall_name = '기타유흥업소';
+    }
+
     if (categoryParts.length = 4) {
         console.log(categoryParts[0]);
         console.log(categoryParts[1]);
@@ -367,9 +375,7 @@ function clickPlace(marker, idx) {
 
     console.log("categorySmall_name", categorySmall_name);
 
-    if (categorySmall_name == '유흥주점' || categorySmall_name == '나이트,클럽') {
-        categorySmall_name = '기타유흥업소';
-    }
+
 
     if (categorySmall_name == '양식') {
         categorySmall_name = '일식/중식/양식';

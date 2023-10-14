@@ -189,6 +189,7 @@
     border-radius: 5px;
     font-size: 10px;
     padding: 5px;
+    cursor: pointer;
 }
 
 .reg-btn-div {
@@ -247,7 +248,7 @@
 }
 
 .fds-back-Btn {
-
+    height: 40px;
     color: white;
     border: none;
     padding: 10px 34px 10px 34px;
@@ -354,7 +355,7 @@
 }
 
 .region-no {
-    width: 103%;
+    width: 101%;
     /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
     border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
@@ -379,14 +380,6 @@
     align-items: center;
 }
 
-.rule-div {
-    width: 98%;
-    /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
-    border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
-    padding: 12px;
-    font-size: 15px;
-}
 
 .div-header {
     margin-top: 10px;
@@ -401,22 +394,52 @@ table {
     /*border: 1px solid #ffcccc;*/
 }
 
-th, td {
-    border-bottom: 1px solid #ddd; /* 가로선 */
-    padding: 8px 0px;
-    text-align: left;
+/*th, td {*/
+/*    border-bottom: 1px solid #ddd; !* 가로선 *!*/
+/*    padding: 8px 0px;*/
+/*    text-align: left;*/
+/*}*/
+
+.rule-div table{
+    border :  1px solid #9a9595;
 }
 
 th {
     background-color: #eeeeee;
+    border-bottom: 1.5px solid #9a9595; /* 가로선 */
     font-weight: bold;
     /*text-align: center;*/
     border-right: none; /* 세로선 제거 */
+    height: 45px;
+    padding: 8px 0px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10; /* Optional: Keeps the header above the table rows */
+}
+
+th:last-child {
+    border-right: none;
+}
+td{
+    border-bottom: 1px solid#9a9595; /* 가로선 */
+    padding: 8px 0px;
+    height: 40px;
 }
 
 .rule-div td {
     background-color: #ffe6e6; /* 배경색 */
 }
+
+.rule-div {
+    height: 250px;  /* Set the height as per your requirement */
+    overflow-y: auto; /* Makes it scrollable vertically */
+    width: 100%;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 12px;
+}
+
 
 th:last-child {
     border-right: none; /* 마지막 th에는 세로선 없음 */
@@ -523,3 +546,74 @@ table td input[type="checkbox"]:checked + .checkbox-design {
 
 /* 체크박스 선택 시 .checkbox-button 배경색 및 글자색 변경 */
 
+
+.rule-div table th:nth-child(1),
+.rule-div table td:nth-child(1) {
+    width: 100px; /* 첫 번째 열의 너비 설정 */
+}
+
+.rule-div table th:nth-child(2),
+.rule-div table td:nth-child(2) {
+    width: 150px; /* 두 번째 열의 너비 설정 */
+}
+
+.rule-div table th:nth-child(3),
+.rule-div table td:nth-child(3) {
+    width: 150px; /* 세 번째 열의 너비 설정 */
+}
+
+.text {
+    overflow-y: auto;
+    height: 300px;  /* 원하는 높이로 설정하세요. */
+    width: 86%;  /* 원하는 너비로 설정하거나 생략할 수 있습니다. */
+    border: 1px solid #ccc;  /* 테두리를 원한다면 추가하세요. */
+    padding: 20px;
+    margin:15px;
+}
+
+.modal-2 {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    width: 80%;
+    max-width: 500px;
+}
+
+
+
+.text-header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 22px;
+    background-color: #00857F;
+    margin-bottom: 30px;
+}
+
+.close-btn-2{
+    margin : 20px auto;
+    cursor: pointer;
+    display: flex;
+    background-color: #555555;
+    color: white;
+    font-size: 17px;
+    padding: 10px 14px 10px 14px;
+    border-radius: 5px;
+    border: none;
+
+}

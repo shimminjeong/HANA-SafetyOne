@@ -4,12 +4,6 @@
     <hr style="margin: 0px; border: 1px solid #00857F;">
     <ul class="menu">
         <li class="menu__item">
-            <a href="/mypage" class="menu__link">
-                <div class="menu__icon"><img src="../../../resources/img/menu.png"></div>
-                대시보드
-            </a>
-        </li>
-        <li class="menu__item">
             <a href="/mypageCardHistory" class="menu__link">
                 <div class="menu__icon"><img src="../../../resources/img/menu.png"></div>
                 이용내역

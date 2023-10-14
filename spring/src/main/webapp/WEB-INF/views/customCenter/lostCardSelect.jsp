@@ -12,8 +12,8 @@
 <style>
 
 </style>
-<body>
 <%@ include file="../include/header.jsp" %>
+<body>
 <div class="active-container">
     <div class="cont_box_area">
         <%--        <nav class="tab_ty02">--%>
@@ -23,8 +23,6 @@
         <%--        </nav>--%>
 
         <div class="title">분실신고/재발급</div>
-            <div style="font-size: 18px;" >※ 분실신고 즉시 카드거래가 정지됩니다.</div>
-
             <div class="lost-header"><h3>카드 선택</h3></div>
         <%--        <span class="sub-container-hearder">보유카드 목록</span>--%>
         <hr class="sub-hr">
@@ -60,9 +58,9 @@
             </div>
         </c:forEach>
     </div>
-    <button class="registerLostBtn" onclick="registerLostCard()">다음</button>
+    <button class="registerLostBtn" style="margin-bottom: 30px;" onclick="registerLostCard()">다음</button>
 </div>
-<%@ include file="../include/footer.jsp" %>
+<%--<%@ include file="../include/footer.jsp" %>--%>
 </body>
 <script>
 

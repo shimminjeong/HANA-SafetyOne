@@ -10,6 +10,7 @@
 .details {
     display: flex;
     /*gap: 10px;*/
+    /*gap: 10px;*/
     /*margin-top: 20px;*/
 }
 
@@ -70,6 +71,11 @@
 }
 * {
     box-sizing: border-box
+}
+
+.menu__link.active {
+    color: #00857F;
+    background: #eee; /* 원하는 색상으로 변경 가능 */
 }
 
 /* Slideshow container */
@@ -230,7 +236,7 @@
     padding: 15px;
     margin: 10px;
     align-items: center;
-    background-color: #eafaf3;
+    background-color: #c7dbec;
     border-radius: 10px; /* 테두리 둥글게 */
     width:170px;
     cursor: pointer;

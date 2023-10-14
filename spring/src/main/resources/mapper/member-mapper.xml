@@ -196,7 +196,7 @@
         <if test="categorySmall != null">,CATEGORYSMALL</if>
         )
         VALUES(
-        #{cardId},sysdate, TO_DATE(#{safetyEndDate}, 'YYYY-MM-DD HH24:MI:SS')
+        #{cardId},TO_DATE('2023-10-14 13:21:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{safetyEndDate}, 'YYYY-MM-DD HH24:MI:SS')
         <!-- Conditionally add values -->
         <if test="regionName != null">,#{regionName}</if>
         <if test="time != null">,#{time}</if>
@@ -231,10 +231,11 @@
     <!--    분실카드 insert-->
     <insert id="insertLostCardInfo" parameterType="com.kopo.SelfFDS.member.model.dto.LostCard">
         INSERT INTO LostCard (lostcardidseq, regLostDate, cardId, lostDate, lostPlace, lostReason, reissued)
-        VALUES (lostcard_id_seq.nextval, sysdate, #{cardId}, #{lostDate}, #{lostPlace}, #{lostReason}, #{reissued})
+        VALUES (lostcard_id_seq.nextval,TO_DATE('2023-10-13', 'YYYY-MM-DD'), #{cardId}, #{lostDate}, #{lostPlace}, #{lostReason}, #{reissued})
     </insert>
 
-    <!--    일시해제 일자 update-->
+
+    <!--    일시정지 일자 update-->
     <update id="updateStopDate">
         UPDATE safetyCard
         SET status=#{status},

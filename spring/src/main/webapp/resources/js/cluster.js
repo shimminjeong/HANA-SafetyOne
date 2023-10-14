@@ -1,9 +1,8 @@
-
 var radarChartMany;
 var myRadarChart;
 var horizontalChart;
-function drawChart(chartData) {
 
+function drawChart(chartData) {
 
 
     if (radarChartMany) {
@@ -19,11 +18,16 @@ function drawChart(chartData) {
     }
 
 
-    var modalButton = document.querySelector('.open-modal');
-    var clusterPeopleCount = modalButton.getAttribute('data-clusterPeopleCount');
+    document.querySelectorAll('.open-modal').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            var clusterPeopleCount = event.target.getAttribute('data-clusterPeopleCount');
+            console.log("clusterPeopleCount", clusterPeopleCount);
 
-    // .people-info 요소의 텍스트 업데이트
-    document.querySelector('.people-info').innerText = "군집에 포함된 회원 수 : " + clusterPeopleCount + "명";
+            // Update .people-info element's text
+            document.querySelector('.people-info').innerText = "군집에 포함된 회원 수 : " + clusterPeopleCount + "명";
+        });
+    });
+
 
     // chartData.cluster1.totalAmount의 값을 가져옵니다.
     var totalAmount = chartData.cluster1.totalAmount;
@@ -32,12 +36,12 @@ function drawChart(chartData) {
     var meanDiv = document.querySelector('.mean-div');
 
 // 해당 <div> 요소의 내용을 수정합니다.
-    meanDiv.innerText = "한 달 평균 사용금액 : 약 " + totalAmount.toLocaleString() + "원";
+    meanDiv.innerHTML = "한 달 평균 사용금액 : 약 <span style='color: red;'>" + totalAmount.toLocaleString() + "</span>원";
+
 
     // chartData.cluster1.clusterNum
     var reportDiv = document.querySelector('.report');
     reportDiv.innerText = chartData.cluster1.clusterNum + " 번 군집 대시보드";
-
 
 
     var ctx = document.getElementById('manyChart').getContext('2d');
@@ -56,7 +60,7 @@ function drawChart(chartData) {
     });
 
 // labels 배열에서 처음 3개의 값을 선택하고 줄 바꿈으로 결합
-    var selectedLabels = labels.slice(0, 3).join('\n');
+    var selectedLabels = labels.slice(0, 5).join('\n');
 
 // 해당 <div> 요소의 내용을 수정
     document.querySelector('.bigcategory').innerText = selectedLabels;
@@ -76,7 +80,6 @@ function drawChart(chartData) {
     });
 
 
-
     radarChartMany = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -85,13 +88,13 @@ function drawChart(chartData) {
                 {
                     label: '거래건수',
                     data: countData,
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // 붉은색
+                    backgroundColor: 'rgb(7,143,137)',
                     yAxisID: 'y-axis-count'
                 },
                 {
                     label: '거래금액',
                     data: amountData,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
+                    backgroundColor: 'rgba(199,123,45,0.87)', // 주황색
                     yAxisID: 'y-axis-sum'
                 }
             ]
@@ -136,7 +139,6 @@ function drawChart(chartData) {
     });
 
 
-
     var ctx = document.getElementById('smallChart').getContext('2d');
 
     var data = chartData.clusterDetail.slice(-5).map(function (item) {
@@ -153,28 +155,27 @@ function drawChart(chartData) {
     });
 
 // labels 배열에서 처음 3개의 값을 선택하고 줄 바꿈으로 결합
-    var selectedLabels = labels.slice(0, 3).join('\n');
+    var selectedLabels = labels.slice(0, 5).reverse().join('\n');
 
 // 해당 <div> 요소의 내용을 수정
     document.querySelector('.smallcategory').innerText = selectedLabels;
 
     var labels = data.map(function (item) {
         return item.categorySmall;
-    });
+    }).reverse();
 
 
     var amountData = data.map(function (item) {
         return item.totalAmount;
-    });
+    }).reverse();
 
     var countData = data.map(function (item) {
         return item.count;
-    });
+    }).reverse();
 
-    console.log("labels",labels);
-    console.log("amountData",amountData);
-    console.log("countData",countData);
-
+    console.log("labels", labels);
+    console.log("amountData", amountData);
+    console.log("countData", countData);
 
 
     myRadarChart = new Chart(ctx, {
@@ -185,13 +186,13 @@ function drawChart(chartData) {
                 {
                     label: '거래건수',
                     data: countData,
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // 붉은색
+                    backgroundColor: 'rgb(7,143,137)',
                     yAxisID: 'y-axis-count'
                 },
                 {
                     label: '거래금액',
                     data: amountData,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // 파란색
+                    backgroundColor: 'rgba(199,123,45,0.87)', // 주황색
                     yAxisID: 'y-axis-sum'
                 }
             ]
@@ -262,20 +263,19 @@ function drawChart(chartData) {
     });
 
 
-
     var ctx = document.getElementById('genderAgeChart').getContext('2d');
-    horizontalChart=new Chart(ctx, {
+    horizontalChart = new Chart(ctx, {
         type: 'horizontalBar',
         data: {
             labels: ageRanges,
             datasets: [{
                 label: '남성',
                 data: mCounts,
-                backgroundColor: 'blue'
+                backgroundColor: 'rgb(9,82,131)'
             }, {
                 label: '여성',
                 data: fCounts,
-                backgroundColor: 'pink'
+                backgroundColor: 'rgb(245,83,117)'
             }]
         },
         options: {

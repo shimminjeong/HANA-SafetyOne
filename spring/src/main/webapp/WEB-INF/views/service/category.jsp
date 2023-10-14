@@ -32,7 +32,7 @@
                     STEP2 시간
                 </a>
             </li>
-            <li class="menu__item" style="background-color:#e1f1ff;">
+            <li class="menu__item" style="background-color:#c7dbec;">
                 <a href="/mypageReport" class="menu__link">
                     STEP3 업종
                 </a>
