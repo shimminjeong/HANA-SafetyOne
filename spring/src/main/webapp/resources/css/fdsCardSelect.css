@@ -356,7 +356,7 @@
 
 .region-no {
     width: 101%;
-    /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
+    /*border: 1px solid #ffd6d6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
     border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
     padding: 12px;
@@ -371,7 +371,7 @@
 }
 
 .region-ok {
-    /*border: 1px solid #ffe6e6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
+    /*border: 1px solid #ffd6d6; !* 검은색 경계선을 적용합니다. 원하는 색상으로 변경할 수 있습니다. *!*/
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과를 추가합니다. */
     border-radius: 10px; /* 둥근 모서리를 적용합니다. 원하는 크기로 조절할 수 있습니다. */
     padding: 12px;
@@ -428,7 +428,7 @@ td{
 }
 
 .rule-div td {
-    background-color: #ffe6e6; /* 배경색 */
+    background-color: #ffd6d6; /* 배경색 */
 }
 
 .rule-div {
@@ -452,7 +452,7 @@ tbody tr:hover {
 .checkbox-container {
     display: inline-flex; /* flex를 사용하여 체크박스와 라벨을 수평으로 배열 */
     align-items: center; /* 라벨과 체크박스를 수직 중앙에 위치시킴 */
-    background-color: #ffe6e6; /* 배경색을 빨간색으로 설정 */
+    background-color: #ffd6d6; /* 배경색을 빨간색으로 설정 */
     padding: 8px 12px;
     border-radius: 5px; /* 둥근 모서리 스타일 추가 */
     margin: 5px; /* 주변 요소와의 간격 설정 */
@@ -535,7 +535,7 @@ table td input[type="checkbox"]:checked + .checkbox-design {
 
 
 .text-box {
-    background-color: #eafaf3;
+    background-color: #c1edda;
     border: 1px solid #d5e5d8; /* 선택 사항: 경계선을 추가하여 박스 느낌을 강화합니다 */
     padding: 10px 15px; /* 패딩을 조정하여 원하는대로 스타일을 적용합니다 */
     margin: 5px;
@@ -571,6 +571,10 @@ table td input[type="checkbox"]:checked + .checkbox-design {
     margin:15px;
 }
 
+.text-confirm{
+    padding: 20px;
+}
+
 .modal-2 {
     display: none;
     position: fixed;
@@ -587,8 +591,7 @@ table td input[type="checkbox"]:checked + .checkbox-design {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    width: 80%;
-    max-width: 500px;
+    width: 45%;
 }
 
 
@@ -599,10 +602,11 @@ table td input[type="checkbox"]:checked + .checkbox-design {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 700;
+    color: white;
     font-size: 22px;
     background-color: #00857F;
     margin-bottom: 30px;
+
 }
 
 .close-btn-2{

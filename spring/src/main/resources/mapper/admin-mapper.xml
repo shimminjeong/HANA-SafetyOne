@@ -251,6 +251,7 @@
         FROM cardhistory
         WHERE cardid = #{cardId}
         GROUP BY SUBSTR(regionName, 1, NVL(NULLIF(INSTR(regionName, ' ')-1, -1), LENGTH(regionName)))
+        ORDER BY CNT DESC
     </select>
 
     <select id="getCategoryGroupCntByCardId" resultType="com.kopo.SelfFDS.admin.model.dto.CardHistoryStats">

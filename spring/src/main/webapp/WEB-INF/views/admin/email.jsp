@@ -110,10 +110,10 @@
                                     <td style="text-align: center;">${member.clusterNum}</td>
                                     <td data-name="${member.name}">${fn:substring(member.name, 0, 1)}*${fn:substring(member.name, 2, 3)}</td>
                                     <td>${member.email}</td>
-                                    <td style="text-align: center;>
+                                    <td style="text-align: center;">${member.gender}
 <%--                                        <c:if test="${member.gender == 'F'}">여성</c:if>--%>
 <%--                                        <c:if test="${member.gender == 'M'}">남성</c:if>--%>
-                                ${member.gender}
+
                                     </td>
                                     <td style="text-align: right;">${member.age}세</td>
                                     <td>${member.phone}</td>

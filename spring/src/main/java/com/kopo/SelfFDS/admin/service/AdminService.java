@@ -80,4 +80,6 @@ public interface AdminService {
 
     int selectClusterCount();
 
+    void clusterUpdate();
+
 }

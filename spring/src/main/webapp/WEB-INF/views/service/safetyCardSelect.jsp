@@ -74,14 +74,77 @@
             </div>
             <hr>
         </c:forEach>
-        <div class="reg-btn-div">
+        <div class="sub-container-hearder" style="margin-top: 50px;">서비스 약관 동의</div>
+        <hr class="sub-hr">
+        <div class="cardAll-div">
+            <div class="check-div"><input type="checkbox" class="master-checkbox"></div>
+            <div class="agree-All">전체 동의</div>
+        </div>
+        <div class="sub-agree-div">
+            <div class="agree-div">
+                <div class="check-div"><input type="checkbox" class="sub-checkbox"></div>
+                <div class="agree-text">개인정보 동의</div>
+                <button class="agree-content-btn">개정약관</button>
+            </div>
+            <div class="agree-div">
+                <div class="check-div"><input type="checkbox" class="sub-checkbox"></div>
+                <div class="agree-text">하나카드 마이데이터 서비스 이용약관</div>
+                <button class="agree-content-btn">개정약관</button>
+            </div>
+        </div>
+        <div class="reg-btn-div" style="margin-top: 40px; margin-bottom: 50px;">
             <button class="fds-can-Btn" onclick="cancleCard()">해제</button>
             <button class="fds-reg-Btn" onclick="registerCard()">신청</button>
         </div>
+<%--        <div class="clickRegFds hidden">--%>
+<%--            <div style="height: 40px"></div>--%>
+<%--            <div class="sub-container-hearder">알림 받을 휴대번호</div>--%>
+<%--            <hr class="sub-hr">--%>
+<%--            <%--%>
+<%--                String phone = (String) session.getAttribute("phone");--%>
+<%--            %>--%>
+<%--            <div class="sub-content-div">--%>
+<%--                <div class="phoneNumber-text"><%= phone %>--%>
+<%--                </div>--%>
+<%--                <button class="updateMyInfo">개인정보변경</button>--%>
+<%--            </div>--%>
+<%--            <hr>--%>
+<%--            <div style="height: 40px"></div>--%>
+
+
+<%--            <hr>--%>
+<%--            &lt;%&ndash;    <div class="ajax-content"></div>&ndash;%&gt;--%>
+<%--            <div class="reg-confirm-div">--%>
+<%--                <button class="fds-back-Btn" onclick="window.location.href='/'">취소</button>--%>
+<%--                &lt;%&ndash;                <button class="fds-agree-Btn" onclick="registerCard()">확인</button>&ndash;%&gt;--%>
+<%--                <button class="fds-agree-Btn" onclick="registerCard()">확인</button>--%>
+
+<%--            </div>--%>
+<%--        </div>--%>
+    </div>
     </div>
 </div>
 </body>
 <script>
+
+    function regSafety() {
+        // Toggle visibility for clickRegFds
+        let clickRegFds = document.querySelector('.clickRegFds');
+        if (clickRegFds.classList.contains('hidden')) {
+            clickRegFds.classList.remove('hidden');
+        } else {
+            clickRegFds.classList.add('hidden');
+        }
+
+        // Toggle visibility for reg-btn-div
+        let regBtnDiv = document.querySelector('.reg-btn-div');
+        if (regBtnDiv.classList.contains('hidden')) {
+            regBtnDiv.classList.remove('hidden');
+        } else {
+            regBtnDiv.classList.add('hidden');
+        }
+
+    }
 
     // var acc = document.getElementsByClassName("card-list-info");
     // for (var i = 0; i < acc.length; i++) {
@@ -127,6 +190,20 @@
     //     })
     // }
 
+    function agreeSafetyPhone() {
+        // 모달 창을 표시합니다.
+        let modal = document.getElementById('authModal');
+        modal.style.display = 'block';
+    }
+
+    // 모달 외부를 클릭하면 모달을 닫습니다.
+    window.onclick = function (event) {
+        let modal = document.getElementById('authModal');
+        if (event.target == modal || event.target == document.querySelector('.close-btn')) {
+            modal.style.display = 'none';
+        }
+    }
+
 
     let selectedCardIds = [];
 
@@ -164,6 +241,19 @@
         }
 
     }
+
+    $(document).ready(function () {
+        // 전체 동의 체크박스가 변경될 때 실행
+        $('.master-checkbox').change(function () {
+            if ($(this).is(':checked')) {
+                // 전체 동의 체크박스가 체크되면 모든 서브 체크박스 체크
+                $('.sub-checkbox').prop('checked', true);
+            } else {
+                // 전체 동의 체크박스가 체크 해제되면 모든 서브 체크박스 체크 해제
+                $('.sub-checkbox').prop('checked', false);
+            }
+        });
+    });
 
     function registerCard() {
 

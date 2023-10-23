@@ -68,25 +68,28 @@
             <h2 class="details____title"><img class="img-size" src="../../../resources/img/secure-payment.png">안심서비스 관리
             </h2>
             <div class="box-container">
-                <div class="info-box1" onclick="window.location.href='/admin/safety'">
+                <div style="background-color: #eee;"  class="info-box2" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
-                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>
+                        <%--                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>--%>
+                        <div>1,498명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
-                <div class="info-box" onclick="window.location.href='/admin/safety'">
+                <div  style="background-color: #eee;"  class="info-box" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
-                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>
+                        <%--                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>--%>
+                        <div>2,715개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
-                <div style="background-color: #eee;" class="info-box1"
+                <div class="info-box1"
                      onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
-                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>
+                        <%--                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>--%>
+                        <div>90건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
@@ -94,11 +97,11 @@
 
             <div class="table-container">
                 <h3>안심서비스 미승인 거래내역</h3>
-                <div class="alarm-info">※ 안심서비스 이용으로 인한 거래 미승인 내역 조회</div>
+                <div class="alarm-info">안심서비스 이용으로 인한 거래 미승인 내역 조회</div>
                 <div class="user-search">
                     <div class="search-header">카드 검색</div>
-                    <input type="text" id="memberSearchInput" placeholder="카드번호를 입력하세요">
-                    <button onclick="filterMembers()">검색</button>
+                    <input type="text" id="cardSearchInput" placeholder="카드번호를 입력하세요">
+                    <button onclick="filterCard()">검색</button>
                 </div>
                 <table class="safetydata-table">
                     <thead>
@@ -115,7 +118,7 @@
                     <tbody>
                     <c:forEach items="${notApprovalList}" var="notApprovalData">
                         <tr>
-                            <td>${fn:substring(notApprovalData.cardId, 0, 4)}-****-****-${fn:substring(notApprovalData.cardId, 15,20)}</td>
+                            <td data-cardId="${notApprovalData.cardId}">${fn:substring(notApprovalData.cardId, 0, 4)}-****-****-${fn:substring(notApprovalData.cardId, 15,20)}</td>
                             <td>${notApprovalData.paymentDate}</td>
                             <td>${notApprovalData.store}</td>
                             <td>${notApprovalData.categorySmall}</td>
@@ -136,6 +139,26 @@
     </div>
 </div>
 <script>
+
+    function filterCard() {
+        var cardSearchInput = document.getElementById("cardSearchInput").value; // 사용자가 입력한 카드번호 가져오기
+        var table = document.querySelector(".safetydata-table"); // 테이블 요소 가져오기
+        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+
+        // 각 행을 순회하며 data-cardId 속성을 사용하여 검색어와 일치하는 행을 찾음
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var cardNumberCell = row.querySelector("td[data-cardId]"); // data-cardId 속성을 가진 열 찾기
+            if (cardNumberCell) {
+                var cellValue = cardNumberCell.getAttribute("data-cardId");
+                if (cellValue.includes(cardSearchInput)) { // 입력된 카드번호와 일치하는 경우
+                    row.style.display = ""; // 보여주기
+                } else {
+                    row.style.display = "none"; // 숨기기
+                }
+            }
+        }
+    }
 
     // 페이지네이션
     document.getElementById("prev").addEventListener("click", function () {

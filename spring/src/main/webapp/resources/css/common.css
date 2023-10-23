@@ -86,6 +86,7 @@ body{
     margin-right: 10px;
 }
 
+
 #loginBtn, #joinBtn, #logoutBtn {
     font-family: Hana-light;
     display: inline-block;
@@ -220,3 +221,124 @@ body {
 .okBtn a{
     color: white;
 }
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#email,
+#password {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+
+#rowinput {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 아이템을 왼쪽으로 정렬 */
+    margin-bottom: 20px;
+}
+
+.login-modal{
+    display: none;
+}
+
+
+.login-modal{
+    display: none;
+}
+.login-container {
+
+    position: fixed; /* fixed positioning makes the container cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black background */
+    display: flex; /* flex display to center the formsize */
+    align-items: center; /* center vertically */
+    justify-content: center; /* center horizontally */
+}
+
+.loginForm {
+    width: 40%;
+    height: 45%;
+    background-color: #ffffff; /* white background for the form */
+    /*padding: 20px; !* spacing around the form content *!*/
+    border-radius: 8px; /* rounded corners */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* subtle shadow for a lifted appearance */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-right: 15px;
+}
+
+.login-img-div{
+
+    width: 50%;
+    height: 100%;
+    background-color: #bad0cf;
+    margin: 0 auto;
+    padding-right: 10%;
+    border-radius:  8px 0px 0px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-input-div{
+    width: 50%;
+    padding-left: 5%;
+    padding-right: 5%;
+
+}
+
+.cardImg{
+    /*width: 100%;*/
+    width: 100%;
+    margin-left: 42px;
+    /*margin: 0 auto;*/
+}
+
+.logo{
+    width: 80%;
+    margin-bottom: 20px;
+    margin-left: 44px;
+}
+
+.loginBtn{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.loginBtn {
+    font-family: Hana-medium;
+    width: 110%;
+    display: inline-block;
+    color: black; /* 글자색 변경 */
+    padding: 10px 10px;
+    border-radius: 5px; /* 둥근 모서리 */
+    border:none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px; /* 폰트 크기 변경 */
+    cursor: pointer;
+    background-color: #bad0cf;
+
+}
+
+.passdiv{
+    font-size: 13px;
+    margin: 20px auto;
+    text-align: center;
+}
+

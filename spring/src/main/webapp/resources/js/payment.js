@@ -286,7 +286,7 @@ function displayInfowindow(marker, title, address, category_name) {
 
 
     var content =
-        '<div style="padding:7px; z-index:1; max-width: 300px; height: 60px;">' +
+        '<div style="padding:7px; z-index:1; width: 200px; height: 60px;">' +
         '<div>가게명 : ' + title + '</div>' +
         '<div>주소 : ' + address + '</div>' +
         // '<div>카카오업종 : ' + category_name + '</div>' +

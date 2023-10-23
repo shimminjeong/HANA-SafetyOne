@@ -6,7 +6,7 @@
         <li class="menu__item">
             <a href="/mypageCardHistory" class="menu__link">
                 <div class="menu__icon"><img src="../../../resources/img/menu.png"></div>
-                이용내역
+                카드이용내역
             </a>
         </li>
         <li class="menu__item">

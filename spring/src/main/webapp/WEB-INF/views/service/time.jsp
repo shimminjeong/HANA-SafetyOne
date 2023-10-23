@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="btn-div">
-            <button class="prev-Btn" onclick="window.location.href='#'">이전</button>
+            <button class="prev-Btn" onclick="registerTime()">이전</button>
             <button class="next-Btn" onclick="registerTime()">다음</button>
         </div>
     </div>

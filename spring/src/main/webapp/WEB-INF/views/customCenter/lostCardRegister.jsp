@@ -111,6 +111,35 @@
 </body>
 <script>
 
+    // 해당 날짜를 설정하는 함수
+
+    $(function() {
+        // 현재 날짜를 설정합니다. (2023년 10월 13일로 예시)
+        var currentDate = new Date(2023, 9, 13); // 월은 0부터 시작하므로 9는 10월을 의미합니다.
+
+        // DatePicker 초기화
+        $("#datepicker").datepicker();
+
+        // 현재 날짜를 설정한 날짜로 업데이트
+        // $("#datepicker").datepicker("setDate", currentDate);
+    });
+    // 지정된 날짜를 <input> 요소의 값에 설정
+
+
+    $(function() {
+        $("#datepicker").datepicker({
+            beforeShowDay: function(date) {
+                var today = new Date();
+                if (date.getDate() == today.getDate() &&
+                    date.getMonth() == today.getMonth() &&
+                    date.getFullYear() == today.getFullYear()) {
+                    // 오늘 날짜는 [selectable (boolean), cssClass (string), tooltip (string)] 형식으로 반환
+                    return [true, "", ""];
+                }
+                return [true, ""];
+            }
+        });
+    });
     $("#datepicker").datepicker({
         dateFormat: 'yy-mm-dd' //달력 날짜 형태
         , showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
@@ -125,5 +154,7 @@
         , minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
         , maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
     });
+
+
 </script>
 </html>

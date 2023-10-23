@@ -27,7 +27,8 @@
         </span>
         <% } else { %>
         <div id="loginout">
-            <button id="loginBtn" onclick="window.location.href='/login'">로그인</button>
+            <%--            <button id="loginBtn" onclick="window.location.href='/login'">로그인</button>--%>
+            <button id="loginBtn" onclick="toggleModal()">로그인</button>
             <button id="joinBtn" onclick="window.location.href='/join'">회원가입</button>
         </div>
         <%}%>
@@ -73,6 +74,64 @@
     </nav>
     <hr style="border:1px solid #00857F; margin: 0px;"/>
 </header>
+<div class="login-modal">
+    <div class="login-container">
+        <div class="loginForm">
+            <div class="login-img-div">
+                <img class="logo" src="../../resources/img/SafetyOneLogo.svg">
+                <img class="cardImg" src="../../resources/img/SatetyOneCard.svg">
+            </div>
+            <div class="login-input-div">
+                <div id="rowinput">
+                    <label for="email">이메일</label>
+                    <input type="text" id="email" name="email">
+                </div>
+                <div id="rowinput">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <button class="loginBtn" onclick="loginFormFunc()">로그인</button>
+                <%--            <button class="joinBtn">회원가입</button>--%>
+                <div class="passdiv">비밀번호 찾기 | 회원가입</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function toggleModal() {
+        var modal = document.querySelector(".login-modal"); // 클래스로 모달 요소 가져오기
+        modal.style.display = modal.style.display === "block" ? "none" : "block";
+    }
+
+    function loginFormFunc() {
+        var email = $("#email").val();
+        var password = $("#password").val();
+
+        console.log("email:", email); // 아이디 확인
+        console.log("Password:", password); // 비밀번호 확인
+
+        $.ajax({
+            type: "POST",
+            url: "/loginMember",
+            data: JSON.stringify({
+                email: email,
+                password: password
+            }),
+            contentType: 'application/json',
+            error: function (xhr, status, error) {
+                alert(error + "error");
+            },
+            success: function (response) {
+                if (response === "로그인 성공") {
+                    location.href = "/";
+                } else {
+                    console.error("로그인 실패");
+                }
+            }
+        });
+    }
+
+</script>
 
 </body>
 </html>

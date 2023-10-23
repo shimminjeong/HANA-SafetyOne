@@ -20,8 +20,11 @@
         <div class="info-div">
             <div class="info-left">
                 <div class="anomalychart-info"><span class="cardId"></span> 거래지역, 시간, 업종, 금액에 대한 확률분포를 시각화한 것입니다.</div>
-                <div class="anomalychart-info">※ 초록색 그래프는 가우시안 확률분포를 사용하여 추정한 데이터의 확률 분포를 각 feature 별로 시각화한 것 입니다.</div>
-                <div class="anomalychart-info">※ 사용자의 각 4개 요소에 대한 거래가 발생할 확률을 이용하여 이상치를 판단할 수 있습니다.</div>
+<%--                <div class="anomalychart-info">※ 초록색 그래프는 가우시안 확률분포를 사용하여 추정한 데이터의 확률 분포를 각 feature 별로 시각화한 것 입니다.</div>--%>
+<%--                <div class="anomalychart-info">※ 사용자의 각 4개 feature에 대한 거래가 발생할 확률을 이용하여 이상치를 판단할 수 있습니다.</div>--%>
+                <div class="anomalychart-info">초록색 그래프는 각 feature에 대한 데이터 분포를 가우시안 확률분포로 추정한 결과입니다.</div>
+                <div class="anomalychart-info">※ 각 4개 feature에 대한 거래가 발생할 확률을 이용하여 이상치를 판단할 수 있습니다.</div>
+<%--                초록색 그래프는 가우시안 확률분포를 통해 데이터의 분포를 추정한 것이며, 이를 통해 각 feature의 거래 발생 확률을 기반으로 이상치를 판단하실 수 있습니다."--%>
             </div>
             <div class="info-right">
                 <div class="region"></div>

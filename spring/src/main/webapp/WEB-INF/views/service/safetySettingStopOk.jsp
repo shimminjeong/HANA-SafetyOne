@@ -56,9 +56,9 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
         <img src="../../../resources/img/ico_mybenefit.png" alt="Checkmark">
-    <div class="ok-head">선택하신 카드의 안심설정이 등록되었습니다.</div>
-    <div class="ok-content">고객님께서 선택하신 카드는 안심서비스로 등록되어,</div>
-    <div class="ok-content">설정하신 내용의 거래는 안전하게 차단됩니다.</div>
+    <div class="ok-head">선택하신 카드의 안심서비스가 일시정지되었습니다.</div>
+    <div class="ok-content">고객님께서 선택하신 안심설정에 따라 해당 기간 동안만 거래가 허용됩니다.</div>
+    <div class="ok-content">선택한 기간이 끝나면 거래는 자동으로 차단됩니다</div>
 <%--    <div class="ok-content">(오프라인 거래)</div>--%>
 <%--    <button class="info-btn" onclick="window.location.href='/safetyCard/safetyCardSelect'"> 이용현황</button>--%>
 </div>

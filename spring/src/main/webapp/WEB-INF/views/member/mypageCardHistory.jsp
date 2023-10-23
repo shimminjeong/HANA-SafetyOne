@@ -26,7 +26,7 @@
             <li class="menu__item">
                 <a href="/mypageCardHistory" class="menu__link active">
                     <div class="menu__icon"><img src="../../../resources/img/menu.png"></div>
-                    이용내역
+                    카드이용내역
                 </a>
             </li>
             <li class="menu__item">
@@ -452,12 +452,7 @@
                         $(tds[0]).text(maskedCardId);
                         $(tds[1]).text(history.paymentDate.substring(0, 16));
                         $(tds[2]).text(history.categorySmall);
-                        if (addressParts.length >= 2) {
-                            var shortenedAddress = addressParts[0] + ' ' + addressParts[1];
-                            $(tds[3]).text(shortenedAddress);
-                        } else {
-                            $(tds[3]).text(history.address); // Fallback to the full address if splitting didn't work as expected
-                        }
+                            $(tds[3]).text(history.store); // Fallback to the full address if splitting didn't work as expected
                         $(tds[4]).text(Number(history.amount).toLocaleString() + "원");
                         if (history.paymentApprovalStatus === 'Y' && history.fdsDetectionStatus === 'Y') {
                             $(tds[5]).html('정상승인<span class="small-bell">🔔</span>');

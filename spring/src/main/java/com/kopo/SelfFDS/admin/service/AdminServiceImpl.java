@@ -3,16 +3,17 @@ package com.kopo.SelfFDS.admin.service;
 import com.kopo.SelfFDS.admin.model.dao.AdminMapper;
 import com.kopo.SelfFDS.admin.model.dto.*;
 import com.kopo.SelfFDS.member.model.dao.MemberMapper;
-import com.kopo.SelfFDS.member.model.dto.CardHistory;
-import com.kopo.SelfFDS.member.model.dto.LostCard;
-import com.kopo.SelfFDS.member.model.dto.Member;
-import com.kopo.SelfFDS.member.model.dto.SafetyCard;
+import com.kopo.SelfFDS.member.model.dto.*;
 import com.kopo.SelfFDS.payment.model.dao.PaymentMapper;
 import com.kopo.SelfFDS.payment.model.dto.PaymentLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.apache.commons.math3.distribution.NormalDistribution;
+import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,8 +25,8 @@ public class AdminServiceImpl implements AdminService {
     private PaymentMapper paymentMapper;
 
     @Autowired
-    public AdminServiceImpl(AdminMapper adminMapper, MemberMapper memberMapper, PaymentMapper paymentMapper){
-        this.adminMapper=adminMapper;
+    public AdminServiceImpl(AdminMapper adminMapper, MemberMapper memberMapper, PaymentMapper paymentMapper) {
+        this.adminMapper = adminMapper;
         this.memberMapper = memberMapper;
         this.paymentMapper = paymentMapper;
     }
@@ -33,8 +34,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int getAllMemberCnt() {
-        int totalMemberCnt=0;
-        List<MemberStats> list=adminMapper.getMemberCntByYear();
+        int totalMemberCnt = 0;
+        List<MemberStats> list = adminMapper.getMemberCntByYear();
         for (MemberStats stats : list) {
             totalMemberCnt += stats.getMemberCnt();
         }
@@ -43,8 +44,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int getAllCardCnt() {
-        int totalCardCnt=0;
-        List<CardStats> list=adminMapper.getCardCntByYear();
+        int totalCardCnt = 0;
+        List<CardStats> list = adminMapper.getCardCntByYear();
         for (CardStats stats : list) {
             totalCardCnt += stats.getCardCnt();
         }
@@ -74,26 +75,26 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public double getMemberCntByYearRate() {
 
-        List<MemberStats> list =adminMapper.getMemberCntByYear();
+        List<MemberStats> list = adminMapper.getMemberCntByYear();
 
-        return ((list.get(1).getMemberCnt()-list.get(0).getMemberCnt())/list.get(1).getMemberCnt())*100;
+        return ((list.get(1).getMemberCnt() - list.get(0).getMemberCnt()) / list.get(1).getMemberCnt()) * 100;
     }
 
     @Override
     public double getCardCntByYearRate() {
 
-        List<CardStats> list =adminMapper.getCardCntByYear();
+        List<CardStats> list = adminMapper.getCardCntByYear();
 
-        return ((list.get(1).getCardCnt()-list.get(0).getCardCnt())/list.get(1).getCardCnt())*100;
+        return ((list.get(1).getCardCnt() - list.get(0).getCardCnt()) / list.get(1).getCardCnt()) * 100;
     }
 
     @Override
     public double getAmountSumByDateRate() {
 
-        List<CardHistoryStats> list =adminMapper.getAmountSumByDate();
+        List<CardHistoryStats> list = adminMapper.getAmountSumByDate();
 
 
-        return ((list.get(1).getAmountSum()-list.get(0).getAmountSum())/list.get(1).getAmountSum())*100;
+        return ((list.get(1).getAmountSum() - list.get(0).getAmountSum()) / list.get(1).getAmountSum()) * 100;
     }
 
     @Override
@@ -113,46 +114,46 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Map<String, Object> calStats(String cardId) {
-        Fds fds=adminMapper.getFdsStatsByCardId(cardId);
-        double regionMean=Double.parseDouble(fds.getRegionStats().split(",")[0]);
-        double regionVar=Double.parseDouble(fds.getRegionStats().split(",")[1]);
-        statsToPdf(regionMean,regionVar);
-        double timeMean=Double.parseDouble(fds.getTimeStats().split(",")[0]);
-        double timeVar=Double.parseDouble(fds.getTimeStats().split(",")[1]);
-        statsToPdf(timeMean,timeVar);
-        double categorySmallMean=Double.parseDouble(fds.getCategorySmallStats().split(",")[0]);
-        double categorySmallVar=Double.parseDouble(fds.getCategorySmallStats().split(",")[1]);
-        statsToPdf(categorySmallMean,categorySmallVar);
-        double amountMean=Double.parseDouble(fds.getAmountStats().split(",")[0]);
-        double amountVar=Double.parseDouble(fds.getAmountStats().split(",")[1]);
-        statsToPdf(amountMean,amountVar);
+        Fds fds = adminMapper.getFdsStatsByCardId(cardId);
+        double regionMean = Double.parseDouble(fds.getRegionStats().split(",")[0]);
+        double regionVar = Double.parseDouble(fds.getRegionStats().split(",")[1]);
+        statsToPdf(regionMean, regionVar);
+        double timeMean = Double.parseDouble(fds.getTimeStats().split(",")[0]);
+        double timeVar = Double.parseDouble(fds.getTimeStats().split(",")[1]);
+        statsToPdf(timeMean, timeVar);
+        double categorySmallMean = Double.parseDouble(fds.getCategorySmallStats().split(",")[0]);
+        double categorySmallVar = Double.parseDouble(fds.getCategorySmallStats().split(",")[1]);
+        statsToPdf(categorySmallMean, categorySmallVar);
+        double amountMean = Double.parseDouble(fds.getAmountStats().split(",")[0]);
+        double amountVar = Double.parseDouble(fds.getAmountStats().split(",")[1]);
+        statsToPdf(amountMean, amountVar);
 
         Map<String, Object> result = new HashMap<>();
-        result.put("categorySmallPdf", statsToPdf(categorySmallMean,categorySmallVar));
+        result.put("categorySmallPdf", statsToPdf(categorySmallMean, categorySmallVar));
         result.put("regionPdf", statsToPdf(regionMean, regionVar));
         result.put("timePdf", statsToPdf(timeMean, timeVar));
-        result.put("amountPdf", statsToPdf(amountMean,amountVar));
+        result.put("amountPdf", statsToPdf(amountMean, amountVar));
 
 //
 ////        X_features
-        List<Integer> regionFeature=new ArrayList<>();
-        List<Double> categoryFeature=new ArrayList<>();
-        List<Integer> timeFeature=new ArrayList<>();
-        List<Integer> amountFeature=new ArrayList<>();
+        List<Integer> regionFeature = new ArrayList<>();
+        List<Double> categoryFeature = new ArrayList<>();
+        List<Integer> timeFeature = new ArrayList<>();
+        List<Integer> amountFeature = new ArrayList<>();
 
-        List<CardHistory> cardHistoryList=memberMapper.selectAllCardHistoryOfCardId(cardId);
+        List<CardHistory> cardHistoryList = memberMapper.selectAllCardHistoryOfCardId(cardId);
         for (CardHistory cardHistory : cardHistoryList) {
-            String regionName=null;
+            String regionName = null;
             if (cardHistory.getRegionName().split(" ").length > 1) {
                 regionName = cardHistory.getRegionName().split(" ")[0];
-            } else{
-                regionName=cardHistory.getRegionName();
+            } else {
+                regionName = cardHistory.getRegionName();
             }
 //            System.out.println("cardHistory.getRegionName()"+cardHistory.getRegionName());
             int RegionNumeric = paymentMapper.selectPreprocessingRegion(regionName);
-            System.out.println("cardHistory.getCategorySmall()"+cardHistory.getCategorySmall());
+            System.out.println("cardHistory.getCategorySmall()" + cardHistory.getCategorySmall());
             Double categoryDouble = paymentMapper.selectPreprocessingCategory(cardHistory.getCategorySmall());
-            int timeNumeric=Integer.parseInt(cardHistory.getCardHisTime().split(":")[0]);
+            int timeNumeric = Integer.parseInt(cardHistory.getCardHisTime().split(":")[0]);
 
             // 반환된 결과를 regionFeature 리스트에 추가
 
@@ -193,7 +194,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
-    public double[] linspace(double start, double end, int points){
+    public double[] linspace(double start, double end, int points) {
         double[] linspace = new double[points];
         double step = (end - start) / (points - 1);
 
@@ -328,6 +329,20 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int selectClusterCount() {
         return adminMapper.selectClusterCount();
+    }
+
+
+    public void clusterUpdate() {
+        RestTemplate restTemplate = new RestTemplate();
+        String fastApiUrl = "http://localhost:8000/cluster";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        Map<String, String> body = new HashMap<>();
+        LocalDate today = LocalDate.now();
+        body.put("date", today.format(formatter));
+
+        ResponseEntity<String> response = restTemplate.postForEntity(fastApiUrl, body, String.class);
+
     }
 
 

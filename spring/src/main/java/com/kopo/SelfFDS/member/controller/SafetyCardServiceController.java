@@ -191,18 +191,6 @@ public class SafetyCardServiceController {
         return mav;
     }
 
-//    @RequestMapping("/safetyCardStop")
-//    public ModelAndView safetyCardStopPage(HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        String email = (String) session.getAttribute("email");
-//        List<SafetyCard> safetyInfoList = memberService.selectSafetySettingByEmail(email);
-//
-//        ModelAndView mav = new ModelAndView();
-//        mav.addObject("safetyInfoList", safetyInfoList);
-//        mav.setViewName("service/safetyCardStopCopy");
-//        return mav;
-//    }
-
 
     @PostMapping("/updateStopDate")
     @ResponseBody
@@ -322,7 +310,7 @@ public class SafetyCardServiceController {
         System.out.println("cardId"+cardId);
 
         List<List<String>> settingsList = (List<List<String>>) requestData.get("settingsList");
-
+        System.out.println("settingsList"+settingsList);
         memberService.insertSafetySetting(cardId, settingsList);
         session.removeAttribute("cardId");
         session.removeAttribute("cardName");
@@ -372,23 +360,6 @@ public class SafetyCardServiceController {
         return mav;
     }
 
-//    @PostMapping("/stopCardDetail")
-//    @ResponseBody
-//    public Map<String, Object> stopCardDetail(@RequestBody SafetyCard safetyCard) {
-//        List<SafetyCard> safetyRuleList = memberService.selectSafetyCardNotRegionByCarId(safetyCard.getCardId());
-//        List<String> safetyRegionList = memberService.selectSafetyCardRegionByCarId(safetyCard.getCardId());
-//        List<String> regionAllList = memberService.selectAllRegionName();
-//        // Create a Map to hold the results
-//        regionAllList.removeAll(safetyRegionList);
-//
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("safetyRuleList", safetyRuleList);
-//        response.put("safetyRegionList", safetyRegionList);
-//        response.put("regionAllList", regionAllList);
-//
-//        return response; // Return the map as the respons
-//
-//    }
 
     @GetMapping("/stopCardDetail")
     public ModelAndView stopCardDetail(@RequestParam("cardId") String cardId) {
@@ -414,6 +385,12 @@ public class SafetyCardServiceController {
 
         return mav;
 
+    }
+
+
+    @GetMapping("/safetySettingStopOk")
+    public String safetySettingStopOk() {
+        return "service/safetySettingStopOk";
     }
 
 

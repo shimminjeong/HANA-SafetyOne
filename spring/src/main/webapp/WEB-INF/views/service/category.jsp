@@ -54,7 +54,7 @@
                                'electronics.png', 'world.png', 'education.png','hospital.png',  'shopping-cart.png',   'oilstation.png']}"/>
                         <%--                        <c:forEach var="entry" items="${categoryMap}" varStatus="loop">--%>
                         <%--                            <div class="grid-item"--%>
-                        <%--                                 style="${bigCategoryList.contains(entry.key) ? 'background-color: #ffe6e6;' : ''}">--%>
+                        <%--                                 style="${bigCategoryList.contains(entry.key) ? 'background-color: #ffd6d6;' : ''}">--%>
                         <%--                                <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>--%>
                         <%--                                <c:set var="imageName" value="${imgList[imgIndex]}"/>--%>
                         <%--                                <img class="grid-image" onclick="handleClickBig('${entry.key}')"--%>
@@ -72,7 +72,7 @@
                         <%--                        </c:forEach>--%>
                         <c:forEach var="entry" items="${categoryMap}" varStatus="loop">
                             <div class="grid-item"
-                                 style="${bigCategoryList.contains(entry.key) ? 'background-color: #ffe6e6;' : ''}">
+                                 style="${bigCategoryList.contains(entry.key) ? 'background-color: #ffd6d6;' : ''}">
                                 <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>
                                 <c:set var="imageName" value="${imgList[imgIndex]}"/>
                                 <img class="grid-image" onclick="handleClickBig('${entry.key}')"

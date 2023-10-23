@@ -194,7 +194,7 @@
 .setting-result-category {
     font-size: 18px;
     text-align: left;
-    background-color: #ffe6e6; /* 예시 붉은색 배경 */
+    background-color: #ffd6d6; /* 예시 붉은색 배경 */
     border: 1px solid #ffcccc; /* 예시 붉은색 테두리 */
     padding: 11px; /* 박스 내부와 컨텐츠 사이의 간격 */
     border-radius: 5px; /* 모서리를 둥글게 */
@@ -204,7 +204,7 @@
 .setting-result-time {
     font-size: 18px;
     text-align: left;
-    background-color: #ffe6e6; /* 예시 붉은색 배경 */
+    background-color: #ffd6d6; /* 예시 붉은색 배경 */
     border: 1px solid #ffcccc; /* 예시 붉은색 테두리 */
     padding: 11px; /* 박스 내부와 컨텐츠 사이의 간격 */
     border-radius: 5px; /* 모서리를 둥글게 */
@@ -214,7 +214,7 @@
 .setting-result {
     font-size: 18px;
     text-align: left;
-    background-color: #ffe6e6; /* 예시 붉은색 배경 */
+    background-color: #ffd6d6; /* 예시 붉은색 배경 */
     border: 1px solid #ffcccc; /* 예시 붉은색 테두리 */
     padding: 11px; /* 박스 내부와 컨텐츠 사이의 간격 */
     border-radius: 5px; /* 모서리를 둥글게 */
@@ -226,8 +226,8 @@
     font-size: 18px;
     text-align: left;
     width: 97%;
-    background-color: #eafaf3; /* 예시 초록색 배경 */
-    border: 1px solid #eafaf3; /* 예시 초록색 테두리 */
+    background-color: #c1edda; /* 예시 초록색 배경 */
+    border: 1px solid #c1edda; /* 예시 초록색 테두리 */
     padding: 11px; /* 박스 내부와 컨텐츠 사이의 간격 */
     border-radius: 5px; /* 모서리를 둥글게 */
 }

@@ -107,37 +107,37 @@
     }
 
 
-    $(document).ready(function () {
-        var data = {
-            cardId: $('#cardId').text(),
-            address: $('#address').text(),
-            time: $('#time').text(),
-            categorySmall: $('#categorySmall').text(),
-            amount: $('#amount').text()
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/payment/detectFds',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            dataType: 'text',
-            success: function (response) {
-                console.log("'" + response + "'");
-
-                if (response == "Y") {
-                    alert("이상함")
-                }
-                if (response == "N") {
-                    alert("정상입니다.")
-                }
-                console.log(response);
-            },
-            error: function (error) {
-                console.error('Error:', error);
-            }
-        });
-    });
+    // $(document).ready(function () {
+    //     var data = {
+    //         cardId: $('#cardId').text(),
+    //         address: $('#address').text(),
+    //         time: $('#time').text(),
+    //         categorySmall: $('#categorySmall').text(),
+    //         amount: $('#amount').text()
+    //     };
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/payment/detectFds',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         dataType: 'text',
+    //         success: function (response) {
+    //             console.log("'" + response + "'");
+    //
+    //             if (response == "Y") {
+    //                 alert("이상함")
+    //             }
+    //             if (response == "N") {
+    //                 alert("정상입니다.")
+    //             }
+    //             console.log(response);
+    //         },
+    //         error: function (error) {
+    //             console.error('Error:', error);
+    //         }
+    //     });
+    // });
 
 </script>
 </body>

@@ -82,7 +82,8 @@ function sendNotApproval(currentCardId, store, amount, dateTextContent, formatte
             + resultNumber + '원\n'
             + formattedDate + ' '+resultTime+'\n'
             + store+'\n'
-            + '거래가 차단되었습니다.',
+            + '거래가 차단되었습니다.'+'\n'
+            +'※ 본인이실 경우 안심서비스 일시정지를 통해 일정기간동안 거래를 허용하실 수 있습니다.',
     };
 
     $.ajax({
@@ -121,7 +122,7 @@ function sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount) {
     let formattedDateTime = formattedDate+' '+timePart;
 
     const requestData = {
-        to: '01050437629',
+        to: phoneNumber,
         content: '하나카드(' + lastFourDigits + ')신용승인\n'
             + maskedName+'\n'
             + formattedAmount+'\n'

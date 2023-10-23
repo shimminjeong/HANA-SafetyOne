@@ -17,10 +17,10 @@
 
 <div class="payment-container">
     <div class="time-container">
-        <img src="../../../resources/img/calendar.png">
+<%--        <img src="../../../resources/img/calendar.png">--%>
         <h1 id="current-date"></h1>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <img src="../../../resources/img/clock1.png">
+<%--        <img src="../../../resources/img/clock1.png">--%>
         <h1 id="current-time"></h1>
     </div>
     <div class="subcontainer">
@@ -30,7 +30,7 @@
                 <div class="option">
                     <div>
                         <form onsubmit="searchPlaces(); return false;">
-                            키워드 : <input type="text" value="부산 귀금속" id="keyword" size="15">
+                            키워드 : <input type="text" value="서울역" id="keyword" size="15">
                             <button type="submit">검색</button>
                         </form>
                     </div>
@@ -172,7 +172,7 @@
 
     function getToday() {
         var date = new Date();
-        date.setDate(date.getDate()+5);  // 현재 날짜에 3일 추가
+        date.setDate(date.getDate()+2);  // 현재 날짜에 3일 추가
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
@@ -187,7 +187,8 @@
     // 1초마다 현재 시각 업데이트
     setInterval(() => {
         const date = new Date(); // 새로운 Date 객체 생성
-        date.setHours(date.getHours()+8);  // 현재 시간에 5시간 추가
+        date.setHours(date.getHours()+6);  // 현재 시간에 5시간 추가
+        date.setMinutes(date.getMinutes());  // 현재 분에 30분 추가
         currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 
@@ -288,7 +289,7 @@
                 if (response === "거래승인") {
                     window.location.href = "/payment/paymentApproval?" + queryParams;
                 } else if (response === "거래미승인") {
-                    // sendNotApproval(currentCardId,store,amount,dateTextContent,formattedTime,username,userPhone)
+                    sendNotApproval(currentCardId,store,amount,dateTextContent,formattedTime,username,userPhone)
                     window.location.href = "/payment/paymentNotApproval?"+ queryParams;
                 } else {
                     alert(response);

@@ -107,6 +107,10 @@ input[type="text"] {
 }
 
 
+.btn-div-safety{
+    flex-basis: 23%;
+}
+
 .toggle-icon {
     margin-right: 10px;
 }

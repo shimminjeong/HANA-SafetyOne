@@ -19,7 +19,7 @@
                 <div class="sub-txt">평소의 소비 패턴과 다른 거래를 즉시 감지하여 알림을 보내드립니다.</div></p>
             </div>
             <a href="/fds/fdsCardSelect">
-                <button class="regBtn" style="background-color:#6c9b99;">신청/해제</button>
+                <button class="regBtn" style="background-color:#e7ac3e;">신청/해제</button>
             </a>
         </div>
         <div class="service_wrap">

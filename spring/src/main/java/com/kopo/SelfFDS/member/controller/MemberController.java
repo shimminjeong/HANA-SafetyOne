@@ -58,10 +58,6 @@ public class MemberController {
     }
 
 
-    @GetMapping("/join")
-    public String createForm() {
-        return "join";
-    }
 
 
     @RequestMapping("/update")
@@ -130,19 +126,6 @@ public class MemberController {
             return ResponseEntity.ok("로그인 성공");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 실패");
-        }
-    }
-
-    @PostMapping("/joinMember")
-    @ResponseBody
-    public String joinMember(@RequestBody Member member) {
-        try {
-            memberService.joinMember(member);
-            return "회원 등록 성공";
-        } catch (Exception e) {
-            // 회원가입 처리 중 예외가 발생하면 "회원등록실패"를 반환합니다.
-            e.printStackTrace();
-            return "회원 등록 실패";
         }
     }
 
@@ -282,40 +265,6 @@ public class MemberController {
         mav.setViewName("member/mypageReport");
         return mav;
     }
-
-
-//    mypage copy
-//    @PostMapping("/cardinfo")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, Object>> postCardInfo(@RequestBody CardHistory cardHistory) {
-//        String cardId=cardHistory.getCardId();
-//
-//        int difference=memberService.selectDifferenceMonthByCardId(cardId);
-//
-//        List<CardHistory> list=memberService.selectDiffCategoryOfMonthByCardId(cardId);
-//
-//        List<CardHistory> monthData=memberService.selectAmountOfMonthByCardId(cardId);
-//        List<CardHistory> weekData=memberService.selectAmountOfWeekByCardId(cardId);
-//        List<CardHistory> decreaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(0).getCategorySmall());
-//        List<CardHistory> increaseData=memberService.selectAmountOfMonthByCardIdCategory(cardId,list.get(1).getCategorySmall());
-//
-//        List<CardHistory> cardHistoryServiceList = memberService.selectAllCardHistoryOfCardId(cardId);
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("difference", difference);
-//        response.put("monthData", monthData);
-//        response.put("weekData", weekData);
-//        response.put("decreaseList", list.get(0));
-//        response.put("increaseList", list.get(1));
-//        response.put("decreaseData", decreaseData);
-//        response.put("increaseData", increaseData);
-//
-//        response.put("cardHistoryList", cardHistoryServiceList);
-//        if (!cardHistoryServiceList.isEmpty()) {
-//            return ResponseEntity.ok(response);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
 
     @PostMapping("/cardDetail")

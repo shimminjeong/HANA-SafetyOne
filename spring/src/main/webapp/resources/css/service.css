@@ -23,7 +23,7 @@
 }
 
 /*#cbf8e7*/
-/*#eafaf3*/
+/*#c1edda*/
 .service-content1 {
     background-color:#c7dbec;
     width: 100vw;
@@ -33,8 +33,10 @@
 
 }
 
+
 .service-content2 {
-    background-color: #cae0df;
+    /*background-color: #cae0df;*/
+    background-color: #f7d9a1;
     width: 100vw;
     margin-bottom: 40px;
     padding: 30px 0 40px;
@@ -58,7 +60,7 @@
 .sub-txt {
 
     font-size: 22px;
-    color: #555;
+    color: #3c3c3c;
     margin-bottom: 50px;
 }
 

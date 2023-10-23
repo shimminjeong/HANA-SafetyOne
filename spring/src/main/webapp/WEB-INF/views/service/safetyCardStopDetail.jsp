@@ -140,6 +140,17 @@
 
 <script>
 
+    // $(function() {
+    //     // 현재 날짜를 설정합니다. (2023년 10월 13일로 예시)
+    //     var currentDate = new Date(2023, 9, 13); // 월은 0부터 시작하므로 9는 10월을 의미합니다.
+    //
+    //     // DatePicker 초기화
+    //     $("#datepicker").datepicker();
+    //
+    //     // 현재 날짜를 설정한 날짜로 업데이트
+    //     // $("#datepicker").datepicker("setDate", currentDate);
+    // });
+
     var aa = document.querySelector('input[type="checkbox"]:checked');
     console.log("aa", aa);
 
@@ -352,7 +363,7 @@
             success: function (response) {
                 closeModal();
                 if (response === "일시정지업데이트") {
-                    window.location.href = "/safetyCard/"; // 페이지 리다이렉트
+                    window.location.href = "/safetyCard/safetySettingStopOk"; // 페이지 리다이렉트
                 } else {
                     alert(response); // 그렇지 않으면 서버의 응답을 그대로 경고로 표시합니다.
                 }

@@ -13,6 +13,8 @@
     <%--    <link href="../../../resources/css/safetyCardCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/safetySettingNew.css" rel="stylesheet">
     <link href="../../../resources/css/fdsCardSelect.css" rel="stylesheet">
+    <link href="../../../resources/css/modalStyle.css" rel="stylesheet">
+    <script src="../../../resources/js/userOuath.js" type="text/javascript"></script>
 
 
 </head>
@@ -284,20 +286,122 @@
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&#10006;</span>
-        <div class="modal-header">나만의 Rule 확인</div>
-        <div class="ok-div"><span class="text"> 카드 번호 : </span><span><%=session.getAttribute("cardId")%></span></div>
+        <div class="modal-header">안심서비스 설정 확인</div>
+        <div class="ok-div"><span class="text-confirm"> 카드 번호 : </span><span><%=session.getAttribute("cardId")%></span></div>
         <div class="setting-result-modal"></div>
-        <div class="ok-div"><span class="text"> 허용 지역 : </span><span class="ok"></span></div>
-        <div class="ok-div"><span class="text"> 차단 조합 : </span><span class="no"></span></div>
-        <div class="btn-div" style="">
-            <button class="confirm-btn" onclick="safetySettingOk()">확인</button>
+        <div class="ok-div"><span class="text-confirm"> 허용 지역 : </span><span class="ok"></span></div>
+        <div class="ok-div"><span class="text-confirm"> 차단 조합 : </span><span class="no"></span></div>
+        <div class="btn-div">
+<%--            <button class="confirm-btn" onclick="safetySettingOk()">확인</button>--%>
+            <button class="confirm-btn"  onclick="agreePhone()">확인</button>
         </div>
     </div>
     <%--        <button onclick="closeModal()">취소</button>--%>
 </div>
+<div id="authModal" class="modal">
+    <div class="auth-container">
+        <span class="close-btn">&times;</span>
+        <div class="auth-header">본인인증</div>
+        <div class="auth-content">
+            <div class="content-row">
+                <div class="content-div-header" style="margin: auto 0;">이름</div>
+                <div class="content-div-input"><input type="text" placeholder="이름"></div>
+            </div>
+            <%--            <div class="content-row">--%>
+            <%--                <div class="content-div-header" style="margin: auto 0;">생년월일</div>--%>
+            <%--                <div class="content-div-input"><input type="text" placeholder="19981223 형식으로 입력"></div>--%>
+            <%--            </div>--%>
+            <div class="content-row">
+                <div class="content-div-header" style="margin-top: 10px;">휴대전화</div>
+                <div class="content-div-phone">
+                    <%--                    <div class="agree-form">--%>
+                    <%--                        <div class="accordion-header">--%>
+                    <%--                            <span class="toggle-icon">V</span>--%>
+                    <%--                            본인인증 약관 전체동의--%>
+                    <%--                            <span class="accordion-indicator">▼</span>--%>
+                    <%--                        </div>--%>
 
+                    <%--                        <div class="accordion-content">--%>
+                    <%--                            <hr>--%>
+                    <%--                            <div><span class="toggle-icon">v</span> 개인정보 제공 및 이용</div>--%>
+                    <%--                            <div><span class="toggle-icon">v</span> 고유식별 정보처리</div>--%>
+                    <%--                            <div><span class="toggle-icon">v</span> 통신사 이용약관</div>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
+                    <div class="phone-div">
+                        <div class="company-select">
+                            <select>
+                                <option value="skt" selected>SKT</option>
+                                <option value="lg">LG</option>
+                                <option value="kt">KT</option>
+                            </select>
+                        </div>
+                        <div class="phone-select">
+                            <select>
+                                <option value="010" selected>010</option>
+                                <option value="070">070</option>
+                                <option value="012">012</option>
+                                <option value="031">031</option>
+                            </select>
+                        </div>
+                        <div class="number"><input type="text" id="phoneNumber" placeholder="'-' 제외하고 입력"></div>
+                        <div class="btn-div-safety">
+                            <button class="send-authNumber" onclick="sendSmsRequest()">인증번호 받기</button>
+                        </div>
+                    </div>
+                    <div class="auth-number-input"><input type="text" id="userOuathNum"
+                                                          placeholder="인증번호 숫자만 6자리 입력">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button onclick="verifySmsSafetyCode()" class="auth-confirm">확인</button>
+    </div>
+    <div id="result"></div>
+</div>
 </body>
 <script>
+
+    function verifySmsSafetyCode() {
+        const smsConfirmNum = document.getElementById('userOuathNum').value;
+
+        const resultDiv = document.getElementById('result');
+
+        $.ajax({
+            url: '/sms/verify',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({smsConfirmNum: smsConfirmNum}),
+            success: function (data) {
+                // 성공적인 응답 처리
+                console.log('서버 응답:', data);
+                if (data === '본인인증성공') {
+                    safetySettingOk();
+                } else {
+                    resultDiv.textContent = '본인인증실패';
+                }
+            },
+            error: function () {
+                console.error("본인인증인증과정에러");
+            }
+        });
+
+    }
+
+    function agreePhone() {
+        // 모달 창을 표시합니다.
+        let modal = document.getElementById('authModal');
+        modal.style.display = 'block';
+    }
+
+    // 모달 외부를 클릭하면 모달을 닫습니다.
+    window.onclick = function (event) {
+        let modal = document.getElementById('authModal');
+        if (event.target == modal || event.target == document.querySelector('.close-btn')) {
+            modal.style.display = 'none';
+        }
+    }
+
 
     function reset() {
         window.location.href = "/safetyCard/safetySettingValue";

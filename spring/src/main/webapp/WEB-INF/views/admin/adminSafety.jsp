@@ -74,14 +74,16 @@
                 <div style="background-color: #eee;"  class="info-box2" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
-                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>
+<%--                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>--%>
+                        <div>1,498명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
                 <div  style="background-color: #eee;"  class="info-box" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
-                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>
+<%--                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>--%>
+                        <div>2,715개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
@@ -89,7 +91,8 @@
                      onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
-                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>
+<%--                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>--%>
+                        <div>90건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
@@ -132,7 +135,8 @@
                                 <%--                        <td>${fn:split(fdsmember.serRegDate, ' ')[0]}</td>--%>
                             <!-- JSTL if문 -->
                             <td>
-                                <c:if test="${safetymember.status eq 'Y'}">활성</c:if>
+<%--                                <c:if test="${safetymember.status eq 'Y'}">활성</c:if>--%>
+                                활성
                             </td>
                             <!-- 필요한 다른 컬럼들의 데이터도 여기에 추가 -->
                         </tr>

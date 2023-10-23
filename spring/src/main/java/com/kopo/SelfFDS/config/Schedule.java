@@ -1,5 +1,6 @@
 package com.kopo.SelfFDS.config;
 
+import com.kopo.SelfFDS.admin.service.AdminService;
 import com.kopo.SelfFDS.member.model.dto.SafetyCard;
 import com.kopo.SelfFDS.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,14 @@ import java.util.List;
 @EnableScheduling
 public class Schedule {
 
+    private final MemberService memberService;
+    private final AdminService adminService;
+
     @Autowired
-    private MemberService memberService;
+    public Schedule(MemberService memberService, AdminService adminService) {
+        this.memberService = memberService;
+        this.adminService = adminService;
+    }
 
     @Scheduled(cron = "0 0 0 * * *")
     public void checkSafetyCardDates() {
@@ -42,6 +49,11 @@ public class Schedule {
             }
 
         }
+    }
+
+    @Scheduled(cron = "0 0 0 1 3,6,9,12 *")
+    public void trainCluster(){
+        adminService.clusterUpdate();
     }
 
 }

@@ -8,12 +8,12 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="../../../resources/css/lostcard.css" rel="stylesheet">
     <link href="../../../resources/css/cardSelectCommon.css" rel="stylesheet">
+    <link href="../../../resources/css/common.css" rel="stylesheet">
 </head>
-<style>
 
-</style>
-<%@ include file="../include/header.jsp" %>
+
 <body>
+<%@ include file="../include/header.jsp" %>
 <div class="active-container">
     <div class="cont_box_area">
         <%--        <nav class="tab_ty02">--%>

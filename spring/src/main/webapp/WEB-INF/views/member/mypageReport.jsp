@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="div-header">
-                    <img src="../../../resources/img/magnifier.png">최근 3개월 동안의 이용 카테고리 분석
+                    <img src="../../../resources/img/magnifier.png">최근 3개월 동안의 결제 카테고리 분석
                 </div>
                 <div class="div-box2">
                     <div class="div-box-sub">
@@ -107,7 +107,7 @@
 
                 </div>
                 <div class="div-header">
-                    <img src="../../../resources/img/magnifier.png">최근 3개월 동안의 이용 시간 및 지역별 지출 금액
+                    <img src="../../../resources/img/magnifier.png">최근 3개월 동안의 결제 시간 및 지역별 지출 금액
                 </div>
                     <div class="div-box2">
                         <div class="div-box-sub">
@@ -143,7 +143,7 @@
                     label: '월별 거래금액',
                     data: data,
                     backgroundColor: [
-                        '#61de62'
+                        '#4cbd4d'
                     ]
                 }]
             },

@@ -142,7 +142,8 @@
                                 <img src="../../../resources/img/secure-payment.png" style="width: 42px; height: 42px;">안심서비스
                             </div>
                             <div class="safetyone-info-content-div1">금일 차단 건수</div>
-                            <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>
+<%--                            <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>--%>
+                            <div class="safetyone-info-content-div2"><strong>92</strong>건</div>
                         </div>
                         <div class="safetyone-info-content-box2" onclick="window.location.href='/admin/fds'">
                             <div class="safetyone-info-content-header"><img src="../../../resources/img/bellcolor.png">이상소비알림서비스</div>

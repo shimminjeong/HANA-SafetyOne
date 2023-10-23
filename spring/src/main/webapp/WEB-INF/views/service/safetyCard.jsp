@@ -42,5 +42,6 @@
     </div>
 </div>
 </body>
+<img src="../../../resources/img/footer.png" style="width: 100%; margin-top: 70px; bottom:0;" >
 </html>
 

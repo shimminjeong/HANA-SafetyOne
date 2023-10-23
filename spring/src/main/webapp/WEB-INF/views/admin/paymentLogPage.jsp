@@ -78,7 +78,7 @@
             </h2>
             <div class="sub-container">
                 <div class="alarm-info">해당 서비스의 모든 결제로그를 조회할 수 있습니다.</div>
-                <div class="alarm-info">※ 카드번호와 일자를 입력하면 해당 날짜에 해당 카드로 이루어진 결제 내역을 조회할 수 있습니다.</div>
+                <div class="alarm-info">※ 카드번호와 일자를 입력하시면 해당 일에 그 카드로 결제된 내역을 조회할 수 있습니다.</div>
                 <div class="pick">
                     <span class="date-div">
                         <span>일자 선택 :&nbsp; </span>
@@ -164,13 +164,13 @@
 
     $(function() {
         // 현재 날짜를 설정합니다. (2023년 10월 13일로 예시)
-        var currentDate = new Date(2023, 10, 15); // 월은 0부터 시작하므로 9는 10월을 의미합니다.
+        var currentDate = new Date(2023, 9, 13); // 월은 0부터 시작하므로 9는 10월을 의미합니다.
 
         // DatePicker 초기화
         $("#paymentdatepicker").datepicker();
 
         // 현재 날짜를 설정한 날짜로 업데이트
-        $("#paymentdatepicker").datepicker("setDate", currentDate);
+        // $("#paymentdatepicker").datepicker("setDate", currentDate);
     });
 
     function filterCard() {

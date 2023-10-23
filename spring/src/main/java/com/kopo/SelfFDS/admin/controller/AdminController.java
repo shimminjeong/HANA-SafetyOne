@@ -33,24 +33,6 @@ public class AdminController {
         this.paymentService = paymentService;
     }
 
-//    @GetMapping("/")
-//    public ModelAndView adminMainPage() {
-//
-//        ModelAndView mav = new ModelAndView();
-//        mav.addObject("memberCnt", adminService.getAllMemberCnt());
-//        mav.addObject("cardCnt", adminService.getAllCardCnt());
-//        mav.addObject("amountSum", adminService.getAllAmountSumOfDay());
-//        mav.addObject("memberCntByYearRate", adminService.getMemberCntByYearRate());
-//        mav.addObject("cardCntByYearRate", adminService.getCardCntByYearRate());
-//        mav.addObject("amountSumByDateRate", adminService.getAmountSumByDateRate());
-//        mav.addObject("memberCntByYear", adminService.getMemberCntByYear());
-//        mav.addObject("cardCntByYear", adminService.getCardCntByYear());
-//        mav.addObject("amountSumByYear", adminService.getAmountSumByDate());
-//        mav.setViewName("admin/adminMain");
-//
-//        return mav;
-//    }
-
     @GetMapping("/")
     public ModelAndView adminMainPage() {
 

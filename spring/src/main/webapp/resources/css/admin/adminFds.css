@@ -513,7 +513,7 @@ input, select {
     color: #fff;
 }
 
-/* 오늘 날짜의 배경 및 글자색 변경 */
+/* 오늘 날짜의 배경 및 글자색 변경*/
 /*.ui-datepicker .ui-state-highlight {*/
 /*    background-color: #FFEB3B;*/
 /*    color: #333;*/
@@ -575,4 +575,10 @@ input, select {
     background-color: white;
 }
 
-
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+    border: 1px solid #ddd !important; /* 기존의 테두리 스타일을 제거 */
+    background: #f7f7f7 !important; /* 기존의 배경 스타일을 제거 */
+    color: #454545 !important;
+}

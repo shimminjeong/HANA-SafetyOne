@@ -42,10 +42,10 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(37,150,99,0.5)', // 예쁜 터쿼이즈색
+            backgroundColor: 'green',
             borderWidth: 0.3,
-            pointRadius: 1.5,
-            fill: false
+            pointRadius: 1.8
         },
             {
                 label: '거래데이터',
@@ -62,7 +62,8 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
                 data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
                 type: 'bar',
                 backgroundColor: 'rgb(6,63,103)',
-                borderWidth: 1
+                borderWidth: 1,
+                barPercentage: 1.2
             }]
     };
 
@@ -73,7 +74,7 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
                 position: 'bottom',
                 title: {
                     display: true,
-                    text: xAxisLabel
+                    // text: xAxisLabel
                 }
             }
         },
@@ -135,9 +136,10 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(37,150,99,0.5)', // 예쁜 터쿼이즈색
+            backgroundColor: 'green',
             borderWidth: 0.3,
-            pointRadius: 1.5,
+            pointRadius: 1.8,
             fill: false
         },
             {
@@ -155,7 +157,8 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
                 type: 'bar',
                 backgroundColor: 'rgb(6,63,103)',
-                borderWidth: 1
+                borderWidth: 1,
+                barPercentage: 1.2,
             }]
     };
 
@@ -166,7 +169,7 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 position: 'bottom',
                 title: {
                     display: true,
-                    text: xAxisLabel
+                    // text: xAxisLabel
                 }
             }
         },
@@ -231,9 +234,10 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(37,150,99,0.5)', // 예쁜 터쿼이즈색
+            backgroundColor: 'green',
             borderWidth: 0.3,
-            pointRadius: 1.5,
+            pointRadius: 1.8,
             fill: false
         },
             {
@@ -251,7 +255,8 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
                 type: 'bar',
                 backgroundColor: 'rgb(6,63,103)',
-                borderWidth: 1
+                borderWidth: 1,
+                barPercentage: 1.2,
             }]
     };
 
@@ -262,7 +267,7 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 position: 'bottom',
                 title: {
                     display: true,
-                    text: xAxisLabel
+                    // text: xAxisLabel
                 }
             }
         },
@@ -326,9 +331,10 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgb(14,157,151)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(13,128,76,0.5)', // 예쁜 터쿼이즈색
+            backgroundColor: 'green',
             borderWidth: 0.3,
-            pointRadius: 1.5,
+            pointRadius: 1.8,
             fill: false
         }, {
             label: '거래데이터',
@@ -345,7 +351,8 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
             type: 'bar',
             backgroundColor: 'rgb(6,63,103)', // 예쁜 파란색
 
-            borderWidth: 1
+            borderWidth: 1,
+            barPercentage: 1.2,
         }]
     };
 
@@ -357,7 +364,7 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 position: 'bottom',
                 title: {
                     display: true,
-                    text: xAxisLabel
+                    // text: xAxisLabel
                 }
             },
             y: {
@@ -375,10 +382,18 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                     }
                 }
             }
-        }
-
-
-        ,
+        },
+            legend: {
+                labels: {
+                    filter: function(item, chart) {
+                        if (item.text === '확률분포') {
+                            item.fillStyle = 'rgba(37,150,99,0.5)'; // 원하는 색상으로 변경하세요
+                        }
+                        return item.text !== '확률분포' ? true : false;
+                    },
+                    usePointStyle: true,
+                }
+            },
         plugins: {
             legend: {
                 display: true
@@ -471,7 +486,7 @@ function showAnomalyDetails(paymentLogId, cardId) {
             const categoryElement = document.querySelector('.info-right .category');
             const amountElement = document.querySelector('.info-right .amount');
 
-            const cardIdValue = cardId+'카드의 '; // responseData.cardId는 실제 데이터로 대체해야 합니다.
+            const cardIdValue = cardId+' 카드의 '; // responseData.cardId는 실제 데이터로 대체해야 합니다.
             const regionValue = '거래 지역 : ' + formattedAddress; // responseData.embeddingData.region는 실제 데이터로 대체해야 합니다.
             const timeValue = '거래 시간 : ' + responseData.embeddingData.timeNumeric + '시'; // responseData.embeddingData.timeNumeric는 실제 데이터로 대체해야 합니다.
             const categoryValue = '거래 업종 : ' + responseData.category; // responseData.category는 실제 데이터로 대체해야 합니다.

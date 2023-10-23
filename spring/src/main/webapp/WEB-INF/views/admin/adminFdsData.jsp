@@ -92,7 +92,6 @@
 
             <div class="table-container">
                 <h3>이상소비탐지 거래내역</h3>
-                <div class="alarm-info">※ 이상소비로 탐지된 거래내역 조회</div>
                 <div class="alarm-info">※ 거래내역을 클릭하면 이상치로 탐지된 확률분포 그래프를 확인할 수 있습니다.</div>
                 <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
                 <div class="user-search">
