@@ -2,7 +2,9 @@ from typing import List
 from pydantic import BaseModel
 from learning import train_gmm_model
 from load_gmm import anomalyDetection_gmm
+from cluster import train_cluster
 import fastapi
+from datetime import date
 from fastapi.middleware.cors import CORSMiddleware
 
 app = fastapi.FastAPI()
@@ -27,6 +29,10 @@ class PaymentLog(BaseModel):
     cardId: str
     wordToVec: WordToVec
     
+    
+class Cluster(BaseModel):
+    date: date
+    
 
 @app.post('/train')
 def train(request:Fds):
@@ -39,8 +45,8 @@ def train(request:Fds):
 def train(request:PaymentLog):
     word_to_vec_list = [
         request.wordToVec.categorySmallNumeric,
-        request.wordToVec.timeNumeric,
         request.wordToVec.regionNameNumeric,
+        request.wordToVec.timeNumeric,
         request.wordToVec.amountNumeric
     ]
     print("request",request)
@@ -48,6 +54,12 @@ def train(request:PaymentLog):
     print("request.wordToVec",request.wordToVec)
     print("word_to_vec_list",word_to_vec_list)
     result = anomalyDetection_gmm(request.cardId,word_to_vec_list)
+    return result
+
+
+@app.post('/cluster')
+def train(request:Cluster):
+    result = train_cluster()
     return result
 
 if __name__ == '__main__':

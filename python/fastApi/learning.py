@@ -28,13 +28,13 @@ def train_gmm_model(card_id):
     region = pd.DataFrame(rows, columns=columns)
 
 
-    sql="select categorySmall, barToEmbedding from CATEGORYembedding"
+    sql="select categorySmall, DIAMONDTOEMBEDDING from CATEGORYembedding"
     cursor.execute(sql)
     rows = cursor.fetchall()
-    columns = ['categorySmall','barToEmbedding']
+    columns = ['categorySmall','diamondToEmbedding']
     category = pd.DataFrame(rows, columns=columns)
 
-    data['categorySmall'] = data['categorySmall'].replace(category.set_index('categorySmall')['barToEmbedding'])
+    data['categorySmall'] = data['categorySmall'].replace(category.set_index('categorySmall')['diamondToEmbedding'])
     data['regionName'] = data['regionName'].replace(region.set_index('regionName')['seoulTorReionDistance'])
     data['cardHisTime'] = data['cardHisTime'].str.split(':').str[0].astype(int)
     
@@ -45,21 +45,28 @@ def train_gmm_model(card_id):
     gmm.fit(X)
     
     means=gmm.means_
+    print("means",means)
     covariances=gmm.covariances_
+    print("covariances",covariances)
     
     categorySmall=str(means[0,0])+','+str(covariances[0,0,0])
     regionName=str(means[0,1])+','+str(covariances[0,1,1])
     cardHisTime=str(means[0,2])+','+str(covariances[0,2,2])
     amount=str(means[0,3])+','+str(covariances[0,3,3])
+    
+    # categorySmall=str(means[0,0])+','+str(covariances[0,0,0])+','+str(means[1,0])+','+str(covariances[1,0,0])
+    # regionName=str(means[0,1])+','+str(covariances[0,1,1])+','+str(means[1,1])+','+str(covariances[1,1,1])
+    # cardHisTime=str(means[0,2])+','+str(covariances[0,2,2])+','+str(means[1,2])+','+str(covariances[1,2,2])
+    # amount=str(means[0,3])+','+str(covariances[0,3,3])+','+str(means[1,3])+','+str(covariances[1,3,3])
     print(categorySmall)
     print(regionName)
     print(cardHisTime)
     print(amount)
     
-    sql="update fds set learningdate=sysdate where cardid=:1";
+    sql="update fds set learningdate=TO_DATE('2023-10-12 14:12:00', 'YYYY-MM-DD HH24:MI:SS') where cardid=:1";
     cursor.execute(sql,(card_id,));
     
-    sql="update fds set servicestatus='학습완료' where cardid=:1";
+    sql="update fds set servicestatus='Y' where cardid=:1";
     cursor.execute(sql,(card_id,));
     
     sql="update fds set CATEGORYSMALLSTATS=:1 where cardid=:2";
@@ -91,3 +98,5 @@ def train_gmm_model(card_id):
 
 # card_id = '9440-9469-2724-7629'
 # train_gmm_model(card_id)
+
+# train_gmm_model('9751-1546-4512-7629')
