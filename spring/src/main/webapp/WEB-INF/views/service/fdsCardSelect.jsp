@@ -11,8 +11,8 @@
     <%--    <link href="../../../resources/css/common.css" rel="stylesheet">--%>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <%--    <link href="../../../resources/css/cardSelectCommon.css" rel="stylesheet">--%>
-    <link href="../../../resources/css/fdsCardSelect.css" rel="stylesheet">
-    <link href="../../../resources/css/modalStyle.css" rel="stylesheet">
+    <link href="../../../resources/css/member/fdsCardSelect.css" rel="stylesheet">
+    <link href="../../../resources/css/member/modalStyle.css" rel="stylesheet">
     <script src="../../../resources/js/userOuath.js" type="text/javascript"></script>
 </head>
 <body>

@@ -9,9 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link href="../../../resources/css/safetyCardCommon.css" rel="stylesheet">
-    <link href="../../../resources/css/safetySettingNew.css" rel="stylesheet">
-    <link href="../../../resources/css/lostcard.css" rel="stylesheet">
+    <link href="../../../resources/css/member/safetyCardCommon.css" rel="stylesheet">
+    <link href="../../../resources/css/member/safetySettingNew.css" rel="stylesheet">
+    <link href="../../../resources/css/member/lostcard.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 

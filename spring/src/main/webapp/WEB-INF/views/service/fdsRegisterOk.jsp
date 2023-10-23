@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <link href="../../../resources/css/safetySetting.css" rel="stylesheet">
+  <link href="../../../resources/css/member/safetySetting.css" rel="stylesheet">
   <link href="../../../resources/css/common.css" rel="stylesheet">
 
 </head>

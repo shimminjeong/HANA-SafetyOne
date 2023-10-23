@@ -166,18 +166,6 @@ public class SafetyCardServiceController {
         return "service/safetySettingOk";
     }
 
-    @GetMapping("/safetyCardStatus")
-    public ModelAndView safetyCardStatusPage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("email");
-        List<Card> cardInfo = memberService.selectCardOfEmail(email);
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("cards", cardInfo);
-        mav.setViewName("service/safetyCardStatus");
-        return mav;
-    }
-
 
     @RequestMapping("/safetyCardSelect")
     public ModelAndView safetyCardSelectPage(HttpServletRequest request) {
