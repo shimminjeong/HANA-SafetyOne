@@ -115,16 +115,16 @@ DBMS : Oracle DBMS
 • Java Mail Sender를 활용한 안심서비스 추천 메일 전송<br/>
 • M-VIEW, INDEX를 활용한 성능개선<br/></br>
 
-### 대용량 데이터 생성
+### 4-1. 대용량 데이터 생성
 <img src="img/generateData.png"/> <br/></br>
 
-### 성능개선
+### 4-2. 성능개선
 <img src="img/performance.png"/> <br/></br>
 
-### 적용된 특화 기술
+### 4-3. 적용된 특화 기술
 <img src="img/specialTech.png"/> <br/></br>
 
-### 그 외 적용 기술
+### 4.4 그 외 적용 기술
 <img src="img/tech.png"/> <br/></br>
 
 
