@@ -144,11 +144,11 @@ DBMS : Oracle DBMS
 
 ## 발표 ppt
 
-[발표자료<img src="img/main.png"/>](/SafetyOne_심민정.pdf) <br/>
+<img src="img/main.png"/>(/SafetyOne_심민정.pdf) <br/>
 
 
 ## 시연 동영상
-[영상<img src="img/mainPage.png"/>](https://youtu.be/Zn69_DVyPl4) </br>
+<img src="img/mainPage.png"/>(https://youtu.be/Zn69_DVyPl4) </br>
  *사진을 누르시면 영상 유튜브 사이트로 이동합니다
 
 # 4. 본인 소개
