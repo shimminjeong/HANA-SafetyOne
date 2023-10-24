@@ -93,8 +93,6 @@
                                     <td>${cluster.categoryMaxName}</td>
                                     <td>${cluster.categoryMinName}</td>
                                     <td style="text-align: right">${(cluster.clusterPeopleRatio * 100).intValue()}%</td>
-
-
                                     <td>
                                         <button class="open-modal" data-clusterNum="${cluster.clusterNum}"
                                                 data-clusterPeopleCount="${cluster.clusterPeopleCount}">군집특성확인
@@ -104,9 +102,6 @@
                                         <button>이메일전송
                                         </button>
                                     </td>
-                                        <%--                                <td>--%>
-                                        <%--                                    <button>메일 보내기</button>--%>
-                                        <%--                                </td>--%>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -140,11 +135,11 @@
                 </div>
                 <div class="category-top3">
                     <div class="big">
-                        <div class="category-header"><주요 거래업종></div>
+                        <div class="category-header"><strong>주요 거래업종</strong></div>
                         <div class="bigcategory"></div>
                     </div>
                     <div class="small">
-                        <div class="category-header"><비주요 거래업종></div>
+                        <div class="category-header"><strong>비주요 거래업종</strong></div>
                         <div class="smallcategory"></div>
                     </div>
                 </div>
@@ -180,7 +175,6 @@
 </div>
 <script>
 
-    // JSP에서 데이터를 가져오기 위한 JavaScript 코드
     var clusterData = [];
     <c:forEach var="cluster" items="${clusterInfo}">
     clusterData.push({
@@ -204,18 +198,18 @@
             datasets: [{
                 data: data,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)',    // 붉은색
-                    'rgba(54, 162, 235, 0.5)',    // 파란색
-                    'rgba(255, 206, 86, 0.5)',    // 노란색
-                    'rgba(75, 192, 192, 0.5)',    // 민트색
-                    'rgba(153, 102, 255, 0.5)',   // 보라색
-                    'rgba(255, 159, 64, 0.5)'     // 오렌지색
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
                 ]
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,  // 추가
+            maintainAspectRatio: false,
             legend: {
                 position: 'right'
             }
@@ -263,7 +257,7 @@
                 {
                     label: '거래금액',
                     data: dataSum,
-                    backgroundColor: 'rgba(199,123,45,0.87)', // 주황색
+                    backgroundColor: 'rgba(199,123,45,0.87)',
                     yAxisID: 'y-axis-sum'
                 }
             ]
@@ -317,14 +311,12 @@
             $.ajax({
                 type: "POST",
                 url: "/admin/clusterDetail",
-                contentType: 'application/json', // 콘텐츠 타입을 JSON으로 지정
+                contentType: 'application/json',
                 data: JSON.stringify({clusterNum: clusterNum}),
                 success: function (chartData) {
-                    // chartData를 사용하여 차트를 그립니다.
 
-                    drawChart(chartData); // drawChart는 차트를 그리는 함수, 이를 구현하실 필요가 있습니다.
+                    drawChart(chartData);
 
-                    // 모달을 보여줍니다.
                     $("#myModal").show();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -333,9 +325,9 @@
             });
         });
 
-        // 모달 외부를 클릭했을 때 모달을 닫습니다.
+
         $(document).ready(function () {
-            // .close 클래스 버튼을 클릭했을 때의 이벤트 리스너
+
             $(".close").click(function () {
                 $("#myModal").hide();
             });

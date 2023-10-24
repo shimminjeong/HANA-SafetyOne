@@ -44,7 +44,6 @@
                 <div class="right-info2"><h4></h4>
                     <button class="chart-name" onclick="openChartTimeModal()">시간별 나의 소비 확인</button>
                 </div>
-                <%--            <div class="right-info3" style="color: red">※ 거래하지 않는 시간을 지정하여 금융사고를 예방하는 서비스입니다.</div>--%>
 
                 <div class="time-subcontainer">
                     <div class="clock-div">

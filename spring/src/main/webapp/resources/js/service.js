@@ -3,18 +3,16 @@ function selectRegion(button) {
     var value = button.value;
     var selectedBtnDiv = document.querySelector('.selected-btn');
 
-    // 새로운 버튼 생성
+
     var newButton = document.createElement('button');
     newButton.textContent = value;
     newButton.classList.add('selected-region');
 
-    // 새로운 버튼을 선택된 버튼 영역에 추가
     selectedBtnDiv.appendChild(newButton);
 
     document.querySelector('.selected-btn').addEventListener('click', function (event) {
-        // 클릭된 요소가 버튼인 경우에만 동작
+
         if (event.target.tagName === 'BUTTON') {
-            // 클릭된 버튼 제거
             event.target.remove();
         }
     });
@@ -52,7 +50,7 @@ function openChartRegionModal() {
                 options: {
                     plugins: {
                         legend: {
-                            display: false, // Set to false to hide the legend
+                            display: false,
                         }
                     },
                     scales: {
@@ -105,7 +103,7 @@ function populateTimeOptions() {
 
 populateTimeOptions();
 
-// 시작 시간 업데이트
+
 function updateTime() {
     const startHour = document.getElementById('startHour').value;
     const endHour = document.getElementById('endHour').value;

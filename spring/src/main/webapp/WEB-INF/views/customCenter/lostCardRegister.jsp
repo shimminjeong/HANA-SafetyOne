@@ -96,7 +96,6 @@
                     <tr>
                         <th scope="row" class="left">자택주소</th>
                         <td class="left">
-                            <%--                            <input type="text" placeholder="${address}" style="width: 50%; margin-right: 10px">--%>
                             <div class="address-div">${address}<button class="updateMyInfo">개인정보변경</button></div>
                         </td>
                     </tr>
@@ -111,19 +110,10 @@
 </body>
 <script>
 
-    // 해당 날짜를 설정하는 함수
-
     $(function() {
-        // 현재 날짜를 설정합니다. (2023년 10월 13일로 예시)
-        var currentDate = new Date(2023, 9, 13); // 월은 0부터 시작하므로 9는 10월을 의미합니다.
-
-        // DatePicker 초기화
+        var currentDate = new Date(2023, 9, 13);
         $("#datepicker").datepicker();
-
-        // 현재 날짜를 설정한 날짜로 업데이트
-        // $("#datepicker").datepicker("setDate", currentDate);
     });
-    // 지정된 날짜를 <input> 요소의 값에 설정
 
 
     $(function() {
@@ -133,7 +123,7 @@
                 if (date.getDate() == today.getDate() &&
                     date.getMonth() == today.getMonth() &&
                     date.getFullYear() == today.getFullYear()) {
-                    // 오늘 날짜는 [selectable (boolean), cssClass (string), tooltip (string)] 형식으로 반환
+
                     return [true, "", ""];
                 }
                 return [true, ""];
@@ -141,18 +131,18 @@
         });
     });
     $("#datepicker").datepicker({
-        dateFormat: 'yy-mm-dd' //달력 날짜 형태
-        , showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-        , showMonthAfterYear: true // 월- 년 순서가아닌 년도 - 월 순서
-        , changeYear: true //option값 년 선택 가능
-        , changeMonth: true //option값  월 선택 가능
-        , yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 텍스트
-        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip
-        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 텍스트
-        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 Tooltip
-        , minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-        , maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+        dateFormat: 'yy-mm-dd'
+        , showOtherMonths: true
+        , showMonthAfterYear: true
+        , changeYear: true
+        , changeMonth: true
+        , yearSuffix: "년"
+        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+        , minDate: "-5Y"
+        , maxDate: "+5y"
     });
 
 

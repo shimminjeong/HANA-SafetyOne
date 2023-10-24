@@ -6,14 +6,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%--    <link href="../../../resources/css/regionspot.css" rel="stylesheet">--%>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="../../../resources/js/category.js" type="text/javascript"></script>
     <link href="../../../resources/css/member/safetyCardCommon.css" rel="stylesheet">
-    <%--    <link href="../../../resources/css/category.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/region.css" rel="stylesheet">
 </head>
 <body>
@@ -52,24 +50,6 @@
                         <c:set var="imgList"
                                value="${['fashion.png', 'laundry-shop.png','cosmetics.png','sports.png','restaurant.png','butcher-shop.png',
                                'electronics.png', 'world.png', 'education.png','hospital.png',  'shopping-cart.png',   'oilstation.png']}"/>
-                        <%--                        <c:forEach var="entry" items="${categoryMap}" varStatus="loop">--%>
-                        <%--                            <div class="grid-item"--%>
-                        <%--                                 style="${bigCategoryList.contains(entry.key) ? 'background-color: #ffd6d6;' : ''}">--%>
-                        <%--                                <c:set var="imgIndex" value="${loop.index % imgList.size()}"/>--%>
-                        <%--                                <c:set var="imageName" value="${imgList[imgIndex]}"/>--%>
-                        <%--                                <img class="grid-image" onclick="handleClickBig('${entry.key}')"--%>
-                        <%--                                     src="../../../resources/img/${imageName}" alt="${entry.key}">--%>
-                        <%--                                <div class="item-name">${entry.key}</div>--%>
-                        <%--                                <div class="dropdown-list">--%>
-                        <%--                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--%>
-                        <%--                                        <c:forEach var="category" items="${entry.value}">--%>
-                        <%--                                            <a class="dropdown-item"--%>
-                        <%--                                               onclick="handleClick('${category.categorySmall}')">${category.categorySmall}</a>--%>
-                        <%--                                        </c:forEach>--%>
-                        <%--                                    </div>--%>
-                        <%--                                </div>--%>
-                        <%--                            </div>--%>
-                        <%--                        </c:forEach>--%>
                         <c:forEach var="entry" items="${categoryMap}" varStatus="loop">
                             <div class="grid-item"
                                  style="${bigCategoryList.contains(entry.key) ? 'background-color: #ffd6d6;' : ''}">

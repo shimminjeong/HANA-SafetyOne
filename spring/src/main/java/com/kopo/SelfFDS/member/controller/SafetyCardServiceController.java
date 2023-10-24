@@ -262,13 +262,7 @@ public class SafetyCardServiceController {
     @GetMapping("/safetySetting")
     public ModelAndView safetySettingPage() {
         ModelAndView mav = new ModelAndView();
-//        @RequestParam("selectedButtons") String selectedButtons
-//        System.out.println("selectedButtons : "+selectedButtons);
-//        String[] buttonsArray = selectedButtons.split(",");
-//        mav.addObject("selectArray", buttonsArray);
-//        for(int i=0;i<buttonsArray.length;i++){
-//            System.out.println(buttonsArray[i]);
-//        }
+
         //region
         List<String> regionList = memberService.selectAllRegionName();
         mav.addObject("regionList", regionList);
@@ -357,7 +351,7 @@ public class SafetyCardServiceController {
         List<SafetyCard> safetyRuleList = memberService.selectSafetyCardNotRegionByCarId(cardId);
         List<SafetyCard> safetyRegionList = memberService.selectSafetyCardRegionByCarId(cardId);
         List<String> regionAllList = memberService.selectAllRegionName();
-        // Create a Map to hold the results
+
         for (SafetyCard safetyCard : safetyRegionList) {
             String regionName = safetyCard.getRegionName();
             regionAllList.remove(regionName);

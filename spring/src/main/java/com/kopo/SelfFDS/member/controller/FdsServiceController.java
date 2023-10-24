@@ -53,10 +53,10 @@ public class FdsServiceController {
         // FastAPI URL
         String fastApiUrl = "http://localhost:8000/train";
 
-        for (String cardId : cardIds) { // cardIds 리스트를 for 문으로 순회합니다.
+        for (String cardId : cardIds) {
             System.out.println("cardId"+cardId);
-            Card updateCard = memberService.selectCardOfCardId(cardId); // 각 cardId에 대한 카드 정보를 가져옵니다.
-            memberService.regFdsService(updateCard); // 가져온 카드 정보를 사용하여 서비스를 등록합니다.
+            Card updateCard = memberService.selectCardOfCardId(cardId);
+            memberService.regFdsService(updateCard);
             // Request Body를 위한 Map 생성
             Map<String, String> body = new HashMap<>();
             body.put("cardId", cardId);
@@ -82,7 +82,7 @@ public class FdsServiceController {
     @PostMapping("/cancleCard")
     @ResponseBody
     public String cancleCard(@RequestBody List<String> cardIds) {
-        for (String cardId : cardIds) { // cardIds 리스트를 for 문으로 순회합니다.
+        for (String cardId : cardIds) {
             Card updateCard = memberService.selectCardOfCardId(cardId);
             memberService.unregFdsService(updateCard);
         }

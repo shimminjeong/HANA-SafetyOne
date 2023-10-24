@@ -20,7 +20,6 @@ public interface MemberService {
 
     List<Card> getAllCard();
     List<Card> selectCardOfEmail(String email);
-//    Card paymentCard(HashMap<String, String> paymentCardData);
 
     Card selectCardOfCardId(String cardId);
 

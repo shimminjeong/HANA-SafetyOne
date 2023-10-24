@@ -8,10 +8,6 @@
 <body>
 <header>
     <div id="headerLogo">
-        <%--        <div id="logo">--%>
-        <%--            <img class="imgLogo" src="../../resources/img/logo.png" height="60">--%>
-        <%--            <a class="nameLogo" href="/">SafetyOne</a>--%>
-        <%--        </div>--%>
         <div id="logo" style="margin-top: 5px;">
             <a href="/">
                 <img class="imgLogo" src="../../resources/img/SafetyOneLogo.svg">
@@ -27,7 +23,6 @@
         </span>
         <% } else { %>
         <div id="loginout">
-            <%--            <button id="loginBtn" onclick="window.location.href='/login'">로그인</button>--%>
             <button id="loginBtn" onclick="toggleModal()">로그인</button>
             <button id="joinBtn" onclick="window.location.href='/join'">회원가입</button>
         </div>
@@ -48,10 +43,7 @@
             <div class="dropdown">
                 <button class="dropbtn" onclick="window.location.href='/fds/'">이상소비알림서비스
                 </button>
-                <%--                <div class="dropdown-content">--%>
-                <%--                    <a href="/fds/">서비스 등록 및 해제</a>--%>
-                <%--                    <a href="/safetyCard/">서비스 이용현황</a>--%>
-                <%--                </div>--%>
+
             </div>
             <div class="dropdown">
                 <button class="dropbtn" onclick="window.location.href='/customCenter/lostCardSelect'">고객센터
@@ -70,7 +62,6 @@
                 </div>
             </div>
         </div>
-        <%--            <hr style="border:1px solid #00857F"/>--%>
     </nav>
     <hr style="border:1px solid #00857F; margin: 0px;"/>
 </header>
@@ -99,7 +90,7 @@
 </div>
 <script>
     function toggleModal() {
-        var modal = document.querySelector(".login-modal"); // 클래스로 모달 요소 가져오기
+        var modal = document.querySelector(".login-modal");
         modal.style.display = modal.style.display === "block" ? "none" : "block";
     }
 
@@ -107,8 +98,8 @@
         var email = $("#email").val();
         var password = $("#password").val();
 
-        console.log("email:", email); // 아이디 확인
-        console.log("Password:", password); // 비밀번호 확인
+        console.log("email:", email);
+        console.log("Password:", password);
 
         $.ajax({
             type: "POST",

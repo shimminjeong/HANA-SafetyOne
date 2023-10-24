@@ -142,8 +142,7 @@
                                 <img src="../../../resources/img/secure-payment.png" style="width: 42px; height: 42px;">안심서비스
                             </div>
                             <div class="safetyone-info-content-div1">금일 차단 건수</div>
-<%--                            <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>--%>
-                            <div class="safetyone-info-content-div2"><strong>92</strong>건</div>
+                            <div class="safetyone-info-content-div2"><strong>${safetyDataCount}</strong>건</div>
                         </div>
                         <div class="safetyone-info-content-box2" onclick="window.location.href='/admin/fds'">
                             <div class="safetyone-info-content-header"><img src="../../../resources/img/bellcolor.png">이상소비알림서비스</div>
@@ -174,15 +173,15 @@
     </c:forEach>
 
     let myChart1 = new Chart(ctx1, {
-        type: 'line', // 차트 유형. 'bar', 'pie', 'doughnut' 등도 가능합니다.
+        type: 'line',
         data: {
             labels: labels1,
             datasets: [{
                 label: '가입 회원 수',
                 data: data1,
-                backgroundColor: 'rgb(14,157,151)', // 선 색상
+                backgroundColor: 'rgb(14,157,151)',
                 // borderWidth: 1,
-                fill: false // 선 아래를 채우지 않음
+                fill: false
             }]
         },
         options: {
@@ -190,7 +189,6 @@
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        // 이 부분을 추가하여 각 틱에 '명'을 붙입니다.
                         callback: function (value, index, values) {
                             return new Intl.NumberFormat('en-US').format(value) + '명';
                         }
@@ -216,7 +214,7 @@
     </c:forEach>
 
     let myChart2 = new Chart(ctx2, {
-        type: 'line', // 차트 유형. 'bar', 'pie', 'doughnut' 등도 가능합니다.
+        type: 'line',
         data: {
             labels: labels2,
             datasets: [{
@@ -231,7 +229,6 @@
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        // 이 부분을 추가하여 각 틱에 '명'을 붙입니다.
                         callback: function (value, index, values) {
                             return new Intl.NumberFormat('en-US').format(value) + '개';
                         }
@@ -247,7 +244,7 @@
     });
 
     function formatDate(inputDate) {
-        // 문자열로부터 Date 객체 생성
+
         let parts = inputDate.split(' ')[0];
         console.log("parts", parts)
         let month = parts.split('-')[1];
@@ -268,7 +265,7 @@
     </c:forEach>
 
     let myChart3 = new Chart(ctx3, {
-        type: 'line', // 차트 유형. 'bar', 'pie', 'doughnut' 등도 가능합니다.
+        type: 'line',
         data: {
             labels: labels3,
             datasets: [{

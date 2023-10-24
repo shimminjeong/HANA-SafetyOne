@@ -196,7 +196,7 @@
         <if test="categorySmall != null">,CATEGORYSMALL</if>
         )
         VALUES(
-        #{cardId},TO_DATE('2023-10-14 13:21:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{safetyEndDate}, 'YYYY-MM-DD HH24:MI:SS')
+        #{cardId},sysdate, TO_DATE(#{safetyEndDate}, 'YYYY-MM-DD HH24:MI:SS')
         <!-- Conditionally add values -->
         <if test="regionName != null">,#{regionName}</if>
         <if test="time != null">,#{time}</if>
@@ -231,7 +231,7 @@
     <!--    분실카드 insert-->
     <insert id="insertLostCardInfo" parameterType="com.kopo.SelfFDS.member.model.dto.LostCard">
         INSERT INTO LostCard (lostcardidseq, regLostDate, cardId, lostDate, lostPlace, lostReason, reissued)
-        VALUES (lostcard_id_seq.nextval,TO_DATE('2023-10-13', 'YYYY-MM-DD'), #{cardId}, #{lostDate}, #{lostPlace}, #{lostReason}, #{reissued})
+        VALUES (lostcard_id_seq.nextval,sysdate, #{cardId}, #{lostDate}, #{lostPlace}, #{lostReason}, #{reissued})
     </insert>
 
 
@@ -341,9 +341,6 @@
         delete from SAFETYCARD where CARDID=#{cardId}
     </delete>
 
-    <!--    fds 서비스 해제하면 FDS 테이블에 STATUS 상태 변경-->
-    <!--selffds서비스 해제하면 safetycard의 status N-->
-
 
     <select id="selectSafetyCardYByEmail" parameterType="com.kopo.SelfFDS.member.model.dto.Card">
         SELECT *
@@ -364,7 +361,6 @@
     </select>
 
 
-
     <select id="selectAllSafetyCard" parameterType="com.kopo.SelfFDS.member.model.dto.SafetyCard">
         select *
         from safetycard
@@ -375,7 +371,5 @@
         set status=#{status}
         where safetyIdSeq=#{safetyIdSeq}
     </select>
-
-
 
 </mapper>

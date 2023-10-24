@@ -8,7 +8,7 @@ function sendSmsRequest() {
     const requestData = {
         recipientPhoneNumber: phoneNumber,
         content: '[SafetyOne] SafetyOne 사용을 위해 인증번호 [' + ouathNum + '] 를 입력하세요.',
-        ouathNum: ouathNum // 생성한 무작위 숫자 할당
+        ouathNum: ouathNum
     };
 
     $.ajax({
@@ -17,9 +17,7 @@ function sendSmsRequest() {
         contentType: 'application/json',
         data: JSON.stringify(requestData),
         success: function (data) {
-            // 성공적인 응답 처리
             console.log('서버 응답:', data);
-            // 여기에서 원하는 동작을 수행할 수 있습니다.
         },
         error: function () {
             console.error("사용자에게 인증번호 전송 중 에러");
@@ -29,7 +27,6 @@ function sendSmsRequest() {
 }
 
 
-// 본인인증 메세지를 받은 사용자가 인증번호를 입력하면 service에서 동일한지 확인한 후 return
 function verifySmsCode() {
     const smsConfirmNum = document.getElementById('userOuathNum').value;
 
@@ -41,7 +38,6 @@ function verifySmsCode() {
         contentType: 'application/json',
         data: JSON.stringify({smsConfirmNum: smsConfirmNum}),
         success: function (data) {
-            // 성공적인 응답 처리
             console.log('서버 응답:', data);
             if (data === '본인인증성공') {
                 registerCard();
@@ -118,7 +114,6 @@ function sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount) {
     console.log(timePart)
     let formattedDate = datePart.split("-").slice(1).join("/");
 
-    // let formattedDate = datePart.split("-").slice(1).join("/");
     let formattedDateTime = formattedDate+' '+timePart;
 
     const requestData = {
@@ -137,9 +132,7 @@ function sendFdsAlarm(cardId,username,userPhone,store,dateTime,amount) {
         contentType: 'application/json',
         data: JSON.stringify(requestData),
         success: function (data) {
-            // 성공적인 응답 처리
             console.log('서버 응답:', data);
-            // 여기에서 원하는 동작을 수행할 수 있습니다.
         },
         error: function () {
             console.error("사용자에게 인증번호 전송 중 에러");

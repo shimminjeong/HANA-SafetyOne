@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <%--    <link href="../../../resources/css/safetyCardCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/safetySettingNew.css" rel="stylesheet">
     <link href="../../../resources/css/member/fdsCardSelect.css" rel="stylesheet">
     <link href="../../../resources/css/member/modalStyle.css" rel="stylesheet">
@@ -26,12 +25,10 @@
             <h2>안심서비스 설정</h2>
             <h3>거래를 허용하거나 차단할 항목을 설정해주세요</h3>
         </div>
-        <%--        <div style="margin-bottom: 10px; color: red;">※ 거래 지정하여 금융사고를 예방하는 서비스입니다.</div>--%>
         <div class="lostcard-list">
             <div class="card-list-info">
                 <img class="card-img" src="../../../resources/img/<%=session.getAttribute("cardName")%>.png">
                 <div class="card-list-info-cardid">${fn:substring(sessionScope.cardId, 0, 4)}-****-****-${fn:substring(sessionScope.cardId, 15,19)}
-
 
                 </div>
                 <div class="card-list-info-name">본인 | &nbsp;
@@ -47,7 +44,6 @@
                 </div>
             </c:if>
             <div class="setting-buttons">
-                <%--                <span class="img-div"><img src="../../../resources/img/steps_2192581%201.png"></span>--%>
                 <div class="step-div">STEP1</div>
                 <div class="select-header"><span style="color: green">허용</span>지역</div>
                 <div class="select-content">
@@ -70,15 +66,12 @@
             </div>
 
             <c:if test="${not empty regions && empty categorySmalls && empty times}">
-            <div class="setting-region-no-info"><img src="../../../resources/img/right-arrow.png">허용지역 내에서&nbsp;<span style="color:red;">차단</span>할 시간을 선택하세요.</div>
+                <div class="setting-region-no-info"><img src="../../../resources/img/right-arrow.png">허용지역 내에서&nbsp;<span style="color:red;">차단</span>할 시간을 선택하세요.</div>
             </c:if>
             <c:if test="${empty regions && empty categorySmalls && empty times}">
                 <div class="setting-region-no-info hidden"><img src="../../../resources/img/right-arrow.png"><span style="color:red;">차단</span>할 시간을 선택하세요.</div>
             </c:if>
             <div class="setting-buttons">
-                <%--                <c:if test="${not empty regions && empty categorySmalls && empty times}">--%>
-                <%--                    <div id="result-info-div" class="setting-result-info"><img src="../../../resources/img/right-arrow.png">허용지역 내에서<span style="color: red">차단</span>할 시간을 선택해주세요.--%>
-                <%--                    </div>--%>
 
                 <div class="step-div">STEP2</div>
                 <div class="select-header"><span style="color:red;">차단</span>시간</div>
@@ -107,10 +100,7 @@
                 </script>
                 <div class="setting-result-time">
                     <c:if test="${not empty regions}">
-<%--                        <script>--%>
-<%--                            document.getElementById('select-region').style.background = "#404b57";--%>
-<%--                            document.getElementById('select-region').style.color = "white";--%>
-<%--                        </script>--%>
+
                         <c:forEach var="region" items="${regions}" varStatus="loop">
                             <span><strong>${region}</strong></span>
                             <c:if test="${loop.index+1 < fn:length(regions)}">
@@ -162,39 +152,28 @@
             </div>
 
 
-    </div>
-    <div class="myRule-confirm"><strong>안심서비스 설정내역</strong></div>
-    <hr>
-    <c:if test="${not empty regions}">
-        <%--                <script>--%>
-        <%--                    document.getElementById('select-region').style.background = "#404b57";--%>
-        <%--                    document.getElementById('select-region').style.color = "white";--%>
-        <%--                </script>--%>
-        <div class="setting-result-ok">
-            <c:forEach var="region" items="${regions}" varStatus="loop">
-                <span><strong>${region}</strong></span>
-                <c:if test="${loop.index+1 < fn:length(regions)}">
-                    <span>,</span>
-                </c:if>
-            </c:forEach> 지역의 거래만 <strong><span style="color: green">허용</span></strong>합니다.
         </div>
+        <div class="myRule-confirm"><strong>안심서비스 설정내역</strong></div>
+        <hr>
+        <c:if test="${not empty regions}">
 
-    </c:if>
+            <div class="setting-result-ok">
+                <c:forEach var="region" items="${regions}" varStatus="loop">
+                    <span><strong>${region}</strong></span>
+                    <c:if test="${loop.index+1 < fn:length(regions)}">
+                        <span>,</span>
+                    </c:if>
+                </c:forEach> 지역의 거래만 <strong><span style="color: green">허용</span></strong>합니다.
+            </div>
+
+        </c:if>
         <div class="setting-result hidden"></div>
         <c:if test="${not empty categorySmalls}">
-            <%--                <script>document.getElementById('select-category').style.background = "#404b57"</script>--%>
             <div class="setting-result-category">
-                    <%--                    <script>--%>
-                    <%--                        document.getElementById('select-category').style.color = "white";--%>
-                    <%--                    </script>--%>
+
                 <c:choose>
                     <c:when test="${not empty regions && not empty times}">
-                        <%--                            <script>--%>
-                        <%--                                document.getElementById('select-region').style.background = "#404b57";--%>
-                        <%--                                document.getElementById('select-region').style.color = "white";--%>
-                        <%--                                document.getElementById('select-time').style.background = "#404b57";--%>
-                        <%--                                document.getElementById('select-time').style.color = "white";--%>
-                        <%--                            </script>--%>
+
                         <c:forEach var="region" items="${regions}" varStatus="loop">
                             <span><strong>${region}</strong></span>
                             <c:if test="${loop.index+1 < fn:length(regions)}">
@@ -225,8 +204,7 @@
                     </c:when>
                     <c:when test="${not empty regions && empty times}">
                         <script>
-                            // document.getElementById('select-region').style.background = "#404b57";
-                            // document.getElementById('select-region').style.color = "white";
+
                             document.getElementById('time-no').style.background = "#404b57";
                             document.getElementById('time-no').style.color = "white";
                         </script>
@@ -239,16 +217,13 @@
                     </c:when>
                     <c:when test="${not empty regions && empty times && not empty categorySmalls}">
                         <script>
-                            console.log("here")
-                            // document.getElementById('select-region').style.background = "#404b57";
-                            // document.getElementById('select-region').style.color = "white";
+
                             document.getElementById('time-no').style.background = "#404b57";
                             document.getElementById('time-no').style.color = "white";
                         </script>
                     </c:when>
                     <c:otherwise>
                         <script>
-                            console.log("여기")
                             document.getElementById('region-no').style.background = "#404b57";
                             document.getElementById('region-no').style.color = "white";
                             document.getElementById('time-no').style.background = "#404b57";
@@ -271,18 +246,7 @@
         <button class="next-Btn" onclick="modalCheck()">등록</button>
     </div>
 </div>
-<!-- The Modal -->
-<%--<div id="myModal" class="modal">--%>
-<%--    <!-- Modal content -->--%>
-<%--    <div class="modal-content">--%>
-<%--        <span class="close">&times;</span>--%>
-<%--        <p>대상카드 : <%=session.getAttribute("cardId")%>--%>
-<%--        </p>--%>
-<%--        <div class="setting-result-modal">--%>
-<%--        </div>--%>
-<%--        <button class="modal-btn" onclick="safetySettingOk()"> 확인</button>--%>
-<%--    </div>--%>
-<%--</div>--%>
+
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&#10006;</span>
@@ -292,11 +256,10 @@
         <div class="ok-div"><span class="text-confirm"> 허용 지역 : </span><span class="ok"></span></div>
         <div class="ok-div"><span class="text-confirm"> 차단 조합 : </span><span class="no"></span></div>
         <div class="btn-div">
-<%--            <button class="confirm-btn" onclick="safetySettingOk()">확인</button>--%>
             <button class="confirm-btn"  onclick="agreePhone()">확인</button>
         </div>
     </div>
-    <%--        <button onclick="closeModal()">취소</button>--%>
+
 </div>
 <div id="authModal" class="modal">
     <div class="auth-container">
@@ -307,27 +270,11 @@
                 <div class="content-div-header" style="margin: auto 0;">이름</div>
                 <div class="content-div-input"><input type="text" placeholder="이름"></div>
             </div>
-            <%--            <div class="content-row">--%>
-            <%--                <div class="content-div-header" style="margin: auto 0;">생년월일</div>--%>
-            <%--                <div class="content-div-input"><input type="text" placeholder="19981223 형식으로 입력"></div>--%>
-            <%--            </div>--%>
+
             <div class="content-row">
                 <div class="content-div-header" style="margin-top: 10px;">휴대전화</div>
                 <div class="content-div-phone">
-                    <%--                    <div class="agree-form">--%>
-                    <%--                        <div class="accordion-header">--%>
-                    <%--                            <span class="toggle-icon">V</span>--%>
-                    <%--                            본인인증 약관 전체동의--%>
-                    <%--                            <span class="accordion-indicator">▼</span>--%>
-                    <%--                        </div>--%>
 
-                    <%--                        <div class="accordion-content">--%>
-                    <%--                            <hr>--%>
-                    <%--                            <div><span class="toggle-icon">v</span> 개인정보 제공 및 이용</div>--%>
-                    <%--                            <div><span class="toggle-icon">v</span> 고유식별 정보처리</div>--%>
-                    <%--                            <div><span class="toggle-icon">v</span> 통신사 이용약관</div>--%>
-                    <%--                        </div>--%>
-                    <%--                    </div>--%>
                     <div class="phone-div">
                         <div class="company-select">
                             <select>
@@ -373,7 +320,6 @@
             contentType: 'application/json',
             data: JSON.stringify({smsConfirmNum: smsConfirmNum}),
             success: function (data) {
-                // 성공적인 응답 처리
                 console.log('서버 응답:', data);
                 if (data === '본인인증성공') {
                     safetySettingOk();
@@ -389,12 +335,11 @@
     }
 
     function agreePhone() {
-        // 모달 창을 표시합니다.
+
         let modal = document.getElementById('authModal');
         modal.style.display = 'block';
     }
 
-    // 모달 외부를 클릭하면 모달을 닫습니다.
     window.onclick = function (event) {
         let modal = document.getElementById('authModal');
         if (event.target == modal || event.target == document.querySelector('.close-btn')) {
@@ -409,19 +354,19 @@
 
     function nextStep(){
         var regionNoInfoDiv = document.querySelector(".setting-region-no-info");
-        if (regionNoInfoDiv) { // div가 있을 때만 클래스를 제거
+        if (regionNoInfoDiv) {
             regionNoInfoDiv.classList.remove("hidden");
         }
 
         var resultInfoDiv = document.getElementById("result-info-div");
-        if (resultInfoDiv) { // div가 있을 때만 숨김 처리
+        if (resultInfoDiv) {
             resultInfoDiv.style.display = "none";
         }
     }
 
     function nextcategoryStep(){
         var regionNoInfoDiv = document.querySelector(".setting-region-no-info");
-        if (regionNoInfoDiv) { // div가 있을 때만 클래스를 제거
+        if (regionNoInfoDiv) {
             regionNoInfoDiv.style.display="none";
         }
         var element = document.querySelector('.setting-categoryselect-info');
@@ -436,23 +381,19 @@
 
         console.log(timeElements);
 
-// .setting-result-time 요소가 존재하는지 확인합니다.
+
         if (timeElements.length > 0) {
             console.log("if")
-            // .setting-result-time 요소가 있는 경우에만 처리합니다.
+
             timeElements.forEach(function(timeElement) {
-                console.log("if")
-                // .setting-result-time 요소 내의 내용을 가져옵니다.
+
                 var content = timeElement.innerHTML;
                 console.log(content);
 
-                // .setting-result 요소를 선택합니다.
                 var settingResultElement = document.querySelector('.setting-result');
 
-                // .setting-result 요소에 content를 넣습니다.
                 settingResultElement.innerHTML = content;
 
-                // .setting-result 요소의 hidden 클래스를 제거합니다.
                 settingResultElement.classList.remove('hidden');
 
                 timeElement.classList.add('hidden');
@@ -463,7 +404,7 @@
 
 
         var categoryInfoDiv = document.getElementById("category-info-div");
-        if (categoryInfoDiv) { // div가 있을 때만 숨김 처리
+        if (categoryInfoDiv) {
             categoryInfoDiv.style.display = "none";
         }
     }
@@ -471,10 +412,9 @@
 
 
     function noSelect(buttonElement) {
-        // var settingResultInfo = document.querySelector(".setting-time-info");
-        // settingResultInfo.style.display = "none";
+
         if (buttonElement.style.background === '#404b57') {
-            buttonElement.style.background = '';  // 원래의 배경색으로 변경
+            buttonElement.style.background = '';
             buttonElement.style.color = "black";
         } else {
             buttonElement.style.background = '#404b57';
@@ -482,7 +422,7 @@
         }
     }
 
-    // 각 jsp에서 설정한 값들 넘겨받기
+
     var regions = [];
     <c:forEach var="region" items="${regions}">
     regions.push('${region}');
@@ -515,7 +455,6 @@
         }
 
         if (times.length > 0) {
-            // regions의 데이터가 있을 경우에만 &를 추가
             if (regions.length > 0) {
                 url += '&';
             }
@@ -528,25 +467,21 @@
     }
 
 
-    // 확인모달
-    // Get the modal
     var modal = document.getElementById("myModal");
 
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close-btn")[0];
 
-    // This function will be triggered when the button is clicked
     function modalCheck() {
-        // Get all elements with class "setting-result"
+
         var settingResultsOk = document.querySelector(".setting-result-ok");
         var settingResultsCategory = document.querySelectorAll(".setting-result-category");
         var settingResults = document.querySelectorAll(".setting-result");
 
-        // Assuming you have only one .setting-result-modal, so using querySelector
+
         var modalContent = document.querySelector(".setting-result-modal");
         var modalok = document.querySelector(".ok");
         var modalno = document.querySelector(".no");
-        modalContent.innerHTML = "";  // Clearing any existing content in modalContent
+        modalContent.innerHTML = "";
 
         if (settingResultsOk) {
             modalContent.innerHTML += settingResultsOk.innerHTML;
@@ -568,19 +503,14 @@
             });
         }
 
-        // Display the modal
         modal.style.display = "block";
     }
 
 
-
-
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -594,16 +524,12 @@
         settingsList.push(times);
         settingsList.push(categorySmalls);
 
-        // var safetyInfo1 = document.querySelector(".setting-result-modal").innerText;
         var safetyInfo2 = document.querySelector(".ok").innerText;
         var safetyInfo3 = document.querySelector(".no").innerText;
 
-        // console.log("collectSettingssafetyInfo",safetyInfo1)
-        console.log("collectSettingssafetyInfo",safetyInfo2)
-        console.log("collectSettingssafetyInfo",safetyInfo3)
 
         var safetyInfo =safetyInfo2 + safetyInfo3;
-        console.log("safesssssssssssssstyInfo",safetyInfo)
+
 
         return {
             settingsList: settingsList,
@@ -623,9 +549,7 @@
             data: JSON.stringify(settings),
             dataType: 'text',
             success: function (response) {
-                console.log(response);
-                console.log("reponseggg")
-                console.log("sss");
+
                 if (response === "insert성공") {
                     location.href = "/safetyCard/safetySettingOk";
                 } else {
@@ -640,7 +564,6 @@
 
 
     document.addEventListener('DOMContentLoaded', function () {
-        // 카테고리 설정 버튼들
         let categoryButtons = document.querySelectorAll('#category-no,#select-category');
         categoryButtons.forEach(function (button) {
             button.addEventListener('click', function () {
@@ -651,7 +574,6 @@
             });
         });
 
-        // 시간 설정 버튼들
         let timeButtons = document.querySelectorAll('#time-no,#select-time');
         timeButtons.forEach(function (button) {
             button.addEventListener('click', function () {

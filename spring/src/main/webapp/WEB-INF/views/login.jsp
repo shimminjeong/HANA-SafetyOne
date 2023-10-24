@@ -44,8 +44,8 @@
         var email = $("#email").val();
         var password = $("#password").val();
 
-        console.log("email:", email); // 아이디 확인
-        console.log("Password:", password); // 비밀번호 확인
+        console.log("email:", email);
+        console.log("Password:", password);
 
         $.ajax({
             type: "POST",

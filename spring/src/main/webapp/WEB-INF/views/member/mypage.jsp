@@ -6,7 +6,6 @@
 <head>
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<%--    <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/mypage.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.js"></script>
@@ -127,11 +126,11 @@
             datasets: [{
                 data: data,
                 backgroundColor: [
-                    'rgb(255, 99, 132)',   // 진한 붉은색
-                    'rgb(54, 162, 235)',   // 진한 파란색
-                    'rgb(255, 206, 86)',   // 진한 노란색
-                    'rgb(75, 192, 192)',   // 진한 청록색
-                    'rgb(153, 102, 255)',  // 진한 보라색
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 206, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(153, 102, 255)',
                 ]
             }]
         },

@@ -9,7 +9,6 @@
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/common.css" rel="stylesheet">
-    <%--    <link href="../../../resources/css/cardSelectCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/fdsCardSelect.css" rel="stylesheet">
     <link href="../../../resources/css/member/modalStyle.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -37,12 +36,11 @@
                 </div>
                 <div class="panel">
                     <div id="cardInfo-${card.cardId}">
-                        <!-- 서버로부터 받아온 정보가 이곳에 추가될 것입니다. -->
+                            <%--                        이용현황--%>
                     </div>
                 </div>
             </div>
         </c:forEach>
-        <%--        <div class="ajax-content"></div>--%>
         <div class="reg-confirm-div">
             <button class="fds-back-Btn" onclick="window.location.href='/'">취소</button>
             <button class="fds-agree-Btn" onclick="stopCard()">일시정지</button>
@@ -56,84 +54,16 @@
     let selectedCardId = '';
 
     function changeImage(imgElement, cardId) {
-        // 이미지 경로가 circle.png인 경우 circle2.png로 변경
+
         if (imgElement.src.endsWith('circle.png')) {
             imgElement.src = "../../../resources/img/check-mark.png";
-            // cardId를 selectedCardIds에 추가
             selectedCardId = cardId;
-        } else { // 이미지 경로가 circle2.png인 경우 circle.png로 변경
+        } else {
             imgElement.src = "../../../resources/img/circle.png";
             selectedCardId = ''
         }
         console.log("selectedCardId", selectedCardId);
     }
-
-    // function stopCard() {
-    //
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "/safetyCard/stopCardDetail",
-    //         data: JSON.stringify({            // <--- 수정
-    //             cardId: selectedCardId
-    //         }),
-    //         contentType: "application/json", // <-- 추가
-    //         success: function (response) {
-    //             console.log(response);
-    //             $('.rule-div tbody').empty();
-    //
-    //             // Add new rows from the response data
-    //             $.each(response.safetyRuleList, function (index, info) {
-    //                 var newRow = $("<tr>");
-    //                 var pauseCheckbox = $("<input>")
-    //                     .attr('type', 'checkbox')
-    //                     .attr('data-seq-id', info.safetyIdSeq)
-    //                     .attr('data-card-id', info.cardId)
-    //                     .attr('data-region-name', info.regionName)
-    //                     .attr('data-time', info.time)
-    //                     .attr('data-category', info.categorySmall);
-    //
-    //                 newRow.append($("<td>").append(pauseCheckbox));
-    //                 newRow.append($("<td>").text(info.regionName || "")); // null check
-    //                 newRow.append($("<td>").text(info.time || "")); // null check
-    //                 newRow.append($("<td>").text(info.categorySmall || ""));
-    //
-    //                 $('.rule-div tbody').append(newRow);
-    //             });
-    //
-    //             $.each(response.safetyRegionList, function(index, info) {
-    //                 var regionCheckbox = $("<input>")
-    //                     .attr('type', 'checkbox')
-    //                     .attr('data-seq-id', info.safetyIdSeq)
-    //                     .attr('data-card-id', info.cardId)
-    //                     .attr('data-region-name', info.regionName)
-    //                     .attr('data-time', info.time)
-    //                     .attr('data-category', info.categorySmall);
-    //
-    //                 var labelElement = $("<label>")
-    //                     .addClass("checkbox-button") // Add the CSS class
-    //                     .text(info) // I've assumed you want to show the regionName as the text
-    //                     .prepend(regionCheckbox);
-    //
-    //                 $(".region-no").append(labelElement);
-    //             });
-    //
-    //
-    //             $.each(response.regionAllList, function(index, info) {
-    //                 var textElement = $("<span>")
-    //                     .addClass("text-box")  // CSS 클래스 추가
-    //                     .text(info)
-    //                 $(".region-ok").append(textElement);
-    //             });
-    //
-    //
-    //
-    //         },
-    //         error: function (error) {
-    //             alert("Something went wrong: " + error.statusText);
-    //         }
-    //     });
-    // }
-
 
     function stopCard() {
 
@@ -147,7 +77,6 @@
         } else {
             panel.style.display = "block";
             var cardInfoList = $("#cardInfo-" + cardId);
-            // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
             $.ajax({
                 url: "/safetyCard/selectSafetyInfo",
                 type: 'POST',
@@ -209,11 +138,10 @@
 
                     });
 
-                    // Remove allowedRegions from data.regionList
+
                     data.regionList = data.regionList.filter(region => !allowedRegions.includes(region));
                     let allowedRegionsString = data.regionList.join(", ");
 
-                    // Convert Sets to Strings
                     const regionsStr = Array.from(regionsSet).join(", ");
                     const timesStr = Array.from(timesSet).join(", ");
                     const categoriesStr = Array.from(categoriesSet).join(", ");

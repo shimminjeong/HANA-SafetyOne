@@ -7,7 +7,6 @@
 <head>
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%--    <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/mypage.css" rel="stylesheet">
     <link href="../../../resources/css/member/mypageReport.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -46,7 +45,6 @@
                 <div class="div-header"><img src="../../../resources/img/magnifier.png">
                     지난달과 비교했을 때 이번달의 소비 변화
                 </div>
-<%--                <hr>--%>
                 <div class="div-box2">
                     <div class="div-box-sub">
                         <div class="div-box-header">
@@ -88,7 +86,6 @@
                                                                                             pattern="#,###"/>원
                             </div>
                         </c:forEach>
-                        <%--                        </div>--%>
                         <div class="fir"><span class="color-change">${topCategoryList[0].categorySmall}</span> 카데고리에서 가장 큰 지출이 발생했습니다.</div>
 
                     </div>
@@ -150,11 +147,11 @@
             options: {
                 plugins: {
                     legend: {
-                        display: false, // 범례를 표시합니다.
-                        position: 'top', // 범례 위치 설정 (top, bottom, left, right 중 선택)
+                        display: false,
+                        position: 'top',
                         labels: {
                             font: {
-                                size: 12 // 범례 레이블의 글꼴 크기 설정
+                                size: 12
                             }
                         }
                     }
@@ -164,7 +161,7 @@
                         beginAtZero: true,
                         ticks: {
                             callback: function (value, index, values) {
-                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';// 숫자를 지역화된 문자열로 변환
+                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';
                             }
                         }
                     }
@@ -190,11 +187,11 @@
             options: {
                 plugins: {
                     legend: {
-                        display: false, // 범례를 표시합니다.
-                        position: 'top', // 범례 위치 설정 (top, bottom, left, right 중 선택)
+                        display: false,
+                        position: 'top',
                         labels: {
                             font: {
-                                size: 12 // 범례 레이블의 글꼴 크기 설정
+                                size: 12
                             }
                         }
                     }
@@ -204,7 +201,7 @@
                         beginAtZero: true,
                         ticks: {
                             callback: function (value, index, values) {
-                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';// 숫자를 지역화된 문자열로 변환
+                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';
                             }
                         }
                     }
@@ -217,21 +214,21 @@
         let data2 = [];
         let timeListData = {};
 
-        // 서버에서 받아온 데이터를 JavaScript 객체에 저장
+
         <c:forEach var="item" items="${timeList}">
         timeListData["${item.time}"] = ${item.amountSum};
         </c:forEach>
 
-        // 라벨을 00 ~ 23까지 설정
+
         for (let i = 0; i < 24; i++) {
             const label = (i < 10 ? '0' : '') + i;
-            labels2.push(label + '시'); // 00시, 01시, ... 23시
+            labels2.push(label + '시');
 
-            // JavaScript 객체에서 데이터를 조회
+
             if (timeListData[label]) {
                 data2.push(timeListData[label]);
             } else {
-                data2.push(0);  // 해당 라벨의 값이 데이터 배열에 없으면 0을 설정
+                data2.push(0);
             }
         }
 
@@ -252,11 +249,11 @@
             options: {
                 plugins: {
                     legend: {
-                        display: false, // 범례를 표시합니다.
-                        position: 'top', // 범례 위치 설정 (top, bottom, left, right 중 선택)
+                        display: false,
+                        position: 'top',
                         labels: {
                             font: {
-                                size: 12 // 범례 레이블의 글꼴 크기 설정
+                                size: 12
                             }
                         }
                     }
@@ -267,7 +264,7 @@
                         beginAtZero: true,
                         ticks: {
                             callback: function (value, index, values) {
-                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원'; // 숫자를 지역화된 문자열로 변환
+                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원';
                             }
                         }
                     }
@@ -294,7 +291,6 @@
                 datasets: [{
                     data: data3,
                     backgroundColor: labels3.map(function(label, index) {
-                        // 여기서 원하는 색상 팔레트를 사용하십시오
                         var colors = ['#4E937A', '#F3D250', '#F29F05', '#F24B0F'];
                         return colors[index % colors.length];
                     })
@@ -303,11 +299,11 @@
             options: {
                 plugins: {
                     legend: {
-                        display: false, // 범례를 표시합니다.
-                        position: 'top', // 범례 위치 설정 (top, bottom, left, right 중 선택)
+                        display: false,
+                        position: 'top',
                         labels: {
                             font: {
-                                size: 12 // 범례 레이블의 글꼴 크기 설정
+                                size: 12
                             }
                         }
                     }
@@ -317,7 +313,7 @@
                         beginAtZero: true,
                         ticks: {
                             callback: function (value, index, values) {
-                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원'; // 숫자를 지역화된 문자열로 변환
+                                return new Intl.NumberFormat('en-US').format(value / 10000) + '만원'; 
                             }
                         }
                     }

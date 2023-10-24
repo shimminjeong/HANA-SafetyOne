@@ -134,7 +134,6 @@ public class AdminServiceImpl implements AdminService {
         result.put("timePdf", statsToPdf(timeMean, timeVar));
         result.put("amountPdf", statsToPdf(amountMean, amountVar));
 
-//
 ////        X_features
         List<Integer> regionFeature = new ArrayList<>();
         List<Double> categoryFeature = new ArrayList<>();
@@ -149,14 +148,12 @@ public class AdminServiceImpl implements AdminService {
             } else {
                 regionName = cardHistory.getRegionName();
             }
-//            System.out.println("cardHistory.getRegionName()"+cardHistory.getRegionName());
             int RegionNumeric = paymentMapper.selectPreprocessingRegion(regionName);
             System.out.println("cardHistory.getCategorySmall()" + cardHistory.getCategorySmall());
             Double categoryDouble = paymentMapper.selectPreprocessingCategory(cardHistory.getCategorySmall());
             int timeNumeric = Integer.parseInt(cardHistory.getCardHisTime().split(":")[0]);
 
             // 반환된 결과를 regionFeature 리스트에 추가
-
             regionFeature.add(RegionNumeric);
             categoryFeature.add(categoryDouble);
             timeFeature.add(timeNumeric);

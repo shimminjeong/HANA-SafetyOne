@@ -93,7 +93,6 @@
             <div class="table-container">
                 <h3>이상소비탐지 거래내역</h3>
                 <div class="alarm-info">※ 거래내역을 클릭하면 이상치로 탐지된 확률분포 그래프를 확인할 수 있습니다.</div>
-                <%--            <span>*학습시작 버튼을 누르고 학습이 완료된 후 해당 고객은 서비스를 이용할 수 있습니다.</span>--%>
                 <div class="user-search">
                     <div class="search-header">카드 검색</div>
                     <input type="text" id="cardSearchInput" placeholder="카드번호를 입력하세요">
@@ -140,25 +139,23 @@
 <!-- drawPaymentChart Modal -->
 <jsp:include page="drawPaymentChart.jsp"/>
 
-
 <script>
 
 
     function filterCard() {
-        var cardSearchInput = document.getElementById("cardSearchInput").value; // 사용자가 입력한 카드번호 가져오기
-        var table = document.querySelector(".fdsdata-table"); // 테이블 요소 가져오기
-        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+        var cardSearchInput = document.getElementById("cardSearchInput").value;
+        var table = document.querySelector(".fdsdata-table");
+        var rows = table.getElementsByTagName("tr");
 
-        // 각 행을 순회하며 data-cardId 속성을 사용하여 검색어와 일치하는 행을 찾음
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
-            var cardNumberCell = row.querySelector("td[data-cardId]"); // data-cardId 속성을 가진 열 찾기
+            var cardNumberCell = row.querySelector("td[data-cardId]");
             if (cardNumberCell) {
                 var cellValue = cardNumberCell.getAttribute("data-cardId");
-                if (cellValue.includes(cardSearchInput)) { // 입력된 카드번호와 일치하는 경우
-                    row.style.display = ""; // 보여주기
+                if (cellValue.includes(cardSearchInput)) {
+                    row.style.display = "";
                 } else {
-                    row.style.display = "none"; // 숨기기
+                    row.style.display = "none";
                 }
             }
         }
@@ -168,7 +165,6 @@
     $(document).ready(function () {
         var ascendingAmount = false;
 
-        // 거래가격 컬럼 클릭 이벤트 핸들러
         $("#sortAmountIcon").click(function () {
             sortTable("amount", ascendingAmount);
             ascendingAmount = !ascendingAmount;
@@ -182,7 +178,6 @@
                 var keyA = parseFloat($(a).find("td:eq(" + getColumnIndex(column) + ")").text().replace(/[^\d.-]/g, ''));
                 var keyB = parseFloat($(b).find("td:eq(" + getColumnIndex(column) + ")").text().replace(/[^\d.-]/g, ''));
 
-                // 오름차순 또는 내림차순으로 정렬
                 return ascending ? keyA - keyB : keyB - keyA;
             });
 ㄴ
@@ -204,19 +199,13 @@
         }
     });
 
-    // Get the modal
     var modal = document.getElementById("chartModal");
 
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
     }
-
-    // Whenever you want to show the modal:
-    // modal.style.display = "block";
 
     // 페이지네이션
     document.getElementById("prev").addEventListener("click", function () {
@@ -237,34 +226,34 @@
         }
     });
 
-    let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 10; // 페이지당 항목 수
-    const pagesToShow = 10; // 한 번에 보여줄 페이지 수
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const pagesToShow = 10;
 
-    // 페이지를 업데이트하는 함수
+
     function updatePage() {
         const tbody = document.querySelector(".fdsdata-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 
-        // 모든 행을 숨깁니다.
+
         rows.forEach(row => row.style.display = "none");
 
-        // 현재 페이지의 행만 표시합니다.
+
         for (let i = (currentPage - 1) * itemsPerPage; i < currentPage * itemsPerPage && i < rows.length; i++) {
             rows[i].style.display = "";
         }
 
-        // 페이지 번호 버튼들을 업데이트합니다.
+
         const pageNumbersDiv = document.getElementById("pageNumbers");
-        pageNumbersDiv.innerHTML = ""; // 이전에 있는 버튼들을 모두 제거
+        pageNumbersDiv.innerHTML = "";
         const startPage = Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1;
         const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
         for (let i = startPage; i <= endPage; i++) {
             const btn = document.createElement("button");
             btn.textContent = i;
             if (i === currentPage) {
-                btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
+                btn.classList.add("current-page");
             }
             btn.addEventListener("click", function () {
                 currentPage = i;
@@ -273,12 +262,11 @@
             pageNumbersDiv.appendChild(btn);
         }
 
-        // Prev, Next 버튼의 활성/비활성 상태를 업데이트합니다.
         document.getElementById("prev").disabled = currentPage === 1;
         document.getElementById("next").disabled = currentPage === totalPages;
     }
 
-    // 페이지를 처음 로드할 때 페이지를 업데이트합니다.
+
     updatePage();
 
 

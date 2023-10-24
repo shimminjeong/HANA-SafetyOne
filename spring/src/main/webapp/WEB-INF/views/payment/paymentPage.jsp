@@ -132,47 +132,25 @@
         let slide = slides[slideIndex - 1];
         currentCardId = slide.querySelector(".cardIdtext").textContent;
 
-        console.log(currentCardId);  // 확인용 로그
+        console.log(currentCardId);
 
     }
 
     function formatCurrency(inputElem) {
-        // Remove all non-digit characters but keep the caret position
+
         let caretPosition = inputElem.selectionStart - (inputElem.value.length - inputElem.value.replace(/\D/g, '').length);
         inputElem.value = inputElem.value.replace(/\D/g, '');
 
-        // Convert the value to a string with comma separators
         inputElem.value = parseFloat(inputElem.value).toLocaleString('en-US');
 
-        // Restore the caret position
         inputElem.setSelectionRange(caretPosition, caretPosition);
     }
 
 
 
-    // 날짜 변경
-    // function getToday() {
-    //     var date = new Date();
-    //     var year = date.getFullYear();
-    //     var month = ("0" + (1 + date.getMonth())).slice(-2);
-    //     var day = ("0" + date.getDate()).slice(-2);
-    //
-    //     return year + "-" + month + "-" + day;
-    // }
-    //
-    // document.getElementById("current-date").innerText = getToday();
-    //
-    // const currentTime = document.getElementById('current-time'); // id가 'current-time'인 요소
-    //
-    // // 1초마다 현재 시각 업데이트
-    // setInterval(() => {
-    //     const date = new Date(); // 새로운 Date 객체 생성
-    //     currentTime.innerHTML = date.toLocaleTimeString();
-    // }, 1000);
-
     function getToday() {
         var date = new Date();
-        date.setDate(date.getDate()+2);  // 현재 날짜에 3일 추가
+        date.setDate(date.getDate());
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
@@ -182,19 +160,18 @@
 
     document.getElementById("current-date").innerText = getToday();
 
-    const currentTime = document.getElementById('current-time'); // id가 'current-time'인 요소
+    const currentTime = document.getElementById('current-time');
 
-    // 1초마다 현재 시각 업데이트
+
     setInterval(() => {
-        const date = new Date(); // 새로운 Date 객체 생성
-        date.setHours(date.getHours()+6);  // 현재 시간에 5시간 추가
-        date.setMinutes(date.getMinutes());  // 현재 분에 30분 추가
+        const date = new Date();
+        date.setHours(date.getHours());
+        date.setMinutes(date.getMinutes());
         currentTime.innerHTML = date.toLocaleTimeString();
     }, 1000);
 
 
 
-    //
     function paymentRequest() {
         var username = $('.user-name').text();
         var userPhone = $('.user-phone').text();
@@ -203,9 +180,8 @@
         var category = $('.place-category').text();
         var storePhoneNumber = $('.place-phone').text();
         var road_address_name = $('.place-road_address_name').text();
-        // var product = $('.place-product').text();
-        var amountStr = $('#price').val().replace(/,/g, '');  // 쉼표 제거
-        var amount = parseInt(amountStr);  // 정수로 변환
+        var amountStr = $('#price').val().replace(/,/g, '');
+        var amount = parseInt(amountStr);
         address = address.replace("경기", "경기도");
         address = address.replace("서울", "서울특별시");
         address = address.replace("인천", "인천광역시");
@@ -248,7 +224,7 @@
 
         var formattedTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
 
-        console.log(formattedTime); // 결과 출력
+        console.log(formattedTime);
 
         var data = {
             cardId: currentCardId,
@@ -285,7 +261,6 @@
 
                 console.log("response", response);
 
-                // 응답 메시지가 "거래승인"일 경우 리다이렉트
                 if (response === "거래승인") {
                     window.location.href = "/payment/paymentApproval?" + queryParams;
                 } else if (response === "거래미승인") {
@@ -304,7 +279,6 @@
 
 
     //kakao map api
-    // 마커를 담을 배열입니다
     var markers = [];
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div

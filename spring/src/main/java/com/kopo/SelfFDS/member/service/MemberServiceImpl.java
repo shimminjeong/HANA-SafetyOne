@@ -196,7 +196,6 @@ public class MemberServiceImpl implements MemberService {
         List<String> categoryList = safetyCard.get(2);
         SafetyCard safety = new SafetyCard();
         safety.setCardId(cardId);
-//        safety.setSafetyStringInfo(safetyStringInfo);
 
         Card cardInfo=myPageMapper.selectCardInfoByCardId(cardId);
         safety.setSafetyEndDate(cardInfo.getValidDate());

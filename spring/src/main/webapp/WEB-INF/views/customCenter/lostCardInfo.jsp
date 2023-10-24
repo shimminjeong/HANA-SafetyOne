@@ -19,11 +19,6 @@
 <%@ include file="../include/header.jsp" %>
 <div class="active-container">
     <div class="cont_box_area">
-<%--        <nav class="tab_ty02">--%>
-<%--            <li><a href="/customCenter/lostCardSelect" title="현재 선택 탭">카드분실/도난신고</a></li>--%>
-<%--            <li><a href="#">카드분실신고해제</a></li>--%>
-<%--            <li class="on"><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>--%>
-<%--        </nav>--%>
     <div class="title">분실신고/재발급</div>
         <div class="lost-header"><h3>분실신고 카드내역</h3></div>
         <table>
@@ -65,19 +60,6 @@
     <button class="confirm-btn">확인</button>
 </div>
 
-<%--    알림문자보내기--%>
-<%--<div class="form-group">--%>
-<%--    <label for="phoneNumber">전화번호</label>--%>
-<%--    <div class="input-wrapper">--%>
-<%--        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="010XXXXXXXX" required maxlength="11">--%>
-<%--        <!-- <button type="submit" id="sendSmsButton">인증번호 전송</button> -->--%>
-<%--        <button onclick="sendSmsRequest()" class="button">인증번호 전송</button>--%>
-<%--    </div>--%>
-<%--</div>--%>
-
-<%--<input type="tel" id="userOuathNum" name="userOuathNum" placeholder="인증번호입력" required maxlength="5">--%>
-<%--<button onclick="verifySmsCode()" class="button">인증번호 확인</button>--%>
-<%--<div id="result"></div>--%>
 </body>
 
 

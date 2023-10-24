@@ -74,16 +74,14 @@
                 <div style="background-color: #eee;"  class="info-box2" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
-<%--                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>--%>
-                        <div>1,498명</div>
+                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
                 <div  style="background-color: #eee;"  class="info-box" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
-<%--                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>--%>
-                        <div>2,715개</div>
+                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
@@ -91,8 +89,7 @@
                      onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
-<%--                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>--%>
-                        <div>90건</div>
+                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
@@ -119,7 +116,7 @@
                                  id="sortIcon">
                         </th>
                         <th>서비스 상태</th>
-                        <!-- 필요한 다른 컬럼들도 여기에 추가 -->
+
                     </tr>
                     </thead>
 
@@ -138,7 +135,6 @@
 <%--                                <c:if test="${safetymember.status eq 'Y'}">활성</c:if>--%>
                                 활성
                             </td>
-                            <!-- 필요한 다른 컬럼들의 데이터도 여기에 추가 -->
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -163,36 +159,33 @@
             <tbody>
             <tr>
                 <td>이메일</td>
-                <td><!-- 아이디 값 --></td>
+                <td></td>
             </tr>
             <tr>
                 <td>이름</td>
-                <td><!-- 이름 값 --></td>
+                <td></td>
             </tr>
             <tr>
                 <td>주소</td>
-                <td><!-- 주소 값 --></td>
+                <td></td>
             </tr>
             <tr>
                 <td>전화번호</td>
-                <td><!-- 전화번호 값 --></td>
+                <td></td>
             </tr>
             <tr>
                 <td>나이</td>
-                <td><!-- 나이 값 --></td>
+                <td></td>
             </tr>
             <tr>
                 <td>성별</td>
-                <td><!-- 성별 값 --></td>
+                <td></td>
             </tr>
             <tr>
                 <td>미승인 거래 횟수</td>
                 <td></td>
             </tr>
-            <%--            <tr>--%>
-            <%--                <td>차단된 조합</td>--%>
-            <%--                <td></td>--%>
-            <%--            </tr>--%>
+
             </tbody>
         </table>
 
@@ -205,59 +198,38 @@
         <span class="close" onclick="safetycloseModal()">&times;</span>
         <div class="modal-header">안심서비스 이용정보</div>
         <div class="safety-info"></div>
-        <%--        <table id="safetyDetailsTable">--%>
-        <%--            <thead>--%>
-        <%--            <tr>--%>
-        <%--                <th>지역</th>--%>
-        <%--                <th>시간</th>--%>
-        <%--                <th>업종</th>--%>
-        <%--                <th>서비스상태</th>--%>
-        <%--                <th>일시정지시작일자</th>--%>
-        <%--                <th>일시정지종료일자</th>--%>
-        <%--            </tr>--%>
-        <%--            </thead>--%>
-        <%--            <tbody>--%>
-        <%--            <!-- 여기에 데이터가 삽입됩니다 -->--%>
-        <%--            </tbody>--%>
-        <%--        </table>--%>
     </div>
 </div>
 <script>
 
 
     function filterMembers() {
-        var searchTerm = document.getElementById("memberSearchInput").value; // 사용자가 입력한 검색어 가져오기
-        var searchTerm = document.getElementById("memberSearchInput").value; // 사용자가 입력한 검색어 가져오기
-        var table = document.querySelector(".data-table"); // 테이블 요소 가져오기
-        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+        var searchTerm = document.getElementById("memberSearchInput").value;
+        var table = document.querySelector(".data-table");
+        var rows = table.getElementsByTagName("tr");
 
-        // 각 행을 순회하며 data-name 속성을 사용하여 검색어와 일치하는 행을 찾음
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
-            var secondColumn = row.querySelector("td[data-name]"); // data-name 속성을 가진 열 찾기
+            var secondColumn = row.querySelector("td[data-name]");
             if (secondColumn) {
                 var cellValue = secondColumn.getAttribute("data-name");
-                if (cellValue.includes(searchTerm)) { // 검색어와 일치하는 경우
-                    row.style.display = ""; // 보여주기
+                if (cellValue.includes(searchTerm)) {
+                    row.style.display = "";
                 } else {
-                    row.style.display = "none"; // 숨기기
+                    row.style.display = "none";
                 }
             }
         }
     }
 
 
-
     $(document).ready(function () {
         var ascending = false;
 
-        // 이미지 클릭 이벤트 핸들러
         $("#sortIcon").click(function () {
-            // 테이블과 이미지 아이콘을 포함한 컬럼을 선택
             var $table = $(".data-table");
             var $rows = $table.find("tbody tr").toArray();
 
-            // 오름차순 또는 내림차순으로 정렬
             if (ascending) {
                 $rows.sort(function (a, b) {
                     var keyA = $(a).find("td:eq(2)").text();
@@ -274,11 +246,10 @@
                 ascending = true;
             }
 
-            // 행 재배열 및 테이블 업데이트
             $table.find("tbody").empty().append($rows);
             updatePage();
 
-            // 이미지 아이콘 업데이트
+
             if (ascending) {
                 $("#sortIcon").attr("src", "../../../resources/img/sort1.png");
             } else {
@@ -289,7 +260,6 @@
 
     function showSafetyInfo(cardId) {
         var cardInfoList = $(".safety-info");
-        // 클릭한 accordion의 cardId를 서버에 전달하고 정보를 가져오는 Ajax 요청
         $.ajax({
             url: "/safetyCard/selectSafetyInfo",
             type: 'POST',
@@ -366,11 +336,11 @@
 
                 });
 
-                // Remove allowedRegions from data.regionList
+
                 data.regionList = data.regionList.filter(region => !allowedRegions.includes(region));
                 let allowedRegionsString = data.regionList.join(", ");
 
-                // Convert Sets to Strings
+
                 const regionsStr = Array.from(regionsSet).join(", ");
                 const timesStr = Array.from(timesSet).join(", ");
                 const categoriesStr = Array.from(categoriesSet).join(", ");
@@ -444,13 +414,10 @@
 
                 document.getElementById('memberModal').style.display = "block";
 
-                // 테이블 요소 찾기
                 const tableBody = document.getElementById('memberDetailsTable').getElementsByTagName('tbody')[0];
 
-                // 기존 행 삭제
                 tableBody.innerHTML = "";
 
-                // 데이터와 라벨을 쌍으로 관리
                 const dataPairs = [
                     {label: "이메일", value: email},
                     {label: "이름", value: name},
@@ -459,10 +426,8 @@
                     {label: "나이", value: age},
                     {label: "성별", value: gender},
                     {label: "차단된 거래 횟수", value: safetyCount},
-                    // {label: "차단된 조합", value: data.safetyCardList[0].time}
                 ];
 
-                // 각 데이터 쌍에 대해 테이블 행 추가
                 dataPairs.forEach(pair => {
                     const newRow = tableBody.insertRow(tableBody.rows.length);
                     newRow.insertCell(0).innerHTML = pair.label;
@@ -486,7 +451,6 @@
         document.getElementById('safetyModal').style.display = "none";
     }
 
-    // 페이지네이션
     document.getElementById("prev").addEventListener("click", function () {
         if (currentPage > 1) {
             currentPage--;
@@ -505,34 +469,31 @@
         }
     });
 
-    let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 10; // 페이지당 항목 수
-    const pagesToShow = 10; // 한 번에 보여줄 페이지 수
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const pagesToShow = 10;
 
-    // 페이지를 업데이트하는 함수
     function updatePage() {
         const tbody = document.querySelector(".data-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 
-        // 모든 행을 숨깁니다.
         rows.forEach(row => row.style.display = "none");
 
-        // 현재 페이지의 행만 표시합니다.
         for (let i = (currentPage - 1) * itemsPerPage; i < currentPage * itemsPerPage && i < rows.length; i++) {
             rows[i].style.display = "";
         }
 
-        // 페이지 번호 버튼들을 업데이트합니다.
+
         const pageNumbersDiv = document.getElementById("pageNumbers");
-        pageNumbersDiv.innerHTML = ""; // 이전에 있는 버튼들을 모두 제거
+        pageNumbersDiv.innerHTML = "";
         const startPage = Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1;
         const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
         for (let i = startPage; i <= endPage; i++) {
             const btn = document.createElement("button");
             btn.textContent = i;
             if (i === currentPage) {
-                btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
+                btn.classList.add("current-page");
             }
             btn.addEventListener("click", function () {
                 currentPage = i;
@@ -541,12 +502,10 @@
             pageNumbersDiv.appendChild(btn);
         }
 
-        // Prev, Next 버튼의 활성/비활성 상태를 업데이트합니다.
         document.getElementById("prev").disabled = currentPage === 1;
         document.getElementById("next").disabled = currentPage === totalPages;
     }
 
-    // 페이지를 처음 로드할 때 페이지를 업데이트합니다.
     updatePage();
 
 </script>

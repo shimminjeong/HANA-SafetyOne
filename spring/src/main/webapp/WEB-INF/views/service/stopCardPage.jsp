@@ -47,7 +47,6 @@
                     <th>차단한 시간</th>
                     <th>차단한 업종</th>
                     <th>일시정지</th>
-                    <!-- 추가로 다른 칼럼도 포함시킬 수 있습니다. -->
                 </tr>
                 </thead>
                 <tbody>
@@ -107,7 +106,6 @@
 
         document.getElementById("cardIdDisplay").innerText = cardId;
 
-        // 지역 체크
         if(regionName && regionName.trim() !== '') {
             document.getElementById("modalRegionName").innerText = regionName;
             document.getElementById("modalRegionNameForPayment").innerText = regionName;
@@ -116,7 +114,6 @@
             document.getElementById("modalRegionName").parentElement.style.display = "none";
         }
 
-        // 시간 체크
         if(time && time.trim() !== '') {
             document.getElementById("modalTime").innerText = time;
             document.getElementById("modalTime").parentElement.style.display = "block";
@@ -124,7 +121,6 @@
             document.getElementById("modalTime").parentElement.style.display = "none";
         }
 
-        // 업종 체크
         if(category && category.trim() !== '') {
             document.getElementById("modalCategory").innerText = category;
             document.getElementById("modalCategory").parentElement.style.display = "block";
@@ -156,18 +152,18 @@
         $.ajax({
             type: "POST",
             url: "/safetyCard/updateStopDate",
-            data: JSON.stringify({            // <--- 수정
+            data: JSON.stringify({
                 safetyIdSeq: safetyIdSeq,
                 stopStartDate: startStopDate,
                 stopEndDate: endStopDate
             }),
-            contentType: "application/json", // <-- 추가
+            contentType: "application/json",
             success: function(response) {
                 closeModal();
                 if (response === "일시정지업데이트") {
-                    window.location.href = "/safetyCard/safetySettingOk"; // 페이지 리다이렉트
+                    window.location.href = "/safetyCard/safetySettingOk";
                 } else {
-                    alert(response); // 그렇지 않으면 서버의 응답을 그대로 경고로 표시합니다.
+                    alert(response);
                 }},
             error: function(error) {
                 alert("Something went wrong: " + error.statusText);
@@ -178,33 +174,33 @@
 
 
     $("#startdatepicker").datepicker({
-        dateFormat: 'yy-mm-dd' //달력 날짜 형태
-        , showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-        , showMonthAfterYear: true // 월- 년 순서가아닌 년도 - 월 순서
-        , changeYear: true //option값 년 선택 가능
-        , changeMonth: true //option값  월 선택 가능
-        , yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 텍스트
-        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip
-        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 텍스트
-        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 Tooltip
-        , minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-        , maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+        dateFormat: 'yy-mm-dd'
+        , showOtherMonths: true
+        , showMonthAfterYear: true
+        , changeYear: true
+        , changeMonth: true
+        , yearSuffix: "년"
+        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+        , minDate: "-5Y"
+        , maxDate: "+5y"
     });
 
     $("#enddatepicker").datepicker({
-        dateFormat: 'yy-mm-dd' //달력 날짜 형태
-        , showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-        , showMonthAfterYear: true // 월- 년 순서가아닌 년도 - 월 순서
-        , changeYear: true //option값 년 선택 가능
-        , changeMonth: true //option값  월 선택 가능
-        , yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 텍스트
-        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip
-        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 텍스트
-        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 Tooltip
-        , minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-        , maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+        dateFormat: 'yy-mm-dd'
+        , showOtherMonths: true
+        , showMonthAfterYear: true
+        , changeYear: true
+        , changeMonth: true
+        , yearSuffix: "년"
+        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+        , minDate: "-5Y"
+        , maxDate: "+5y"
     });
 
 </script>

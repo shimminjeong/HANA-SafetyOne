@@ -68,19 +68,17 @@
             <h2 class="details____title"><img class="img-size" src="../../../resources/img/secure-payment.png">안심서비스 관리
             </h2>
             <div class="box-container">
-                <div style="background-color: #eee;"  class="info-box2" onclick="window.location.href='/admin/safety'">
+                <div style="background-color: #eee;" class="info-box2" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용자 수</div>
-                        <%--                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true" />명</div>--%>
-                        <div>1,498명</div>
+                        <div><fmt:formatNumber value="${safetyUserCount}" groupingUsed="true"/>명</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/id-card.png"></div>
                 </div>
-                <div  style="background-color: #eee;"  class="info-box" onclick="window.location.href='/admin/safety'">
+                <div style="background-color: #eee;" class="info-box" onclick="window.location.href='/admin/safety'">
                     <div class="info-content2">
                         <div class="box-header">이용중인 카드 수</div>
-                        <%--                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true" />개</div>--%>
-                        <div>2,715개</div>
+                        <div><fmt:formatNumber value="${safetyCardCount}" groupingUsed="true"/>개</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/credit-card_.png"></div>
                 </div>
@@ -88,8 +86,7 @@
                      onclick="window.location.href='/admin/safetyData'">
                     <div class="info-content2">
                         <div class="box-header">금일 차단 건수</div>
-                        <%--                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true" />건</div>--%>
-                        <div>90건</div>
+                        <div><fmt:formatNumber value="${safetyDataCount}" groupingUsed="true"/>건</div>
                     </div>
                     <div class="info-content3"><img src="../../../resources/img/log_.png"></div>
                 </div>
@@ -141,26 +138,26 @@
 <script>
 
     function filterCard() {
-        var cardSearchInput = document.getElementById("cardSearchInput").value; // 사용자가 입력한 카드번호 가져오기
-        var table = document.querySelector(".safetydata-table"); // 테이블 요소 가져오기
-        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+        var cardSearchInput = document.getElementById("cardSearchInput").value;
+        var table = document.querySelector(".safetydata-table");
+        var rows = table.getElementsByTagName("tr");
 
-        // 각 행을 순회하며 data-cardId 속성을 사용하여 검색어와 일치하는 행을 찾음
+
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
-            var cardNumberCell = row.querySelector("td[data-cardId]"); // data-cardId 속성을 가진 열 찾기
+            var cardNumberCell = row.querySelector("td[data-cardId]");
             if (cardNumberCell) {
                 var cellValue = cardNumberCell.getAttribute("data-cardId");
-                if (cellValue.includes(cardSearchInput)) { // 입력된 카드번호와 일치하는 경우
-                    row.style.display = ""; // 보여주기
+                if (cellValue.includes(cardSearchInput)) {
+                    row.style.display = "";
                 } else {
-                    row.style.display = "none"; // 숨기기
+                    row.style.display = "none";
                 }
             }
         }
     }
 
-    // 페이지네이션
+
     document.getElementById("prev").addEventListener("click", function () {
         if (currentPage > 1) {
             currentPage--;
@@ -179,25 +176,25 @@
         }
     });
 
-    let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 10; // 페이지당 항목 수
-    const pagesToShow = 10; // 한 번에 보여줄 페이지 수
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const pagesToShow = 10;
 
-    // 페이지를 업데이트하는 함수
+
     function updatePage() {
         const tbody = document.querySelector(".safetydata-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 
-        // 모든 행을 숨깁니다.
+
         rows.forEach(row => row.style.display = "none");
 
-        // 현재 페이지의 행만 표시합니다.
+
         for (let i = (currentPage - 1) * itemsPerPage; i < currentPage * itemsPerPage && i < rows.length; i++) {
             rows[i].style.display = "";
         }
 
-        // 페이지 번호 버튼들을 업데이트합니다.
+
         const pageNumbersDiv = document.getElementById("pageNumbers");
         pageNumbersDiv.innerHTML = ""; // 이전에 있는 버튼들을 모두 제거
         const startPage = Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1;
@@ -206,7 +203,7 @@
             const btn = document.createElement("button");
             btn.textContent = i;
             if (i === currentPage) {
-                btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
+                btn.classList.add("current-page");
             }
             btn.addEventListener("click", function () {
                 currentPage = i;
@@ -215,13 +212,12 @@
             pageNumbersDiv.appendChild(btn);
         }
 
-        // Prev, Next 버튼의 활성/비활성 상태를 업데이트합니다.
         document.getElementById("prev").disabled = currentPage === 1;
         document.getElementById("next").disabled = currentPage === totalPages;
     }
 
-    // 페이지를 처음 로드할 때 페이지를 업데이트합니다.
     updatePage();
+
 </script>
 </body>
 </html>

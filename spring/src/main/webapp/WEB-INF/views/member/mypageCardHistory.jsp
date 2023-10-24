@@ -7,7 +7,6 @@
 <head>
     <title>Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%--    <link href="../../../resources/css/admin/adminCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/mypage.css" rel="stylesheet">
     <link href="../../../resources/css/member/mypageCardHistory.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -73,10 +72,6 @@
 
 
             <div class="table-div">
-                <%--                <div class="menu-tab">--%>
-                <%--                    <button class="tab-button" onclick="showApprovedTransactions()">거래승인내역</button>--%>
-                <%--                    <button class="tab-button" onclick="showUnapprovedTransactions()">거래 미승인내역</button>--%>
-                <%--                </div>--%>
                 <table class="card-history-table">
                     <thead>
                     <tr>
@@ -176,15 +171,13 @@
 
     $(document).ready(function() {
         var ascendingAmount = false;
-        var ascendingDate = false; // 날짜 정렬 상태를 추적하기 위한 플래그
+        var ascendingDate = false;
 
-        // 금액 컬럼 클릭 이벤트 핸들러
         $("#sortAmountIcon").click(function() {
             sortTable("금액", ascendingAmount,this);
             ascendingAmount = !ascendingAmount;
         });
 
-        // 거래일시 컬럼 클릭 이벤트 핸들러
         $("#sortDateIcon").click(function() {
             sortTable("거래일시", ascendingDate,this);
             ascendingDate = !ascendingDate;
@@ -202,7 +195,7 @@
                     cellA = parseFloat(cellA.replace(/[^\d.-]/g, ''));
                     cellB = parseFloat(cellB.replace(/[^\d.-]/g, ''));
                     return ascending ? cellA - cellB : cellB - cellA;
-                } else { // 거래일시
+                } else {
                     return ascending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
                 }
             });
@@ -217,7 +210,6 @@
             }
             updatePage();
 
-
         }
 
         function getColumnIndex(columnName) {
@@ -226,7 +218,7 @@
             $headerRow.find("th").each(function(index) {
                 if ($(this).text().trim().includes(columnName)) {
                     columnIndex = index;
-                    return false; // break the loop
+                    return false;
                 }
             });
             return columnIndex;
@@ -236,7 +228,6 @@
     $(document).ready(function() {
         var ascendingAmount = false;
 
-        // 금액 컬럼 클릭 이벤트 핸들러
         $("#sortAmountIcon").click(function() {
             sortTable("금액", ascendingAmount);
             ascendingAmount = !ascendingAmount;
@@ -250,7 +241,6 @@
                 var keyA = parseFloat($(a).find("td:eq(" + getColumnIndex(columnName) + ")").text().replace(/[^\d.-]/g, ''));
                 var keyB = parseFloat($(b).find("td:eq(" + getColumnIndex(columnName) + ")").text().replace(/[^\d.-]/g, ''));
 
-                // 오름차순 또는 내림차순으로 정렬
                 return ascending ? keyA - keyB : keyB - keyA;
             });
 
@@ -278,8 +268,6 @@
             return columnIndex;
         }
     });
-
-
 
 
     function closeModal() {
@@ -362,9 +350,9 @@
                 $('.content-value-store').text(responseData.paymentLog1.store);
                 $('.content-value-address').text(responseData.paymentLog1.address);
                 var validDate = responseData.cardInfo.validDate;
-                var parts = validDate.split("-"); // '-'를 기준으로 문자열 분리
+                var parts = validDate.split("-");
                 var month = parts[1];
-                var year = parts[0].substr(2, 2); // 연도의 마지막 두 자리
+                var year = parts[0].substr(2, 2);
                 $('.content-value4').text(month + '/' + year);
 
                 // $('.content-value4').text(responseData.cardInfo.validDate);
@@ -386,20 +374,18 @@
         $('#cardSelect').on('change', function () {
             if ($(this).val() !== "전체이용내역") {
 
-                $('.lostcard-list').removeClass('hidden'); // hidden 클래스 제거
-                $('.lostReason-select-div').removeClass('hidden'); // hidden 클래스 제거
+                $('.lostcard-list').removeClass('hidden');
+                $('.lostReason-select-div').removeClass('hidden');
             } else {
-                $('.lostcard-list').addClass('hidden'); // hidden 클래스 추가
-                $('.lostReason-select-div').addClass('hidden'); // hidden 클래스 추가
+                $('.lostcard-list').addClass('hidden'); /
+                $('.lostReason-select-div').addClass('hidden');
                 window.location.href = "/mypageCardHistory";
             }
 
             var selectedCardName = $(this).find('option:selected').text();
 
-            // cardName을 해당 div에 적용
             $('.card-list-info-cardname').text(selectedCardName);
 
-            // 선택된 cardName을 기반으로 이미지 URL 변경
             $('.card-img').attr('src', '../../../resources/img/cardImg/' + selectedCardName + '.png');
             console.log("selectedCardName", selectedCardName)
         });
@@ -407,17 +393,13 @@
         $('#cardSelect').change(function () {
             var selectedCardName = $(this).find('option:selected').text();
 
-            // cardName을 해당 div에 적용
             $('.card-list-info-cardname').text(selectedCardName);
 
-            // 선택된 index를 기반으로 이미지 URL 변경 (선택되면 변경하려면 이 코드를 사용하세요.)
             var selectedCardIndex = $(this).find('option:selected').index();
             $('.card-img').attr('src', '../../../resources/img/' + selectedCardName + '.png');
         });
 
 
-
-        // 함수 정의
         function sendCardIdToServer(cardId) {
             console.log("cardId" + cardId)
             $.ajax({
@@ -434,7 +416,7 @@
                     var rows = $('tbody tr');
 
                     $.each(response.paymentLogList, function (index, history) {
-                        // 각 행의 td 요소들을 가져온다.
+
                         var tds = $(rows[index]).find('td');
 
                         var addressParts = history.address.split(' ');
@@ -448,15 +430,15 @@
                         }
                         var maskedCardId = segments.join('-');
 
-                        // 각 td의 텍스트를 바꿔준다.
+
                         $(tds[0]).text(maskedCardId);
                         $(tds[1]).text(history.paymentDate.substring(0, 16));
                         $(tds[2]).text(history.categorySmall);
-                            $(tds[3]).text(history.store); // Fallback to the full address if splitting didn't work as expected
+                        $(tds[3]).text(history.store);
                         $(tds[4]).text(Number(history.amount).toLocaleString() + "원");
                         if (history.paymentApprovalStatus === 'Y' && history.fdsDetectionStatus === 'Y') {
                             $(tds[5]).html('정상승인<span class="small-bell">🔔</span>');
-                            // $(tds[5]).text('이상');
+
                         } else if (history.paymentApprovalStatus === 'Y') {
 
                             $(tds[5]).text('정상승인');
@@ -465,19 +447,17 @@
                         }
 
 
-                        // <td>정상승인<span class="small-bell">🔔</span></td>
-
                     });
                 },
                 error: function (error) {
-                    // 실패 시 수행할 작업 (예: 오류 메시지 표시)
+
                     console.error("Error sending data:", error);
                 }
             });
         }
 
 
-        // select 요소 값 변경 감지
+
         $("#cardSelect").change(function () {
             var selectedCardId = $(this).val();
             sendCardIdToServer(selectedCardId);
@@ -505,34 +485,34 @@
     });
 
 
-    let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 10; // 페이지당 항목 수
-    const pagesToShow = 10; // 한 번에 보여줄 페이지 수
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const pagesToShow = 10;
 
-    // 페이지를 업데이트하는 함수
+
     function updatePage() {
         const tbody = document.querySelector(".card-history-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 
-        // 모든 행을 숨깁니다.
+
         rows.forEach(row => row.style.display = "none");
 
-        // 현재 페이지의 행만 표시합니다.
+
         for (let i = (currentPage - 1) * itemsPerPage; i < currentPage * itemsPerPage && i < rows.length; i++) {
             rows[i].style.display = "";
         }
 
-        // 페이지 번호 버튼들을 업데이트합니다.
+
         const pageNumbersDiv = document.getElementById("pageNumbers");
-        pageNumbersDiv.innerHTML = ""; // 이전에 있는 버튼들을 모두 제거
+        pageNumbersDiv.innerHTML = "";
         const startPage = Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1;
         const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
         for (let i = startPage; i <= endPage; i++) {
             const btn = document.createElement("button");
             btn.textContent = i;
             if (i === currentPage) {
-                btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
+                btn.classList.add("current-page");
             }
             btn.addEventListener("click", function () {
                 currentPage = i;
@@ -541,12 +521,12 @@
             pageNumbersDiv.appendChild(btn);
         }
 
-        // Prev, Next 버튼의 활성/비활성 상태를 업데이트합니다.
+
         document.getElementById("prev").disabled = currentPage === 1;
         document.getElementById("next").disabled = currentPage === totalPages;
     }
 
-    // 페이지를 처음 로드할 때 페이지를 업데이트합니다.
+
     updatePage();
 
 

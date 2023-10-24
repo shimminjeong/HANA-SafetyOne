@@ -6,7 +6,6 @@
 
 <html>
 <head>
-    <%--    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Document</title>
 
@@ -21,7 +20,7 @@
 </head>
 <body>
 <jsp:include page="drawPaymentChart.jsp"/>
-<!-- Datepicker JS -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <jsp:include page="adminHeader.jsp"/>
@@ -90,15 +89,6 @@
                         <button onclick="filterCard()">검색</button>
                     </span>
                 </div>
-                <%--                <div class="user-search">--%>
-                <%--                    <div class="search-header">회원 검색</div>--%>
-                <%--                    <select id="clusterSelect">--%>
-                <%--                        <option value="all">승인여부</option>--%>
-                <%--                        <c:forEach items="${clusterList}" var="clusterNum" varStatus="loop">--%>
-                <%--                            <option value="${clusterNum}">${clusterNum}번 군집</option>--%>
-                <%--                        </c:forEach>--%>
-                <%--                    </select>--%>
-                <%--                </div>--%>
                 <table class="logdata-table">
                     <thead>
                     <tr>
@@ -163,51 +153,45 @@
 <script>
 
     $(function() {
-        // 현재 날짜를 설정합니다. (2023년 10월 13일로 예시)
-        var currentDate = new Date(2023, 9, 13); // 월은 0부터 시작하므로 9는 10월을 의미합니다.
 
-        // DatePicker 초기화
+        var currentDate = new Date(2023, 9, 13);
+
         $("#paymentdatepicker").datepicker();
 
-        // 현재 날짜를 설정한 날짜로 업데이트
-        // $("#paymentdatepicker").datepicker("setDate", currentDate);
+
     });
 
     function filterCard() {
-        var cardSearchInput = document.getElementById("cardSearchInput").value; // 사용자가 입력한 카드번호 가져오기
-        var table = document.querySelector(".logdata-table"); // 테이블 요소 가져오기
-        var rows = table.getElementsByTagName("tr"); // 테이블의 모든 행 가져오기
+        var cardSearchInput = document.getElementById("cardSearchInput").value;
+        var table = document.querySelector(".logdata-table");
+        var rows = table.getElementsByTagName("tr");
 
-        // 각 행을 순회하며 data-cardId 속성을 사용하여 검색어와 일치하는 행을 찾음
+
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
-            var cardNumberCell = row.querySelector("td[data-cardId]"); // data-cardId 속성을 가진 열 찾기
+            var cardNumberCell = row.querySelector("td[data-cardId]");
 
             if (cardNumberCell) {
                 var cellValue = cardNumberCell.getAttribute("data-cardId");
-                if (cellValue === cardSearchInput) { // 입력된 카드번호와 일치하는 경우
-                    row.style.display = ""; // 보여주기
+                if (cellValue === cardSearchInput) {
+                    row.style.display = "";
                 } else {
-                    row.style.display = "none"; // 숨기기
+                    row.style.display = "none";
                 }
             }
         }
     }
 
 
-    // Get the modal
     var modal = document.getElementById("chartModal");
 
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
     }
 
 
-    // 페이지네이션
     document.getElementById("prev").addEventListener("click", function () {
         if (currentPage > 1) {
             currentPage--;
@@ -226,34 +210,31 @@
         }
     });
 
-    let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 10; // 페이지당 항목 수
-    const pagesToShow = 10; // 한 번에 보여줄 페이지 수
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const pagesToShow = 10;
 
-    // 페이지를 업데이트하는 함수
+
     function updatePage() {
         const tbody = document.querySelector(".logdata-table tbody");
         const rows = tbody.querySelectorAll("tr");
         const totalPages = Math.ceil(rows.length / itemsPerPage);
 
-        // 모든 행을 숨깁니다.
         rows.forEach(row => row.style.display = "none");
 
-        // 현재 페이지의 행만 표시합니다.
         for (let i = (currentPage - 1) * itemsPerPage; i < currentPage * itemsPerPage && i < rows.length; i++) {
             rows[i].style.display = "";
         }
 
-        // 페이지 번호 버튼들을 업데이트합니다.
         const pageNumbersDiv = document.getElementById("pageNumbers");
-        pageNumbersDiv.innerHTML = ""; // 이전에 있는 버튼들을 모두 제거
+        pageNumbersDiv.innerHTML = "";
         const startPage = Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1;
         const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
         for (let i = startPage; i <= endPage; i++) {
             const btn = document.createElement("button");
             btn.textContent = i;
             if (i === currentPage) {
-                btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
+                btn.classList.add("current-page");
             }
             btn.addEventListener("click", function () {
                 currentPage = i;
@@ -262,27 +243,25 @@
             pageNumbersDiv.appendChild(btn);
         }
 
-        // Prev, Next 버튼의 활성/비활성 상태를 업데이트합니다.
         document.getElementById("prev").disabled = currentPage === 1;
         document.getElementById("next").disabled = currentPage === totalPages;
     }
 
-    // 페이지를 처음 로드할 때 페이지를 업데이트합니다.
     updatePage();
 
     $("#paymentdatepicker").datepicker({
-        dateFormat: 'yy-mm-dd' //달력 날짜 형태
-        , showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-        , showMonthAfterYear: true // 월- 년 순서가아닌 년도 - 월 순서
-        , changeYear: true //option값 년 선택 가능
-        , changeMonth: true //option값  월 선택 가능
-        , yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 텍스트
-        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip
-        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 텍스트
-        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 Tooltip
-        , minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-        , maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+        dateFormat: 'yy-mm-dd'
+        , showOtherMonths: true
+        , showMonthAfterYear: true
+        , changeYear: true
+        , changeMonth: true
+        , yearSuffix: "년"
+        , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+        , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+        , minDate: "-5Y"
+        , maxDate: "+5y"
     });
 
 

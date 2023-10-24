@@ -19,7 +19,7 @@ function computeHistogram(data, bins) {
     return histogramPoints;
 }
 
-let myChart = null; // 차트를 저장할 변수
+let myChart = null;
 
 function destroyChart() {
     if (myChart !== null) {
@@ -38,11 +38,11 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
     let histogramData = computeHistogram(X_feature, bins);
 
     const data = {
-        labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
+        labels: labels,
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgba(37,150,99,0.5)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(37,150,99,0.5)',
             backgroundColor: 'green',
             borderWidth: 0.3,
             pointRadius: 1.8
@@ -55,11 +55,11 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
                 pointRadius: 5,
                 pointHoverRadius: 8,
                 showLine: false,
-                pointStyle: 'circle', // 내부가 채워진 circle로 표시
-                backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
+                pointStyle: 'circle',
+                backgroundColor: 'rgb(245,83,117)'
             }, {
                 label: '빈도수',
-                data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
+                data: histogramData,
                 type: 'bar',
                 backgroundColor: 'rgb(6,63,103)',
                 borderWidth: 1,
@@ -74,7 +74,6 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
                 position: 'bottom',
                 title: {
                     display: true,
-                    // text: xAxisLabel
                 }
             }
         },
@@ -83,22 +82,18 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
                 display: true
             },
             afterDatasetsDraw: function (chart, easing) {
-                // Only on easing complete
                 if (easing !== 1) return;
 
                 var ctx = chart.ctx;
                 chart.data.datasets.forEach(function (dataset, i) {
                     var meta = chart.getDatasetMeta(i);
-                    if (meta.type !== 'bar') return; // Only draw label on bars
+                    if (meta.type !== 'bar') return;
 
                     meta.data.forEach(function (bar, index) {
-                        // Calculate where to place the label based on the bar's data value
                         var yPosition = bar._model.y - 5;
 
-                        // Get the data for this bar
                         var data = dataset.data[index].y;
 
-                        // Draw the data value on top of the bar
                         ctx.fillText(data.toFixed(2), bar._model.x, yPosition);
                     });
                 });
@@ -113,12 +108,12 @@ function drawChart(elementId, labels, pdfData, numericData, xAxisLabel, pointDat
     });
 }
 
-let myChart2 = null; // 차트를 저장할 변수
+let myChart2 = null;
 
 function destroyChart2() {
     if (myChart2 !== null) {
-        myChart2.destroy(); // 이전 차트 파기
-        myChart2 = null; // 변수 초기화
+        myChart2.destroy();
+        myChart2 = null;
     }
 }
 
@@ -132,11 +127,11 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
     let histogramData = computeHistogram(X_feature, bins);
 
     const data = {
-        labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
+        labels: labels,
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgba(37,150,99,0.5)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(37,150,99,0.5)',
             backgroundColor: 'green',
             borderWidth: 0.3,
             pointRadius: 1.8,
@@ -150,11 +145,11 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 pointRadius: 5,
                 pointHoverRadius: 8,
                 showLine: false,
-                pointStyle: 'circle', // 내부가 채워진 circle로 표시
-                backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
+                pointStyle: 'circle',
+                backgroundColor: 'rgb(245,83,117)'
             }, {
                 label: '빈도수',
-                data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
+                data: histogramData,
                 type: 'bar',
                 backgroundColor: 'rgb(6,63,103)',
                 borderWidth: 1,
@@ -169,7 +164,7 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 position: 'bottom',
                 title: {
                     display: true,
-                    // text: xAxisLabel
+
                 }
             }
         },
@@ -178,22 +173,20 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 display: true
             },
             afterDatasetsDraw: function (chart, easing) {
-                // Only on easing complete
+
                 if (easing !== 1) return;
 
                 var ctx = chart.ctx;
                 chart.data.datasets.forEach(function (dataset, i) {
                     var meta = chart.getDatasetMeta(i);
-                    if (meta.type !== 'bar') return; // Only draw label on bars
+                    if (meta.type !== 'bar') return;
 
                     meta.data.forEach(function (bar, index) {
-                        // Calculate where to place the label based on the bar's data value
+
                         var yPosition = bar._model.y - 5;
 
-                        // Get the data for this bar
                         var data = dataset.data[index].y;
 
-                        // Draw the data value on top of the bar
                         ctx.fillText(data.toFixed(2), bar._model.x, yPosition);
                     });
                 });
@@ -211,12 +204,12 @@ function drawChart2(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
 
 
 
-let myChart3 = null; // 차트를 저장할 변수
+let myChart3 = null;
 
 function destroyChart3() {
     if (myChart3 !== null) {
-        myChart3.destroy(); // 이전 차트 파기
-        myChart3 = null; // 변수 초기화
+        myChart3.destroy();
+        myChart3 = null;
     }
 }
 
@@ -230,11 +223,11 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
     let histogramData = computeHistogram(X_feature, bins);
 
     const data = {
-        labels: labels,  // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
+        labels: labels,
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgba(37,150,99,0.5)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(37,150,99,0.5)',
             backgroundColor: 'green',
             borderWidth: 0.3,
             pointRadius: 1.8,
@@ -248,11 +241,11 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 pointRadius: 5,
                 pointHoverRadius: 8,
                 showLine: false,
-                pointStyle: 'circle', // 내부가 채워진 circle로 표시
-                backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
+                pointStyle: 'circle',
+                backgroundColor: 'rgb(245,83,117)'
             }, {
                 label: '빈도수',
-                data: histogramData,  // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
+                data: histogramData,
                 type: 'bar',
                 backgroundColor: 'rgb(6,63,103)',
                 borderWidth: 1,
@@ -267,7 +260,6 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 position: 'bottom',
                 title: {
                     display: true,
-                    // text: xAxisLabel
                 }
             }
         },
@@ -276,22 +268,18 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 display: true
             },
             afterDatasetsDraw: function (chart, easing) {
-                // Only on easing complete
                 if (easing !== 1) return;
 
                 var ctx = chart.ctx;
                 chart.data.datasets.forEach(function (dataset, i) {
                     var meta = chart.getDatasetMeta(i);
-                    if (meta.type !== 'bar') return; // Only draw label on bars
+                    if (meta.type !== 'bar') return;
 
                     meta.data.forEach(function (bar, index) {
-                        // Calculate where to place the label based on the bar's data value
                         var yPosition = bar._model.y - 5;
 
-                        // Get the data for this bar
                         var data = dataset.data[index].y;
 
-                        // Draw the data value on top of the bar
                         ctx.fillText(data.toFixed(2), bar._model.x, yPosition);
                     });
                 });
@@ -308,12 +296,12 @@ function drawChart3(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
 
 
 
-let myChart1 = null; // 차트를 저장할 변수
+let myChart1 = null;
 
 function destroyChart1() {
     if (myChart1 !== null) {
-        myChart1.destroy(); // 이전 차트 파기
-        myChart1 = null; // 변수 초기화
+        myChart1.destroy();
+        myChart1 = null;
     }
 }
 
@@ -327,11 +315,11 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
     let histogramData = computeHistogram(X_feature, bins);
 
     const data = {
-        labels: labels, // 이것은 Gaussian PDF 데이터를 위한 것이므로 그대로 둡니다.
+        labels: labels,
         datasets: [{
             label: '확률분포',
             data: pdfData,
-            borderColor: 'rgba(13,128,76,0.5)', // 예쁜 터쿼이즈색
+            borderColor: 'rgba(13,128,76,0.5)',
             backgroundColor: 'green',
             borderWidth: 0.3,
             pointRadius: 1.8,
@@ -343,13 +331,13 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
             pointRadius: 5,
             pointHoverRadius: 8,
             showLine: false,
-            pointStyle: 'circle', // 내부가 채워진 circle로 표시
-            backgroundColor: 'rgb(245,83,117)' // 원 내부의 채우는 색상 설정
+            pointStyle: 'circle',
+            backgroundColor: 'rgb(245,83,117)'
         }, {
             label: '빈도수',
-            data: histogramData, // 히스토그램의 데이터는 x, y 쌍으로 반환됩니다.
+            data: histogramData,
             type: 'bar',
-            backgroundColor: 'rgb(6,63,103)', // 예쁜 파란색
+            backgroundColor: 'rgb(6,63,103)',
 
             borderWidth: 1,
             barPercentage: 1.2,
@@ -364,7 +352,6 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 position: 'bottom',
                 title: {
                     display: true,
-                    // text: xAxisLabel
                 }
             },
             y: {
@@ -374,7 +361,6 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                         let baseValue = value / Math.pow(10, Math.round(Math.log10(Math.abs(value))));
                         let formattedValue = baseValue.toFixed(2) + 'E' + (exponent >= 0 ? '+' : '') + exponent;
 
-                        // NaN, Infinity, -Infinity를 체크하고 해당 경우에 0 반환
                         if (!isFinite(baseValue) || isNaN(baseValue) || !isFinite(exponent) || isNaN(exponent)) {
                             return '0';
                         }
@@ -387,7 +373,7 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 labels: {
                     filter: function(item, chart) {
                         if (item.text === '확률분포') {
-                            item.fillStyle = 'rgba(37,150,99,0.5)'; // 원하는 색상으로 변경하세요
+                            item.fillStyle = 'rgba(37,150,99,0.5)';
                         }
                         return item.text !== '확률분포' ? true : false;
                     },
@@ -399,22 +385,19 @@ function drawChart1(elementId, labels, pdfData, numericData, xAxisLabel, pointDa
                 display: true
             },
             afterDatasetsDraw: function (chart, easing) {
-                // Only on easing complete
                 if (easing !== 1) return;
 
                 var ctx = chart.ctx;
                 chart.data.datasets.forEach(function (dataset, i) {
                     var meta = chart.getDatasetMeta(i);
-                    if (meta.type !== 'bar') return; // Only draw label on bars
+                    if (meta.type !== 'bar') return;
 
                     meta.data.forEach(function (bar, index) {
-                        // Calculate where to place the label based on the bar's data value
+
                         var yPosition = bar._model.y - 5;
 
-                        // Get the data for this bar
                         var data = dataset.data[index].y;
 
-                        // Draw the data value on top of the bar
                         ctx.fillText(data.toFixed(2), bar._model.x, yPosition);
                     });
                 });
@@ -454,7 +437,7 @@ function showAnomalyDetails(paymentLogId, cardId) {
                 regionDiv.appendChild(document.createTextNode("3. " + responseData.regionCntList[2].regionName));
             }
 
-            // 거래업종 TOP3를 처리
+            // 거래업종 TOP3
             if (responseData.categoryCntList && responseData.categoryCntList.length >= 3) {
                 const categoryDiv = document.querySelector(".category-top");
                 categoryDiv.appendChild(document.createElement("br"));
@@ -464,11 +447,7 @@ function showAnomalyDetails(paymentLogId, cardId) {
                 categoryDiv.appendChild(document.createElement("br"));
                 categoryDiv.appendChild(document.createTextNode("3. " + responseData.categoryCntList[2].categorySmall));
             }
-            // console.log("responseData.timePdf[0]" + responseData.timePdf[0]);
-            // console.log("responseData.regionCntList" + responseData.regionCntList[0].regionName);
-            // console.log("responseData.regionCntList" + responseData.regionCntList[0].cnt);
-            // console.log("responseData.categoryCntList" + responseData.categoryCntList);
-            // console.log("responseData.categoryCntList" + responseData.categoryCntList);
+
 
             const splitAddress = responseData.address.split(' ');
             const formattedAddress = splitAddress[0] + ' ' + splitAddress[1];
@@ -477,8 +456,7 @@ function showAnomalyDetails(paymentLogId, cardId) {
             drawChart2('gaussianChart2', responseData.timePdf[0], responseData.timePdf[1], responseData.embeddingData.timeNumeric, '시간', responseData.embeddingData.timeNumeric + '시', responseData.timeFeature);
             drawChart3('gaussianChart3', responseData.categorySmallPdf[0], responseData.categorySmallPdf[1], responseData.embeddingData.categorySmallNumeric, '업종', responseData.category, responseData.categoryFeature);
             drawChart1('gaussianChart4', responseData.amountPdf[0], responseData.amountPdf[1], responseData.embeddingData.amountNumeric, '금액', responseData.embeddingData.amountNumeric.toLocaleString() + '원', responseData.amountFeature);
-            // drawBubbleChart('bubbleChartRegion', responseData.regionCntList);
-            // drawBubbleChart('bubbleChartCategory', responseData.categoryCntList);
+
 
             const cardIdElement = document.querySelector('.anomalychart-info .cardId');
             const regionElement = document.querySelector('.info-right .region');
@@ -486,11 +464,11 @@ function showAnomalyDetails(paymentLogId, cardId) {
             const categoryElement = document.querySelector('.info-right .category');
             const amountElement = document.querySelector('.info-right .amount');
 
-            const cardIdValue = cardId+' 카드의 '; // responseData.cardId는 실제 데이터로 대체해야 합니다.
-            const regionValue = '거래 지역 : ' + formattedAddress; // responseData.embeddingData.region는 실제 데이터로 대체해야 합니다.
-            const timeValue = '거래 시간 : ' + responseData.embeddingData.timeNumeric + '시'; // responseData.embeddingData.timeNumeric는 실제 데이터로 대체해야 합니다.
-            const categoryValue = '거래 업종 : ' + responseData.category; // responseData.category는 실제 데이터로 대체해야 합니다.
-            const amountValue = '거래 금액 : ' + responseData.embeddingData.amountNumeric.toLocaleString() + '원'; // responseData.embeddingData.amountNumeric는 실제 데이터로 대체해야 합니다.
+            const cardIdValue = cardId+' 카드의 ';
+            const regionValue = '거래 지역 : ' + formattedAddress;
+            const timeValue = '거래 시간 : ' + responseData.embeddingData.timeNumeric + '시';
+            const categoryValue = '거래 업종 : ' + responseData.category;
+            const amountValue = '거래 금액 : ' + responseData.embeddingData.amountNumeric.toLocaleString() + '원';
 
             cardIdElement.textContent = cardIdValue;
             regionElement.textContent = regionValue;
@@ -498,7 +476,7 @@ function showAnomalyDetails(paymentLogId, cardId) {
             categoryElement.textContent = categoryValue;
             amountElement.textContent = amountValue;
 
-            // 모달을 표시합니다.
+
             modal.style.display = "block";
         },
         error: function (error) {

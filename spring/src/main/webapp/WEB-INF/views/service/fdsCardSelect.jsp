@@ -8,9 +8,7 @@
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%--    <link href="../../../resources/css/common.css" rel="stylesheet">--%>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <%--    <link href="../../../resources/css/cardSelectCommon.css" rel="stylesheet">--%>
     <link href="../../../resources/css/member/fdsCardSelect.css" rel="stylesheet">
     <link href="../../../resources/css/member/modalStyle.css" rel="stylesheet">
     <script src="../../../resources/js/userOuath.js" type="text/javascript"></script>
@@ -52,9 +50,6 @@
                     <c:if test="${card.fdsSerStatus eq 'Y'}">
                         <img class="service-status-img" src="../../../resources/img/notification.png">
                     </c:if>
-                        <%--                    <c:if test="${card.fdsSerStatus eq 'N'}">--%>
-                        <%--                        <img class="service-status-img" src="../../../resources/img/silent.png">--%>
-                        <%--                    </c:if>--%>
                 </div>
             </div>
             <hr>
@@ -100,10 +95,8 @@
             </div>
 
             <hr>
-            <%--    <div class="ajax-content"></div>--%>
             <div class="reg-confirm-div">
                 <button class="fds-back-Btn" onclick="window.location.href='/'">취소</button>
-                <%--                <button class="fds-agree-Btn" onclick="registerCard()">확인</button>--%>
                 <button class="fds-agree-Btn" onclick="agreePhone()">확인</button>
             </div>
         </div>
@@ -185,27 +178,9 @@
                 <div class="content-div-header" style="margin: auto 0;">이름</div>
                 <div class="content-div-input"><input type="text" placeholder="이름"></div>
             </div>
-            <%--            <div class="content-row">--%>
-            <%--                <div class="content-div-header" style="margin: auto 0;">생년월일</div>--%>
-            <%--                <div class="content-div-input"><input type="text" placeholder="19981223 형식으로 입력"></div>--%>
-            <%--            </div>--%>
             <div class="content-row">
                 <div class="content-div-header" style="margin-top: 10px;">휴대전화</div>
                 <div class="content-div-phone">
-                    <%--                    <div class="agree-form">--%>
-                    <%--                        <div class="accordion-header">--%>
-                    <%--                            <span class="toggle-icon">V</span>--%>
-                    <%--                            본인인증 약관 전체동의--%>
-                    <%--                            <span class="accordion-indicator">▼</span>--%>
-                    <%--                        </div>--%>
-
-                    <%--                        <div class="accordion-content">--%>
-                    <%--                            <hr>--%>
-                    <%--                            <div><span class="toggle-icon">v</span> 개인정보 제공 및 이용</div>--%>
-                    <%--                            <div><span class="toggle-icon">v</span> 고유식별 정보처리</div>--%>
-                    <%--                            <div><span class="toggle-icon">v</span> 통신사 이용약관</div>--%>
-                    <%--                        </div>--%>
-                    <%--                    </div>--%>
                     <div class="phone-div">
                         <div class="company-select">
                             <select>
@@ -241,7 +216,7 @@
 <script>
 
     function regFds() {
-        // Toggle visibility for clickRegFds
+
         let clickRegFds = document.querySelector('.clickRegFds');
         if (clickRegFds.classList.contains('hidden')) {
             clickRegFds.classList.remove('hidden');
@@ -249,7 +224,6 @@
             clickRegFds.classList.add('hidden');
         }
 
-        // Toggle visibility for reg-btn-div
         let regBtnDiv = document.querySelector('.reg-btn-div');
         if (regBtnDiv.classList.contains('hidden')) {
             regBtnDiv.classList.remove('hidden');
@@ -260,14 +234,14 @@
     }
 
 
-    // 모달
+
     function agreePhone() {
-        // 모달 창을 표시합니다.
+
         let modal = document.getElementById('authModal');
         modal.style.display = 'block';
     }
 
-    // 모달 외부를 클릭하면 모달을 닫습니다.
+
     window.onclick = function (event) {
         let modal = document.getElementById('authModal');
         if (event.target == modal || event.target == document.querySelector('.close-btn')) {
@@ -278,13 +252,11 @@
 
     //
     $(document).ready(function () {
-        // 전체 동의 체크박스가 변경될 때 실행
+
         $('.master-checkbox').change(function () {
             if ($(this).is(':checked')) {
-                // 전체 동의 체크박스가 체크되면 모든 서브 체크박스 체크
                 $('.sub-checkbox').prop('checked', true);
             } else {
-                // 전체 동의 체크박스가 체크 해제되면 모든 서브 체크박스 체크 해제
                 $('.sub-checkbox').prop('checked', false);
             }
         });
@@ -294,17 +266,14 @@
     console.log("selectedCardIds", selectedCardIds)
 
     function AllCard() {
-        // 'cardAll-img-div' 클래스를 가진 div의 이미지와
-        // 'card-list-info-img-div' 클래스를 가진 모든 div의 이미지를 선택합니다.
+
         let allImages = document.querySelectorAll('.cardAll-img-div img, .card-list-info-img-div img');
 
-        // 각 이미지 요소에 대해 changeImage() 함수를 호출합니다.
         allImages.forEach(function (img) {
-            // 이미지가 전체 선택 이미지인 경우와 카드 이미지인 경우를 구분합니다.
             if (img.parentElement.classList.contains('cardAll-img-div')) {
-                changeImage(img, null); // 전체 선택 이미지의 경우 cardId는 null로 처리합니다.
+                changeImage(img, null);
             } else {
-                let cardId = img.parentElement.parentElement.id; // 카드 ID를 가져옵니다.
+                let cardId = img.parentElement.parentElement.id;
                 changeImage(img, cardId);
             }
         });
@@ -313,12 +282,12 @@
     function changeImage(imgElement, cardId) {
         if (imgElement.src.endsWith('circle.png')) {
             imgElement.src = "../../../resources/img/check-mark.png";
-            if (cardId) { // cardId가 있는 경우만 배열에 추가
+            if (cardId) {
                 selectedCardIds.push(cardId);
             }
         } else {
             imgElement.src = "../../../resources/img/circle.png";
-            if (cardId) { // cardId가 있는 경우만 배열에서 제거
+            if (cardId) {
                 const index = selectedCardIds.indexOf(cardId);
                 if (index > -1) {
                     selectedCardIds.splice(index, 1);
@@ -344,7 +313,7 @@
                     ajaxContent.textContent = "이미 신청이 완료된 카드입니다.";
                 ajaxContent.style.color = "red";
                 selectedCards.forEach(card => {
-                        card.checked = false; // 이미 체크된 카드 체크 해제
+                        card.checked = false;
                     }
                 )
                 ;

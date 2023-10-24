@@ -130,12 +130,11 @@
     });
 
     function filterTableByLostReason(lostReasonValue) {
-        // 모든 행을 숨깁니다.
+
         $(".lostCard-table tbody tr").hide();
 
-        // 선택된 분실사유와 일치하는 행만 표시합니다.
         $(".lostCard-table tbody tr").each(function () {
-            var reasonInRow = $(this).find("td:nth-child(4)").text(); // 4번째 열 (Lost Reason)의 값 가져오기
+            var reasonInRow = $(this).find("td:nth-child(4)").text();
             if (reasonInRow === lostReasonValue) {
                 $(this).show();
 
@@ -143,7 +142,7 @@
 
         });
 
-        updatePage(); // 필터링 후에 페이지네이션 업데이트
+        updatePage();
 
     }
 
@@ -166,20 +165,18 @@
         }
     });
 
-    let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 10; // 페이지당 항목 수
-    const pagesToShow = 10; // 한 번에 보여줄 페이지 수
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const pagesToShow = 10;
 
-    // 페이지를 업데이트하는 함수
+
     function updatePage() {
         const tbody = document.querySelector(".lostCard-table table tbody");
 
-        // 모든 행 중 현재 보이는 행만 가져옵니다.
         const visibleRows = Array.from(tbody.querySelectorAll("tr")).filter(row => row.style.display !== 'none');
 
         const totalPages = Math.ceil(visibleRows.length / itemsPerPage);
 
-        // 현재 페이지의 행만 표시합니다.
         for (let i = 0; i < visibleRows.length; i++) {
             if (i >= (currentPage - 1) * itemsPerPage && i < currentPage * itemsPerPage) {
                 visibleRows[i].style.display = "";
@@ -188,16 +185,15 @@
             }
         }
 
-        // 페이지 번호 버튼들을 업데이트합니다.
         const pageNumbersDiv = document.getElementById("pageNumbers");
-        pageNumbersDiv.innerHTML = ""; // 이전에 있는 버튼들을 모두 제거
+        pageNumbersDiv.innerHTML = "";
         const startPage = Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1;
         const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
         for (let i = startPage; i <= endPage; i++) {
             const btn = document.createElement("button");
             btn.textContent = i;
             if (i === currentPage) {
-                btn.classList.add("current-page"); // 현재 페이지에 대한 스타일 적용
+                btn.classList.add("current-page");
             }
             btn.addEventListener("click", function () {
                 currentPage = i;
@@ -206,48 +202,12 @@
             pageNumbersDiv.appendChild(btn);
         }
 
-        // Prev, Next 버튼의 활성/비활성 상태를 업데이트합니다.
         document.getElementById("prev").disabled = currentPage === 1;
         document.getElementById("next").disabled = currentPage === totalPages;
     }
 
-
     updatePage();
 
-
-    // $(document).ready(function () {
-    //
-    //     // 함수 정의
-    //     function sendReasonToServer(reason) {
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "/admin/lostReason",
-    //             contentType: "application/json",
-    //             data: JSON.stringify({cardId: cardId}),
-    //             success: function (response) {
-    //                 console.log("Response" + response.paymentLogList)
-    //                 $('.card-list-info-cardid').text(response.cardInfo.cardId);
-    //
-    //                 // cardName 업데이트
-    //                 $('.card-list-info-cardname').text(response.cardInfo.cardName);
-    //                 var rows = $('tbody tr');
-    //
-    //
-    //             },
-    //             error: function (error) {
-    //                 // 실패 시 수행할 작업 (예: 오류 메시지 표시)
-    //                 console.error("Error sending data:", error);
-    //             }
-    //         });
-    //     }
-    //
-    //     // select 요소 값 변경 감지
-    //     $("#lostReasonSelect").change(function () {
-    //         var selectedCardId = $(this).val();
-    //         sendCardIdToServer(selectedCardId);
-    //     });
-    //
-    // });
 
 </script>
 </body>

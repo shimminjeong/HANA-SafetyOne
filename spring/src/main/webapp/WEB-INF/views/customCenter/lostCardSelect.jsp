@@ -16,15 +16,8 @@
 <%@ include file="../include/header.jsp" %>
 <div class="active-container">
     <div class="cont_box_area">
-        <%--        <nav class="tab_ty02">--%>
-        <%--            <li class="on"><a href="/customCenter/lostCardSelect" title="현재 선택 탭">카드분실/도난신고</a></li>--%>
-        <%--            <li><a href="#">카드분실신고해제</a></li>--%>
-        <%--            <li><a href="/customCenter/lostCardInfo">카드분실신고내역</a></li>--%>
-        <%--        </nav>--%>
-
         <div class="title">분실신고/재발급</div>
-            <div class="lost-header"><h3>카드 선택</h3></div>
-        <%--        <span class="sub-container-hearder">보유카드 목록</span>--%>
+        <div class="lost-header"><h3>카드 선택</h3></div>
         <hr class="sub-hr">
         <div class="cardAll-div">
             <div class="cardAll-img-div"><img src="../../../resources/img/circle.png" onclick="AllCard()"></div>
@@ -46,7 +39,7 @@
                 <hr class="tmp-hr">
                 <div class="history-panel">
                     <div id="cardInfo-${card.cardId}">
-                        <!-- 서버로부터 받아온 정보가 이곳에 추가될 것입니다. -->
+
                     </div>
                 </div>
 
@@ -60,19 +53,19 @@
     </div>
     <button class="registerLostBtn" style="margin-bottom: 30px;" onclick="registerLostCard()">다음</button>
 </div>
-<%--<%@ include file="../include/footer.jsp" %>--%>
+
 </body>
 <script>
 
     let selectedCardId = '';
 
     function changeImage(imgElement, cardId) {
-        // 이미지 경로가 circle.png인 경우 circle2.png로 변경
+
         if (imgElement.src.endsWith('circle.png')) {
             imgElement.src = "../../../resources/img/check-mark.png";
-            // cardId를 selectedCardIds에 추가
+
             selectedCardId = cardId;
-        } else { // 이미지 경로가 circle2.png인 경우 circle.png로 변경
+        } else {
             imgElement.src = "../../../resources/img/circle.png";
             selectedCardId = ''
         }
@@ -84,14 +77,14 @@
     function setReissued(value, btnElement) {
         reissued = value;
 
-        // 모든 버튼의 활성화 스타일 제거
+
         let btnOk = document.getElementById('btn-ok');
         let btnNo = document.getElementById('btn-no');
 
         btnOk.classList.remove('active');
         btnNo.classList.remove('active');
 
-        // 클릭된 버튼에 활성화 스타일 추가
+
         btnElement.classList.add('active');
 
         console.log("reissued", reissued);
@@ -114,23 +107,6 @@
         }
     }
 
-    // function confirmCardHistory(element) {
-    //     const cardId = element.id;
-    //
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "/customCenter/confirmCardHistory",
-    //         data: JSON.stringify({cardId: cardId}),
-    //         contentType: 'application/json',
-    //         dataType: 'json',
-    //         success: function (response) {
-    //             displayCardHistory(cardId, response);
-    //         },
-    //         error: function (error) {
-    //             console.error("Error fetching card history:", error);
-    //         }
-    //     });
-    // }
 
     function formatCurrency(amount) {
         return amount.toLocaleString('ko-KR') + "원";
@@ -142,7 +118,7 @@
         clickedElement.classList.toggle("active");
 
 
-        var panel = clickedElement.nextElementSibling.nextElementSibling;  // 수정된 부분
+        var panel = clickedElement.nextElementSibling.nextElementSibling;
         if (panel.style.display === "block") {
             panel.style.display = "none";
         } else {
@@ -184,7 +160,6 @@
             });
         }
     }
-
 
 </script>
 </html>

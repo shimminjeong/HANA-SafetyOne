@@ -85,7 +85,6 @@ public class MemberController {
             memberService.modifyMember(updatemember);
             return "회원 수정 성공";
         } catch (Exception e) {
-            // 회원가입 처리 중 예외가 발생하면 "회원등록실패"를 반환합니다.
             e.printStackTrace();
             return "회원 수정 실패";
         }
@@ -98,7 +97,6 @@ public class MemberController {
             memberService.deleteMember(email);
             return "회원 삭제 성공";
         } catch (Exception e) {
-            // 회원가입 처리 중 예외가 발생하면 "회원등록실패"를 반환합니다.
             e.printStackTrace();
             return "회원 삭제 성공";
         }
@@ -271,8 +269,6 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> CardDetailInfo(@RequestBody CardHistory cardHistory) {
         String cardId = cardHistory.getCardId();
-        System.out.println("coin");
-
 
         List<CardHistory> monthData = memberService.selectAmountOfMonthByCardId(cardId);
         List<CardHistory> weekData = memberService.selectAmountOfWeekByCardId(cardId);
@@ -281,7 +277,6 @@ public class MemberController {
         Map<String, Object> response = new HashMap<>();
         response.put("monthData", monthData);
         response.put("weekData", weekData);
-
 
         response.put("cardHistoryList", cardHistoryServiceList);
         if (!response.isEmpty()) {
@@ -295,8 +290,6 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> updateChartInfo(@RequestBody CardHistory cardHistory) {
         String cardId = cardHistory.getCardId();
-        System.out.println("coin");
-
 
         List<CardHistory> dayData = memberService.selectDayByCardIdDate(cardHistory.getCardId(), cardHistory.getCardHisDate());
 

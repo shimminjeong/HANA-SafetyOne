@@ -92,14 +92,6 @@
                 <div class="content-name">[승인일시]&nbsp;</div>
                 <div class="content-value-time">${paymentDate} ${time}</div>
             </div>
-            <%--            <div id="cardId">${cardId}</div>--%>
-            <%--            <div id="address">${address}</div>--%>
-            <%--            <div id="time">${time}</div>--%>
-            <%--            <div id="categorySmall">${categorySmall}</div>--%>
-            <%--            <div id="amount">${amount}</div>--%>
-            <%--            <div id="store">${store}</div>--%>
-            <%--            <div id="paymentDate">${paymentDate}</div>--%>
-            <%--            <div id="storePhoneNumber">${storePhoneNumber}</div>--%>
         </div>
     </div>
 </div>
@@ -124,12 +116,12 @@
 
     function formatDate() {
         let dateDiv = $('.content-value4');
-        let rawDate = dateDiv.text().trim(); // "2026-11-21 00:00:00" 같은 형식의 문자열 가져오기
+        let rawDate = dateDiv.text().trim();
 
-        let year = rawDate.split('-')[0].slice(2, 4); // 연도의 마지막 두 자리 가져오기
-        let month = rawDate.split('-')[1]; // 월 가져오기
+        let year = rawDate.split('-')[0].slice(2, 4);
+        let month = rawDate.split('-')[1];
 
-        let newFormat = month + '/' + year; // "11/26" 같은 형식으로 변환
+        let newFormat = month + '/' + year;
 
         dateDiv.text(newFormat);
     }
@@ -140,14 +132,13 @@
     });
 
     function formatAmounts() {
-        // 'content-value2'와 'content-value3' 클래스를 가진 모든 div 요소를 대상으로
+
         $('.content-value2, .content-value3').each(function () {
-            let $this = $(this); // 현재 요소
-            let amount = parseFloat($this.data('amount')); // data-amount 값 가져오기
-            $this.text(formatCurrency(amount) + "원"); // 원화 기호와 함께 포맷된 값으로 텍스트 설정
+            let $this = $(this);
+            let amount = parseFloat($this.data('amount'));
+            $this.text(formatCurrency(amount) + "원");
         });
 
-        // [승인금액] 값을 가져와서 포맷에 맞게 변경
         let approvalAmountDiv = $('.content-name:contains("[승인금액]")').siblings('.content-value3');
         let approvalAmount = parseFloat(approvalAmountDiv.data('amount'));
         approvalAmountDiv.text(formatCurrency(approvalAmount) + "원");

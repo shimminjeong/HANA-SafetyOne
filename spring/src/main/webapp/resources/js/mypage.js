@@ -1,9 +1,7 @@
-// Next/previous controls
 function plusSlides(n) {
     showSlides(slideIndex += n);
 }
 
-// Thumbnail image controls
 function currentSlide(n) {
     showSlides(slideIndex = n);
 }
@@ -32,19 +30,16 @@ function showSlides(n) {
 }
 
 function imageClicked(imgElement) {
-    // data-card-id 속성에서 cardId를 가져옵니다.
     var cardId = imgElement.getAttribute('data-card-id');
 
-    // 원하는 URL 경로로 리디렉션합니다.
-    // 예: /controllerPath/{cardId}
     window.location.href = '/cardChart/' + cardId;
 }
 
 
-var inChart;  // 함수 외부에 선언
-var deChart;  // 함수 외부에 선언
-var monChart;  // 함수 외부에 선언
-var weeChart;  // 함수 외부에 선언
+var inChart;
+var deChart;
+var monChart;
+var weeChart;
 
 function formatNumberWithCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -92,73 +87,3 @@ function sendCardIdToServer(cardId) {
         }
     });
 }
-
-
-
-
-// $("#increaseChart").replaceWith('<canvas id="increaseChart"></canvas>');
-// $("#decreaseChart").replaceWith('<canvas id="decreaseChart"></canvas>');
-//
-// increase, decraee chart
-//
-// // 전역 변수로 차트 선언
-// var ctx = document.getElementById('increaseChart').getContext('2d');
-//
-// if (inChart) {
-//     inChart.destroy(); // 이미 차트가 있으면 파괴
-// }
-//
-// var months = increaseChart.map(item => item.month);
-// var amountSums = increaseChart.map(item => item.amountSum);
-//
-// var inChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//         labels: months,
-//         datasets: [{
-//             label: 'Amount Sum',
-//             data: amountSums,
-//             backgroundColor: 'rgba(75, 192, 192, 0.2)', // 배경색
-//             borderColor: 'rgba(75, 192, 192, 1)', // 테두리 색
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true
-//             }
-//         }
-//     }
-// });
-//
-//
-// var ctx = document.getElementById('decreaseChart').getContext('2d');
-//
-// if (deChart) {
-//     deChart.destroy(); // 이미 차트가 있으면 파괴
-// }
-//
-// var months = decreaseChart.map(item => item.month);
-// var amountSums = decreaseChart.map(item => item.amountSum);
-//
-// var deChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//         labels: months,
-//         datasets: [{
-//             label: 'Amount Sum',
-//             data: amountSums,
-//             backgroundColor: 'rgba(75, 192, 192, 0.2)', // 배경색
-//             borderColor: 'rgba(75, 192, 192, 1)', // 테두리 색
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true
-//             }
-//         }
-//     }
-// });

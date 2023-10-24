@@ -29,17 +29,13 @@ function drawChart(chartData) {
     });
 
 
-    // chartData.cluster1.totalAmount의 값을 가져옵니다.
     var totalAmount = chartData.cluster1.totalAmount;
 
-// .mean-div 클래스를 가진 <div> 요소를 선택합니다.
     var meanDiv = document.querySelector('.mean-div');
 
-// 해당 <div> 요소의 내용을 수정합니다.
     meanDiv.innerHTML = "한 달 평균 사용금액 : 약 <span style='color: red;'>" + totalAmount.toLocaleString() + "</span>원";
 
 
-    // chartData.cluster1.clusterNum
     var reportDiv = document.querySelector('.report');
     reportDiv.innerText = chartData.cluster1.clusterNum + " 번 군집 대시보드";
 
@@ -54,15 +50,12 @@ function drawChart(chartData) {
         };
     });
 
-    // labels 배열 생성
     var labels = data.map(function (item) {
         return '[' + item.categorySmall + ']';
     });
 
-// labels 배열에서 처음 3개의 값을 선택하고 줄 바꿈으로 결합
     var selectedLabels = labels.slice(0, 5).join('\n');
 
-// 해당 <div> 요소의 내용을 수정
     document.querySelector('.bigcategory').innerText = selectedLabels;
 
 
@@ -94,7 +87,7 @@ function drawChart(chartData) {
                 {
                     label: '거래금액',
                     data: amountData,
-                    backgroundColor: 'rgba(199,123,45,0.87)', // 주황색
+                    backgroundColor: 'rgba(199,123,45,0.87)',
                     yAxisID: 'y-axis-sum'
                 }
             ]
@@ -149,15 +142,13 @@ function drawChart(chartData) {
         };
     });
 
-    // labels 배열 생성
+
     var labels = data.map(function (item) {
         return '[' + item.categorySmall + ']';
     });
 
-// labels 배열에서 처음 3개의 값을 선택하고 줄 바꿈으로 결합
     var selectedLabels = labels.slice(0, 5).reverse().join('\n');
 
-// 해당 <div> 요소의 내용을 수정
     document.querySelector('.smallcategory').innerText = selectedLabels;
 
     var labels = data.map(function (item) {
@@ -192,7 +183,7 @@ function drawChart(chartData) {
                 {
                     label: '거래금액',
                     data: amountData,
-                    backgroundColor: 'rgba(199,123,45,0.87)', // 주황색
+                    backgroundColor: 'rgba(199,123,45,0.87)',
                     yAxisID: 'y-axis-sum'
                 }
             ]
@@ -259,7 +250,7 @@ function drawChart(chartData) {
         var data = rawData.find(function (item) {
             return item.gender === 'F' && item.ageRange === range;
         });
-        return data ? -data.count : 0; // 음수로 설정하여 왼쪽에 그리게 합니다.
+        return data ? -data.count : 0;
     });
 
 
@@ -295,8 +286,6 @@ function drawChart(chartData) {
             }
         }
 
-
     });
-
 
 }

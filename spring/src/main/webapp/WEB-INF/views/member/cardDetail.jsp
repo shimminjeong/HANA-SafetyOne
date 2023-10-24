@@ -60,13 +60,12 @@
 </div>
 <script>
 
-    var monthChartData = ${cardData.monthData};  // JSP EL을 통해 데이터를 JavaScript 변수에 할당
+    var monthChartData = ${cardData.monthData};
     var weekChartData = ${cardData.weekData};
 
     $("#monthChart").replaceWith('<canvas id="monthChart"></canvas>');
 
 
-    // 전역 변수로 차트 선언
     var ctx = document.getElementById('monthChart').getContext('2d');
 
     var monthChartData = JSON.parse('${fn:escapeXml(cardData.monthData)}');
@@ -82,8 +81,8 @@
             datasets: [{
                 label: 'Amount Sum',
                 data: amountSums,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // 배경색
-                borderColor: 'rgba(75, 192, 192, 1)', // 테두리 색
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         },

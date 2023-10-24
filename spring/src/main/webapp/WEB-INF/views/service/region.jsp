@@ -4,7 +4,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%--    <link href="../../../resources/css/regionspot.css" rel="stylesheet">--%>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -40,9 +39,7 @@
     <div class="details">
         <div class="subcontainer">
             <div class="detail__right">
-                <%--            <div class="detail-container">--%>
                 <div class="right-info"><h2><span style="color: green">허용</span> 지역 선택</h2></div>
-                <%--                <div class="right-info3"></div>--%>
                 <div class="right-info2"><h4 style="color: red">※ 선택 외의 지역은 결제가 차단됩니다.</h4>
                     <button class="chart-name" onclick="openChartRegionModal()">지역별 나의 소비 확인</button>
                 </div>
@@ -93,31 +90,11 @@
                     </div>
                 </div>
 
-                <%--                <div class="sub-main-content2">--%>
-                <%--                    <div class="chart" onclick="openChartRegionModal()">--%>
-                <%--                        <img src="../../../resources/img/pin.png">--%>
-                <%--                        <div class="chart-name">지역별 나의 소비 확인</div>--%>
-                <%--                    </div>--%>
-                <%--                    <div class="myselect">--%>
-                <%--                        <div class="myselect-head">선택한 결제 허용지역</div>--%>
-                <%--                        <div>--%>
-                <%--                            <span class="myselect-region-ok-content"></span><span class="select-alarm"></span>--%>
-                <%--                        </div>--%>
-                <%--                    </div>--%>
-                <%--                </div>--%>
-                <%--            </div>--%>
-                <%--            <div class="reg-btn-div">--%>
-                <%--                <button class="reg-Btn" onclick="registerRegion()">다음</button>--%>
-                <%--            </div>--%>
-                <%--        </div>--%>
-                <%--    </div>--%>
                 <div class="myselect-option">
                     <span class="myselect-region-ok-content"></span><span class="select-alarm"></span>
                 </div>
-
             </div>
 
-            <%--        </div>--%>
         </div>
         <div class="btn-div">
             <button class="prev-Btn" onclick="window.location.href='#'">이전</button>
