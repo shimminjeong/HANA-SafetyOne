@@ -5,7 +5,7 @@ function sendSmsRequest() {
     const ouathNum = String(Math.floor(100000 + Math.random() * 900000));
     console.log("ouathNum", ouathNum);
 
-    const requestData = {
+    const requestData = {</div>
         recipientPhoneNumber: phoneNumber,
         content: '[SafetyOne] SafetyOne 사용을 위해 인증번호 [' + ouathNum + '] 를 입력하세요.',
         ouathNum: ouathNum
