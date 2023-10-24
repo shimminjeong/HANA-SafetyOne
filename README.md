@@ -148,7 +148,7 @@ DBMS : Oracle DBMS
 
 
 ## 시연 동영상
-[![영상](img/mainPage.png)](https://youtu.be/Zn69_DVyPl4)
+[![영상]<img src="img/mainPage.png"/>](https://youtu.be/Zn69_DVyPl4)
    <br>
    *사진을 누르시면 영상 유튜브 사이트로 이동합니다
 
